@@ -107,7 +107,7 @@ exports.fieldGroups = {
     'stayCost', 'stayCostRemark', 'trafficCost', 'trafficCostRemark', 'entertainCost', 'entertainCostRemark', 'otherForecastCost', 'otherForecastCostRemark'
   ],
   filter: [
-    'applyNo', 'applier', 'appliedTime', 'tripPlace'
+    'applyNo', 'applier.realName', {name: 'appliedTime', type: 'date-range'}, 'tripPlace'
   ],
   audit: [
     {name: 'flowComment', label: '审批结果', type: 'dropdown', source: [{id: '1', text: '同意'}, {id: '2', text: '不同意'}], required: true, validations: {rules: {required: true}}},

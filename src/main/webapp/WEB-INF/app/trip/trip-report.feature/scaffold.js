@@ -129,7 +129,9 @@ exports.fieldGroups = {
         acceptFileTypes: "(\\.|\\/)(swf|mp4|avi|wmv|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z|pdf|txt|jpg|jpeg|png|gif)$"}
   ],
   filter: [
-    'tripApply.applier.realName', 'tripApply.department', 'startTime', 'endTime'
+    'tripApply.applier.realName', 'tripApply.department',
+    {name: 'startTime', type: 'date-range'},
+    {name: 'endTime', type: 'date-range'}
   ],
   audit: [
     {name: 'flowComment', label: '审批结果', type: 'dropdown', source: [{id: '1', text: '同意'}, {id: '2', text: '不同意'}], required: true, validations: {rules: {required: true}}},

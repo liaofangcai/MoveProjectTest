@@ -38,7 +38,7 @@ exports.forms = {
     filter: {
         groups: [{
             name: 'filter',
-            columns: 4
+            columns: 3
         }]
     }
 };

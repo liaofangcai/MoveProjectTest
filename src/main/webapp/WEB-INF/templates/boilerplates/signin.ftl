@@ -35,7 +35,7 @@
                     <div class="row-fluid">
                         <div class="span12">
                             <div class="me-copyright">
-                                <strong>中昱达信息技术有限责任公司 &copy; 版权所有</strong>
+                                <strong>深圳市中昱达信息技术有限责任公司 &copy; 版权所有</strong>
                             </div>
                         </div>
                     </div>

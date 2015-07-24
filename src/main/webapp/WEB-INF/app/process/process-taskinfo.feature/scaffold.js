@@ -35,7 +35,9 @@ exports.labels = {
     flowStatus: '流程状态',
     flowStatusDesc: '状态描述',
     isSign: '是否已签收',
-    signTime: '签收时间'
+    signTime: '签收时间',
+    'processInstance.processDefinition.businessDefinition.businessName': '业务类型',
+    'processInstance.submitter.realName': '提交人'
 };
 
 //设置form页面一行显示2列
@@ -43,7 +45,7 @@ exports.forms = {
     filter: {
         groups: [{
             name: 'filter',
-            columns: 4
+            columns: 2
         }]
     }
 };
@@ -51,7 +53,7 @@ exports.forms = {
 //form页面显示内容及方式配置
 exports.fieldGroups = {
     filter: [
-        {name: 'requestNo', label: '业务类型'}
+        'processInstance.processDefinition.businessDefinition.businessName', 'processInstance.submitter.realName'
     ]
 };
 

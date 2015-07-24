@@ -81,7 +81,8 @@ exports.fieldGroups = {
     'tripReport.tripApply.applier.realName', 'tripTime', 'tripReport.tripApply.tripPlace', 'trafficCost', 'stayCost', 'entertainCost', 'otherCost', 'totalCost', {name: 'remark', type: 'textarea', colspan: 2}
   ],
   filter: [
-    'tripReport.tripApply.applier.realName', 'tripReport.tripApply.department', 'tripTime', 'tripReport.tripApply.tripPlace'
+    'tripReport.tripApply.applier.realName', 'tripReport.tripApply.department',
+    {name: 'tripTime', type: 'date-range'}, 'tripReport.tripApply.tripPlace'
   ]
 };
 

@@ -22,7 +22,7 @@ $License: Copyright &copyright 2013 Shenzhen Zyeeda Information Technology Co. L
     -->
     <artifactId>zyeeda-anlmis</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>Zyeeda :: Business</name>
+    <name>Zyeeda :: Anlmis</name>
     <url>http://www.zyeeda.com/projects/zyeeda-anlmis</url>
     <packaging>war</packaging>
 
@@ -180,7 +180,7 @@ $License: Copyright &copyright 2013 Shenzhen Zyeeda Information Technology Co. L
                         <!--
                          | Specify the correct context path.
                         -->
-                        <contextPath>/business</contextPath>
+                        <contextPath>/anlmis</contextPath>
                     </webApp>
                 </configuration>
             </plugin>
