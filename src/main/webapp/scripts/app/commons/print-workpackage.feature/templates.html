@@ -1,0 +1,71 @@
+{{#layout}}
+<div id="workpackage-view"></div>
+{{/layout}}
+
+{{#view "workpackage-view"}}
+<div id="printArea" style="margin-left: 30px;margin-right: 30px; margin-top: 20px;">
+
+    <div style="text-align:center;">
+        <img src="assets/images/print-head.png" style="margin-left:50px;">
+    </div>
+
+    <div style="text-indent: 2em;">
+        </br>
+        <h2 style="margin:0 auto;width:300px;font-weight:bold;">工作包承包责任书</h2>
+        <h5 style="font-weight:bold;margin-top:40px;">甲方：深圳市中昱达信息技术有限责任公司</h5>
+        <h5 style="font-weight:bold;">乙方：{{workPackage.taskPersons}}</h5>
+        <h3 style="margin:0 auto;width:300px;font-weight:bold;">第一章.工作包基本信息</h3>
+
+        <p>（1） 工作包名称：{{workPackage.name}}</p>
+        <p>（2） 工作包编号：{{workPackage.code}}</p>
+        <p>（3） 工作包截止时间：{{workPackage.endTime}}</p>
+        <p>（4） 工作包费用：</p>
+        <p>（5） 团队成员：舒培培</p>
+
+        <h3 style="margin:0 auto;width:300px;font-weight:bold;">第二章.工作包目标</h3>
+
+        <p>（1） 工作包研究内容：</p>
+        <p>
+            {{workPackage.content}}
+        </p>
+
+        <p>（2） 工作包交付清单：</p>
+        <p>  {{workPackage.handList}}</p>
+
+        <p>（3） 工作包验收方式：{{workPackage.accWay}}</p>
+
+        <p>（4） 工作包验收标准：{{workPackage.accStandard}}</p>
+
+        <h3 style="margin:0 auto;width:300px;font-weight:bold;">第三章.责任书说明</h3>
+
+        <p>（一）权益保障</p>
+        <p>签约方保障本责任书涉及的全部技术内容具有自主性和真实性，并不因本责任书的履行而侵犯或妨碍他人的合法权益。</p>
+        <p>（二）项目责任</p>
+        <p>在工作包研发过程中，乙方应积极开展技术研究，保证按时、按计划、符合质量要求完成工作包内容。</p>
+        <p>乙方擅自对研究内容、目标、进度进行调整，造成责任书不能按期完成，公司将按照《研发部工作包核算管理办法》有关条例追究其责任。</p>
+        <p>双方确定，因履行本合同所产生的研究成果及相关知识产权权利归属。</p>
+        <p>（三）费用构成</p>
+        <p>完成此工作包后支付的费用已经包含如下一些内容：</p>
+        <p>（1） 按月发放的深圳市最低生活保障；</p>
+        <p>（2） 按照法律要求个人开具发票时，所需要缴纳的所有税收部分。（含个税）</p>
+        <p>（3） 保险及公积金的个人和企业部分（可以由公司代缴）；</p>
+        <p>（4） 如果有团队成员参与，团队成员产生的薪资、社保和公积金等费用也从工作包的费用中扣除。</p>
+        <p>（5） 以及相关的福利费用、差旅费用等。</p>
+        <p>（四）技术成果的归属</p>
+        <p>双方确定，因履行本合同所产生的研究成果及相关知识产权权利归属，按以下方式处理：所有权、使用权、转让权均归甲方。</p>
+        <p>（五）保密条款</p>
+        <p>各方一致同意在任何时候对其持有的有关本责任书有关的任何信息实行严格保密。除非有信息披露方的书面授权或出于执行本责任书的需要，任何一方不得在任何时间向任何人透露以上信息的任何部分。各方进一步同意不把以上信息交给任何人，除非有信息披露方的书面指示或出于一方执行本责任书的合理需要；任何一方不得对以上信息进行拷贝或抄写。</p>
+
+        <h3 style="margin:0 auto;width:300px;font-weight:bold;">第四章.签署</h3>
+
+        <p>在签署本责任书前，相关人员已详细审阅了责任书的内容，并了解责任书各条款的含义。</p>
+
+        <h5>
+            <span style="font-weight:bold;">甲方（盖章）：</span>
+            <span style="float:right;margin-right:200px;font-weight:bold;">乙方（签字）：</span>
+        </h5>
+        </br>
+        <h5 style="font-weight:bold;">时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</h5>
+    </div>
+</div>
+{{/view}}

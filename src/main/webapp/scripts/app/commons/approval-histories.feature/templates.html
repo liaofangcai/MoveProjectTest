@@ -1,0 +1,37 @@
+{{#layout}}
+    <div id="approval-histories-view"></div>
+{{/layout}}
+
+{{#view "approval-histories-view"}}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="width: 30px;">#</th>
+                <th style="width: 150px;">任务描述</th>
+                <th style="width: 130px;">操作时间</th>
+                <th style="width: 150px;">操作人</th>
+                <th style="width: 60px;">审批结果</th>
+                <th>审批意见</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each approvalHistorys}}
+            <tr>
+                <td>{{index}}</td>
+                <td>{{taskDesc}}</td>
+                {{#if type}}
+                    <td style="color:red;">{{operateTime}}</td>
+                {{else}}
+                    <td>{{operateTime}}</td>
+                {{/if}}
+                <td>{{operator}}</td>
+                <td>{{comment}}</td>
+                <td>{{suggestion}}</td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td colspan="7">{{noApprovalHistory}}</td>
+            </tr>
+        </tbody>
+    </table>
+{{/view}}
