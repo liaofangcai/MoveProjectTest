@@ -41,9 +41,9 @@
                 <Set name="minPoolSize">5</Set>
                 <Set name="maxPoolSize">30</Set>
                 <Get name="driverProperties">
-                    <Put name="URL">jdbc:mysql://localhost:3306/business?pinGlobalTxToPhysicalConnection=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8</Put>
+                    <Put name="URL">jdbc:mysql://10.1.2.64:3306/business?pinGlobalTxToPhysicalConnection=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8</Put>
                     <Put name="user">root</Put>
-                    <Put name="password">zy2eda@csg</Put>
+                    <Put name="password">root</Put>
                 </Get>
                 <Call name="init"></Call>
             </New>
