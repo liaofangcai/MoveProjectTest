@@ -28,10 +28,7 @@ exports.fieldGroups = {
 
 exports.forms = {
     filter: {
-        groups: [{
-            name: 'filter',
-            columns: 4
-        }]
+        groups: [{name: 'filter', columns: 1}], size: 'small'
     }
 };
 

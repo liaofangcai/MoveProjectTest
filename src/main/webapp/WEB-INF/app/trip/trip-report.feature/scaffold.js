@@ -66,7 +66,7 @@ exports.forms = {
     size: 'large'
   },
   filter: {
-    groups: [{name: 'filter', columns: 4}]
+    groups: [{name: 'filter', columns: 1}], size: 'small'
   },
   audit: {
     groups: [

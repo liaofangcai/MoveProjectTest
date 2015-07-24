@@ -145,10 +145,7 @@ exports.forms = {
         groups: ['editPwdInfo']
     },
     filter: {
-        groups: [{
-            name: 'filter',
-            columns: 4
-        }]
+        groups: [{name: 'filter', columns: 1}], size: 'small'
     }
 };
 

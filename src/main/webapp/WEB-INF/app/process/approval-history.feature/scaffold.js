@@ -36,10 +36,7 @@ exports.labels = {
 
 exports.forms = {
     filter: {
-        groups: [{
-            name: 'filter',
-            columns: 3
-        }]
+        groups: [{name: 'filter', columns: 1}], size: 'small'
     }
 };
 
