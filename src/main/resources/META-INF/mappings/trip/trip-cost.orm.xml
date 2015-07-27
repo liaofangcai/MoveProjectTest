@@ -9,7 +9,12 @@
 
     <named-query name="getTripReportCountById">
         <query>
-            select count(tc) from TripCost tc where tc.tripReport = :tripReportId
+            select count(tc) from TripCost tc where tc.tripReport.id = :tripReportId
+        </query>
+    </named-query>
+    <named-query name="getTripCostsByReportId">
+        <query>
+            select tc from TripCost tc where tc.tripReport.id = :tripReportId
         </query>
     </named-query>
 </entity-mappings>
