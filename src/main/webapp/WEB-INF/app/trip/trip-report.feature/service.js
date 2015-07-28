@@ -33,6 +33,7 @@ exports.createService = function () {
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
                 statusMap = {
+                    '-3': '已填写报告',
                     '-2': '审批完成',
                     '-1': '退回',
                     '0': '初始'
@@ -78,6 +79,7 @@ exports.createService = function () {
             tripReport.creatorName = user.realName;
             tripReport.createdTime = new Date();
             tripReport.flowStatus = '0';
+            tripApply.flowStatus = '-3';
 
             return tripReportMgr.save(tripReport);
         })

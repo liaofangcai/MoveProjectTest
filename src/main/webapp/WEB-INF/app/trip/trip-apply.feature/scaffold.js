@@ -122,8 +122,8 @@ exports.grid = {
       {name: 'applier.realName', header: '申请人'},
       {name: 'department.name', header: '部门'},
       'job', 'appliedTime', 'tripPlace',
-      'tripType', 'tripReason',
-      {name: 'flowStatus', renderer: 'modifyStatus'}
+      'tripType',
+      {name: 'flowStatus', renderer: 'modifyStatus', width:150}
     ],
     filterToolbar: true,
     fixedHeader: true,
@@ -133,7 +133,7 @@ exports.grid = {
 };
 
 exports.operators = {
-    addReport: {label: '填写任务报告书', icon: 'icon-envelope-alt', group: '30-custom', order: 100, show: 'single-selected', style: 'btn-info' },
+    addReport: {label: '填写任务报告书', icon: 'icon-edit-sign', group: '30-custom', order: 100, show: 'single-selected', style: 'btn-info' },
     sendProcess: { label: '上报', icon: 'icon-envelope-alt', group: '40-process', order: 10, show: 'single-selected', style: 'btn-pink'},
     retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'}
 };
@@ -155,7 +155,7 @@ exports.hooks = {
   },
 
   //编辑数据之前执行函数
-  beforeUpdate: {
+  beforeUpdate: { 
     defaults: function (tripApply) {
       var subject = SecurityUtils.getSubject(),
           user = subject.getPrincipal();

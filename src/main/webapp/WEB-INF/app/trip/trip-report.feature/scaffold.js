@@ -155,7 +155,7 @@ exports.grid = {
       {name: 'tripApply.department.name', header: '部门'},
       {name: 'tripApply.tripPlace', header: '出差地点'},
       'startTime', 'endTime' , 'tripDays',
-      {name: 'flowStatus', renderer: 'modifyStatus'}
+      {name: 'flowStatus', renderer: 'modifyStatus',width:150}
     ],
     filterToolbar: true,
     fixedHeader: true,
@@ -167,7 +167,7 @@ exports.grid = {
 exports.operators = {
     add: false,
     del: false,
-    addCost: {label: '填写报销明细', icon: 'icon-envelope-alt', group: '30-custom', order: 100, show: 'single-selected', style: 'btn-info' },
+    addCost: {label: '填写报销明细', icon: 'icon-edit-sign', group: '30-custom', order: 100, show: 'single-selected', style: 'btn-info' },
     sendProcess: { label: '上报', icon: 'icon-envelope-alt', group: '40-process', order: 10, show: 'single-selected', style: 'btn-pink'},
     retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'}
 };

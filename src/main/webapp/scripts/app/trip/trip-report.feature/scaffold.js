@@ -42,7 +42,8 @@ define([
         renderers: {
             modifyStatus: function (data){
                 var statusMap = {
-                    '-2': '审批完成',
+                    '-3': '审批完成（已写报告）',
+                    '-2': '审批完成（未写报告）',
                     '-1': '退回',
                     '': '初始',
                     '0': '初始',

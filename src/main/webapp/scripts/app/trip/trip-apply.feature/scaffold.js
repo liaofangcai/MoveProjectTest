@@ -8,7 +8,7 @@ define([
     return {
         beforeShowDialog: function(dialogType, view){
             var me = this;
-
+            console.log('view',view);
             //打开编辑页面前验证状态是否为初始或退回
             if ('edit' === dialogType) {
                 var  grid = me.feature.views['grid:body'].components[0],
@@ -47,7 +47,8 @@ define([
         renderers: {
             modifyStatus: function (data){
                 var statusMap = {
-                    '-2': '审批完成',
+                    '-3': '审批完成（已填报告）',
+                    '-2': '审批完成（未填报告）',
                     '-1': '退回',
                     '': '初始',
                     '0': '初始',
@@ -154,3 +155,4 @@ define([
         }
     };
 });
+    
