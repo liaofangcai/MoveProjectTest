@@ -3,7 +3,7 @@ var commExpService     = require('commons/export-excel.feature/service');
 var {createManager}    = require('cdeio/manager');
 
 var {TripCost}          = com.zyeeda.business.trip.entity;
-var {TripReport}          = com.zyeeda.business.trip.entity;
+var {TripReport}        = com.zyeeda.business.trip.entity;
 var {EntityMetaResolver} = com.zyeeda.cdeio.web.scaffold;
 var {SecurityUtils} = org.apache.shiro;
 var {Integer}          = java.lang;
@@ -17,11 +17,18 @@ exports.createService = function () {
         saveTripCost: mark('managers', TripReport, TripCost).mark('tx').on(function(tripReportMgr, tripCostMgr, data) {
             var tripReport, tripCost,
                 subject = SecurityUtils.getSubject(),
+                tripCosts,
                 user = subject.getPrincipal();
 
             tripReport = tripReportMgr.find(data.tripReportId);
 
-            for (v in data.tripCosts){
+            tripCosts = tripCostMgr.getTripCostsByReportId({tripReportId: data.tripReportId});
+
+            for (var i = 0; i < tripCosts.size(); i++) {
+                tripCostMgr.remove(tripCosts.get(i));
+            }
+
+            for (var v in data.tripCosts){
                 tripCost = new TripCost();
                 tripCost.tripReport = tripReport;
                 tripCost.trafficCost = data.tripCosts[v].trafficCost;

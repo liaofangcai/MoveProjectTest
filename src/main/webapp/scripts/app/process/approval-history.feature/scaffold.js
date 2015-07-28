@@ -11,21 +11,7 @@ define([
                 var requestNo = gridData.processTaskInfo.requestNo || '';
 
                 if(requestNo){
-                   var rangeMap = {
-                        1: '±500kV广州换流站',
-                        2: '±500kV从西换流站',
-                        3:'±500kV肇庆换流站',
-                        4:'±800kV侨乡换流站',
-                        5:'500kV花都变电站',
-                        6:'±500kV宝安换流站',
-                        7:'±800kV穗东换流站',
-                        8:'500kV徐闻高抗站',
-                        9:'500kV福山变电站'
-                    };
 
-                    var strs= new Array();
-                    strs=requestNo.split(",");
-                    requestNo=rangeMap[strs[0]]+','+strs[1];
                     return cellData + ' (' + '<font color="green">' + requestNo + '</font>' + ')';
                 }
 

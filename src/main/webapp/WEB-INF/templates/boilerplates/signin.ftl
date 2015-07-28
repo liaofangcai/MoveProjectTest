@@ -18,7 +18,7 @@
                     <div class="c-padding"></div>
                     <div class="row-fluid">
                         <div class="span12">
-                            <img src="../assets/images/system-signin-logo.png" />
+                            <img src="../assets/images/system-signin-logo.png" style="width: 90%;"/>
                         </div>
                     </div>
                 </div>

@@ -251,7 +251,7 @@ exports.doWithRouter = function(router) {
             businessFeaturePath = data.businessFeaturePath,
             entity = tripReportSvc.getById(data.id);
 
-        processSvc.sendProcess(entity, 'TripReport', 1, businessFeaturePath, entity.applyNo);
+        processSvc.sendProcess(entity, 'TripReport', 1, businessFeaturePath, entity.tripApply.applyNo);
 
         return json({flag: true});
     }));
