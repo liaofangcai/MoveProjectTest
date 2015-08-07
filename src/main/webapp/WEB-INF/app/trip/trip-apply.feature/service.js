@@ -2,9 +2,13 @@ var {mark}             = require('cdeio/mark');
 var commExpService     = require('commons/export-excel.feature/service');
 var {createManager}    = require('cdeio/manager');
 
+var {Account}            = com.zyeeda.cdeio.commons.organization.entity;
+var {Department}         = com.zyeeda.cdeio.commons.organization.entity;
+
 var {TripApply}          = com.zyeeda.business.trip.entity;
 var {EntityMetaResolver} = com.zyeeda.cdeio.web.scaffold;
 
+var {SecurityUtils}      = org.apache.shiro;
 var {Integer}          = java.lang;
 var {SimpleDateFormat} = java.text;
 var {ArrayList}        = java.util;
@@ -55,7 +59,8 @@ exports.createService = function () {
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
                 statusMap = {
-                    '-2': '审批完成',
+                    '-3': '审批完成（已填报告）',
+                    '-2': '审批完成（未填报告）',
                     '-1': '退回',
                     '0': '初始'
                 };
@@ -82,6 +87,45 @@ exports.createService = function () {
             beans.put('footer', '操作时间:' + dateTimeStr);
 
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
+        }),
+        saveEntities: mark('managers', TripApply, Account, Department).mark('tx').on(function (tripApplyMgr, accountMgr, departmentMgr, params, entityArray, result) {
+            var entity,
+                applierList, applierName,
+                departmentList, departmentName,
+                repeatRowNum = 0 ,
+                subject = SecurityUtils.getSubject(),
+                user = subject.getPrincipal();
+
+            for (var i = 0; i < entityArray.length; i++) {
+                entity = entityArray[i];
+                entity.creator = user.accountName;
+                entity.creatorName = user.realName;
+                entity.createdTime = new Date();
+                entity.lastModifiedTime = new Date();
+                entity.flowStatus = '0';
+
+                applierName = result.pickerFields[i * 2].colName;
+                applierList = accountMgr.getAccountByName({name: applierName});
+
+                if(applierList != null && applierList.size() > 0){
+                    entity.applier = applierList.get(0);
+                }
+
+                departmentName = result.pickerFields[(i * 2) + 1].colName;
+                departmentList = departmentMgr.getDepartmentByName({name: departmentName});
+                if(departmentList != null && departmentList.size() > 0){
+                    entity.department = departmentList.get(0);
+                }
+            }
+
+            if (result.failRowIdxes.length === 0 && result.repeatRowIdxes.length === 0) {
+                tripApplyMgr.save.apply(tripApplyMgr.save, entityArray);
+            }
+            return {failRowIdxes: 0, repeatRowIdxes: 0, repeatRowNum: 0};
+        }),
+        getTripApplyById: mark('managers', TripApply).mark('tx').on(function (tripApplyMgr, entryIds){
+            return tripApplyMgr.find.apply(tripApplyMgr, entryIds);
         })
+
     };
 };

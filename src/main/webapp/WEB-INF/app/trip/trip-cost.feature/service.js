@@ -1,16 +1,17 @@
-var {mark}             = require('cdeio/mark');
-var commExpService     = require('commons/export-excel.feature/service');
-var {createManager}    = require('cdeio/manager');
+var {mark}                  = require('cdeio/mark');
+var commExpService          = require('commons/export-excel.feature/service');
+var {createManager}         = require('cdeio/manager');
 
-var {TripCost}          = com.zyeeda.business.trip.entity;
-var {TripReport}        = com.zyeeda.business.trip.entity;
-var {EntityMetaResolver} = com.zyeeda.cdeio.web.scaffold;
-var {SecurityUtils} = org.apache.shiro;
-var {Integer}          = java.lang;
-var {SimpleDateFormat} = java.text;
-var {ArrayList}        = java.util;
-var {HashMap}          = java.util;
-var {Date}             = java.util;
+var {TripReport}            = com.zyeeda.business.trip.entity;
+var {TripApply}             = com.zyeeda.business.trip.entity;
+var {TripCost}              = com.zyeeda.business.trip.entity;
+var {EntityMetaResolver}    = com.zyeeda.cdeio.web.scaffold;
+var {SecurityUtils}         = org.apache.shiro;
+var {Integer}               = java.lang;
+var {SimpleDateFormat}      = java.text;
+var {ArrayList}             = java.util;
+var {HashMap}               = java.util;
+var {Date}                  = java.util;
 
 exports.createService = function () {
     return {
@@ -42,6 +43,7 @@ exports.createService = function () {
                 tripCost.creatorName = user.realName;
                 tripCost.createdTime = new Date();
                 tripCostMgr.save(tripCost);
+                tripReport.flowStatus = '-3';
             }
         }),
         // 根据ID查找
@@ -57,7 +59,8 @@ exports.createService = function () {
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
                 statusMap = {
-                    '-2': '审批完成',
+                    '-3': '审批完成(已填写报告)',
+                    '-2': '审批完成(未填写报告)',
                     '-1': '退回',
                     '0': '初始'
                 };
@@ -84,6 +87,33 @@ exports.createService = function () {
             beans.put('footer', '操作时间:' + dateTimeStr);
 
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
+        }),
+        saveEntities: mark('managers', TripCost, TripReport).mark('tx').on(function (tripCostMgr, tripReportMgr, params, entityArray, result) {
+            var entity,
+                trpReportList, applyNo,
+                repeatRowNum = 0 ,
+                subject = SecurityUtils.getSubject(),
+                user = subject.getPrincipal();
+
+            for (var i = 0; i < entityArray.length; i++) {
+                entity = entityArray[i];
+                entity.creator = user.accountName;
+                entity.creatorName = user.realName;
+                entity.createdTime = new Date();
+                entity.lastModifiedTime = new Date();
+                entity.totalCost = entity.trafficCost + entity.stayCost + entity.entertainCost+entity.otherCost;
+                applyNo = result.pickerFields[i].colName;
+                trpReportList = tripReportMgr.getTripReportByApplyNo({applyNo: applyNo});
+
+                if(trpReportList != null && trpReportList.size() > 0){
+                    entity.tripReport = trpReportList.get(0);
+                }
+            }
+
+            if (result.failRowIdxes.length === 0 && result.repeatRowIdxes.length === 0) {
+                tripCostMgr.save.apply(tripCostMgr.save, entityArray);
+            }
+            return {failRowIdxes: 0, repeatRowIdxes: 0, repeatRowNum: 0};
         })
     };
 };

@@ -12,4 +12,10 @@
             select max(ta.applyNo) from TripApply ta where ta.applyNo like :currentDate
         </query>
     </named-query>
+
+    <named-query name="getTripApplyByApplyNo">
+        <query>
+            select ta from TripApply ta where ta.applyNo = :applyNo
+        </query>
+    </named-query>
 </entity-mappings>

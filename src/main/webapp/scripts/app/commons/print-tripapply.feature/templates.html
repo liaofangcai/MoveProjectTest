@@ -1,0 +1,134 @@
+{{#layout}}
+<div id="tripapply-container"></div>
+{{/layout}}
+
+{{#view "tripapply-printarea"}}
+<div id="printArea" style="margin-left: 30px;margin-right: 30px; margin-top: 20px;">
+{{#each tripApplys}}
+  <div>
+      <div style="text-align: center;font-size: 20px;">
+          <p style="text-align: center;">出差申请单</p>
+      </div>
+      <div style="text-align:center;">
+        <table border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="#ffffff" style="text-align: center;" >
+            <tr>
+              <td style="width: 70px;">申请人</td>
+              <td style="width: 80px;">{{applier.realName}}</td>
+              <td style="width: 70px;">部门</td>
+              <td style="width: 75px;">{{department.name}}</td>
+              <td style="width: 70px;">职务</td>
+              <td style="width: 75px;">{{job}}</td>
+              <td style="width: 70px;">申请日期</td>
+              <td style="width: 80px;">{{appliedTime}}</td>
+            </tr>
+            <tr>
+              <td>出发日期</td>
+              <td>{{leavedTime}}</td>
+              <td>出差地点</td>
+              <td>{{tripPlace}}</td>
+              <td>职务代理人</td>
+              <td>{{deputy}}</td>
+              <td>出差类别</td>
+              <td>{{tripType}}</td>
+            </tr>
+            <tr>
+              <td colspan="8" style="text-align: left;">
+                <div style="height: 90px">　
+                  <p>　1、出差事由：</p>
+                  <p>　　{{tripReason}}</p>
+                </div>
+                <div style="height: 90px">　
+                  <p>　2、预计差期：</p>
+                  <p>　　{{forecastedTime}}</p>
+                </div>
+                <div style="height: 90px">
+                  <p>　3、差旅费用预计：</p>
+                  <p>　{{forecastedCost}}</p>
+                </div>
+              </td>
+            </tr>
+            <tr >
+              <td colspan="2">项目</td>
+              <td colspan="3">合计金额（元）</td>
+              <td colspan="3">备注</td>
+            </tr>
+            <tr>
+              <td colspan="2">住宿费</td>
+              <td colspan="3">{{stayCost}}</td>
+              <td colspan="3">{{stayCostRemark}}</td>
+            </tr>
+           <tr>
+              <td colspan="2">交通费</td>
+              <td colspan="3">{{trafficCost}} </td>
+              <td colspan="3">{{trafficCostRemark}}</td>
+            </tr>
+            <tr>
+              <td colspan="2">业务招待费</td>
+              <td colspan="3">{{entertainCost}}</td>
+              <td colspan="3">{{entertainCostRemark}}</td>
+            </tr>
+             <tr>
+              <td colspan="2">其他预计费用</td>
+              <td colspan="3">{{otherForecastCost}}</td>
+              <td colspan="3">{{otherForecastCostRemark}}</td>
+            </tr>
+            <tr>
+              <td colspan="2">总计（元）</td>
+              <td colspan="3">{{costSum}}</td>
+              <td colspan="3"></td>
+            </tr>
+            <tr>
+              <td colspan="2">主管/经理审批</td>
+              <td colspan="3">总监审批</td>
+              <td colspan="3">总经理审批</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div style="height: 80px; margin-top: 20px;">
+                      <p>○同意　　○不同意</p>
+                </div>
+                <div style="height: 80px; text-align: left;">
+                    <p>　　签字</p>
+                </div>
+                 <div style="height: 40px; text-align: left;">
+                    <p>　　日期</p>
+                </div>
+              </td>
+             <td colspan="3">
+                <div style="height: 80px; margin-top: 20px;">
+                     <p>○同意 　　○不同意</p>
+                </div>
+                <div style="height: 80px; text-align: left;">
+                      <p>　　　签字</p>
+                </div>
+                 <div style="height: 40px; text-align: left;">
+                      <p>　　　日期<br/></p>
+                </div>
+              </td>
+              <td colspan="3">
+                <div style="height: 80px; margin-top: 20px;">
+                     <p>○同意　　○不同意</p>
+                </div>
+                <div style="height: 80px; text-align: left;">
+                      <p>　　　签字</p>
+                </div>
+                 <div style="height: 40px; text-align: left;">
+                      <p>　　　日期</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+
+            </tr>
+        </table>
+      </div>
+      <div>
+        <p>备注：该单须按照核决权限逐级核准。此表应交人力资源部备案。</p>
+      </div>
+      <div style="height:80px">
+        　　　　
+      </div>
+  </div>
+  {{/each}}
+</div>
+{{/view}}

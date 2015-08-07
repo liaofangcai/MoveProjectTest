@@ -40,7 +40,9 @@ exports.cdeio = {
 
     // 出差
     'src/main/resources/META-INF/mappings/trip/trip-apply.orm.xml',
-    'src/main/resources/META-INF/mappings/trip/trip-cost.orm.xml'
+    'src/main/resources/META-INF/mappings/trip/trip-cost.orm.xml',
+    'src/main/resources/META-INF/mappings/trip/trip-report.orm.xml',
+
   ],
 
   disableAuthz: false,

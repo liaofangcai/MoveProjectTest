@@ -35,6 +35,7 @@
         <!-- 出差 -->
         <mapping-file>META-INF/mappings/trip/trip-apply.orm.xml</mapping-file>
         <mapping-file>META-INF/mappings/trip/trip-cost.orm.xml</mapping-file>
+        <mapping-file>META-INF/mappings/trip/trip-report.orm.xml</mapping-file>
 
         <!-- 系统级实体 -->
         <class>com.zyeeda.cdeio.commons.organization.entity.Account</class>

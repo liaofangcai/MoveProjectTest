@@ -89,12 +89,12 @@ public class TripApply extends ProcessRevisionDomainEntity {
     /**
      * 预计差期
      */
-    private String forecastedTime;
+    private Integer forecastedTime;
 
     /**
      * 差旅费用预计
      */
-    private String forecastedCost;
+    private Double forecastedCost;
 
     /**
      * 住宿费
@@ -245,30 +245,29 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.tripReason = tripReason;
     }
 
-    @Column(name = "F_FORECASTED_TIME", length = 300)
-    @NotBlank
-    @NullableSize(max = 166)
-    public String getForecastedTime() {
+    @Column(name = "F_FORECASTED_TIME", length = 20)
+    @NotNull
+    @Min(value = 0)
+    public Integer getForecastedTime() {
         return forecastedTime;
     }
 
-    public void setForecastedTime(String forecastedTime) {
+    public void setForecastedTime(Integer forecastedTime) {
         this.forecastedTime = forecastedTime;
     }
 
-    @Column(name = "F_FORECASTED_COST", length = 300)
-    @NotBlank
-    @NullableSize(max = 166)
-    public String getForecastedCost() {
+    @Column(name = "F_FORECASTED_COST", length = 20)
+    @Min(value = 0)
+    public Double getForecastedCost() {
         return forecastedCost;
     }
 
-    public void setForecastedCost(String forecastedCost) {
+    public void setForecastedCost(Double forecastedCost) {
         this.forecastedCost = forecastedCost;
     }
 
     @Column(name = "F_STAY_COST", length = 20)
-    @Min(value= 0)
+    @Min(value = 0)
     public Double getStayCost() {
         return stayCost;
     }
@@ -288,7 +287,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
     }
 
     @Column(name = "F_TRAFFIC_COST", length = 20)
-    @Min(value= 0)
+    @Min(value = 0)
     public Double getTrafficCost() {
         return trafficCost;
     }

@@ -18,4 +18,10 @@
             select a from Account a inner join a.roles r where a.department.id = :departmentId and r.id = :roleId
         </query>
     </named-query>
+
+    <named-query name="getAccountByName">
+        <query>
+            select a from Account a where a.realName = :name
+        </query>
+    </named-query>
 </entity-mappings>

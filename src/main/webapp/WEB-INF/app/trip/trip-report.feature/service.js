@@ -1,17 +1,17 @@
-var {mark}             = require('cdeio/mark');
-var commExpService     = require('commons/export-excel.feature/service');
-var {createManager}    = require('cdeio/manager');
+var {mark}                  = require('cdeio/mark');
+var commExpService          = require('commons/export-excel.feature/service');
+var {createManager}         = require('cdeio/manager');
 
-var {TripReport}          = com.zyeeda.business.trip.entity;
-var {TripApply}          = com.zyeeda.business.trip.entity;
-var {TripCost}          = com.zyeeda.business.trip.entity;
-var {EntityMetaResolver} = com.zyeeda.cdeio.web.scaffold;
-var {SecurityUtils} = org.apache.shiro;
-var {Integer}          = java.lang;
-var {SimpleDateFormat} = java.text;
-var {ArrayList}        = java.util;
-var {HashMap}          = java.util;
-var {Date}             = java.util;
+var {TripReport}            = com.zyeeda.business.trip.entity;
+var {TripApply}             = com.zyeeda.business.trip.entity;
+var {TripCost}              = com.zyeeda.business.trip.entity;
+var {EntityMetaResolver}    = com.zyeeda.cdeio.web.scaffold;
+var {SecurityUtils}         = org.apache.shiro;
+var {Integer}               = java.lang;
+var {SimpleDateFormat}      = java.text;
+var {ArrayList}             = java.util;
+var {HashMap}               = java.util;
+var {Date}                  = java.util;
 
 exports.createService = function () {
     return {
@@ -33,8 +33,8 @@ exports.createService = function () {
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
                 statusMap = {
-                    '-3': '已填写报告',
-                    '-2': '审批完成',
+                    '-3': '审批完成（已填写报告）',
+                    '-2': '审批完成（未填写报告）',
                     '-1': '退回',
                     '0': '初始'
                 };
@@ -82,6 +82,33 @@ exports.createService = function () {
             tripApply.flowStatus = '-3';
 
             return tripReportMgr.save(tripReport);
+        }),
+        saveEntities: mark('managers', TripApply, TripReport).mark('tx').on(function (tripApplyMgr, tripReportMgr, params, entityArray, result) {
+            var entity,
+                trpApplyList, applyNo,
+                repeatRowNum = 0 ,
+                subject = SecurityUtils.getSubject(),
+                user = subject.getPrincipal();
+
+            for (var i = 0; i < entityArray.length; i++) {
+                entity = entityArray[i];
+                entity.creator = user.accountName;
+                entity.creatorName = user.realName;
+                entity.createdTime = new Date();
+                entity.lastModifiedTime = new Date();
+                entity.tripDays =  Math.floor((entity.endTime.getTime() - entity.startTime.getTime())/(24*3600*1000)) + 1;
+                applyNo = result.pickerFields[i].colName;
+                trpApplyList = tripReportMgr.getTripApplyByApplyNo({applyNo: applyNo});
+
+                if(trpApplyList != null && trpApplyList.size() > 0){
+                    entity.tripApply = trpApplyList.get(0);
+                }
+            }
+
+            if (result.failRowIdxes.length === 0 && result.repeatRowIdxes.length === 0) {
+                tripApplyMgr.save.apply(tripApplyMgr.save, entityArray);
+            }
+            return {failRowIdxes: 0, repeatRowIdxes: 0, repeatRowNum: 0};
         })
     };
 };

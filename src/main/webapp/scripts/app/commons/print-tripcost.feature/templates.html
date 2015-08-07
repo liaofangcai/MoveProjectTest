@@ -1,0 +1,74 @@
+{{#layout}}
+<div id="tripreport-container"></div>
+{{/layout}}
+
+{{#view "tripreport-printarea"}}
+<div id="printArea" style="margin-left: 30px;margin-right: 30px; margin-top: 20px;">
+{{#each tripReports}}
+  <div>
+      <div style = "text-align: center;font-size: 20px;">
+          <p style = "text-align: center;">出差任务报告书</p>
+          <p>&nbsp;</p>
+      </div>
+      <div style = "float: left;">　　部门：</div>
+      <div style = "float: left; width: 300px;">{{tripApply.department.name}}</div>
+      <div style = "float: left;">日期：</div>
+      <div style = "float: left;"></div>
+      <div style = "text-align: left;">
+          <table border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="#ffffff" >
+            <tr>
+              <td colspan="3">
+                  <div style = "float: left; width: 100px;">　出差日期：</div>
+                  <div style = "float: left; width: 150px;text-align: center;"> 自　　{{startTime}}</div>
+                  <div style = "float: left; width: 200px;text-align: center;">至　　{{endTime}}　，</div>
+                  <div style = "float: left; width: 150px;">共 　{{tripDays}}　天</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div>　出差地点：{{tripApply.tripPlace}}</div>
+              </td>
+            </tr>
+            <tr >
+              <td colspan="3">
+                <div>　出差任务：</div>
+                <div>&nbsp;</div>
+                <div style = "height: 250px">　　　{{tripTask}}</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div>　执行情形：（精简摘要叙明，如系专案研究报告，则视需要另以附件方式祥述）</div>
+                <div>&nbsp;</div>
+                <div style = "height: 250px">　　　{{completion}}</div>
+              </td>
+            </tr>
+            <tr>
+              <td style = "width: 200px;">
+                <div style = "height: 40px;"> </div>
+                <div style = "height: 60px;">　报告人：　{{tripApply.applier.realName}}</div>
+                <div>　日　期</div>
+              </td>
+              <td>
+                <div>总监意见：○ 同意 ○ 不同意</div>
+                <div style = "height: 100px;"></div>
+                <div style = "height: 30px;">　签　名</div>
+                <div>　日　期</div>
+              </td>
+              <td>
+                <div>总经理意见：○ 同意 ○ 不同意</div>
+                <div style = "height: 100px;"></div>
+                <div style = "height: 30px;">　签　名</div>
+                <div>　日　期</div>
+              </td>
+            </tr>
+
+          </table>
+      </div>
+      <div style = "height: 68px;">
+      </div>
+
+  </div>
+  {{/each}}
+</div>
+{{/view}}

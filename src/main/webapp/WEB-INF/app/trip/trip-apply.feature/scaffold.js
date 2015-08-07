@@ -1,11 +1,17 @@
-var {mark} = require('cdeio/mark');
-var {json} = require('cdeio/response');
+var {mark}                  = require('cdeio/mark');
+var {json}                  = require('cdeio/response');
 
-var {SecurityUtils} = org.apache.shiro;
-
-var {SimpleDateFormat} = java.text;
-var {Date}             = java.util;
-var {ArrayList}        = java.util;
+var {TripApply}             = com.zyeeda.business.trip.entity;
+var {SecurityUtils}         = org.apache.shiro;
+var {getOptionInProperties} = require('cdeio/config');
+var {join}                  = require('cdeio/util/paths');
+var {SimpleDateFormat}      = java.text;
+var {Date}                  = java.util;
+var {ArrayList}             = java.util;
+var URLDecoder              = java.net.URLDecoder;
+var fs                      = require('fs');
+var objects                 = require('cdeio/util/objects');
+var response                = require('ringo/jsgi/response');
 
 exports.haveFilter = true;
 
@@ -135,7 +141,10 @@ exports.grid = {
 exports.operators = {
     addReport: {label: '填写任务报告书', icon: 'icon-edit-sign', group: '30-custom', order: 100, show: 'single-selected', style: 'btn-info' },
     sendProcess: { label: '上报', icon: 'icon-envelope-alt', group: '40-process', order: 10, show: 'single-selected', style: 'btn-pink'},
-    retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'}
+    retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'},
+    downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
+    importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
+    print: {label: '打印', icon: 'icon-print', group: '30-custom', order: 200, show: 'selected', style: 'btn-info'}
 };
 
 //相关数据处理
@@ -155,7 +164,7 @@ exports.hooks = {
   },
 
   //编辑数据之前执行函数
-  beforeUpdate: { 
+  beforeUpdate: {
     defaults: function (tripApply) {
       var subject = SecurityUtils.getSubject(),
           user = subject.getPrincipal();
@@ -165,6 +174,41 @@ exports.hooks = {
       tripApply.lastModifiedTime = new Date();
     }
   }
+};
+// 导出 excel 相关配置
+exports.exporting = {
+    template: 'trip/trip-apply/tripApplyModule.xls',
+    fileName: '出差申请信息'
+};
+// 报告导入
+exports.importing = {
+    module: 'tripReport',
+    enable: true,
+    dateFormat: 'yyyy/MM/dd',
+    template: 'trip/trip-apply/出差申请信息.xls',
+    startRow: 2,
+    mapping: [
+        {name: 'applyNo', column: 1, tileName: '申请单号', type: 'string', isNull: true, unique: true },
+        {name: 'applier', column: 2, tileName: '申请人', type: 'picker', isNull: true},
+        {name: 'department', column: 3, tileName: '部门', type: 'picker', isNull: true},
+        {name: 'job', column: 4, tileName: '部门', type: 'string', isNull: true},
+        {name: 'appliedTime', column: 5, tileName: '申请日期', type: 'date', isNull: true},
+        {name: 'leavedTime', column: 6, tileName: '出发日期', type: 'date', isNull: true},
+        {name: 'tripPlace', column: 7, tileName: '出差地点', type: 'string', isNull: true},
+        {name: 'deputy', column: 8, tileName: '职务代理人', type: 'string', isNull: true},
+        {name: 'tripType', column: 9, tileName: '出差类别', type: 'string', isNull: true},
+        {name: 'tripReason', column: 10, tileName: '出差事由', type: 'string', isNull: true},
+        {name: 'forecastedTime', column: 11, tileName: '预计差期', type: 'int', isNull: true},
+        {name: 'forecastedCost', column: 12, tileName: '差旅费用预计', type: 'double', isNull: true},
+        {name: 'stayCost', column: 13, tileName: '住宿费', type: 'double', isNull: true},
+        {name: 'stayCostRemark', column: 14, tileName: '住宿费备注', type: 'string', isNull: true},
+        {name: 'trafficCost', column: 15, tileName: '交通费', type: 'double', isNull: true},
+        {name: 'trafficCostRemark', column: 16, tileName: '交通费备注', type: 'string', isNull: true},
+        {name: 'entertainCost', column: 17, tileName: '业务交代费', type: 'double', isNull: true},
+        {name: 'entertainCostRemark', column: 18, tileName: '业务交代费备注', type: 'string', isNull: true},
+        {name: 'otherForecastCost', column: 19, tileName: '其他费用', type: 'double', isNull: true},
+        {name: 'otherForecastCostRemark', column: 20, tileName: '其他费用备注', type: 'string', isNull: true}
+    ]
 };
 
 //请求处理
@@ -248,15 +292,86 @@ exports.doWithRouter = function(router) {
             result.createdTime = sd.format(date);
         return json(result);
     }));
-    //导出
-    router.get('/export-excel', mark('services', 'commons/export-excel', 'trip/trip-apply').on(function (exportXlsSvc, tripApplySvc, request) {
-        var options = request.params,
-            result;
+      //导入已有数据
+    router.post('/import-excel', mark('services', 'commons/import-excel', 'trip/trip-apply').on(function (importXlsSvc, tripApplySvc, request) {
+        var result, result2, saveAndCheckResult,
+            rowNum, entityArray, i;
 
-        options = exportXlsSvc.dealParameters(options, tripApplySvc, new tripApply());
+        entityArray = [];
 
-        result = tripApplySvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
+        result = importXlsSvc.importExcel(request.params, exports.importing);
 
-        return json({flag: result.flag, filename: result.filename});
+        rowNum = result.rowNum;
+
+        for (i = 0; i < rowNum; i++) {
+            entityArray.push(new TripApply());
+        }
+
+        result2 = importXlsSvc.fillEntity(result.rowDataArray, exports.importing, entityArray);
+
+        saveAndCheckResult = tripApplySvc.saveEntities(request.params, result2.entityArray, result);
+        result.failRowIdxes = saveAndCheckResult.failRowIdxes;
+        result.repeatRowIdxes = saveAndCheckResult.repeatRowIdxes;
+
+        return json({
+            entityArray: result2.entityArray,
+            pickerFields: result.pickerFields,
+            specialFields: result.specialFields,
+            failRowIdxes: 0,
+            repeatRowIdxes: result.repeatRowIdxes,
+            successNum: result2.entityArray.length,
+            repeatRowNum: 0
+        }, exports.filters.defaults);
+    }));
+    //下载导入模板地址设置
+    router.get('/configuration/importsettings', function (request) {
+        var getFileDirectoryByFilePath, getFileNameByFilePath, templateFilePath;
+
+        getFileDirectoryByFilePath = function(filePath) {
+            return filePath.substring(0, filePath.lastIndexOf('/'));
+        };
+        getFileNameByFilePath = function(filePath) {
+            return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+        };
+
+        if(exports.importing && exports.importing.enable === true){
+
+            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+
+            if(!fs.exists(templateFilePath)){
+                return json({templateExists: false});
+            }
+
+            return json(objects.extend(exports.importing, {filename: getFileNameByFilePath(exports.importing.template)}));
+        }
+
+        return json({exportEnable: false});
+    });
+
+    //下载导入模板
+    router.get('/down-import-template/:filename', function(request, filename) {
+        var getFileDirectoryByFilePath, getFileNameByFilePath, templateFilePath;
+
+        getFileDirectoryByFilePath = function(filePath) {
+            return filePath.substring(0, filePath.lastIndexOf('/'));
+        };
+        getFileNameByFilePath = function(filePath) {
+            return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+        };
+
+        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+
+        if(!fs.exists(templateFilePath)){
+            return {result: "附件不存在"};
+        }
+
+        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
+    });
+    router.get('/get-trip-apply-by-id', mark('services', 'trip-apply').on(function (commSvc, request) {
+        var entryIds = request.params.selectedDataIds, result, tripApplys;
+
+        tripApplys = commSvc.getTripApplyById(new String(entryIds).split(","));
+
+        return json({tripApplys: tripApplys}, exports.filters.tripApplyFilter);
     }));
 };

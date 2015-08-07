@@ -1,11 +1,18 @@
-var {mark} = require('cdeio/mark');
-var {json} = require('cdeio/response');
+var {mark}                    = require('cdeio/mark');
+var {json}                    = require('cdeio/response');
 
-var {SecurityUtils} = org.apache.shiro;
-
-var {SimpleDateFormat} = java.text;
-var {Date}             = java.util;
-var {ArrayList}        = java.util;
+var {TripReport}              = com.zyeeda.business.trip.entity;
+var {TripApply}               = com.zyeeda.business.trip.entity;
+var {SecurityUtils}           = org.apache.shiro;
+var {getOptionInProperties}   = require('cdeio/config');
+var {join}                    = require('cdeio/util/paths');
+var {SimpleDateFormat}        = java.text;
+var {Date}                    = java.util;
+var {ArrayList}               = java.util;
+var URLDecoder                = java.net.URLDecoder;
+var fs                        = require('fs');
+var objects                   = require('cdeio/util/objects');
+var response                  = require('ringo/jsgi/response');
 
 exports.haveFilter = true;
 
@@ -169,7 +176,10 @@ exports.operators = {
     del: false,
     addCost: {label: '填写报销明细', icon: 'icon-edit-sign', group: '30-custom', order: 100, show: 'single-selected', style: 'btn-info' },
     sendProcess: { label: '上报', icon: 'icon-envelope-alt', group: '40-process', order: 10, show: 'single-selected', style: 'btn-pink'},
-    retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'}
+    retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'},
+    downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
+    importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
+    print: {label: '打印', icon: 'icon-print', group: '30-custom', order: 200, show: 'selected', style: 'btn-info'}
 };
 
 //相关数据处理
@@ -199,7 +209,27 @@ exports.hooks = {
     }
   }
 };
-
+// 导出 excel 相关配置
+exports.exporting = {
+    template: 'trip/trip-report/tripReportModule.xls',
+    fileName: '出差任务报告'
+};
+// 报告导入
+exports.importing = {
+    module: 'tripReport',
+    enable: true  ,
+    dateFormat: 'yyyy/MM/dd',
+    template: 'trip/trip-report/出差任务报告信息.xls',
+    startRow: 2,
+    mapping: [
+        {name: 'tripApply.applyNo', column: 1, tileName: '申请单号', type: 'picker', isNull: true, unique: true },
+        {name: 'startTime', column: 2, tileName: '开始时间', type: 'date', isNull: true, unique: true},
+        {name: 'endTime', column: 3, tileName: '结束时间', type: 'date', isNull: true, unique: true},
+        {name: 'tripTask', column: 4, tileName: '出差任务', type: 'string', isNull: true, unique: true},
+        {name: 'completion', column: 5, tileName: '执行情形', type: 'string', isNull: true, unique: true},
+        {name: 'tripCosts', column: 6, tileName: '报销明细', type: 'string', isNull: true, unique: true}
+    ]
+};
 //验证方法
 exports.validators = {
     create: {
@@ -335,4 +365,79 @@ exports.doWithRouter = function(router) {
 
         return json({flag: result.flag, filename: result.filename});
     }));
+     //导入已有数据
+    router.post('/import-excel', mark('services', 'commons/import-excel', 'trip/trip-report').on(function (importXlsSvc, tripReportSvc, request) {
+        var result, result2, saveAndCheckResult,
+            rowNum, entityArray, i;
+
+        entityArray = [];
+
+        result = importXlsSvc.importExcel(request.params, exports.importing);
+
+        rowNum = result.rowNum;
+
+        for (i = 0; i < rowNum; i++) {
+            entityArray.push(new TripReport());
+        }
+
+        result2 = importXlsSvc.fillEntity(result.rowDataArray, exports.importing, entityArray);
+
+        saveAndCheckResult = tripReportSvc.saveEntities(request.params, result2.entityArray, result);
+        result.failRowIdxes = saveAndCheckResult.failRowIdxes;
+        result.repeatRowIdxes = saveAndCheckResult.repeatRowIdxes;
+
+        return json({
+            entityArray: result2.entityArray,
+            pickerFields: result.pickerFields,
+            specialFields: result.specialFields,
+            failRowIdxes: 0,
+            repeatRowIdxes: result.repeatRowIdxes,
+            successNum: result2.entityArray.length,
+            repeatRowNum: 0
+        }, exports.filters.defaults);
+    }));
+    //下载导入模板地址设置
+    router.get('/configuration/importsettings', function (request) {
+        var getFileDirectoryByFilePath, getFileNameByFilePath, templateFilePath;
+
+        getFileDirectoryByFilePath = function(filePath) {
+            return filePath.substring(0, filePath.lastIndexOf('/'));
+        };
+        getFileNameByFilePath = function(filePath) {
+            return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+        };
+
+        if(exports.importing && exports.importing.enable === true){
+
+            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+
+            if(!fs.exists(templateFilePath)){
+                return json({templateExists: false});
+            }
+
+            return json(objects.extend(exports.importing, {filename: getFileNameByFilePath(exports.importing.template)}));
+        }
+
+        return json({exportEnable: false});
+    });
+
+    //下载导入模板
+    router.get('/down-import-template/:filename', function(request, filename) {
+        var getFileDirectoryByFilePath, getFileNameByFilePath, templateFilePath;
+
+        getFileDirectoryByFilePath = function(filePath) {
+            return filePath.substring(0, filePath.lastIndexOf('/'));
+        };
+        getFileNameByFilePath = function(filePath) {
+            return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+        };
+
+        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+
+        if(!fs.exists(templateFilePath)){
+            return {result: "附件不存在"};
+        }
+
+        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
+    });
 };

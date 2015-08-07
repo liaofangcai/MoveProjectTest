@@ -10,6 +10,9 @@ var {TodoInfo}           = com.zyeeda.business.work.entity;
 var {TaskInfo}           = com.zyeeda.business.work.entity;
 var {EvaluateInfo}       = com.zyeeda.business.work.entity;
 var {WorkPackage}        = com.zyeeda.business.work.entity;
+var {TripApply}          = com.zyeeda.business.trip.entity;
+var {TripReport}         = com.zyeeda.business.trip.entity;
+
 
 exports.createService = function () {
     return {
@@ -49,6 +52,12 @@ exports.createService = function () {
         }),
         getWorkPackageById: mark('managers', WorkPackage).mark('tx').on(function (workPackageMgr, entryId){
             return workPackageMgr.find(entryId);
+        }),
+        getTripApplyById: mark('managers', TripApply).mark('tx').on(function (tripApplyMgr, entryIds){
+            return tripApplyMgr.find.apply(tripApplyMgr, entryIds);
+        }),
+        getTripReportById: mark('managers', TripReport).mark('tx').on(function (tripReportMgr, entryIds){
+            return tripReportMgr.find.apply(tripReportMgr, entryIds);
         })
 	};
 };
