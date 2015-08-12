@@ -23,6 +23,57 @@ define([
 
             return true;
         },
+        afterShowInlineGridDialog: function(dialogType, view, data) {
+            var me = this;
+
+            //设置总金额不能改
+            $('input[name = "totalCost"]', view.$el).attr('disabled', true);
+            $('input[name = "totalCost"]', view.$el).val(0);
+            //给trafficCost输入框设置监听 改变totalCost 的值
+            $('input[name = "trafficCost"]', view.$el).bind('input propertychange', function(){
+                $('input[name = "totalCost"]', view.$el).val(
+                    Number($('input[name = "trafficCost"]', view.$el).val()) +
+                    Number($('input[name = "stayCost"]', view.$el).val()) +
+                    Number($('input[name = "entertainCost"]', view.$el).val()) +
+                    Number($('input[name = "otherCost"]', view.$el).val())
+                );
+                $('input[name = "trafficCost"]', view.$el).val(
+                Number($('input[name = "trafficCost"]', view.$el).val()).toFixed(2));
+            });
+            //给stayCost输入框设置监听 改变totalCost 的值
+            $('input[name = "stayCost"]', view.$el).bind('input propertychange', function(){
+                $('input[name = "totalCost"]', view.$el).val(
+                    Number($('input[name = "trafficCost"]', view.$el).val()) +
+                    Number($('input[name = "stayCost"]', view.$el).val()) +
+                    Number($('input[name = "entertainCost"]', view.$el).val()) +
+                    Number($('input[name = "otherCost"]', view.$el).val())
+                );
+                $('input[name = "stayCost"]', view.$el).val(
+                Number($('input[name = "stayCost"]', view.$el).val()).toFixed(2));
+            });
+            //给entertainCost输入框设置监听 改变totalCost 的值
+            $('input[name = "entertainCost"]', view.$el).bind('input propertychange', function(){
+                $('input[name = "totalCost"]', view.$el).val(
+                    Number($('input[name = "trafficCost"]', view.$el).val()) +
+                    Number($('input[name = "stayCost"]', view.$el).val()) +
+                    Number($('input[name = "entertainCost"]', view.$el).val()) +
+                    Number($('input[name = "otherCost"]', view.$el).val())
+                );
+                $('input[name = "entertainCost"]', view.$el).val(
+                Number($('input[name = "entertainCost"]', view.$el).val()).toFixed(2));
+            });
+            //给otherCost输入框设置监听 改变totalCost 的值
+            $('input[name = "otherCost"]', view.$el).bind('input propertychange', function(){
+                $('input[name = "totalCost"]', view.$el).val(
+                    Number($('input[name = "trafficCost"]', view.$el).val()) +
+                    Number($('input[name = "stayCost"]', view.$el).val()) +
+                    Number($('input[name = "entertainCost"]', view.$el).val()) +
+                    Number($('input[name = "otherCost"]', view.$el).val())
+                );
+                $('input[name = "otherCost"]', view.$el).val(
+                Number($('input[name = "otherCost"]', view.$el).val()).toFixed(2));
+            });
+        },
         afterShowDialog: function(dialogType, view, data){
             var me = this;
 
@@ -43,8 +94,8 @@ define([
         renderers: {
             modifyStatus: function (data){
                 var statusMap = {
-                    '-3': '审批完成（已写报告）',
-                    '-2': '审批完成（未写报告）',
+                    '-3': '审批完成（已写报销明细）',
+                    '-2': '审批完成（未写报销明细）',
                     '-1': '退回',
                     '': '初始',
                     '0': '初始',
@@ -236,6 +287,70 @@ define([
 
                 printFeature.done(function(feature) {
                     printView = feature.views['tripreport-printarea'];
+                    for(var i = 0;i < selected.length;i++){
+                        selectedDataIds[i] = selected[i].id;
+                    }
+
+                    feature.selectedDataIds = selectedDataIds;
+
+                    app.showDialog({
+                        view: printView,
+                        title: '打印申请报告',
+                        onClose: function() {
+                            feature.stop();
+                        },
+                        buttons: [{
+                            label: '打印',
+                            status: 'btn-primary',
+                            fn: function() {
+                                try{
+                                    Wsh = new ActiveXObject("WScript.Shell");
+                                    HKEY_Key = "header";
+                                    //设置页眉(为空)
+                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "");
+                                    HKEY_Key = "footer";
+                                    //设置页脚(为空)
+                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "");
+                                    HKEY_Key = "margin_bottom";
+                                    //设置下页边距(0)
+                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
+                                    HKEY_Key = "margin_left";
+                                    //设置左页边距(0)
+                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
+                                    HKEY_Key = "margin_right";
+                                    //设置右页边距(0)
+                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
+                                    HKEY_Key = "margin_top";
+                                    //设置上页边距(0)
+                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
+                                }catch(e){
+                                }
+
+                                newWin = window.open('');
+                                content = '<div>';
+                                content += printView.$('printArea').html();
+                                content += '</div>';
+
+                                newWin.document.write(content);
+                                newWin.print();
+                                newWin.document.close();
+                            }
+                        }]
+                    });
+                });
+            },
+            printCost: function(){
+                var me = this,
+                    printFeature, printView,
+                    grid = me.feature.views['grid:body'].components[0],
+                    selected = grid.getSelected(),
+                    selectedDataIds = [],
+                    Wsh, newWin, content;
+
+                printFeature = app.loadFeature('commons/print-tripreportcost', {container: '<div></div>', ignoreExists: true});
+
+                printFeature.done(function(feature) {
+                    printView = feature.views['tripreportcost-printarea'];
                     for(var i = 0;i < selected.length;i++){
                         selectedDataIds[i] = selected[i].id;
                     }

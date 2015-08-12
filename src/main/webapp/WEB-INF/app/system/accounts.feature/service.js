@@ -22,6 +22,8 @@ exports.createService = function() {
                 currentUser = SecurityUtils.getSubject().getPrincipal();
 
             options.filters = options.filters || [];
+            options.orderBy = options.orderBy || [];
+            options.orderBy.push({'disabled': 'asc'});
 
             if ('picker' === options.listType){
                 if ('work-evaluate' === options.pickerFeatureName){

@@ -1,6 +1,6 @@
 var {mark}                    = require('cdeio/mark');
 var {json}                    = require('cdeio/response');
-
+var _                         = require('underscore');
 var {TripReport}              = com.zyeeda.business.trip.entity;
 var {TripApply}               = com.zyeeda.business.trip.entity;
 var {SecurityUtils}           = org.apache.shiro;
@@ -13,10 +13,14 @@ var URLDecoder                = java.net.URLDecoder;
 var fs                        = require('fs');
 var objects                   = require('cdeio/util/objects');
 var response                  = require('ringo/jsgi/response');
-
+var {createService}           = require('trip/trip-report.feature/service');
 exports.haveFilter = true;
 
 exports.enableFrontendExtension = true;
+
+exports.service = function(service){
+    return _.extend(service, createService());
+};
 
 exports.filters = {
   defaults: {
@@ -105,7 +109,7 @@ exports.fieldGroups = {
     'startTime', {name: 'endTime', statusChanger: true},
     {name: 'tripDays', validations: {rules: {required: true, number: true}}},
     {name: 'tripTask', label: '出差任务', type: 'textarea', colspan: 2},
-    {name: 'completion', label: '执行情形：（精简摘要叙明，如系专案研究报告，则视需要另以附件方式祥述）', type: 'textarea', colspan: 2},
+    {name: 'completion', label: '执行情形：（精简摘要叙明，如系专案研究报告，则视需要另以附件方式详述）', type: 'textarea', colspan: 2},
     {name: 'attachment',
         colspan: 2,
         type: 'file-picker',
@@ -128,7 +132,7 @@ exports.fieldGroups = {
     'tripApply.applier.realName', 'tripApply.department', 'startTime', {name: 'endTime', statusChanger: true},
     'tripApply.tripPlace', 'tripDays',
     {name: 'tripTask', label: '出差任务', type: 'textarea', colspan: 2},
-    {name: 'completion', label: '执行情形：（精简摘要叙明，如系专案研究报告，则视需要另以附件方式祥述）', type: 'textarea', colspan: 2},
+    {name: 'completion', label: '执行情形：（精简摘要叙明，如系专案研究报告，则视需要另以附件方式详述）', type: 'textarea', colspan: 2},
     {name: 'attachment',
         colspan: 2,
         type: 'file-picker',
@@ -162,7 +166,7 @@ exports.grid = {
       {name: 'tripApply.department.name', header: '部门'},
       {name: 'tripApply.tripPlace', header: '出差地点'},
       'startTime', 'endTime' , 'tripDays',
-      {name: 'flowStatus', renderer: 'modifyStatus',width:150}
+      {name: 'flowStatus', renderer: 'modifyStatus',width:180}
     ],
     filterToolbar: true,
     fixedHeader: true,
@@ -179,7 +183,8 @@ exports.operators = {
     retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'},
     downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
     importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
-    print: {label: '打印', icon: 'icon-print', group: '30-custom', order: 200, show: 'selected', style: 'btn-info'}
+    print: {label: '打印任务报告书', icon: 'icon-print', group: '30-custom', order: 300, show: 'selected', style: 'btn-info'},
+    printCost: {label: '打印报销明细', icon: 'icon-print', group: '30-custom', order: 200, show: 'selected', style: 'btn-info'}
 };
 
 //相关数据处理

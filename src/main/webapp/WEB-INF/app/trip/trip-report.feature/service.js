@@ -2,6 +2,9 @@ var {mark}                  = require('cdeio/mark');
 var commExpService          = require('commons/export-excel.feature/service');
 var {createManager}         = require('cdeio/manager');
 
+var {Account}            = com.zyeeda.cdeio.commons.organization.entity;
+var {Department}         = com.zyeeda.cdeio.commons.organization.entity;
+
 var {TripReport}            = com.zyeeda.business.trip.entity;
 var {TripApply}             = com.zyeeda.business.trip.entity;
 var {TripCost}              = com.zyeeda.business.trip.entity;
@@ -15,6 +18,40 @@ var {Date}                  = java.util;
 
 exports.createService = function () {
     return {
+        list: mark('beans', EntityMetaResolver).mark('tx').on(function (resolver, entity, options) {
+            var meta = resolver.resolveEntity(TripReport),
+                tripReportMgr = createManager(meta.entityClass),
+                accountMeta = resolver.resolveEntity(Account),
+                accountMgr = createManager(accountMeta.entityClass),
+                currentUser = SecurityUtils.getSubject().getPrincipal(),
+                account,
+                role,
+                roles,
+                iterator,
+                results;
+
+            options.filters = options.filters || [];
+
+            account = accountMgr.find(currentUser.id);
+            roles = account.roles;
+
+            iterator = roles.iterator();
+
+            while (iterator.hasNext()) {
+                role = iterator.next();
+                if ("普通用户" === role.name){
+                    options.filters.push(['eq', 'tripApply.applier.id', currentUser.id]);
+                }
+            }
+
+            if (options.filters) {
+                results = tripReportMgr.findByEntity(options);
+            } else {
+                results = tripReportMgr.findByExample(entity, options);
+            }
+
+            return results;
+        }),
         // 根据ID查找
         getById: mark('managers', TripReport).mark('tx').on(function (tripReportMgr, id) {
             return tripReportMgr.find(id);

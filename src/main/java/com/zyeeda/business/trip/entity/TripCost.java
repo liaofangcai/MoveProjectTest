@@ -95,6 +95,17 @@ public class TripCost extends ProcessRevisionDomainEntity {
         this.tripTime = tripTime;
     }
 
+    @Column(name = "F_TRIP_PLACE", length = 300)
+    @NotBlank
+    @NullableSize(max = 166)
+    public String getTripPlace(){
+        return tripPlace;
+    }
+
+    public void setTripPlace(String tripPlace){
+        this.tripPlace = tripPlace;
+    }
+
     @Column(name = "F_TRAFFIC_COST", length = 20)
     @Min(value= 0)
     public Double getTrafficCost() {

@@ -2,6 +2,9 @@ var {mark}                  = require('cdeio/mark');
 var commExpService          = require('commons/export-excel.feature/service');
 var {createManager}         = require('cdeio/manager');
 
+var {Account}            = com.zyeeda.cdeio.commons.organization.entity;
+var {Department}         = com.zyeeda.cdeio.commons.organization.entity;
+
 var {TripReport}            = com.zyeeda.business.trip.entity;
 var {TripApply}             = com.zyeeda.business.trip.entity;
 var {TripCost}              = com.zyeeda.business.trip.entity;
@@ -15,6 +18,40 @@ var {Date}                  = java.util;
 
 exports.createService = function () {
     return {
+        list: mark('beans', EntityMetaResolver).mark('tx').on(function (resolver, entity, options) {
+            var meta = resolver.resolveEntity(TripCost),
+                tripCostMgr = createManager(meta.entityClass),
+                accountMeta = resolver.resolveEntity(Account),
+                accountMgr = createManager(accountMeta.entityClass),
+                currentUser = SecurityUtils.getSubject().getPrincipal(),
+                account,
+                role,
+                roles,
+                iterator,
+                results;
+
+            options.filters = options.filters || [];
+
+            account = accountMgr.find(currentUser.id);
+            roles = account.roles;
+
+            iterator = roles.iterator();
+
+            while (iterator.hasNext()) {
+                role = iterator.next();
+                if ("普通用户" === role.name){
+                    options.filters.push(['eq', 'tripReport.tripApply.applier.id', currentUser.id]);
+                }
+            }
+
+            if (options.filters) {
+                results = tripCostMgr.findByEntity(options);
+            } else {
+                results = tripCostMgr.findByExample(entity, options);
+            }
+
+            return results;
+        }),
         saveTripCost: mark('managers', TripReport, TripCost).mark('tx').on(function(tripReportMgr, tripCostMgr, data) {
             var tripReport, tripCost,
                 subject = SecurityUtils.getSubject(),
@@ -32,12 +69,13 @@ exports.createService = function () {
             for (var v in data.tripCosts){
                 tripCost = new TripCost();
                 tripCost.tripReport = tripReport;
+                tripCost.tripPlace = data.tripCosts[v].tripPlace;
                 tripCost.trafficCost = data.tripCosts[v].trafficCost;
                 tripCost.stayCost = data.tripCosts[v].stayCost;
                 tripCost.entertainCost = data.tripCosts[v].entertainCost;
                 tripCost.otherCost = data.tripCosts[v].otherCost;
-                tripCost.totalCost = data.tripCosts[v].totalCost;
-                tripCost.tripTime = new SimpleDateFormat("yyyy-MM-dd").parse(data.startTime);
+                tripCost.totalCost =  tripCost.trafficCost + tripCost.stayCost + tripCost.entertainCost + tripCost.otherCost;
+                tripCost.tripTime = new SimpleDateFormat("yyyy-MM-dd").parse(data.tripCosts[v].tripTime);
                 tripCost.remark = data.tripCosts[v].remark;
                 tripCost.creator = user.accountName;
                 tripCost.creatorName = user.realName;

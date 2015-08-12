@@ -1,6 +1,6 @@
 var {mark}                  = require('cdeio/mark');
 var {json}                  = require('cdeio/response');
-
+var _                       = require('underscore');
 var {TripApply}             = com.zyeeda.business.trip.entity;
 var {TripCost}              = com.zyeeda.business.trip.entity;
 var {TripReport}            = com.zyeeda.business.trip.entity;
@@ -14,10 +14,14 @@ var URLDecoder              = java.net.URLDecoder;
 var fs                      = require('fs');
 var objects                 = require('cdeio/util/objects');
 var response                = require('ringo/jsgi/response');
-
+var {createService}         = require('trip/trip-cost.feature/service');
 exports.haveFilter = true;
 
 exports.enableFrontendExtension = true;
+
+exports.service = function(service){
+    return _.extend(service, createService());
+};
 
 exports.filters = {
   defaults: {
@@ -40,6 +44,7 @@ exports.labels = {
   'tripReport.tripDays': '出差天数',
   'tripReport.tripTask': '出差任务',
   tripTime: '日期',
+  tripPlace: '出差地点',
   trafficCost: '交通费',
   stayCost: '住宿费',
   entertainCost: '业务招待费',
@@ -81,6 +86,8 @@ exports.fieldGroups = {
     {name: 'tripReport.tripTask', type: 'textarea', colspan: 2}
   ],
   add: [
+    {name: 'tripTime', validations: {rules: {required: true }}},
+    {name: 'tripPlace', validations: {rules: {required: true }}},
     {name: 'trafficCost', validations: {rules: {required: true, number: true}}},
     {name: 'stayCost', validations: {rules: {required: true, number: true}}},
     {name: 'entertainCost', validations: {rules: {required: true, number: true}}},
@@ -113,7 +120,7 @@ exports.grid = {
 
 exports['inline-grid'] = {
     columns: [
-      'trafficCost', 'stayCost', 'entertainCost', 'otherCost', 'totalCost', 'remark'
+      'trafficCost', 'stayCost', 'entertainCost', 'otherCost', 'remark'
     ]
 };
 

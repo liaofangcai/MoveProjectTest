@@ -34,6 +34,9 @@ exports.createService = function () {
                 departmentArr = [],
                 i;
 
+            options.orderBy = options.orderBy || [];
+            options.orderBy.push({'code': 'asc'});
+
             if (options.filters) {
                 departments = deptMgr.findByEntity(options);
             } else {

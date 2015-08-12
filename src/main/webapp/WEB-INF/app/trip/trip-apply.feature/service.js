@@ -7,16 +7,49 @@ var {Department}         = com.zyeeda.cdeio.commons.organization.entity;
 
 var {TripApply}          = com.zyeeda.business.trip.entity;
 var {EntityMetaResolver} = com.zyeeda.cdeio.web.scaffold;
-
 var {SecurityUtils}      = org.apache.shiro;
-var {Integer}          = java.lang;
-var {SimpleDateFormat} = java.text;
-var {ArrayList}        = java.util;
-var {HashMap}          = java.util;
-var {Date}             = java.util;
+var {Integer}            = java.lang;
+var {SimpleDateFormat}   = java.text;
+var {ArrayList}          = java.util;
+var {HashMap}            = java.util;
+var {Date}               = java.util;
 
 exports.createService = function () {
     return {
+        list: mark('beans', EntityMetaResolver).mark('tx').on(function (resolver, entity, options) {
+            var meta = resolver.resolveEntity(TripApply),
+                tripApplyMgr = createManager(meta.entityClass),
+                accountMeta = resolver.resolveEntity(Account),
+                accountMgr = createManager(accountMeta.entityClass),
+                currentUser = SecurityUtils.getSubject().getPrincipal(),
+                account,
+                role,
+                roles,
+                iterator,
+                results;
+
+            options.filters = options.filters || [];
+
+            account = accountMgr.find(currentUser.id);
+            roles = account.roles;
+
+            iterator = roles.iterator();
+
+            while (iterator.hasNext()) {
+                role = iterator.next();
+                if ("普通用户" === role.name){
+                    options.filters.push(['eq', 'applier.id', currentUser.id]);
+                }
+            }
+
+            if (options.filters) {
+                results = tripApplyMgr.findByEntity(options);
+            } else {
+                results = tripApplyMgr.findByExample(entity, options);
+            }
+
+            return results;
+        }),
         // 自动生成单号
         autoGenerateNo: mark('managers', TripApply).mark('tx').on(function (tripApplyMgr) {
             var date = new Date(),

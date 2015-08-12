@@ -1,6 +1,6 @@
 var {mark}                  = require('cdeio/mark');
 var {json}                  = require('cdeio/response');
-
+var _                       = require('underscore');
 var {TripApply}             = com.zyeeda.business.trip.entity;
 var {SecurityUtils}         = org.apache.shiro;
 var {getOptionInProperties} = require('cdeio/config');
@@ -12,10 +12,15 @@ var URLDecoder              = java.net.URLDecoder;
 var fs                      = require('fs');
 var objects                 = require('cdeio/util/objects');
 var response                = require('ringo/jsgi/response');
+var {createService}         = require('trip/trip-apply.feature/service');
 
 exports.haveFilter = true;
 
 exports.enableFrontendExtension = true;
+
+exports.service = function(service){
+    return _.extend(service, createService());
+};
 
 exports.filters = {
   defaults: {
