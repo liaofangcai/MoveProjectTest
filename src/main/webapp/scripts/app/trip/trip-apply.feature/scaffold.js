@@ -33,12 +33,16 @@ define([
             if ("add" == dialogType) {
                 //取当前时间
                 me.feature.request({
-                    url: 'get-current-date',
+                    url: 'get-current-info',
                     type: 'get'
                 }).done(function (result){
                     //默认当前时间和数量
-                    me.feature.model.set('appliedTime', result.createdTime);
+                    me.feature.model.set('appliedTime', result.result.createdTime);
+                    me.feature.model.set('applier', result.result.applier);
+                    me.feature.model.set('department',result.result.department);
+                    me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
                 });
+
             } else if ("show" == dialogType) {
                 me.feature.model.set('applier.realName', data.applier.realName);
             }

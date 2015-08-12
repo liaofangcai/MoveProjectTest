@@ -25,12 +25,17 @@ exports.service = function(service){
 exports.filters = {
   defaults: {
     '!tripApplyFilter': '',
-    '!departmentFilter': ['parent(1)', 'children', 'accounts'],
     '!accountFilter': [''],
+    '!departmentFilter': ['parent(1)', 'children', 'accounts'],
     '!roleFilter': ['department', 'accounts'],
     '!permissionFilter': ['roles']
+  },
+  accountsFilter: {
+    '!accountFilter': ['roles'],
+    '!departmentFilter': ['children', 'accounts']
   }
 };
+
 
 exports.entityLabel = '出差申请单';
 
@@ -47,7 +52,7 @@ exports.labels = {
   deputy: '职务代理人',
   tripType: '出差类别',
   tripReason: '出差事由',
-  forecastedTime: '预计差期',
+  forecastedTime: '预计差期(天)',
   forecastedCost: '差旅费用预计',
   stayCost: '住宿费',
   stayCostRemark: '住宿费备注',
@@ -102,7 +107,7 @@ exports.feature = {
 exports.fieldGroups = {
   defaults: [
     {name: 'applier', textKey: 'realName'}, 'department', 'job', 'appliedTime', 'leavedTime', 'tripPlace', 'deputy',
-     'tripType', 'tripReason', 'forecastedTime', 'forecastedCost'
+     'tripType', {name: 'tripReason', type: 'textarea'}, 'forecastedTime', 'forecastedCost'
   ],
   withApplyNoGroup: [
     'applyNo',
@@ -132,7 +137,7 @@ exports.grid = {
       'applyNo',
       {name: 'applier.realName', header: '申请人'},
       {name: 'department.name', header: '部门'},
-      'job', 'appliedTime', 'tripPlace',
+      {name: 'job', width: 100}, 'appliedTime', 'tripPlace',
       'tripType',
       {name: 'flowStatus', renderer: 'modifyStatus', width:150}
     ],
@@ -288,15 +293,25 @@ exports.doWithRouter = function(router) {
         }
         return json({flag: true});
     }));
-    //取当前时间
-    router.get('/get-current-date', mark('services', 'trip/trip-apply').on(function (tripApplySvc, request) {
+
+
+    //取当前时间、登录人、登录人所在部门
+    router.get('/get-current-info', mark('services', 'system/accounts').on(function (accountSvc, request) {
         var date = new Date(),
             sd = new SimpleDateFormat("yyyy-MM-dd"),
-            result = {};
+            createdTime,
+            result = {},
+            currentUserId = SecurityUtils.getSubject().getPrincipal().id,
+            account = accountSvc.getById(currentUserId);
 
-            result.createdTime = sd.format(date);
-        return json(result);
+            result.applier = account;
+            result.department = account.department;
+            result.createdTime =  sd.format(date);
+            createdTime = sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
     }));
+
+
       //导入已有数据
     router.post('/import-excel', mark('services', 'commons/import-excel', 'trip/trip-apply').on(function (importXlsSvc, tripApplySvc, request) {
         var result, result2, saveAndCheckResult,
