@@ -3,9 +3,9 @@ define([
     'app/commons/export-excel.feature/export-excel-function',
     'app/commons/import-excel.feature/import-excel-function',
     'app/process/process-taskinfo.feature/process-taskinfo-function',
-    'app/process/approval-history.feature/approval-history-function'
-], function ($, exportUtil, importUtil, processUtil, apprHisFuncUtil) {
-    var count = 0;
+    'app/process/approval-history.feature/approval-history-function',
+    'app/commons/approval-histories.feature/approval-histories-function'
+], function ($, exportUtil, importUtil, processUtil, apprHisFuncUtil, approvalHistoriesUtil) {
     return {
         beforeShowDialog: function(dialogType, view){
             var me = this;
@@ -50,19 +50,27 @@ define([
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
         },
         renderers: {
-            modifyStatus: function (data){
-                var statusMap = {
-                    '-3': '审批完成（已填报告）',
-                    '-2': '审批完成（未填报告）',
-                    '-1': '退回',
-                    '': '初始',
+            modifyStatus: function(data, param, gridData) {
+                var showApproHis, flowStatusMap, html, id;
+
+                showApproHis = function(id){
+                    approvalHistoriesUtil.showApprovalHistories(this, id);
+                };
+                window.showApproHis = showApproHis;
+
+                html = '<a href="javascript:void(0)" onclick="showApproHis(\'' + gridData.id + '\');"> ';
+
+                flowStatusMap = {
+                    '-3': html + '审批完成(已填报告)</a>',
+                    '-2': html + '审批完成(未填报告)</a>',
+                    '-1': html + '退回</a>',
                     '0': '初始',
-                    '1': '审核中',
-                    '2': '审核中',
-                    '3': '审核中'
+                    '1': '审批中</a>',
+                    '2': '审批中</a>',
+                    '3': '审批中</a>'
                 };
 
-                return statusMap[data];
+                return flowStatusMap[data] || html + '审批中</a>';
             }
         },
         handlers: {

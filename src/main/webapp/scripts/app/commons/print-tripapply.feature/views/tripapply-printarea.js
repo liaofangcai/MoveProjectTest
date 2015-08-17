@@ -6,11 +6,12 @@
             extend: {
                 templateHelpers: function() {
                     var tripApplys = [],
-                        selectedDataIds = this.feature.selectedDataIds;
+                        selectedDataIds = this.feature.selectedDataIds,
+                        i,l;
 
                     //获取出差申请信息
                     $.ajax({
-                        url: 'invoke/common-routers/get-trip-apply-by-id',
+                        url: 'invoke/scaffold/trip/trip-apply/get-trip-apply-by-id',
                         type: 'get',
                         async: false,
                         data: {
@@ -22,12 +23,22 @@
                         } else {
                             tripApplys = data.tripApplys;
                         }
+                        for(i = 0; i < tripApplys.length; i++){
+                            tripApplys[i].approvalHistories.splice(0,1);
+                            for(l = 0; l < tripApplys[i].approvalHistories.length; l++){
+                                tripApplys[i].approvalHistories[l].operateTime = tripApplys[i].approvalHistories[l].operateTime.substr(0,10);
+                                 if(tripApplys[i].approvalHistories[l].comment = 1){
+                                   tripApplys[i].approvalHistories[l].opinion  = '同意';
 
-                        for(var i = 0; i < tripApplys.length; i++){
+                                }else{
+                                    tripReports[i].approvalHistories[l].opinion = '不同意';
+                                };
+                            }
                             tripApplys[i].costSum = tripApplys[i].stayCost + tripApplys[i].trafficCost + tripApplys[i].entertainCost + tripApplys[i].otherForecastCost;
-                        }
-                    });
 
+                        }
+
+                    });
                     return {tripApplys: tripApplys};
                 }
             }

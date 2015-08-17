@@ -34,16 +34,6 @@ exports.filters = {
         '!accountFilter': [''],
         '!roleFilter': ['department', 'accounts'],
         '!permissionFilter': ['roles']
-    },
-    tripReportFilter:{
-        '!tripReportFilter': '',
-        '!tripApplyFilter': '',
-        '!departmentFilter': ['parent(1)', 'children', 'accounts'],
-        '!accountFilter': [''],
-        '!roleFilter': ['department', 'accounts'],
-        '!permissionFilter': ['roles'],
-        '!attachmentFilter': '',
-        '!tripCostFilter': 'tripReport'
     }
 };
 
@@ -53,6 +43,7 @@ router.get('/get-entry-approval-history', mark('services', 'common-routers').on(
     var approvalHistorys = commSvc.getEntryApprovalHistory(entryId);
     var processInstance = commSvc.getProcessInstance(entryId),
         businessMark, entity;
+
     if (processInstance.size() !== 0) {
         var settingItems = processInstance.get(0).processDefinition.settingItems;
         var flowStatus, departmentId;
@@ -60,9 +51,6 @@ router.get('/get-entry-approval-history', mark('services', 'common-routers').on(
         for (var i = 0; i < approvalHistorys.size(); i++) {
             var approvalHistory = approvalHistorys.get(i);
             businessMark = approvalHistory.businessDefinition.businessMark;
-            if ('Defect' === businessMark) {
-                entity = commSvc.getDefectById(entryId);
-            }
             var processSettingItem = approvalHistory.processTaskInfo.processSettingItem;
             departmentId = approvalHistory.operator.department.id;
             results.push({index: i + 1, taskDesc: approvalHistory.taskDesc, operateTime: approvalHistory.operateTime, comment: approvalHistory.comment, suggestion: approvalHistory.suggestion, operator: approvalHistory.operator.realName + ','});
@@ -117,18 +105,4 @@ router.get('/get-entry-approval-history', mark('services', 'common-routers').on(
     return json({results: results});
 }));
 
-router.get('/get-trip-apply-by-id', mark('services', 'common-routers').on(function (commSvc, request) {
-    var entryIds = request.params.selectedDataIds, result, tripApplys;
 
-    tripApplys = commSvc.getTripApplyById(new String(entryIds).split(","));
-
-    return json({tripApplys: tripApplys}, exports.filters.tripApplyFilter);
-}));
-
-router.get('/get-trip-report-by-id', mark('services', 'common-routers').on(function (commSvc, request) {
-    var entryIds = request.params.selectedDataIds, result, tripReports;
-
-    tripReports = commSvc.getTripReportById(new String(entryIds).split(","));
-
-    return json({tripReports: tripReports}, exports.filters.tripReportFilter);
-}));

@@ -27,11 +27,12 @@ exports.filters = {
     '!tripReportFilter': '',
     '!tripApplyFilter': '',
     '!departmentFilter': ['parent(1)', 'children', 'accounts'],
-    '!accountFilter': [''],
+    '!accountFilter': ['department','role'],
     '!roleFilter': ['department', 'accounts'],
     '!permissionFilter': ['roles'],
     '!attachmentFilter': '',
-    '!tripCostFilter': 'tripReport'
+    '!tripCostFilter': 'tripReport',
+    '!approvalHistoryFilter': ['businessDefinition', 'processTaskInfo'],
   }
 };
 
@@ -52,7 +53,8 @@ exports.labels = {
   completion: '执行情形',
   attachment: '附件',
   flowStatus: '状态',
-  tripCosts: '报销明细'
+  tripCosts: '报销明细',
+  remark: '备注(报销明细打印)'
 };
 
 exports.forms = {
@@ -110,6 +112,7 @@ exports.fieldGroups = {
     {name: 'tripDays', validations: {rules: {required: true, number: true}}},
     {name: 'tripTask', label: '出差任务', type: 'textarea', colspan: 2},
     {name: 'completion', label: '执行情形：（精简摘要叙明，如系专案研究报告，则视需要另以附件方式详述）', type: 'textarea', colspan: 2},
+    {name: 'remark', type: 'textarea', colspan: 2},
     {name: 'attachment',
         colspan: 2,
         type: 'file-picker',
@@ -184,7 +187,6 @@ exports.operators = {
     downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
     importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
     print: {label: '打印任务报告书', icon: 'icon-print', group: '30-custom', order: 300, show: 'selected', style: 'btn-info'},
-    printCost: {label: '打印报销明细', icon: 'icon-print', group: '30-custom', order: 200, show: 'selected', style: 'btn-info'}
 };
 
 //相关数据处理
@@ -232,7 +234,7 @@ exports.importing = {
         {name: 'endTime', column: 3, tileName: '结束时间', type: 'date', isNull: true, unique: true},
         {name: 'tripTask', column: 4, tileName: '出差任务', type: 'string', isNull: true, unique: true},
         {name: 'completion', column: 5, tileName: '执行情形', type: 'string', isNull: true, unique: true},
-        {name: 'tripCosts', column: 6, tileName: '报销明细', type: 'string', isNull: true, unique: true}
+        {name: 'remark', colum: 6, tileName: '备注', type: 'string', isNull: true, unique: true}
     ]
 };
 //验证方法
@@ -266,6 +268,24 @@ exports.validators = {
 
 //请求处理
 exports.doWithRouter = function(router) {
+    router.get('/get-trip-report-by-id', mark('services', 'trip/trip-report', 'common-routers').on(function (tripReportSvc, commSvc, request) {
+        var entryIds = request.params.selectedDataIds, result, tripReports,
+            entryIdArr = new String(entryIds).split(","),
+            i;
+
+        tripReports = tripReportSvc.getTripReportByIds(entryIdArr);
+
+        if (entryIdArr.length > 1) {
+          for (i = 0; i < tripReports.length; i++) {
+            tripReports[i].approvalHistories = commSvc.getEntryApprovalHistory(tripReports[i].id);
+          }
+        }else{
+          tripReports.approvalHistories = commSvc.getEntryApprovalHistory(tripReports.id);
+        }
+
+        return json({tripReports: tripReports}, exports.filters.defaults);
+    }));
+
     router.post('/add-report', mark('services', 'trip/trip-report').on(function (tripReportSvc, request) {
         var data = request.params;
 
@@ -273,6 +293,7 @@ exports.doWithRouter = function(router) {
 
         return json({flag: true});
     }));
+
     router.post('/add-cost', mark('services', 'trip/trip-cost').on(function (tripCostSvc, request) {
         var data = request.params;
 

@@ -28,7 +28,9 @@ exports.filters = {
     '!accountFilter': [''],
     '!departmentFilter': ['parent(1)', 'children', 'accounts'],
     '!roleFilter': ['department', 'accounts'],
-    '!permissionFilter': ['roles']
+    '!permissionFilter': ['roles'],
+    '!attachmentFilter': '',
+    '!approvalHistoryFilter': ['businessDefinition', 'processTaskInfo'],
   },
   accountsFilter: {
     '!accountFilter': ['roles'],
@@ -107,7 +109,7 @@ exports.feature = {
 exports.fieldGroups = {
   defaults: [
     {name: 'applier', textKey: 'realName'}, 'department', 'job', 'appliedTime', 'leavedTime', 'tripPlace', 'deputy',
-     'tripType', {name: 'tripReason', type: 'textarea'}, 'forecastedTime', 'forecastedCost'
+      'forecastedTime', 'tripType', 'forecastedCost', {name: 'tripReason', type: 'textarea'}
   ],
   withApplyNoGroup: [
     'applyNo',
@@ -223,6 +225,22 @@ exports.importing = {
 
 //请求处理
 exports.doWithRouter = function(router) {
+
+    router.get('/get-trip-apply-by-id', mark('services', 'trip/trip-apply', 'common-routers').on(function (tripApplySvc, commSvc, request) {
+        var entryIds = request.params.selectedDataIds, result, tripApplys,
+        entryIdArr = new String(entryIds).split(","), i;
+
+        tripApplys = tripApplySvc.getTripApplyByIds(entryIdArr);
+        if (entryIdArr.length > 1) {
+          for (i = 0; i < tripApplys.length; i++) {
+            tripApplys[i].approvalHistories = commSvc.getEntryApprovalHistory(tripApplys[i].id);
+          }
+        }else{
+          tripApplys.approvalHistories = commSvc.getEntryApprovalHistory(tripApplys.id);
+        }
+
+        return json({tripApplys: tripApplys}, exports.filters.defaults);
+    }));
     //上报
     router.post('/send-process', mark('services', 'trip/trip-apply', 'process/common').on(function (tripApplySvc, processSvc,  request) {
         var data = request.params,
@@ -387,11 +405,4 @@ exports.doWithRouter = function(router) {
 
         return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
     });
-    router.get('/get-trip-apply-by-id', mark('services', 'trip-apply').on(function (commSvc, request) {
-        var entryIds = request.params.selectedDataIds, result, tripApplys;
-
-        tripApplys = commSvc.getTripApplyById(new String(entryIds).split(","));
-
-        return json({tripApplys: tripApplys}, exports.filters.tripApplyFilter);
-    }));
 };

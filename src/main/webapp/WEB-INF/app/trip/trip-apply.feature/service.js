@@ -79,6 +79,9 @@ exports.createService = function () {
 
             return applyNo;
         }),
+        getTripApplyByIds: mark('managers', TripApply).mark('tx').on(function (tripApplyMgr, entryIds){
+            return tripApplyMgr.find.apply(tripApplyMgr, entryIds);
+        }),
         // 根据ID查找
         getById: mark('managers', TripApply).mark('tx').on(function (tripApplyMgr, id) {
             return tripApplyMgr.find(id);
@@ -156,9 +159,6 @@ exports.createService = function () {
             }
             return {failRowIdxes: 0, repeatRowIdxes: 0, repeatRowNum: 0};
         }),
-        getTripApplyById: mark('managers', TripApply).mark('tx').on(function (tripApplyMgr, entryIds){
-            return tripApplyMgr.find.apply(tripApplyMgr, entryIds);
-        })
 
     };
 };

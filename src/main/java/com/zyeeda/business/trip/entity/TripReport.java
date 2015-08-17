@@ -11,14 +11,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.zyeeda.business.process.entity.ProcessRevisionDomainEntity;
-import com.zyeeda.cdeio.commons.resource.entity.Attachment;
 
+import com.zyeeda.business.process.entity.ApprovalHistory;
+
+import com.zyeeda.cdeio.commons.resource.entity.Attachment;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
 
@@ -73,9 +76,20 @@ public class TripReport extends ProcessRevisionDomainEntity {
     private Attachment attachment;
 
     /**
-    *  报销明细表
-    */
+     *  报销明细表
+     */
     private List<TripCost> tripCosts;
+
+    /**
+     * 备注
+     *
+     */
+    private String remark;
+
+    /**
+     * 审批历史
+     */
+    private List<ApprovalHistory> approvalHistories;
 
     @OneToOne
     @JoinColumn(name = "F_TRIP_APPLY_ID")
@@ -159,5 +173,24 @@ public class TripReport extends ProcessRevisionDomainEntity {
 
     public void setTripCosts(List<TripCost> tripCosts) {
         this.tripCosts = tripCosts;
+    }
+
+    @Column(name = "F_REMARK", length = 300)
+    @NullableSize(max = 166)
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Transient
+    public List<ApprovalHistory> getApprovalHistories() {
+        return approvalHistories;
+    }
+
+    public void setApprovalHistories(List<ApprovalHistory> approvalHistories) {
+        this.approvalHistories = approvalHistories;
     }
 }

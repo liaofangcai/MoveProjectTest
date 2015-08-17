@@ -52,6 +52,9 @@ exports.createService = function () {
 
             return results;
         }),
+        getTripReportByIds: mark('managers', TripReport).mark('tx').on(function (tripReportMgr, entryIds){
+            return tripReportMgr.find.apply(tripReportMgr, entryIds);
+        }),
         // 根据ID查找
         getById: mark('managers', TripReport).mark('tx').on(function (tripReportMgr, id) {
             return tripReportMgr.find(id);

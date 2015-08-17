@@ -3,8 +3,9 @@ define([
     'app/commons/export-excel.feature/export-excel-function',
     'app/commons/import-excel.feature/import-excel-function',
     'app/process/process-taskinfo.feature/process-taskinfo-function',
-    'app/process/approval-history.feature/approval-history-function'
-], function ($, exportUtil, importUtil, processUtil, apprHisFuncUtil) {
+    'app/process/approval-history.feature/approval-history-function',
+    'app/commons/approval-histories.feature/approval-histories-function'
+], function ($, exportUtil, importUtil, processUtil, apprHisFuncUtil, approvalHistoriesUtil) {
     var count = 0;
     return {
         beforeShowDialog: function(dialogType, view){
@@ -27,7 +28,7 @@ define([
             var me = this;
 
             //设置总金额不能改
-            $('input[name = "totalCost"]', view.$el).attr('disabled', true);
+            $('input[name = "totalCost"]', 'input[name = "stayCost"]','input[name = "entertainCost"]','input[name = "otherCost"]',view.$el).attr('disabled', true);
             $('input[name = "totalCost"]', view.$el).val(0);
             //给trafficCost输入框设置监听 改变totalCost 的值
             $('input[name = "trafficCost"]', view.$el).bind('input propertychange', function(){
@@ -37,8 +38,8 @@ define([
                     Number($('input[name = "entertainCost"]', view.$el).val()) +
                     Number($('input[name = "otherCost"]', view.$el).val())
                 );
-                $('input[name = "trafficCost"]', view.$el).val(
-                Number($('input[name = "trafficCost"]', view.$el).val()).toFixed(2));
+                // $('input[name = "trafficCost"]', view.$el).val(
+                // Number($('input[name = "trafficCost"]', view.$el).val()).toFixed(2));
             });
             //给stayCost输入框设置监听 改变totalCost 的值
             $('input[name = "stayCost"]', view.$el).bind('input propertychange', function(){
@@ -48,8 +49,8 @@ define([
                     Number($('input[name = "entertainCost"]', view.$el).val()) +
                     Number($('input[name = "otherCost"]', view.$el).val())
                 );
-                $('input[name = "stayCost"]', view.$el).val(
-                Number($('input[name = "stayCost"]', view.$el).val()).toFixed(2));
+                // $('input[name = "stayCost"]', view.$el).val(
+                // Number($('input[name = "stayCost"]', view.$el).val()).toFixed(2));
             });
             //给entertainCost输入框设置监听 改变totalCost 的值
             $('input[name = "entertainCost"]', view.$el).bind('input propertychange', function(){
@@ -59,8 +60,8 @@ define([
                     Number($('input[name = "entertainCost"]', view.$el).val()) +
                     Number($('input[name = "otherCost"]', view.$el).val())
                 );
-                $('input[name = "entertainCost"]', view.$el).val(
-                Number($('input[name = "entertainCost"]', view.$el).val()).toFixed(2));
+                // $('input[name = "entertainCost"]', view.$el).val(
+                // Number($('input[name = "entertainCost"]', view.$el).val()).toFixed(2));
             });
             //给otherCost输入框设置监听 改变totalCost 的值
             $('input[name = "otherCost"]', view.$el).bind('input propertychange', function(){
@@ -70,8 +71,8 @@ define([
                     Number($('input[name = "entertainCost"]', view.$el).val()) +
                     Number($('input[name = "otherCost"]', view.$el).val())
                 );
-                $('input[name = "otherCost"]', view.$el).val(
-                Number($('input[name = "otherCost"]', view.$el).val()).toFixed(2));
+                // $('input[name = "otherCost"]', view.$el).val(
+                // Number($('input[name = "otherCost"]', view.$el).val()).toFixed(2));
             });
         },
         afterShowDialog: function(dialogType, view, data){
@@ -92,19 +93,27 @@ define([
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
         },
         renderers: {
-            modifyStatus: function (data){
-                var statusMap = {
-                    '-3': '审批完成（已写报销明细）',
-                    '-2': '审批完成（未写报销明细）',
-                    '-1': '退回',
-                    '': '初始',
+            modifyStatus: function(data, param, gridData) {
+                var showApproHis, flowStatusMap, html, id;
+
+                showApproHis = function(id){
+                    approvalHistoriesUtil.showApprovalHistories(this, id);
+                };
+                window.showApproHis = showApproHis;
+
+                html = '<a href="javascript:void(0)" onclick="showApproHis(\'' + gridData.id + '\');"> ';
+
+                flowStatusMap = {
+                    '-3': html + '审批完成(已填报销明细)</a>',
+                    '-2': html + '审批完成(未填报销明细)</a>',
+                    '-1': html + '退回</a>',
                     '0': '初始',
-                    '1': '审核中',
-                    '2': '审核中',
-                    '3': '审核中'
+                    '1': '审批中</a>',
+                    '2': '审批中</a>',
+                    '3': '审批中</a>'
                 };
 
-                return statusMap[data];
+                return flowStatusMap[data] || html + '审批中</a>';
             }
         },
         handlers: {
@@ -230,10 +239,10 @@ define([
                     data = grid.getSelected()[0].toJSON();
 
                 //流程状态（-2 : 审批完成, -1: 退回, 空或0: 初始, 其它: 审批中）
-                if(data.flowStatus !== '-2'){
-                    app.error('请选择状态为审核完成的记录！');
-                    return false;
-                }
+                // if(data.flowStatus !== '-2'){
+                //     app.error('请选择状态为审核完成的记录！');
+                //     return false;
+                // }
 
                 view = me.feature.views['form:cost'];
                 me.feature.model.set('id', data.id);

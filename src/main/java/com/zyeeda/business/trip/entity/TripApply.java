@@ -1,6 +1,7 @@
 package com.zyeeda.business.trip.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.zyeeda.business.process.entity.ProcessRevisionDomainEntity;
+import com.zyeeda.business.process.entity.ApprovalHistory;
 
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.organization.entity.Account;
@@ -135,6 +138,10 @@ public class TripApply extends ProcessRevisionDomainEntity {
      * 其它预计费用备注
      */
     private String otherForecastCostRemark;
+    /**
+     * 审批历史
+     */
+    private List<ApprovalHistory> approvalHistories;
 
     @Column(name = "F_APPLY_NO", length = 300)
     @NullableSize(max = 166)
@@ -344,5 +351,14 @@ public class TripApply extends ProcessRevisionDomainEntity {
 
     public void setOtherForecastCostRemark(String otherForecastCostRemark) {
         this.otherForecastCostRemark = otherForecastCostRemark;
+    }
+
+     @Transient
+    public List<ApprovalHistory> getApprovalHistories() {
+        return approvalHistories;
+    }
+
+    public void setApprovalHistories(List<ApprovalHistory> approvalHistories) {
+        this.approvalHistories = approvalHistories;
     }
 }
