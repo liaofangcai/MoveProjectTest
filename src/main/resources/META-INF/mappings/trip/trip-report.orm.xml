@@ -12,4 +12,9 @@
             select tr from TripReport tr where tr.tripApply.applyNo = :applyNo
         </query>
     </named-query>
+    <named-query name="getTripReportCountByApplyNo">
+        <query>
+            select count(tr) from TripReport tr where tr.tripApply.applyNo = :applyNo
+        </query>
+    </named-query>
 </entity-mappings>

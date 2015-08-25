@@ -28,6 +28,55 @@ define([
 
             //申请单号和数据设为只读
             $('input[name= "applyNo"]', view.$el).attr('disabled', true);
+            $('input[name = "forecastedCost"]',view.$el).attr('disabled', true);
+            $('input[name = "trafficCost"]',view.$el).change(function(){
+                    $('input[name = "forecastedCost"]', view.$el).val(
+                        Number($('input[name = "trafficCost"]', view.$el).val()) +
+                        Number($('input[name = "stayCost"]', view.$el).val()) +
+                        Number($('input[name = "entertainCost"]', view.$el).val()) +
+                        Number($('input[name = "otherForecastCost"]', view.$el).val())
+                    );
+                    $('input[name = "forecastedCost"]', view.$el).val(
+                        Number($('input[name = "forecastedCost"]', view.$el).val()).toFixed(2));
+                    $('input[name = "trafficCost"]', view.$el).val(
+                        Number($('input[name = "trafficCost"]', view.$el).val()).toFixed(2));
+            });
+            $('input[name = "stayCost"]',view.$el).change(function(){
+                    $('input[name = "forecastedCost"]', view.$el).val(
+                        Number($('input[name = "trafficCost"]', view.$el).val()) +
+                        Number($('input[name = "stayCost"]', view.$el).val()) +
+                        Number($('input[name = "entertainCost"]', view.$el).val()) +
+                        Number($('input[name = "otherForecastCost"]', view.$el).val())
+                    );
+                    $('input[name = "forecastedCost"]', view.$el).val(
+                        Number($('input[name = "forecastedCost"]', view.$el).val()).toFixed(2));
+                    $('input[name = "stayCost"]', view.$el).val(
+                        Number($('input[name = "stayCost"]', view.$el).val()).toFixed(2));
+            });
+            $('input[name = "entertainCost"]',view.$el).change(function(){
+                    $('input[name = "forecastedCost"]', view.$el).val(
+                        Number($('input[name = "trafficCost"]', view.$el).val()) +
+                        Number($('input[name = "stayCost"]', view.$el).val()) +
+                        Number($('input[name = "entertainCost"]', view.$el).val()) +
+                        Number($('input[name = "otherForecastCost"]', view.$el).val())
+                    );
+                    $('input[name = "forecastedCost"]', view.$el).val(
+                        Number($('input[name = "forecastedCost"]', view.$el).val()).toFixed(2));
+                    $('input[name = "entertainCost"]', view.$el).val(
+                        Number($('input[name = "entertainCost"]', view.$el).val()).toFixed(2));
+            });
+            $('input[name = "otherForecastCost"]',view.$el).change(function(){
+                    $('input[name = "forecastedCost"]', view.$el).val(
+                        Number($('input[name = "trafficCost"]', view.$el).val()) +
+                        Number($('input[name = "stayCost"]', view.$el).val()) +
+                        Number($('input[name = "entertainCost"]', view.$el).val()) +
+                        Number($('input[name = "otherForecastCost"]', view.$el).val())
+                    );
+                    $('input[name = "forecastedCost"]', view.$el).val(
+                        Number($('input[name = "forecastedCost"]', view.$el).val()).toFixed(2));
+                    $('input[name = "otherForecastCost"]', view.$el).val(
+                        Number($('input[name = "otherForecastCost"]', view.$el).val()).toFixed(2));
+            });
 
             //增加和查看页面的处理
             if ("add" == dialogType) {
@@ -57,17 +106,19 @@ define([
                     approvalHistoriesUtil.showApprovalHistories(this, id);
                 };
                 window.showApproHis = showApproHis;
-
                 html = '<a href="javascript:void(0)" onclick="showApproHis(\'' + gridData.id + '\');"> ';
-
+                if (gridData.haveReport) {
+                    haveReportHtml = '已填报告';
+                }else{
+                    haveReportHtml = '未填报告';
+                }
                 flowStatusMap = {
-                    '-3': html + '审批完成(已填报告)</a>',
-                    '-2': html + '审批完成(未填报告)</a>',
+                    '-2': html + '审批完成(' + haveReportHtml + ')</a>',
                     '-1': html + '退回</a>',
                     '0': '初始',
-                    '1': '审批中</a>',
-                    '2': '审批中</a>',
-                    '3': '审批中</a>'
+                    '1': html + '审批中</a>',
+                    '2': html + '审批中</a>',
+                    '3': html + '审批中</a>'
                 };
 
                 return flowStatusMap[data] || html + '审批中</a>';
@@ -194,6 +245,9 @@ define([
                             label: '确定',
                             status: 'btn-primary',
                             fn: function() {
+                                if(!view.isValid()){
+                                    return false;
+                                }
                                 formData = view.getFormData();
                                 formData.tripApplyId = data.id;
                                 feature.request({
@@ -208,7 +262,6 @@ define([
                             }
                         }]
                     }).done(function (dialog) {
-
                         $('input[name= "tripApply.applyNo"]', view.$el).val(data.applyNo);
                         $('input[name= "tripApply.applyNo"]', view.$el).attr('disabled', true);
                         $('input[name= "tripApply.applier.realName"]', view.$el).val(data.applier.realName);
@@ -235,16 +288,31 @@ define([
                     grid = me.feature.views['grid:body'].components[0],
                     selected = grid.getSelected(),
                     selectedDataIds = [],
-                    Wsh, newWin, content;
+                    Wsh, newWin, content,
+                    printData = [],
+                    i;
 
                 printFeature = app.loadFeature('commons/print-tripapply', {container: '<div></div>', ignoreExists: true});
 
                 printFeature.done(function(feature) {
                     printView = feature.views['tripapply-printarea'];
-                    for(var i = 0;i < selected.length;i++){
-                        selectedDataIds[i] = selected[i].id;
+
+                    if(selected){
+                        for(i = 0; i < selected.length; i++){
+                            selectedDataIds[i] = selected[i].id;
+                        }
+                    }else{
+                        $.ajax({
+                            url: 'invoke/scaffold/trip/trip-apply/',
+                            type: 'get',
+                            async: false,
+                            cache: false
+                        }).done(function(data) {
+                            printData = data.results;
+                        });
                     }
 
+                    feature.printData = printData;
                     feature.selectedDataIds = selectedDataIds;
 
                     app.showDialog({

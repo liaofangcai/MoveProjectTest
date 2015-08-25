@@ -142,6 +142,10 @@ public class TripApply extends ProcessRevisionDomainEntity {
      * 审批历史
      */
     private List<ApprovalHistory> approvalHistories;
+    /**
+     * 是否填写报告
+     */
+    private Boolean haveReport;
 
     @Column(name = "F_APPLY_NO", length = 300)
     @NullableSize(max = 166)
@@ -220,7 +224,6 @@ public class TripApply extends ProcessRevisionDomainEntity {
     }
 
     @Column(name = "F_DEPUTY", length = 300)
-    @NotBlank
     @NullableSize(max = 166)
     public String getDeputy() {
         return deputy;
@@ -231,7 +234,6 @@ public class TripApply extends ProcessRevisionDomainEntity {
     }
 
     @Column(name = "F_TRIP_TYPE", length = 300)
-    @NotBlank
     @NullableSize(max = 166)
     public String getTripType() {
         return tripType;
@@ -242,7 +244,6 @@ public class TripApply extends ProcessRevisionDomainEntity {
     }
 
     @Column(name = "F_TRIP_REASON", length = 300)
-    @NotBlank
     @NullableSize(max = 166)
     public String getTripReason() {
         return tripReason;
@@ -253,7 +254,6 @@ public class TripApply extends ProcessRevisionDomainEntity {
     }
 
     @Column(name = "F_FORECASTED_TIME", length = 20)
-    @NotNull
     @Min(value = 0)
     public Integer getForecastedTime() {
         return forecastedTime;
@@ -360,5 +360,14 @@ public class TripApply extends ProcessRevisionDomainEntity {
 
     public void setApprovalHistories(List<ApprovalHistory> approvalHistories) {
         this.approvalHistories = approvalHistories;
+    }
+
+    @Column(name = "F_HAVEREPORT")
+    public Boolean getHaveReport(){
+        return haveReport;
+    }
+
+    public void setHaveReport(Boolean haveReport){
+        this.haveReport = haveReport;
     }
 }

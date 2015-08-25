@@ -2,13 +2,16 @@ var {mark}                  = require('cdeio/mark');
 var commExpService          = require('commons/export-excel.feature/service');
 var {createManager}         = require('cdeio/manager');
 
-var {Account}            = com.zyeeda.cdeio.commons.organization.entity;
-var {Department}         = com.zyeeda.cdeio.commons.organization.entity;
+var {Account}               = com.zyeeda.cdeio.commons.organization.entity;
+var {Department}            = com.zyeeda.cdeio.commons.organization.entity;
+var {Attachment}            = com.zyeeda.cdeio.commons.resource.entity;
 
 var {TripReport}            = com.zyeeda.business.trip.entity;
 var {TripApply}             = com.zyeeda.business.trip.entity;
 var {TripCost}              = com.zyeeda.business.trip.entity;
 var {EntityMetaResolver}    = com.zyeeda.cdeio.web.scaffold;
+var {ApprovalHistory}       = com.zyeeda.business.process.entity;
+
 var {SecurityUtils}         = org.apache.shiro;
 var {Integer}               = java.lang;
 var {SimpleDateFormat}      = java.text;
@@ -21,8 +24,13 @@ exports.createService = function () {
         list: mark('beans', EntityMetaResolver).mark('tx').on(function (resolver, entity, options) {
             var meta = resolver.resolveEntity(TripReport),
                 tripReportMgr = createManager(meta.entityClass),
+
                 accountMeta = resolver.resolveEntity(Account),
                 accountMgr = createManager(accountMeta.entityClass),
+
+                apprHisMeta = resolver.resolveEntity(ApprovalHistory),
+                apprHisMgr = createManager(apprHisMeta.entityClass),
+
                 currentUser = SecurityUtils.getSubject().getPrincipal(),
                 account,
                 role,
@@ -48,6 +56,12 @@ exports.createService = function () {
                 results = tripReportMgr.findByEntity(options);
             } else {
                 results = tripReportMgr.findByExample(entity, options);
+            }
+
+            if (!options.fetchCount) {
+                for (i = 0; i < results.size(); i++) {
+                    results.get(i).approvalHistories = apprHisMgr.getApprovalHistorysByEntryId({entryId: results.get(i).id});
+                }
             }
 
             return results;
@@ -102,7 +116,7 @@ exports.createService = function () {
 
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
         }),
-        saveTripReport: mark('managers', TripReport, TripApply).mark('tx').on(function(tripReportMgr, tripApplyMgr, data) {
+        saveTripReport: mark('managers', TripReport, TripApply, Attachment).mark('tx').on(function(tripReportMgr, tripApplyMgr, attachmentMgr, data) {
             var tripReport, tripApply,
                 subject = SecurityUtils.getSubject(),
                 user = subject.getPrincipal();
@@ -118,37 +132,52 @@ exports.createService = function () {
             tripReport.creator = user.accountName;
             tripReport.creatorName = user.realName;
             tripReport.createdTime = new Date();
+            tripApply.flowStatus = "-2";
+
+            if(data.attachment.id){
+                tripReport.attachment = attachmentMgr.find(data.attachment.id);
+            }
+
             tripReport.flowStatus = '0';
-            tripApply.flowStatus = '-3';
+            tripApply.haveReport  = true;
 
             return tripReportMgr.save(tripReport);
         }),
         saveEntities: mark('managers', TripApply, TripReport).mark('tx').on(function (tripApplyMgr, tripReportMgr, params, entityArray, result) {
             var entity,
-                trpApplyList, applyNo,
+                trpApplyList, applyNo, trpApply,
                 repeatRowNum = 0 ,
                 subject = SecurityUtils.getSubject(),
-                user = subject.getPrincipal();
+                user = subject.getPrincipal(),
+                i, tripReportCount;
 
-            for (var i = 0; i < entityArray.length; i++) {
+            for (i = 0; i < entityArray.length; i++) {
                 entity = entityArray[i];
                 entity.creator = user.accountName;
                 entity.creatorName = user.realName;
                 entity.createdTime = new Date();
                 entity.lastModifiedTime = new Date();
+
                 entity.tripDays =  Math.floor((entity.endTime.getTime() - entity.startTime.getTime())/(24*3600*1000)) + 1;
                 applyNo = result.pickerFields[i].colName;
-                trpApplyList = tripReportMgr.getTripApplyByApplyNo({applyNo: applyNo});
+                trpApplyList = tripApplyMgr.getTripApplyByApplyNo({applyNo: applyNo});
 
                 if(trpApplyList != null && trpApplyList.size() > 0){
                     entity.tripApply = trpApplyList.get(0);
+                    entity.tripApply.flowStatus = "-2";
+                    entity.tripApply.haveReport = true;
+                    tripReportCount = tripReportMgr.getTripReportCountByApplyNo({applyNo: applyNo}, 1);
+
+                    if(tripReportCount > 0){
+                       result.repeatRowIdxes.push(i + 1);
+                    }
                 }
             }
 
             if (result.failRowIdxes.length === 0 && result.repeatRowIdxes.length === 0) {
-                tripApplyMgr.save.apply(tripApplyMgr.save, entityArray);
+                tripReportMgr.save.apply(tripReportMgr.save, entityArray);
             }
-            return {failRowIdxes: 0, repeatRowIdxes: 0, repeatRowNum: 0};
+            return {failRowIdxes: result.failRowIdxes, repeatRowIdxes: result.repeatRowIdxes};
         })
     };
 };
