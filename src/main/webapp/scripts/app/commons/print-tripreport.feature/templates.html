@@ -3,110 +3,102 @@
 {{/layout}}
 
 {{#view "tripreport-printarea"}}
-<div id="printArea" style="margin-left: 30px;margin-right: 30px; margin-top: 20px; ">
+<div id="printArea" style="margin-left: 30px;margin-right: 30px; margin-top: 20px;">
 {{#each tripReports}}
   <div style = "font-family: SimSun;">
       <div style = "text-align: center;font-size: 20px;">
           <p style = "text-align: center; font-weight:bold;">出差任务报告书</p>
       </div>
-      <div style = "float: left; font-weight:bold;">　　部门：</div>
-      <div style = "float: left; width: 300px; ">{{tripApply.department.name}}</div>
+      <div style = "float: left; font-weight:bold;">部门：</div>
+      <div style = "float: left; width: 400px; ">{{tripApply.department.name}}</div>
       <div style = "float: left; font-weight:bold;">日期：</div>
       <div style = "float: left;">{{createdTime}}</div>
       <div style = "text-align: left;">
           <table border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="#ffffff" style = "border-collapse: collapse;">
-            <tr style = "height: 35px;">
-              <td colspan="3">
+            <tr style = "height: 30px;">
+              <td colspan="21">
                   <div style = "float: left; width: 100px; font-weight:bold;">　出差日期：</div>
                   <div style = "float: left; width: 150px;text-align: center;"> 自　　{{startTime}}</div>
                   <div style = "float: left; width: 200px;text-align: center;">至　　{{endTime}}　，</div>
                   <div style = "float: left; width: 150px;">共 　{{tripDays}}　天</div>
               </td>
             </tr>
-            <tr style = "height: 35px;">
-              <td colspan="3">
+            <tr style = "height: 30px;">
+              <td colspan="21">
                 <div>　<b>出差地点:</b> {{tripApply.tripPlace}}</div>
               </td>
             </tr>
             <tr >
-              <td colspan="3">
+              <td colspan="21">
                 <div style = "font-weight:bold;">　出差任务：</div>
                 <div>&nbsp;</div>
                 <div style = "height: 125px;">　　　{{tripTask}}</div>
               </td>
             </tr>
             <tr>
-              <td colspan="3">
-                <div>　<b>执行情形：</b>（精简摘要叙明，如系专案研究报告，则视需要另以附件方式详述）</div>
+              <td colspan="21">
+                <div>　<b>执行情形：</b></div>
                 <div>&nbsp;</div>
                 <div style = "height: 125px">　　　{{completion}}</div>
               </td>
             </tr>
-          </table>
-          <table border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="#ffffff" style = "border-collapse: collapse; font-size: 13px; border-top:solid 0px;">
-            <tr style = "height: 35px; text-align: center; font-weight:bold;">
-              <td colspan="9">
+            <tr style = "height: 30px; text-align: center; font-weight:bold; font-size: 16px;">
+              <td colspan="21">
                行程及差旅费报销明细
               </td>
             </tr>
-            <tr style = "text-align: center; height: 35px; font-weight:bold;">
-                <td style = "width: 32px;">序号</td>
-                <td >日期</td>
-                <td style = "width: 64px;">地点</td>
-                <td >交通费</td>
-                <td >住宿费</td>
-                <td >业务招待费</td>
-                <td >其他费用</td>
-                <td style = "width: 50px;">合计</td>
-                <td>备注</td>
+            <tr style = "text-align: center; height: 35px; font-weight:bold; font-size: 12px;">
+                <td colspan = "1" style = "width: 35px;">序号</td>
+                <td colspan = "3" >日期</td>
+                <td colspan = "2" style = "width: 64px;">地点</td>
+                <td colspan = "2">交通费</td>
+                <td colspan = "2">住宿费</td>
+                <td colspan = "3">业务招待费</td>
+                <td colspan = "3">其他费用</td>
+                <td colspan = "2" style = "width: 50px;">合计</td>
+                <td colspan = "3">备注</td>
             </tr>
           {{#each tripCosts}}
-              <tr style = "height: 35px; text-align: right;">
-                <td style = "text-align: center;">{{idx}}</td>
-                <td style = "width: 90px; text-align: center;">{{tripTime}}</td>
-                <td style = "width: 70px; text-align: center;">{{tripPlace}}</td>
-                <td>{{trafficCost}}&nbsp;</td>
-                <td>{{stayCost}}&nbsp;</td>
-                <td>{{entertainCost}}&nbsp;</td>
-                <td>{{otherCost}}&nbsp;</td>
-                <td>{{totalCost}}&nbsp;</td>
-                <td style = "width: 100px">{{remark}}&nbsp;&nbsp;</td>
+              <tr style = "height: 30px; text-align: right; font-size: 12px;">
+                <td colspan = "1" style = "text-align: center;">{{idx}}</td>
+                <td colspan = "3" style = "width: 90px; text-align: center;">{{tripTime}}</td>
+                <td colspan = "2" style = "width: 70px; text-align: center;">{{tripPlace}}</td>
+                <td colspan = "2">{{trafficCost}}&nbsp;</td>
+                <td colspan = "2">{{stayCost}}&nbsp;</td>
+                <td colspan = "3">{{entertainCost}}&nbsp;</td>
+                <td colspan = "3">{{otherCost}}&nbsp;</td>
+                <td colspan = "2">{{totalCost}}&nbsp;</td>
+                <td colspan = "3" style = "width: 100px">{{remark}}&nbsp;&nbsp;</td>
               </tr>
              {{/each}}
-              <tr style = "height: 35px; text-align: right">
-                <td colspan="3" style = "text-align: center; font-weight:bold;">总计(元)</td>
-                <td>{{tripCosts.trafficCostSum}}&nbsp;</td>
-                <td>{{tripCosts.stayCostSum}}&nbsp;</td>
-                <td>{{tripCosts.entertainCostSum}}&nbsp;</td>
-                <td>{{tripCosts.otherCostSum}}&nbsp;</td>
-                <td>{{tripCosts.totalCostSum}}&nbsp;</td>
-                <td></td>
+              <tr style = "height: 30px; text-align: right; font-size: 12px;">
+                <td colspan="6" style = "text-align: center; font-weight:bold;">总计(元)</td>
+                <td colspan = "2">{{tripCosts.trafficCostSum}}&nbsp;</td>
+                <td colspan = "2">{{tripCosts.stayCostSum}}&nbsp;</td>
+                <td colspan = "3">{{tripCosts.entertainCostSum}}&nbsp;</td>
+                <td colspan = "3">{{tripCosts.otherCostSum}}&nbsp;</td>
+                <td colspan = "2">{{tripCosts.totalCostSum}}&nbsp;</td>
+                <td colspan = "3"></td>
               </tr>
-          </table>
-          <table  cellpadding="3" cellspacing="0" width="100%" bgcolor="#ffffff" style = "border-collapse: collapse; font: 13px; border-bottom: 0px; border-top:solid 0px; border-left:solid 1px; border-right:solid 1px;">
-            <tr style = "height: 35px;">
-              <td style = "width: 211px; border-bottom: 0px; border-top:solid 0px; border-left:solid 1px; border-right:solid 1px;"></td>
-              <td style = "width: 212px; border-bottom: 0px; border-top:solid 0px; border-left:solid 1px; border-right:solid 1px;">&nbsp;总监意见：</td>
-              <td style = "border-bottom: 0px; border-top:solid 0px; border-left:solid 1px; border-right:solid 1px;">&nbsp;总经理意见：</td>
-            </tr>
-          </table>
-          <table  cellpadding="3" cellspacing="0" width="100%" bgcolor="#ffffff" style = "border-collapse: collapse; font: 13px; border-bottom:solid 1px; border-top:solid 0px; border-left:solid 1px; border-right:solid 1px;">
             <tr>
-              <td style = "border-bottom:solid 0px; border-top:solid 0px; border-left:solid 1px; border-right:solid 1px;">
-                <div style = "height: 30px"></div>
+              <td colspan="7" style = "width: 300px;">
+                <div style = "height: 30px;"></div>
                 <div style = "height: 30px;">　报告人：　{{tripApply.applier.realName}}</div>
                 <div>　日　期： {{createdTime}}</div>
               </td>
-          {{#each approvalHistories}}
-              <td style = "border-bottom:solid 0px; border-top:solid 0px; border-left:solid 1px; border-right:solid 1px;">
-                <div style = "height: 50px; text-align: center">{{opinion}}</div>
-                <div style = "height: 30px;">　签　名：{{operator.realName}}</div>
-                <div>　日　期： {{operateTime}}</div>
+              <td colspan="7" style = "width: 300px;">&nbsp;总监意见:
+                <div style = "height: 50px; text-align: center">{{inspectorComment}}</div>
+                <div style = "height: 30px;">　签　字：{{inspectorName}}</div>
+                <div>　日　期： {{inspectorTime}}</div>
               </td>
-          {{/each}}
+              <td colspan="7" style = "width: 300px;"> &nbsp;总经理意见:
+                <div style = "height: 50px; text-align: center">{{generalManagerComment}}</div>
+                <div style = "height: 30px;">　签　字：{{generalManager}}</div>
+                <div>　日　期： {{generalManagerTime}}</div>
+              </td>
             </tr>
           </table>
-      <div style = "height: 90px;">
+      <div style = "height: 116px;">
         <p> 备注：{{remark}}</p>
       </div>
   </div>
