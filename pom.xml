@@ -27,23 +27,27 @@ $License: Copyright &copyright 2013 Shenzhen Zyeeda Information Technology Co. L
     <packaging>war</packaging>
 
     <properties>
-        <cdeio.framework.version>2.1.0-SNAPSHOT</cdeio.framework.version>
-        <jetty.config>${project.build.outputDirectory}/META-INF/jetty</jetty.config>
-
         <cdeio.version>2.1.0-SNAPSHOT</cdeio.version>
+        <jetty.config>${project.build.outputDirectory}/META-INF/jetty</jetty.config>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.zyeeda</groupId>
             <artifactId>cdeio-core</artifactId>
-            <version>${cdeio.framework.version}</version>
+            <version>${cdeio.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zyeeda</groupId>
             <artifactId>cdeio-sso-openid</artifactId>
-            <version>${cdeio.framework.version}</version>
+            <version>${cdeio.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zyeeda</groupId>
+            <artifactId>cdeio-bpm</artifactId>
+            <version>${cdeio.version}</version>
         </dependency>
 
         <dependency>
@@ -111,12 +115,6 @@ $License: Copyright &copyright 2013 Shenzhen Zyeeda Information Technology Co. L
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20140107</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.4</version>
         </dependency>
 
         <dependency>
