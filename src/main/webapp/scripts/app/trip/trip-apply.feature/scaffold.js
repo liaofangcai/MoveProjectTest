@@ -190,6 +190,9 @@ define([
                     app.showDialog({
                         view: view,
                         title: '填写任务报告书',
+                        onClose: function(){
+                            feature.stop();
+                        },
                         buttons: [{
                             label: '确定',
                             status: 'btn-primary',
@@ -208,7 +211,6 @@ define([
                             }
                         }]
                     }).done(function (dialog) {
-
                         $('input[name= "tripApply.applyNo"]', view.$el).val(data.applyNo);
                         $('input[name= "tripApply.applyNo"]', view.$el).attr('disabled', true);
                         $('input[name= "tripApply.applier.realName"]', view.$el).val(data.applier.realName);
