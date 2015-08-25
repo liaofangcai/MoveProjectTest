@@ -10,7 +10,7 @@ var json = require('cdeio/response').json,
     String = java.lang.String,
     CONFIG_UPLOAD_PATH = 'cdeio.upload.path';
 
-router.post('/', upload.createRequestHandler('images'));
+router.post('', upload.createRequestHandler('images'));
 router.get('/image/:id', upload.createViewer());
 router.get('/file/:id', upload.createViewer());
 
@@ -35,15 +35,6 @@ router.get('/down-export-file/:filename', function(request, filename) {
     return response.static(join(getOptionInProperties('cdeio.upload.path'), 'export', URLDecoder.decode(filename, 'utf-8')), 'application/vnd.ms-excel');
 });
 
-router.get('/down-laboratory-exec-module/:filename', function(request, filename) {
-    return response.static(join(getOptionInProperties('cdeio.webapp.path'), 'module/export/laboratory/laboratory-exec', URLDecoder.decode(filename, 'utf-8')), 'application/vnd.ms-excel');
-});
-
-router.get('/down-module-laboratory-exec/:filename', function(request, filename) {
-    return response.static(join(getOptionInProperties('cdeio.webapp.path'), 'module/laboratory-meter', URLDecoder.decode(filename, 'utf-8')), 'application/vnd.ms-excel');
-});
-
 router.get('/down-help/:filename', function(request, filename) {
     return response.static(join(getOptionInProperties('cdeio.webapp.path'), 'module/help', URLDecoder.decode(filename, 'utf-8')), 'application/x-msword');
 });
-
