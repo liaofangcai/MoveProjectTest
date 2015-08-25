@@ -109,17 +109,17 @@ exports.feature = {
 exports.fieldGroups = {
   defaults: [
     {name: 'applier', textKey: 'realName'}, 'department', 'job', 'appliedTime', 'leavedTime', 'tripPlace', 'deputy',
-      'forecastedTime', 'tripType', 'forecastedCost', {name: 'tripReason', type: 'textarea'}
+      'forecastedTime', 'tripType', 'forecastedCost', {name: 'tripReason', type: 'textarea', colspan: 2}
   ],
   withApplyNoGroup: [
-    'applyNo',
+    {name:'applyNo', colspan: 2},
     {name: 'applier', textKey: 'realName'}, 'department', 'job', 'appliedTime', 'leavedTime', 'tripPlace', 'deputy',
-    'tripType', 'tripReason', 'forecastedTime', 'forecastedCost'
+    'tripType', 'forecastedTime', 'forecastedCost', {name:'tripReason', type: 'textarea', colspan: 2}
   ],
   showFormWithApplyNolGroup: [
-    'applyNo',
+    {name:'applyNo', colspan: 2},
     'applier.realName', 'department', 'job', 'appliedTime', 'leavedTime', 'tripPlace', 'deputy',
-    'tripType', 'tripReason', 'forecastedTime', 'forecastedCost'
+    'tripType', 'forecastedTime', 'forecastedCost', {name: 'tripReason', type: 'textarea', colspan: 2}
   ],
   costGroup: [
     'stayCost', 'stayCostRemark', 'trafficCost', 'trafficCostRemark', 'entertainCost', 'entertainCostRemark', 'otherForecastCost', 'otherForecastCostRemark'
@@ -141,7 +141,7 @@ exports.grid = {
       {name: 'department.name', header: '部门'},
       {name: 'job', width: 100}, 'appliedTime', 'tripPlace',
       'tripType',
-      {name: 'flowStatus', renderer: 'modifyStatus', width:150}
+      {name: 'flowStatus', renderer: 'modifyStatus', width: 150}
     ],
     filterToolbar: true,
     fixedHeader: true,
@@ -156,7 +156,7 @@ exports.operators = {
     retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'},
     downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
     importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
-    print: {label: '打印', icon: 'icon-print', group: '30-custom', order: 200, show: 'selected', style: 'btn-info'}
+    print: {label: '打印', icon: 'icon-print', group: '30-custom', order: 200, show: 'always', style: 'btn-info'}
 };
 
 //相关数据处理
@@ -200,25 +200,25 @@ exports.importing = {
     template: 'trip/trip-apply/出差申请信息.xls',
     startRow: 2,
     mapping: [
-        {name: 'applyNo', column: 1, tileName: '申请单号', type: 'string', isNull: true, unique: true },
-        {name: 'applier', column: 2, tileName: '申请人', type: 'picker', isNull: true},
-        {name: 'department', column: 3, tileName: '部门', type: 'picker', isNull: true},
-        {name: 'job', column: 4, tileName: '部门', type: 'string', isNull: true},
-        {name: 'appliedTime', column: 5, tileName: '申请日期', type: 'date', isNull: true},
-        {name: 'leavedTime', column: 6, tileName: '出发日期', type: 'date', isNull: true},
-        {name: 'tripPlace', column: 7, tileName: '出差地点', type: 'string', isNull: true},
+        {name: 'applyNo', column: 1, tileName: '申请单号', type: 'string', isNull: false, unique: true},
+        {name: 'applier', column: 2, tileName: '申请人', type: 'picker', isNull: false},
+        {name: 'department', column: 3, tileName: '部门', type: 'picker', isNull: false},
+        {name: 'job', column: 4, tileName: '职位', type: 'string', isNull: false},
+        {name: 'appliedTime', column: 5, tileName: '申请日期', type: 'date', isNull: false},
+        {name: 'leavedTime', column: 6, tileName: '出发日期', type: 'date', isNull: false},
+        {name: 'tripPlace', column: 7, tileName: '出差地点', type: 'string', isNull: false},
         {name: 'deputy', column: 8, tileName: '职务代理人', type: 'string', isNull: true},
         {name: 'tripType', column: 9, tileName: '出差类别', type: 'string', isNull: true},
         {name: 'tripReason', column: 10, tileName: '出差事由', type: 'string', isNull: true},
         {name: 'forecastedTime', column: 11, tileName: '预计差期', type: 'int', isNull: true},
-        {name: 'forecastedCost', column: 12, tileName: '差旅费用预计', type: 'double', isNull: true},
-        {name: 'stayCost', column: 13, tileName: '住宿费', type: 'double', isNull: true},
+        {name: 'forecastedCost', column: 12, tileName: '差旅费用预计', type: 'double', isNull: false},
+        {name: 'stayCost', column: 13, tileName: '住宿费', type: 'double', isNull: false},
         {name: 'stayCostRemark', column: 14, tileName: '住宿费备注', type: 'string', isNull: true},
-        {name: 'trafficCost', column: 15, tileName: '交通费', type: 'double', isNull: true},
+        {name: 'trafficCost', column: 15, tileName: '交通费', type: 'double', isNull: false},
         {name: 'trafficCostRemark', column: 16, tileName: '交通费备注', type: 'string', isNull: true},
-        {name: 'entertainCost', column: 17, tileName: '业务交代费', type: 'double', isNull: true},
-        {name: 'entertainCostRemark', column: 18, tileName: '业务交代费备注', type: 'string', isNull: true},
-        {name: 'otherForecastCost', column: 19, tileName: '其他费用', type: 'double', isNull: true},
+        {name: 'entertainCost', column: 17, tileName: '业务招待费', type: 'double', isNull: false},
+        {name: 'entertainCostRemark', column: 18, tileName: '业务招待费备注', type: 'string', isNull: true},
+        {name: 'otherForecastCost', column: 19, tileName: '其他费用', type: 'double', isNull: false},
         {name: 'otherForecastCostRemark', column: 20, tileName: '其他费用备注', type: 'string', isNull: true}
     ]
 };
@@ -231,6 +231,7 @@ exports.doWithRouter = function(router) {
         entryIdArr = new String(entryIds).split(","), i;
 
         tripApplys = tripApplySvc.getTripApplyByIds(entryIdArr);
+
         if (entryIdArr.length > 1) {
           for (i = 0; i < tripApplys.length; i++) {
             tripApplys[i].approvalHistories = commSvc.getEntryApprovalHistory(tripApplys[i].id);
@@ -355,10 +356,9 @@ exports.doWithRouter = function(router) {
             entityArray: result2.entityArray,
             pickerFields: result.pickerFields,
             specialFields: result.specialFields,
-            failRowIdxes: 0,
+            failRowIdxes: result.failRowIdxes,
             repeatRowIdxes: result.repeatRowIdxes,
-            successNum: result2.entityArray.length,
-            repeatRowNum: 0
+            successNum: result2.entityArray.length
         }, exports.filters.defaults);
     }));
     //下载导入模板地址设置

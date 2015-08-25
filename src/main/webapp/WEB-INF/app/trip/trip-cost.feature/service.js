@@ -60,29 +60,22 @@ exports.createService = function () {
 
             tripReport = tripReportMgr.find(data.tripReportId);
 
-            tripCosts = tripCostMgr.getTripCostsByReportId({tripReportId: data.tripReportId});
-
-            for (var i = 0; i < tripCosts.size(); i++) {
-                tripCostMgr.remove(tripCosts.get(i));
-            }
-
-            for (var v in data.tripCosts){
-                tripCost = new TripCost();
-                tripCost.tripReport = tripReport;
-                tripCost.tripPlace = data.tripCosts[v].tripPlace;
-                tripCost.trafficCost = data.tripCosts[v].trafficCost;
-                tripCost.stayCost = data.tripCosts[v].stayCost;
-                tripCost.entertainCost = data.tripCosts[v].entertainCost;
-                tripCost.otherCost = data.tripCosts[v].otherCost;
-                tripCost.totalCost =  tripCost.trafficCost + tripCost.stayCost + tripCost.entertainCost + tripCost.otherCost;
-                tripCost.tripTime = new SimpleDateFormat("yyyy-MM-dd").parse(data.tripCosts[v].tripTime);
-                tripCost.remark = data.tripCosts[v].remark;
-                tripCost.creator = user.accountName;
-                tripCost.creatorName = user.realName;
-                tripCost.createdTime = new Date();
-                tripCostMgr.save(tripCost);
-                tripReport.flowStatus = '-3';
-            }
+            tripCost = new TripCost();
+            tripCost.tripReport = tripReport;
+            tripCost.tripPlace = data.tripPlace;
+            tripCost.trafficCost = data.trafficCost;
+            tripCost.stayCost = data.stayCost;
+            tripCost.entertainCost = data.entertainCost;
+            tripCost.otherCost = data.otherCost;
+            tripCost.totalCost =  data.totalCost;
+            tripCost.tripTime = new SimpleDateFormat("yyyy-MM-dd").parse(data.tripTime);
+            tripCost.remark = data.remark;
+            tripCost.creator = user.accountName;
+            tripCost.creatorName = user.realName;
+            tripCost.createdTime = new Date();
+            tripCostMgr.save(tripCost);
+            tripReport.flowStatus = "-2";
+            tripReport.haveCosts = true;
         }),
         // 根据ID查找
         getById: mark('managers', TripCost).mark('tx').on(function (tripCostMgr, id) {
@@ -145,13 +138,15 @@ exports.createService = function () {
 
                 if(trpReportList != null && trpReportList.size() > 0){
                     entity.tripReport = trpReportList.get(0);
+                    entity.tripReport.flowStatus = "-2";
+                    entity.tripReport.haveCosts  = true;
                 }
             }
 
             if (result.failRowIdxes.length === 0 && result.repeatRowIdxes.length === 0) {
                 tripCostMgr.save.apply(tripCostMgr.save, entityArray);
             }
-            return {failRowIdxes: 0, repeatRowIdxes: 0, repeatRowNum: 0};
+            return {failRowIdxes: result.failRowIdxes, repeatRowIdxes: 0};
         })
     };
 };

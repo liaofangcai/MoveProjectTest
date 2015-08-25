@@ -18,4 +18,9 @@
             select ta from TripApply ta where ta.applyNo = :applyNo
         </query>
     </named-query>
+    <named-query name="getTripApplyCountByApplyNo">
+        <query>
+            select count(ta) from TripApply ta where ta.applyNo = :applyNo
+        </query>
+    </named-query>
 </entity-mappings>

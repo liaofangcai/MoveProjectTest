@@ -24,60 +24,12 @@ define([
 
             return true;
         },
-        afterShowInlineGridDialog: function(dialogType, view, data) {
-            var me = this;
 
-            //设置总金额不能改
-            $('input[name = "totalCost"]', 'input[name = "stayCost"]','input[name = "entertainCost"]','input[name = "otherCost"]',view.$el).attr('disabled', true);
-            $('input[name = "totalCost"]', view.$el).val(0);
-            //给trafficCost输入框设置监听 改变totalCost 的值
-            $('input[name = "trafficCost"]', view.$el).bind('input propertychange', function(){
-                $('input[name = "totalCost"]', view.$el).val(
-                    Number($('input[name = "trafficCost"]', view.$el).val()) +
-                    Number($('input[name = "stayCost"]', view.$el).val()) +
-                    Number($('input[name = "entertainCost"]', view.$el).val()) +
-                    Number($('input[name = "otherCost"]', view.$el).val())
-                );
-                // $('input[name = "trafficCost"]', view.$el).val(
-                // Number($('input[name = "trafficCost"]', view.$el).val()).toFixed(2));
-            });
-            //给stayCost输入框设置监听 改变totalCost 的值
-            $('input[name = "stayCost"]', view.$el).bind('input propertychange', function(){
-                $('input[name = "totalCost"]', view.$el).val(
-                    Number($('input[name = "trafficCost"]', view.$el).val()) +
-                    Number($('input[name = "stayCost"]', view.$el).val()) +
-                    Number($('input[name = "entertainCost"]', view.$el).val()) +
-                    Number($('input[name = "otherCost"]', view.$el).val())
-                );
-                // $('input[name = "stayCost"]', view.$el).val(
-                // Number($('input[name = "stayCost"]', view.$el).val()).toFixed(2));
-            });
-            //给entertainCost输入框设置监听 改变totalCost 的值
-            $('input[name = "entertainCost"]', view.$el).bind('input propertychange', function(){
-                $('input[name = "totalCost"]', view.$el).val(
-                    Number($('input[name = "trafficCost"]', view.$el).val()) +
-                    Number($('input[name = "stayCost"]', view.$el).val()) +
-                    Number($('input[name = "entertainCost"]', view.$el).val()) +
-                    Number($('input[name = "otherCost"]', view.$el).val())
-                );
-                // $('input[name = "entertainCost"]', view.$el).val(
-                // Number($('input[name = "entertainCost"]', view.$el).val()).toFixed(2));
-            });
-            //给otherCost输入框设置监听 改变totalCost 的值
-            $('input[name = "otherCost"]', view.$el).bind('input propertychange', function(){
-                $('input[name = "totalCost"]', view.$el).val(
-                    Number($('input[name = "trafficCost"]', view.$el).val()) +
-                    Number($('input[name = "stayCost"]', view.$el).val()) +
-                    Number($('input[name = "entertainCost"]', view.$el).val()) +
-                    Number($('input[name = "otherCost"]', view.$el).val())
-                );
-                // $('input[name = "otherCost"]', view.$el).val(
-                // Number($('input[name = "otherCost"]', view.$el).val()).toFixed(2));
-            });
-        },
         afterShowDialog: function(dialogType, view, data){
             var me = this;
-
+            //设置申请人、部门不可改
+            $('input[name= "tripApply.applier.realName"]', view.$el).attr('disabled',true);
+            $('input[name= "tripApply.department"]', view.$el).attr('disabled',true);
             //设置出差天数字段为不可更改
             $('input[name="tripDays"]', view.$el).attr('disabled', true);
             if ("show" == dialogType) {
@@ -94,7 +46,7 @@ define([
         },
         renderers: {
             modifyStatus: function(data, param, gridData) {
-                var showApproHis, flowStatusMap, html, id;
+                var showApproHis, flowStatusMap, html, id, haveCostsHtml;
 
                 showApproHis = function(id){
                     approvalHistoriesUtil.showApprovalHistories(this, id);
@@ -103,17 +55,27 @@ define([
 
                 html = '<a href="javascript:void(0)" onclick="showApproHis(\'' + gridData.id + '\');"> ';
 
+                if (gridData.haveCosts) {
+                    haveCostsHtml = '已填报销明细';
+                }else{
+                    haveCostsHtml = '未填报销明细';
+                }
+
                 flowStatusMap = {
-                    '-3': html + '审批完成(已填报销明细)</a>',
-                    '-2': html + '审批完成(未填报销明细)</a>',
+                    '-2': html + '审批完成(' + haveCostsHtml + ')</a>',
                     '-1': html + '退回</a>',
+                    '': '初始',
                     '0': '初始',
-                    '1': '审批中</a>',
-                    '2': '审批中</a>',
-                    '3': '审批中</a>'
+                    '1': html +'审批中</a>',
+                    '2': html +'审批中</a>',
+                    '3': html +'审批中</a>'
                 };
 
                 return flowStatusMap[data] || html + '审批中</a>';
+            },
+            tripDays: function(data, param, gridData){
+                var html = '<div style = "text-align: right;">' + data + '</div>' ;
+                return html;
             }
         },
         handlers: {
@@ -236,17 +198,17 @@ define([
                 var me = this,
                     view, inputs, formData,
                     grid = me.feature.views['grid:body'].components[0],
-                    data = grid.getSelected()[0].toJSON();
+                    data = grid.getSelected()[0].toJSON(),
+                    tripCostFeature = app.loadFeature('trip/scaffold:trip-cost', {container: '<div></div>'});
 
-                //流程状态（-2 : 审批完成, -1: 退回, 空或0: 初始, 其它: 审批中）
-                // if(data.flowStatus !== '-2'){
-                //     app.error('请选择状态为审核完成的记录！');
-                //     return false;
-                // }
+                // 流程状态（-2 : 审批完成, -1: 退回, 空或0: 初始, 其它: 审批中）
+                if(data.flowStatus !== '-2'){
+                    app.error('请选择状态为审核完成的记录！');
+                    return false;
+                }
 
-                view = me.feature.views['form:cost'];
-                me.feature.model.set('id', data.id);
-                me.feature.model.fetch().done(function() {
+                tripCostFeature.done(function (feature) {
+                    view = feature.views['form:add'];
                     app.showDialog({
                         view: view,
                         title: '填写报销明细',
@@ -281,6 +243,56 @@ define([
                         $('textarea[name= "tripTask"]', view.$el).attr('disabled', true);
                         $('textarea[name= "completion"]', view.$el).attr('disabled', true);
                         $('input[name= "attachment"]', view.$el).attr('disabled', true);
+
+                        $('input[name = "totalCost"]',view.$el).attr('disabled', true);
+                        $('input[name = "trafficCost"]',view.$el).change(function(){
+                                $('input[name = "totalCost"]', view.$el).val(
+                                    Number($('input[name = "trafficCost"]', view.$el).val()) +
+                                    Number($('input[name = "stayCost"]', view.$el).val()) +
+                                    Number($('input[name = "entertainCost"]', view.$el).val()) +
+                                    Number($('input[name = "otherCost"]', view.$el).val())
+                                );
+                                $('input[name = "totalCost"]', view.$el).val(
+                                    Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
+                                $('input[name = "trafficCost"]', view.$el).val(
+                                    Number($('input[name = "trafficCost"]', view.$el).val()).toFixed(2));
+                        });
+                        $('input[name = "stayCost"]',view.$el).change(function(){
+                                $('input[name = "totalCost"]', view.$el).val(
+                                    Number($('input[name = "trafficCost"]', view.$el).val()) +
+                                    Number($('input[name = "stayCost"]', view.$el).val()) +
+                                    Number($('input[name = "entertainCost"]', view.$el).val()) +
+                                    Number($('input[name = "otherCost"]', view.$el).val())
+                                );
+                                $('input[name = "totalCost"]', view.$el).val(
+                                    Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
+                                $('input[name = "stayCost"]', view.$el).val(
+                                    Number($('input[name = "stayCost"]', view.$el).val()).toFixed(2));
+                        });
+                        $('input[name = "entertainCost"]',view.$el).change(function(){
+                                $('input[name = "totalCost"]', view.$el).val(
+                                    Number($('input[name = "trafficCost"]', view.$el).val()) +
+                                    Number($('input[name = "stayCost"]', view.$el).val()) +
+                                    Number($('input[name = "entertainCost"]', view.$el).val()) +
+                                    Number($('input[name = "otherCost"]', view.$el).val())
+                                );
+                                $('input[name = "totalCost"]', view.$el).val(
+                                    Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
+                                $('input[name = "entertainCost"]', view.$el).val(
+                                    Number($('input[name = "entertainCost"]', view.$el).val()).toFixed(2));
+                        });
+                        $('input[name = "otherCost"]',view.$el).change(function(){
+                                $('input[name = "totalCost"]', view.$el).val(
+                                    Number($('input[name = "trafficCost"]', view.$el).val()) +
+                                    Number($('input[name = "stayCost"]', view.$el).val()) +
+                                    Number($('input[name = "entertainCost"]', view.$el).val()) +
+                                    Number($('input[name = "otherCost"]', view.$el).val())
+                                );
+                                $('input[name = "totalCost"]', view.$el).val(
+                                    Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
+                                $('input[name = "otherCost"]', view.$el).val(
+                                    Number($('input[name = "otherCost"]', view.$el).val()).toFixed(2));
+                        });
                     });
                 });
             },
@@ -290,80 +302,30 @@ define([
                     grid = me.feature.views['grid:body'].components[0],
                     selected = grid.getSelected(),
                     selectedDataIds = [],
-                    Wsh, newWin, content;
+                    Wsh, newWin, content,
+                    printData = [];
 
                 printFeature = app.loadFeature('commons/print-tripreport', {container: '<div></div>', ignoreExists: true});
 
                 printFeature.done(function(feature) {
                     printView = feature.views['tripreport-printarea'];
-                    for(var i = 0;i < selected.length;i++){
-                        selectedDataIds[i] = selected[i].id;
+
+                    if(selected){
+                        for(i = 0; i < selected.length; i++){
+                            selectedDataIds[i] = selected[i].id;
+                        }
+                    }else{
+                        $.ajax({
+                            url: 'invoke/scaffold/trip/trip-report/',
+                            type: 'get',
+                            async: false,
+                            cache: false
+                        }).done(function(data) {
+                            printData = data.results;
+                        });
                     }
 
-                    feature.selectedDataIds = selectedDataIds;
-
-                    app.showDialog({
-                        view: printView,
-                        title: '打印申请报告',
-                        onClose: function() {
-                            feature.stop();
-                        },
-                        buttons: [{
-                            label: '打印',
-                            status: 'btn-primary',
-                            fn: function() {
-                                try{
-                                    Wsh = new ActiveXObject("WScript.Shell");
-                                    HKEY_Key = "header";
-                                    //设置页眉(为空)
-                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "");
-                                    HKEY_Key = "footer";
-                                    //设置页脚(为空)
-                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "");
-                                    HKEY_Key = "margin_bottom";
-                                    //设置下页边距(0)
-                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
-                                    HKEY_Key = "margin_left";
-                                    //设置左页边距(0)
-                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
-                                    HKEY_Key = "margin_right";
-                                    //设置右页边距(0)
-                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
-                                    HKEY_Key = "margin_top";
-                                    //设置上页边距(0)
-                                    Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
-                                }catch(e){
-                                }
-
-                                newWin = window.open('');
-                                content = '<div>';
-                                content += printView.$('printArea').html();
-                                content += '</div>';
-
-                                newWin.document.write(content);
-                                newWin.print();
-                                newWin.document.close();
-                            }
-                        }]
-                    });
-                });
-            },
-            printCost: function(){
-                var me = this,
-                    printFeature, printView,
-                    grid = me.feature.views['grid:body'].components[0],
-                    selected = grid.getSelected(),
-                    selectedDataIds = [],
-                    Wsh, newWin, content;
-
-                printFeature = app.loadFeature('commons/print-tripreportcost', {container: '<div></div>', ignoreExists: true});
-
-                printFeature.done(function(feature) {
-                    printView = feature.views['tripreportcost-printarea'];
-                    for(var i = 0;i < selected.length;i++){
-                        selectedDataIds[i] = selected[i].id;
-                    }
-
+                    feature.printData = printData;
                     feature.selectedDataIds = selectedDataIds;
 
                     app.showDialog({

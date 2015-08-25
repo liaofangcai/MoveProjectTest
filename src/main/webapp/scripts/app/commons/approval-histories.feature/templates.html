@@ -3,12 +3,12 @@
 {{/layout}}
 
 {{#view "approval-histories-view"}}
-    <table class="table table-bordered table-striped">
+    <table  class="table table-bordered table-striped table-hover dataTable">
         <thead>
             <tr>
                 <th style="width: 30px;">#</th>
                 <th style="width: 150px;">任务描述</th>
-                <th style="width: 130px;">操作时间</th>
+                <th style="width: 150px;">操作时间</th>
                 <th style="width: 150px;">操作人</th>
                 <th style="width: 60px;">审批结果</th>
                 <th>审批意见</th>
@@ -29,9 +29,11 @@
                 <td>{{suggestion}}</td>
             </tr>
             {{/each}}
+            {{#if noApprovalHistory}}
             <tr>
                 <td colspan="7">{{noApprovalHistory}}</td>
             </tr>
+            {{/if}}
         </tbody>
     </table>
 {{/view}}

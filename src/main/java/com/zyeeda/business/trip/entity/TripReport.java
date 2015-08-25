@@ -91,6 +91,13 @@ public class TripReport extends ProcessRevisionDomainEntity {
      */
     private List<ApprovalHistory> approvalHistories;
 
+    /**
+     *
+     * 是否填写Cost；
+     */
+    private Boolean haveCosts;
+
+
     @OneToOne
     @JoinColumn(name = "F_TRIP_APPLY_ID")
     public TripApply getTripApply() {
@@ -124,7 +131,6 @@ public class TripReport extends ProcessRevisionDomainEntity {
     }
 
     @Column(name = "F_TRIP_DAYS", length = 300)
-    @NotBlank
     @NullableSize(max = 166)
     public String getTripDays() {
         return tripDays;
@@ -146,7 +152,6 @@ public class TripReport extends ProcessRevisionDomainEntity {
     }
 
     @Column(name = "F_COMPLETION", length = 300)
-    @NotBlank
     @NullableSize(max = 166)
     public String getCompletion() {
         return completion;
@@ -192,5 +197,14 @@ public class TripReport extends ProcessRevisionDomainEntity {
 
     public void setApprovalHistories(List<ApprovalHistory> approvalHistories) {
         this.approvalHistories = approvalHistories;
+    }
+
+    @Column(name = "F_HAVECOSTS")
+    public Boolean getHaveCosts(){
+        return haveCosts;
+    }
+
+    public void setHaveCosts(Boolean haveCosts){
+        this.haveCosts = haveCosts;
     }
 }

@@ -7,6 +7,8 @@ var {Department}         = com.zyeeda.cdeio.commons.organization.entity;
 
 var {TripApply}          = com.zyeeda.business.trip.entity;
 var {EntityMetaResolver} = com.zyeeda.cdeio.web.scaffold;
+var {ApprovalHistory}    = com.zyeeda.business.process.entity;
+
 var {SecurityUtils}      = org.apache.shiro;
 var {Integer}            = java.lang;
 var {SimpleDateFormat}   = java.text;
@@ -19,8 +21,13 @@ exports.createService = function () {
         list: mark('beans', EntityMetaResolver).mark('tx').on(function (resolver, entity, options) {
             var meta = resolver.resolveEntity(TripApply),
                 tripApplyMgr = createManager(meta.entityClass),
+
                 accountMeta = resolver.resolveEntity(Account),
                 accountMgr = createManager(accountMeta.entityClass),
+
+                apprHisMeta = resolver.resolveEntity(ApprovalHistory),
+                apprHisMgr = createManager(apprHisMeta.entityClass),
+
                 currentUser = SecurityUtils.getSubject().getPrincipal(),
                 account,
                 role,
@@ -46,6 +53,12 @@ exports.createService = function () {
                 results = tripApplyMgr.findByEntity(options);
             } else {
                 results = tripApplyMgr.findByExample(entity, options);
+            }
+
+            if (!options.fetchCount) {
+                for (i = 0; i < results.size(); i++) {
+                    results.get(i).approvalHistories = apprHisMgr.getApprovalHistorysByEntryId({entryId: results.get(i).id});
+                }
             }
 
             return results;
@@ -95,8 +108,7 @@ exports.createService = function () {
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
                 statusMap = {
-                    '-3': '审批完成（已填报告）',
-                    '-2': '审批完成（未填报告）',
+                    '-2': '审批完成',
                     '-1': '退回',
                     '0': '初始'
                 };
@@ -128,11 +140,11 @@ exports.createService = function () {
             var entity,
                 applierList, applierName,
                 departmentList, departmentName,
-                repeatRowNum = 0 ,
                 subject = SecurityUtils.getSubject(),
-                user = subject.getPrincipal();
+                user = subject.getPrincipal(),
+                applyCount, i;
 
-            for (var i = 0; i < entityArray.length; i++) {
+            for (i = 0; i < entityArray.length; i++) {
                 entity = entityArray[i];
                 entity.creator = user.accountName;
                 entity.creatorName = user.realName;
@@ -142,6 +154,11 @@ exports.createService = function () {
 
                 applierName = result.pickerFields[i * 2].colName;
                 applierList = accountMgr.getAccountByName({name: applierName});
+                applyCount  = tripApplyMgr.getTripApplyCountByApplyNo({applyNo: entity.applyNo});
+
+                if(applyCount.get(0) > 0){
+                   result.repeatRowIdxes.push(i + 1);
+                }
 
                 if(applierList != null && applierList.size() > 0){
                     entity.applier = applierList.get(0);
@@ -157,8 +174,7 @@ exports.createService = function () {
             if (result.failRowIdxes.length === 0 && result.repeatRowIdxes.length === 0) {
                 tripApplyMgr.save.apply(tripApplyMgr.save, entityArray);
             }
-            return {failRowIdxes: 0, repeatRowIdxes: 0, repeatRowNum: 0};
-        }),
-
+            return {failRowIdxes: result.failRowIdxes, repeatRowIdxes: result.repeatRowIdxes};
+        })
     };
 };

@@ -19,7 +19,6 @@ exports.createService = function () {
         getTripApplyById: mark('managers', TripApply).mark('tx').on(function (tripApplyMgr, entryIds){
             return tripApplyMgr.find.apply(tripApplyMgr, entryIds);
         }),
-
         getEntryApprovalHistory: mark('managers', ApprovalHistory).mark('tx').on(function (apprHisMgr, entryId) {
             return apprHisMgr.getApprovalHistorysByEntryId({entryId: entryId});
         }),
