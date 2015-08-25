@@ -226,7 +226,7 @@ var readExcelContent = function(is, importSetting, params) {
                             if(cellValue.lastIndexOf('.') > 0){
                                 contentMap[colName] = new Integer(cellValue.substring(0, cellValue.lastIndexOf('.')));
                             }else{
-                                contentMap[colName] = new Integer(0);
+                                contentMap[colName] = new Integer(cellValue);
                             }
                         }
                     }else if(mappingItem.type === 'double'){
@@ -335,9 +335,9 @@ var checkExcelData = function(mappingItem, mappingItemType, cellValue, failRowId
 
     if(mappingItemType === 'string' || mappingItemType === 'byte'){
         // 可否为空验证不通过
-        if(mappingItem.isNull === false && isNotBlank(cellValue) === false){ // 为空
+        if(mappingItem.isNull === false && isBlank(cellValue) === true){ // 为空
             // 保存验证失败的行数
-            if(_.contains(failRowIdxes, i) === false){
+            if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
             }
 
@@ -345,7 +345,7 @@ var checkExcelData = function(mappingItem, mappingItemType, cellValue, failRowId
             return false;
         }else if(cellValue.length > mappingItem.maxLength){ // 长度超长
             // 保存验证失败的行数
-            if(_.contains(failRowIdxes, i) === false){
+            if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
             }
 
@@ -353,7 +353,7 @@ var checkExcelData = function(mappingItem, mappingItemType, cellValue, failRowId
             return false;
         }else if(cellValue.length < mappingItem.minLength){ // 长度不够
             // 保存验证失败的行数
-            if(_.contains(failRowIdxes, i) === false){
+            if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
             }
 
@@ -362,9 +362,9 @@ var checkExcelData = function(mappingItem, mappingItemType, cellValue, failRowId
         }
     }else if(mappingItemType === 'dropdown'){
         // 可否为空验证不通过
-        if(mappingItem.isNull === false && isNotBlank(cellValue) === false){ // 为空
+        if(mappingItem.isNull === false && isBlank(cellValue) === true){ // 为空
             // 保存验证失败的行数
-            if(_.contains(failRowIdxes, i) === false){
+            if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
             }
 
@@ -373,17 +373,17 @@ var checkExcelData = function(mappingItem, mappingItemType, cellValue, failRowId
         }
     }else if(mappingItemType === 'int' || mappingItemType === 'double' || mappingItemType === 'long' || mappingItemType === 'short' || mappingItemType === 'bigdecimal' ){
         // 可否为空验证不通过
-        if(mappingItem.isNull === false && isNotBlank(cellValue) === false){ // 为空
+        if(mappingItem.isNull === false && isBlank(cellValue) === true){ // 为空
             // 保存验证失败的行数
-            if(_.contains(failRowIdxes, i) === false){
+            if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
             }
 
-            // logger.error('check fail col null :' + i + ',' + mappingItem.name);
+            logger.error('check fail col null :' + i + ',' + mappingItem.name);
             return false;
         }else if(isNumeric(cellValue) === false){ // 类型不对
             // 保存验证失败的行数
-            if(_.contains(failRowIdxes, i) === false){
+            if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
             }
 
@@ -391,7 +391,7 @@ var checkExcelData = function(mappingItem, mappingItemType, cellValue, failRowId
             return false;
         }else if(toString(cellValue).length > mappingItem.maxLength){ // 长度超长
             // 保存验证失败的行数
-            if(_.contains(failRowIdxes, i) === false){
+            if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
             }
 
@@ -399,7 +399,7 @@ var checkExcelData = function(mappingItem, mappingItemType, cellValue, failRowId
             return false;
         }else if(toString(cellValue).length < mappingItem.minLength){ // 长度不够
             // 保存验证失败的行数
-            if(_.contains(failRowIdxes, i) === false){
+            if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
             }
 

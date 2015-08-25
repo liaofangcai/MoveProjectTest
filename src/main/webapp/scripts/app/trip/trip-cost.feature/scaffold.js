@@ -9,6 +9,8 @@ define([
     return {
         afterShowDialog: function(dialogType, view, data){
             var me = this;
+            //设置申请人不可改；
+            $('input[name= "tripReport.tripApply.applier.realName"]', view.$el).attr('disabled',true);
 
             if ("show" == dialogType) {
                 me.feature.model.set('tripReport.tripApply.applier.realName', data.tripReport.tripApply.applier.realName);
@@ -22,6 +24,28 @@ define([
             }
 
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
+        },
+        renderers: {
+            trafficCostValue: function(data, param, gridData){
+                var html = '<div style = "text-align: right;">' + data + '</div>' ;
+                return html;
+            },
+            styleCostValue: function(data, param, gridData){
+                var html = '<div style = "text-align: right;">' + data + '</div>' ;
+                return html;
+            },
+            entertainCostValue: function(data, param, gridData){
+                var html = '<div style = "text-align: right;">' + data + '</div>' ;
+                return html;
+            },
+            otherCostValue: function(data, param, gridData){
+                var html = '<div style = "text-align: right;">' + data + '</div>' ;
+                return html;
+            },
+            totalCostValue: function(data, param, gridData){
+                var html = '<div style = "text-align: right;">' + data + '</div>' ;
+                return html;
+            }
         },
         handlers: {
             exportExcel: function(){
