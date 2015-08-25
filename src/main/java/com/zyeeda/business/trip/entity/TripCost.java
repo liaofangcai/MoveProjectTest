@@ -13,8 +13,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-
-import com.zyeeda.business.process.entity.ProcessRevisionDomainEntity;
+import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
@@ -27,7 +26,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 @Entity
 @Table(name = "BZ_TRIP_COST")
 @Scaffold("/trip/trip-cost")
-public class TripCost extends ProcessRevisionDomainEntity {
+public class TripCost extends RevisionDomainEntity {
 
     /**
      * 出差任务报告书
