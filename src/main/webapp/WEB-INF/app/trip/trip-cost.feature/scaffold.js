@@ -30,7 +30,7 @@ exports.filters = {
     '!accountFilter': [''],
     '!roleFilter': ['department', 'accounts'],
     '!permissionFilter': ['roles'],
-    '!tripReportFilter': 'tripCosts',
+    '!tripReportFilter': ['tripCosts','attachment'],
     '!tripApplyFilter': ''
   }
 };
@@ -107,9 +107,13 @@ exports.fieldGroups = {
 exports.grid = {
     columns: [
       {name: 'tripReport.tripApply.applier.realName', header: '申请人'},
-      {name:'tripTime',width:100},
+      {name: 'tripTime',width:100},
       {name: 'tripReport.tripApply.tripPlace', header: '出差地点'},
-      'trafficCost', 'stayCost', 'entertainCost', 'otherCost', 'totalCost'
+      {name: 'trafficCost', renderer: 'trafficCostValue'},
+      {name: 'stayCost', renderer: 'styleCostValue'},
+      {name: 'entertainCost', renderer: 'entertainCostValue'},
+      {name: 'otherCost', renderer: 'otherCostValue'},
+      {name: 'totalCost', renderer: 'totalCostValue'}
     ],
     filterToolbar: true,
     fixedHeader: true,
@@ -120,7 +124,7 @@ exports.grid = {
 
 exports['inline-grid'] = {
     columns: [
-      'trafficCost', 'stayCost', 'entertainCost', 'otherCost', 'remark'
+      {name:'tripTime', width:90}, {name:'tripPlace',width:80}, 'trafficCost', 'stayCost', 'entertainCost', 'otherCost', 'totalCost', 'remark'
     ]
 };
 
@@ -144,9 +148,9 @@ exports.importing = {
     template: 'trip/trip-cost/出差任务行程及差旅费报销明细表.xls',
     startRow: 2,
     mapping: [
-        {name: 'tripApply.applyNo', column: 1, tileName: '申请单号', type: 'picker', isNull: true, unique: true },
-        {name: 'tripTime', column: 2, tileName: '日期', type: 'date', isNull: true },
-        {name: 'tripPlace', column: 3, tileName: '地点', type: 'string', isNull: true },
+        {name: 'tripApply.applyNo', column: 1, tileName: '申请单号', type: 'picker', isNull: false, unique: true },
+        {name: 'tripTime', column: 2, tileName: '日期', type: 'date', isNull: false },
+        {name: 'tripPlace', column: 3, tileName: '地点', type: 'string', isNull: false },
         {name: 'trafficCost', column: 4, tileName: '交通费', type: 'double', isNull: true },
         {name: 'stayCost', column: 5, tileName: '住宿费', type: 'double', isNull: true },
         {name: 'entertainCost', column: 6, tileName: '业务招待费', type: 'double', isNull: true },
@@ -237,7 +241,7 @@ exports.doWithRouter = function(router) {
             entityArray: result2.entityArray,
             pickerFields: result.pickerFields,
             specialFields: result.specialFields,
-            failRowIdxes: 0,
+            failRowIdxes: result.failRowIdxes,
             repeatRowIdxes: result.repeatRowIdxes,
             successNum: result2.entityArray.length,
             repeatRowNum: 0

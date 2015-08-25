@@ -1,19 +1,25 @@
 var {mark}                    = require('cdeio/mark');
 var {json}                    = require('cdeio/response');
 var _                         = require('underscore');
-var {TripReport}              = com.zyeeda.business.trip.entity;
-var {TripApply}               = com.zyeeda.business.trip.entity;
-var {SecurityUtils}           = org.apache.shiro;
 var {getOptionInProperties}   = require('cdeio/config');
 var {join}                    = require('cdeio/util/paths');
-var {SimpleDateFormat}        = java.text;
-var {Date}                    = java.util;
-var {ArrayList}               = java.util;
-var URLDecoder                = java.net.URLDecoder;
 var fs                        = require('fs');
 var objects                   = require('cdeio/util/objects');
 var response                  = require('ringo/jsgi/response');
 var {createService}           = require('trip/trip-report.feature/service');
+
+var {TripReport}              = com.zyeeda.business.trip.entity;
+var {TripApply}               = com.zyeeda.business.trip.entity;
+var {SecurityUtils}           = org.apache.shiro;
+
+var {SimpleDateFormat}        = java.text;
+
+var {Locale}                  = java.util;
+var {Date}                    = java.util;
+var {ArrayList}               = java.util;
+
+var URLDecoder                = java.net.URLDecoder;
+
 exports.haveFilter = true;
 
 exports.enableFrontendExtension = true;
@@ -108,10 +114,10 @@ exports.fieldGroups = {
     'tripApply.leavedTime', 'tripApply.tripPlace', 'tripApply.tripType', 'tripApply.tripReason'
   ],
   add:[
-    'startTime', {name: 'endTime', statusChanger: true},
+    'startTime', {name: 'endTime', statusChanger: true,},
     {name: 'tripDays', validations: {rules: {required: true, number: true}}},
     {name: 'tripTask', label: '出差任务', type: 'textarea', colspan: 2},
-    {name: 'completion', label: '执行情形：（精简摘要叙明，如系专案研究报告，则视需要另以附件方式详述）', type: 'textarea', colspan: 2},
+    {name: 'completion', label: '执行情形(精简摘要叙明，如系专案研究报告，则视需要另以附件方式详述)', type: 'textarea', colspan: 2},
     {name: 'remark', type: 'textarea', colspan: 2},
     {name: 'attachment',
         colspan: 2,
@@ -125,6 +131,7 @@ exports.fieldGroups = {
     {name: 'tripDays', validations: {rules: {required: true, number: true}}},
     {name: 'tripTask', label: '出差任务', type: 'textarea', colspan: 2},
     {name: 'completion', label: '执行情形', type: 'textarea', colspan: 2},
+    {name: 'remark', label: '备注', type: 'textarea', colspan: 2},
     {name: 'attachment',
         colspan: 2,
         type: 'file-picker',
@@ -136,6 +143,7 @@ exports.fieldGroups = {
     'tripApply.tripPlace', 'tripDays',
     {name: 'tripTask', label: '出差任务', type: 'textarea', colspan: 2},
     {name: 'completion', label: '执行情形：（精简摘要叙明，如系专案研究报告，则视需要另以附件方式详述）', type: 'textarea', colspan: 2},
+    {name: 'remark', label: '备注', type: 'textarea', colspan: 2},
     {name: 'attachment',
         colspan: 2,
         type: 'file-picker',
@@ -155,9 +163,9 @@ exports.fieldGroups = {
         label: '行程及差旅费报销明细',
         type: 'inline-grid',
         name: 'tripCosts',
+        disableShow: true,
         allowAdd: true,
         allowEdit: true,
-        allowshow: false,
         multiple: false,
         allowPick: false
     }]
@@ -168,8 +176,9 @@ exports.grid = {
       {name: 'tripApply.applier.realName', header: '申请人'},
       {name: 'tripApply.department.name', header: '部门'},
       {name: 'tripApply.tripPlace', header: '出差地点'},
-      'startTime', 'endTime' , 'tripDays',
-      {name: 'flowStatus', renderer: 'modifyStatus',width:180}
+      'startTime', 'endTime' ,
+      {name: 'tripDays', renderer:'tripDays',width: 100},
+      {name: 'flowStatus', renderer: 'modifyStatus',width: 180}
     ],
     filterToolbar: true,
     fixedHeader: true,
@@ -186,7 +195,7 @@ exports.operators = {
     retrieve: { label: '取回', icon: 'icon-undo', group: '40-process', order: 20, show: 'single-selected', style: 'btn-success'},
     downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
     importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
-    print: {label: '打印任务报告书', icon: 'icon-print', group: '30-custom', order: 300, show: 'selected', style: 'btn-info'},
+    print: {label: '打印任务报告书', icon: 'icon-print', group: '30-custom', order: 300, show: 'always', style: 'btn-info'},
 };
 
 //相关数据处理
@@ -229,12 +238,12 @@ exports.importing = {
     template: 'trip/trip-report/出差任务报告信息.xls',
     startRow: 2,
     mapping: [
-        {name: 'tripApply.applyNo', column: 1, tileName: '申请单号', type: 'picker', isNull: true, unique: true },
-        {name: 'startTime', column: 2, tileName: '开始时间', type: 'date', isNull: true, unique: true},
-        {name: 'endTime', column: 3, tileName: '结束时间', type: 'date', isNull: true, unique: true},
+        {name: 'tripApply.applyNo', column: 1, tileName: '申请单号', type: 'picker', isNull: false, unique: true },
+        {name: 'startTime', column: 2, tileName: '开始时间', type: 'date', isNull: false, unique: true},
+        {name: 'endTime', column: 3, tileName: '结束时间', type: 'date', isNull: false, unique: true},
         {name: 'tripTask', column: 4, tileName: '出差任务', type: 'string', isNull: true, unique: true},
         {name: 'completion', column: 5, tileName: '执行情形', type: 'string', isNull: true, unique: true},
-        {name: 'remark', colum: 6, tileName: '备注', type: 'string', isNull: true, unique: true}
+        {name: 'remark', column: 6, tileName: '报销明细打印单备注', type: 'string', isNull: true, unique: true}
     ]
 };
 //验证方法
@@ -249,8 +258,10 @@ exports.validators = {
     },
     update: {
         defaults: mark('services', 'trip/trip-report').on(function (tripReportSvc, context, tripReport, request) {
+            var sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+
             //验证结束日期是否早于开始日期
-            if (tripReport.startTime && tripReport.endTime && (Date.parse(tripReport.startTime) > Date.parse(tripReport.endTime))){
+            if (tripReport.startTime && tripReport.endTime && sdf.parse(new String('Wed Aug 26 00:00:00 HKT 2015')) > sdf.parse(new String('Wed Aug 26 00:00:00 HKT 2015'))) {
                 context.addViolation({ message: '结束日期早于开始日期，请重新填写！' });
             }
         })
@@ -416,7 +427,7 @@ exports.doWithRouter = function(router) {
             entityArray: result2.entityArray,
             pickerFields: result.pickerFields,
             specialFields: result.specialFields,
-            failRowIdxes: 0,
+            failRowIdxes: result.failRowIdxes,
             repeatRowIdxes: result.repeatRowIdxes,
             successNum: result2.entityArray.length,
             repeatRowNum: 0
