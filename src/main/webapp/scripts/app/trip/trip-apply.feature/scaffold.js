@@ -230,8 +230,8 @@ define([
                     data = grid.getSelected()[0].toJSON();
 
                 //流程状态（-2 : 审批完成, -1: 退回, 空或0: 初始, 其它: 审批中）
-                if(data.flowStatus !== '-2'){
-                    app.error('请选择状态为审核完成的记录！');
+                if(data.flowStatus !== '-2' || data.haveReport == true){
+                    app.error('请选择状态为审核完成(未填报告)的记录！');
                     return false;
                 }
 

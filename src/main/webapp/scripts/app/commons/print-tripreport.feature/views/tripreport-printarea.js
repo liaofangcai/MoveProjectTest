@@ -8,6 +8,7 @@
                     var tripReports = [],
                         tripCosts = [], costsSize = 0, historysize = 0,
                         selectedDataIds = this.feature.selectedDataIds,
+                        trafficCostSum, stayCostSum, entertainCostSum, otherCostSum, totalCostSum,
                         i, j, k ,l;
 
                     if (this.feature.printData.length > 0) {
@@ -29,10 +30,25 @@
                             }
                         });
                     }
+                    //判断costs是否为5条,如果超过5条则只取前五条进行打印,如果不足5条则在costs中添加null添够5条。
+                    for (i = 0; i < tripReports.length; i++) {
+                        costsSize = tripReports[i].tripCosts.length;
+
+                        for (j = 0; j < tripReports[i].tripCosts.length; j++) {
+                            tripReports[i].tripCosts[j].idx = j + 1;
+                        }
+
+                        if(costsSize>5){
+                            tripReports[i].tripCosts = tripReports[i].tripCosts.slice(0,5);
+                        }else{
+                            for (k = 5; k > costsSize; k--) {
+                                tripReports[i].tripCosts.push({});
+                            }
+                        }
+                    }
 
                     for( i = 0; i < tripReports.length;i++){
-                        var  trafficCostSum = 0, stayCostSum = 0,
-                                entertainCostSum = 0, otherCostSum = 0, totalCostSum = 0;
+                        trafficCostSum = 0, stayCostSum = 0,entertainCostSum = 0, otherCostSum = 0, totalCostSum = 0;
 
                         tripReports[i].createdTime = tripReports[i].createdTime.substr(0, 10);
 
@@ -58,31 +74,23 @@
 
                         //计算总计金额
                         for(k = 0; k<tripReports[i].tripCosts.length; k++){
-                            trafficCostSum = trafficCostSum + tripReports[i].tripCosts[k].trafficCost;
-                            stayCostSum = stayCostSum + tripReports[i].tripCosts[k].stayCost;
-                            entertainCostSum = entertainCostSum + tripReports[i].tripCosts[k].entertainCost;
-                            otherCostSum = otherCostSum + tripReports[i].tripCosts[k].otherCost;
-                            totalCostSum = totalCostSum + tripReports[i].tripCosts[k].totalCost;
-                            tripReports[i].tripCosts.trafficCostSum = trafficCostSum;
-                            tripReports[i].tripCosts.stayCostSum = stayCostSum;
-                            tripReports[i].tripCosts.entertainCostSum = entertainCostSum;
-                            tripReports[i].tripCosts.otherCostSum = otherCostSum;
-                            tripReports[i].tripCosts.totalCostSum = totalCostSum;
+                            if(tripReports[i].tripCosts[k].id){
+                                trafficCostSum = trafficCostSum + tripReports[i].tripCosts[k].trafficCost;
+                                stayCostSum = stayCostSum + tripReports[i].tripCosts[k].stayCost;
+                                entertainCostSum = entertainCostSum + tripReports[i].tripCosts[k].entertainCost;
+                                otherCostSum = otherCostSum + tripReports[i].tripCosts[k].otherCost;
+                                totalCostSum = totalCostSum + tripReports[i].tripCosts[k].totalCost;
+                                tripReports[i].tripCosts.trafficCostSum = trafficCostSum;
+                                tripReports[i].tripCosts.stayCostSum = stayCostSum;
+                                tripReports[i].tripCosts.entertainCostSum = entertainCostSum;
+                                tripReports[i].tripCosts.otherCostSum = otherCostSum;
+                                tripReports[i].tripCosts.totalCostSum = totalCostSum;
+                            }
                         }
 
                     }
 
-                    for (i = 0; i < tripReports.length; i++) {
-                        costsSize = tripReports[i].tripCosts.length;
 
-                        for (j = 0; j < tripReports[i].tripCosts.length; j++) {
-                            tripReports[i].tripCosts[j].idx = j + 1;
-                        }
-
-                        for (k = 5; k > costsSize; k--) {
-                            tripReports[i].tripCosts.push({});
-                        }
-                    }
 
                     return {tripReports: tripReports};
                 }

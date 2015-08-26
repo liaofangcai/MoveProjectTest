@@ -90,7 +90,6 @@ exports.createService = function () {
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
                 statusMap = {
-                    '-3': '审批完成(已填写报告)',
                     '-2': '审批完成(未填写报告)',
                     '-1': '退回',
                     '0': '初始'
@@ -146,7 +145,7 @@ exports.createService = function () {
             if (result.failRowIdxes.length === 0 && result.repeatRowIdxes.length === 0) {
                 tripCostMgr.save.apply(tripCostMgr.save, entityArray);
             }
-            return {failRowIdxes: result.failRowIdxes, repeatRowIdxes: 0};
+            return {failRowIdxes: result.failRowIdxes, repeatRowIdxes: result.repeatRowIdxes};
         })
     };
 };
