@@ -9,7 +9,6 @@ define([
     return {
         beforeShowDialog: function(dialogType, view){
             var me = this;
-            console.log('view',view);
             //打开编辑页面前验证状态是否为初始或退回
             if ('edit' === dialogType) {
                 var  grid = me.feature.views['grid:body'].components[0],

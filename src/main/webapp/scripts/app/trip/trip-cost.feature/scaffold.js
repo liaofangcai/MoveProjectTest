@@ -21,6 +21,56 @@ define([
             }else if ("edit" == dialogType) {
                 me.feature.model.set('tripReport.tripApply.applier.realName', data.tripReport.tripApply.applier.realName);
                 me.feature.model.set('tripReport.tripApply.tripPlace', data.tripReport.tripApply.tripPlace);
+                    //设置监听，总金额等于其他四项金额之和并且取两位小数。
+                    $('input[name = "totalCost"]',view.$el).attr('disabled', true);
+                    $('input[name = "trafficCost"]',view.$el).change(function(){
+                            $('input[name = "totalCost"]', view.$el).val(
+                                Number($('input[name = "trafficCost"]', view.$el).val()) +
+                                Number($('input[name = "stayCost"]', view.$el).val()) +
+                                Number($('input[name = "entertainCost"]', view.$el).val()) +
+                                Number($('input[name = "otherCost"]', view.$el).val())
+                            );
+                            $('input[name = "totalCost"]', view.$el).val(
+                                Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
+                            $('input[name = "trafficCost"]', view.$el).val(
+                                Number($('input[name = "trafficCost"]', view.$el).val()).toFixed(2));
+                    });
+                    $('input[name = "stayCost"]',view.$el).change(function(){
+                            $('input[name = "totalCost"]', view.$el).val(
+                                Number($('input[name = "trafficCost"]', view.$el).val()) +
+                                Number($('input[name = "stayCost"]', view.$el).val()) +
+                                Number($('input[name = "entertainCost"]', view.$el).val()) +
+                                Number($('input[name = "otherCost"]', view.$el).val())
+                            );
+                            $('input[name = "totalCost"]', view.$el).val(
+                                Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
+                            $('input[name = "stayCost"]', view.$el).val(
+                                Number($('input[name = "stayCost"]', view.$el).val()).toFixed(2));
+                    });
+                    $('input[name = "entertainCost"]',view.$el).change(function(){
+                            $('input[name = "totalCost"]', view.$el).val(
+                                Number($('input[name = "trafficCost"]', view.$el).val()) +
+                                Number($('input[name = "stayCost"]', view.$el).val()) +
+                                Number($('input[name = "entertainCost"]', view.$el).val()) +
+                                Number($('input[name = "otherCost"]', view.$el).val())
+                            );
+                            $('input[name = "totalCost"]', view.$el).val(
+                                Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
+                            $('input[name = "entertainCost"]', view.$el).val(
+                                Number($('input[name = "entertainCost"]', view.$el).val()).toFixed(2));
+                    });
+                    $('input[name = "otherCost"]',view.$el).change(function(){
+                            $('input[name = "totalCost"]', view.$el).val(
+                                Number($('input[name = "trafficCost"]', view.$el).val()) +
+                                Number($('input[name = "stayCost"]', view.$el).val()) +
+                                Number($('input[name = "entertainCost"]', view.$el).val()) +
+                                Number($('input[name = "otherCost"]', view.$el).val())
+                            );
+                            $('input[name = "totalCost"]', view.$el).val(
+                                Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
+                            $('input[name = "otherCost"]', view.$el).val(
+                                Number($('input[name = "otherCost"]', view.$el).val()).toFixed(2));
+                    });
             }
 
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
