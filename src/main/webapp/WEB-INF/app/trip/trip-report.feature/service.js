@@ -159,6 +159,7 @@ exports.createService = function () {
                 entity.creatorName = user.realName;
                 entity.createdTime = new Date();
                 entity.lastModifiedTime = new Date();
+                entity.flowStatus = "-2";
 
                 entity.tripDays =  Math.floor((entity.endTime.getTime() - entity.startTime.getTime())/(24*3600*1000)) + 1;
                 applyNo = result.pickerFields[i].colName;
