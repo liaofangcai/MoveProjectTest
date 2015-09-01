@@ -181,7 +181,6 @@ public class TripCost extends RevisionDomainEntity {
     }
 
     @Column(name = "F_VEHICLE", length = 300)
-    @NotBlank
     @NullableSize(max = 166)
     public String getVehicle(){
         return vehicle;
