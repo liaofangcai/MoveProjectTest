@@ -24,7 +24,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  * $Author$
  */
 @Entity
-@Table(name = "BZ_TRIP_COST")
+@Table(name = "bz_trip_cost")
 @Scaffold("/trip/trip-cost")
 public class TripCost extends RevisionDomainEntity {
 
@@ -72,6 +72,22 @@ public class TripCost extends RevisionDomainEntity {
      * 备注
      */
     private String remark;
+    /**
+     * 交通工具
+     */
+    private String vehicle;
+    /**
+     * 费用名称
+     */
+    private String costName;
+    /**
+     * 金额
+     */
+    private Double costMoney;
+    /**
+     * 日期
+     */
+    private String costTime;
 
     @ManyToOne
     @JoinColumn(name = "F_TRIP_REPORT_ID")
@@ -83,7 +99,6 @@ public class TripCost extends RevisionDomainEntity {
         this.tripReport = tripReport;
     }
 
-    @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "F_TRIP_TIME")
     public Date getTripTime() {
@@ -165,4 +180,42 @@ public class TripCost extends RevisionDomainEntity {
         this.remark = remark;
     }
 
+    @Column(name = "F_VEHICLE", length = 300)
+    @NotBlank
+    @NullableSize(max = 166)
+    public String getVehicle(){
+        return vehicle;
+    }
+
+    public void setVehicle(String vehicle){
+        this.vehicle = vehicle;
+    }
+
+    @Column(name = "F_COST_NAME", length = 300)
+    @NullableSize(max = 166)
+    public String getCostName(){
+        return costName;
+    }
+    public void setCostName(String costName){
+        this.costName = costName;
+    }
+
+    @Column(name = "F_COST_MONEY", length = 300)
+    @NullableSize(max = 166)
+    public Double getCostMoney(){
+        return costMoney;
+    }
+    public void setCostMoney(Double costMoney){
+        this.costMoney = costMoney;
+    }
+
+    @Column(name = "F_COST_TIME", length = 300)
+    @NotBlank
+    @NullableSize(max = 166)
+    public String getCostTime(){
+        return costTime;
+    }
+    public void setCostTime(String costTime){
+        this.costTime = costTime;
+    }
 }

@@ -9,7 +9,7 @@
 
     <persistence-unit-metadata>
         <persistence-unit-defaults>
-            <schema>ANLMIS</schema>
+            <schema>anlmis</schema>
             <!--
             <entity-listeners>
                 <entity-listener class="com.zyeeda.cdeio.revision.AutoRevisionEventListener">

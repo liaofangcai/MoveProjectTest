@@ -249,8 +249,7 @@ define([
                                 $('input[name = "totalCost"]', view.$el).val(
                                     Number($('input[name = "trafficCost"]', view.$el).val()) +
                                     Number($('input[name = "stayCost"]', view.$el).val()) +
-                                    Number($('input[name = "entertainCost"]', view.$el).val()) +
-                                    Number($('input[name = "otherCost"]', view.$el).val())
+                                    Number($('input[name = "costMoney"]', view.$el).val())
                                 );
                                 $('input[name = "totalCost"]', view.$el).val(
                                     Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
@@ -261,37 +260,23 @@ define([
                                 $('input[name = "totalCost"]', view.$el).val(
                                     Number($('input[name = "trafficCost"]', view.$el).val()) +
                                     Number($('input[name = "stayCost"]', view.$el).val()) +
-                                    Number($('input[name = "entertainCost"]', view.$el).val()) +
-                                    Number($('input[name = "otherCost"]', view.$el).val())
+                                    Number($('input[name = "costMoney"]', view.$el).val())
                                 );
                                 $('input[name = "totalCost"]', view.$el).val(
                                     Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
                                 $('input[name = "stayCost"]', view.$el).val(
                                     Number($('input[name = "stayCost"]', view.$el).val()).toFixed(2));
                         });
-                        $('input[name = "entertainCost"]',view.$el).change(function(){
+                        $('input[name = "costMoney"]',view.$el).change(function(){
                                 $('input[name = "totalCost"]', view.$el).val(
                                     Number($('input[name = "trafficCost"]', view.$el).val()) +
                                     Number($('input[name = "stayCost"]', view.$el).val()) +
-                                    Number($('input[name = "entertainCost"]', view.$el).val()) +
-                                    Number($('input[name = "otherCost"]', view.$el).val())
+                                    Number($('input[name = "costMoney"]', view.$el).val())
                                 );
                                 $('input[name = "totalCost"]', view.$el).val(
                                     Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
-                                $('input[name = "entertainCost"]', view.$el).val(
-                                    Number($('input[name = "entertainCost"]', view.$el).val()).toFixed(2));
-                        });
-                        $('input[name = "otherCost"]',view.$el).change(function(){
-                                $('input[name = "totalCost"]', view.$el).val(
-                                    Number($('input[name = "trafficCost"]', view.$el).val()) +
-                                    Number($('input[name = "stayCost"]', view.$el).val()) +
-                                    Number($('input[name = "entertainCost"]', view.$el).val()) +
-                                    Number($('input[name = "otherCost"]', view.$el).val())
-                                );
-                                $('input[name = "totalCost"]', view.$el).val(
-                                    Number($('input[name = "totalCost"]', view.$el).val()).toFixed(2));
-                                $('input[name = "otherCost"]', view.$el).val(
-                                    Number($('input[name = "otherCost"]', view.$el).val()).toFixed(2));
+                                $('input[name = "costMoney"]', view.$el).val(
+                                    Number($('input[name = "costMoney"]', view.$el).val()).toFixed(2));
                         });
                     });
                 });
@@ -359,6 +344,7 @@ define([
                                     //设置上页边距(0)
                                     Wsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "0");
                                 }catch(e){
+
                                 }
 
                                 newWin = window.open('');

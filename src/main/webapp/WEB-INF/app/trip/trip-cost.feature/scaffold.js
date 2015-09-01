@@ -50,7 +50,11 @@ exports.labels = {
   entertainCost: '业务招待费',
   otherCost: '其他费用',
   totalCost: '合计金额',
-  remark: '备注'
+  remark: '备注',
+  costTime: '日期',
+  vehicle: '交通工具',
+  costName: '其他费用名称',
+  costMoney: '其他费用金额'
 };
 
 exports.forms = {
@@ -86,33 +90,35 @@ exports.fieldGroups = {
     {name: 'tripReport.tripTask', type: 'textarea', colspan: 2}
   ],
   add: [
-    {name: 'tripTime', validations: {rules: {required: true }}},
+    {name: 'costTime', validations: {rules: {required: true }}},
     {name: 'tripPlace', validations: {rules: {required: true }}},
+    {name: 'vehicle', validations: {rules: {required: true }}},
     {name: 'trafficCost', validations: {rules: {required: true, number: true}}},
+    {name: 'costName'},
+    {name: 'costMoney', validations: {rules: {number: true}}},
     {name: 'stayCost', validations: {rules: {required: true, number: true}}},
-    {name: 'entertainCost', validations: {rules: {required: true, number: true}}},
-    {name: 'otherCost', validations: {rules: {required: true, number: true}}},
     {name: 'totalCost', validations: {rules: {required: true, number: true}}},
     {name: 'remark', type: 'textarea', colspan: 2}
   ],
   defaults: [
-    'tripReport.tripApply.applier.realName', 'tripTime', 'tripReport.tripApply.tripPlace', 'trafficCost', 'stayCost', 'entertainCost', 'otherCost', 'totalCost', {name: 'remark', type: 'textarea', colspan: 2}
+    'tripReport.tripApply.applier.realName', 'costTime', 'tripPlace', 'vehicle','trafficCost','stayCost', 'costName', 'costMoney', 'totalCost', {name: 'remark', type: 'textarea', colspan: 2}
   ],
   filter: [
     'tripReport.tripApply.applier.realName', 'tripReport.tripApply.department',
-    {name: 'tripTime', type: 'date-range'}, 'tripReport.tripApply.tripPlace'
+    'costTime', 'tripReport.tripApply.tripPlace'
   ]
 };
 
 exports.grid = {
     columns: [
       {name: 'tripReport.tripApply.applier.realName', header: '申请人'},
-      {name: 'tripTime',width:100},
-      {name: 'tripReport.tripApply.tripPlace', header: '出差地点'},
+      {name: 'costTime',width:100},
+      {name: 'tripPlace', header: '出差地点'},
+      {name: 'vehicle', header: '交通工具'},
       {name: 'trafficCost', renderer: 'trafficCostValue'},
-      {name: 'stayCost', renderer: 'styleCostValue'},
-      {name: 'entertainCost', renderer: 'entertainCostValue'},
-      {name: 'otherCost', renderer: 'otherCostValue'},
+      {name: 'stayCost', renderer: 'stayCostValue'},
+      {name: 'costName', header: '其它费用名称'},
+      {name: 'costMoney',header: '其它费用金额', renderer: 'costMoneyValue'},
       {name: 'totalCost', renderer: 'totalCostValue'}
     ],
     filterToolbar: true,
@@ -124,7 +130,7 @@ exports.grid = {
 
 exports['inline-grid'] = {
     columns: [
-      {name:'tripTime', width:90}, {name:'tripPlace',width:80}, 'trafficCost', 'stayCost', 'entertainCost', 'otherCost', 'totalCost', 'remark'
+      {name:'costTime', width:90}, {name:'tripPlace',width:80}, 'vehicle','trafficCost', 'stayCost', 'costName', 'costMoney', 'totalCost', 'remark'
     ]
 };
 
@@ -146,16 +152,17 @@ exports.importing = {
     enable: true  ,
     dateFormat: 'yyyy/MM/dd',
     template: 'trip/trip-cost/出差任务行程及差旅费报销明细表.xls',
-    startRow: 2,
+    startRow: 3,
     mapping: [
         {name: 'tripApply.applyNo', column: 1, tileName: '申请单号', type: 'picker', isNull: false, unique: true },
-        {name: 'tripTime', column: 2, tileName: '日期', type: 'date', isNull: false },
+        {name: 'costTime', column: 2, tileName: '日期', type: 'string', isNull: false },
         {name: 'tripPlace', column: 3, tileName: '地点', type: 'string', isNull: false },
-        {name: 'trafficCost', column: 4, tileName: '交通费', type: 'double', isNull: true },
-        {name: 'stayCost', column: 5, tileName: '住宿费', type: 'double', isNull: true },
-        {name: 'entertainCost', column: 6, tileName: '业务招待费', type: 'double', isNull: true },
-        {name: 'otherCost', column: 7, tileName: '其他费用', type: 'double', isNull: true },
-        {name: 'remark', column: 8, tileName: '备注', type: 'string', isNull: true }
+        {name: 'vehicle', column: 4, titleName: '交通工具', type: 'string', isNull: true},
+        {name: 'trafficCost', column: 5, tileName: '金额', type: 'double', isNull: true },
+        {name: 'stayCost', column: 6, tileName: '住宿费', type: 'double', isNull: true },
+        {name: 'costName', column: 7, tileName: '费用名称', type: 'string', isNull: true },
+        {name: 'costMoney', column: 8, tileName: '金额', type: 'double', isNull: true },
+        {name: 'remark', column: 9, titleName: '备注', type: 'string', isNull: true }
     ]
 };
 
