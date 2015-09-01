@@ -132,7 +132,7 @@ exports.createService = function () {
                 entity.creatorName = user.realName;
                 entity.createdTime = new Date();
                 entity.lastModifiedTime = new Date();
-                entity.totalCost = entity.trafficCost + entity.stayCost + entity.entertainCost+entity.otherCost;
+                entity.totalCost = entity.trafficCost + entity.stayCost + entity.costMoney;
                 applyNo = result.pickerFields[i].colName;
                 trpReportList = tripReportMgr.getTripReportByApplyNo({applyNo: applyNo});
 
