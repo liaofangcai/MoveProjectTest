@@ -31,7 +31,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  * $Author$
  */
 @Entity
-@Table(name = "BZ_TRIP_REPORT")
+@Table(name = "bz_trip_report")
 @Scaffold("/trip/trip-report")
 public class TripReport extends ProcessRevisionDomainEntity {
 
@@ -99,7 +99,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
 
 
     @OneToOne
-    @JoinColumn(name = "F_TRIP_APPLY_ID")
+    @JoinColumn(name = "f_trip_apply_id")
     public TripApply getTripApply() {
         return tripApply;
     }
@@ -110,7 +110,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "F_START_TIME")
+    @Column(name = "f_start_time")
     public Date getStartTime() {
         return startTime;
     }
@@ -121,7 +121,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "F_END_TIME")
+    @Column(name = "f_end_time")
     public Date getEndTime() {
         return endTime;
     }
@@ -130,7 +130,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
         this.endTime = endTime;
     }
 
-    @Column(name = "F_TRIP_DAYS", length = 300)
+    @Column(name = "f_trip_days", length = 300)
     @NullableSize(max = 166)
     public String getTripDays() {
         return tripDays;
@@ -140,7 +140,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
         this.tripDays = tripDays;
     }
 
-    @Column(name = "F_TRIP_TASK", length = 300)
+    @Column(name = "f_trip_task", length = 300)
     @NotBlank
     @NullableSize(max = 166)
     public String getTripTask() {
@@ -151,7 +151,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
         this.tripTask = tripTask;
     }
 
-    @Column(name = "F_COMPLETION", length = 300)
+    @Column(name = "f_completion", length = 300)
     @NullableSize(max = 166)
     public String getCompletion() {
         return completion;
@@ -162,7 +162,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
     }
 
     @OneToOne
-    @JoinColumn(name = "F_ATTACHMENT_ID")
+    @JoinColumn(name = "f_attachment_id")
     public Attachment getAttachment() {
         return attachment;
     }
@@ -180,7 +180,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
         this.tripCosts = tripCosts;
     }
 
-    @Column(name = "F_REMARK", length = 300)
+    @Column(name = "f_remark", length = 300)
     @NullableSize(max = 166)
     public String getRemark() {
         return remark;
@@ -199,7 +199,7 @@ public class TripReport extends ProcessRevisionDomainEntity {
         this.approvalHistories = approvalHistories;
     }
 
-    @Column(name = "F_HAVECOSTS")
+    @Column(name = "f_havecosts")
     public Boolean getHaveCosts(){
         return haveCosts;
     }

@@ -30,7 +30,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  * $Author$
  */
 @Entity
-@Table(name = "BZ_TRIP_APPLY")
+@Table(name = "bz_trip_apply")
 @Scaffold("/trip/trip-apply")
 public class TripApply extends ProcessRevisionDomainEntity {
 
@@ -147,7 +147,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
      */
     private Boolean haveReport;
 
-    @Column(name = "F_APPLY_NO", length = 300)
+    @Column(name = "f_apply_no", length = 300)
     @NullableSize(max = 166)
     public String getApplyNo() {
         return applyNo;
@@ -157,7 +157,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.applyNo = applyNo;
     }
 
-    @Column(name = "F_JOB", length = 300)
+    @Column(name = "f_job", length = 300)
     @NotBlank
     @NullableSize(max = 166)
     public String getJob() {
@@ -170,7 +170,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "F_ACCOUNT_ID")
+    @JoinColumn(name = "f_account_id")
     public Account getApplier() {
         return applier;
     }
@@ -181,7 +181,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "F_DEPARTMENT_ID")
+    @JoinColumn(name = "f_department_id")
     public Department getDepartment() {
         return department;
     }
@@ -192,7 +192,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "F_APPLIED_TIME")
+    @Column(name = "f_applied_time")
     public Date getAppliedTime() {
         return appliedTime;
     }
@@ -203,7 +203,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "F_LEAVED_TIME")
+    @Column(name = "f_leaved_time")
     public Date getLeavedTime() {
         return leavedTime;
     }
@@ -212,7 +212,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.leavedTime = leavedTime;
     }
 
-    @Column(name = "F_TRIP_PLACE", length = 300)
+    @Column(name = "f_trip_place", length = 300)
     @NotBlank
     @NullableSize(max = 166)
     public String getTripPlace() {
@@ -223,7 +223,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.tripPlace = tripPlace;
     }
 
-    @Column(name = "F_DEPUTY", length = 300)
+    @Column(name = "f_deputy", length = 300)
     @NullableSize(max = 166)
     public String getDeputy() {
         return deputy;
@@ -233,7 +233,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.deputy = deputy;
     }
 
-    @Column(name = "F_TRIP_TYPE", length = 300)
+    @Column(name = "f_trip_type", length = 300)
     @NullableSize(max = 166)
     public String getTripType() {
         return tripType;
@@ -243,7 +243,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.tripType = tripType;
     }
 
-    @Column(name = "F_TRIP_REASON", length = 300)
+    @Column(name = "f_trip_reason", length = 300)
     @NullableSize(max = 166)
     public String getTripReason() {
         return tripReason;
@@ -253,7 +253,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.tripReason = tripReason;
     }
 
-    @Column(name = "F_FORECASTED_TIME", length = 20)
+    @Column(name = "f_forecasted_time", length = 20)
     @Min(value = 0)
     public Integer getForecastedTime() {
         return forecastedTime;
@@ -263,7 +263,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.forecastedTime = forecastedTime;
     }
 
-    @Column(name = "F_FORECASTED_COST", length = 20)
+    @Column(name = "f_forecasted_cost", length = 20)
     @Min(value = 0)
     public Double getForecastedCost() {
         return forecastedCost;
@@ -273,7 +273,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.forecastedCost = forecastedCost;
     }
 
-    @Column(name = "F_STAY_COST", length = 20)
+    @Column(name = "f_stay_cost", length = 20)
     @Min(value = 0)
     public Double getStayCost() {
         return stayCost;
@@ -283,7 +283,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.stayCost = stayCost;
     }
 
-    @Column(name = "F_STAY_COST_REMARK", length = 300)
+    @Column(name = "f_stay_cost_remark", length = 300)
     @NullableSize(max = 166)
     public String getStayCostRemark() {
         return stayCostRemark;
@@ -293,7 +293,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.stayCostRemark = stayCostRemark;
     }
 
-    @Column(name = "F_TRAFFIC_COST", length = 20)
+    @Column(name = "f_traffic_cost", length = 20)
     @Min(value = 0)
     public Double getTrafficCost() {
         return trafficCost;
@@ -303,7 +303,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.trafficCost = trafficCost;
     }
 
-    @Column(name = "F_TRAFFIC_COST_REMARK", length = 300)
+    @Column(name = "f_traffic_cost_remark", length = 300)
     @NullableSize(max = 166)
     public String getTrafficCostRemark() {
         return trafficCostRemark;
@@ -313,7 +313,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.trafficCostRemark = trafficCostRemark;
     }
 
-    @Column(name = "F_ENTERTAIN_COST", length = 20)
+    @Column(name = "f_entertain_cost", length = 20)
     @Min(value= 0)
     public Double getEntertainCost() {
         return entertainCost;
@@ -323,7 +323,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.entertainCost = entertainCost;
     }
 
-    @Column(name = "F_ENTERTAIN_COST_REMARK", length = 300)
+    @Column(name = "f_entertain_cost_remark", length = 300)
     @NullableSize(max = 166)
     public String getEntertainCostRemark() {
         return entertainCostRemark;
@@ -333,7 +333,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.entertainCostRemark = entertainCostRemark;
     }
 
-    @Column(name = "F_OTHER_FORECAST_COST", length = 20)
+    @Column(name = "f_other_forecast_cost", length = 20)
     @Min(value= 0)
     public Double getOtherForecastCost() {
         return otherForecastCost;
@@ -343,7 +343,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.otherForecastCost = otherForecastCost;
     }
 
-    @Column(name = "F_OTHER_FORECAST_COST_REMARK", length = 300)
+    @Column(name = "f_other_forecast_cost_remark", length = 300)
     @NullableSize(max = 166)
     public String getOtherForecastCostRemark() {
         return otherForecastCostRemark;
@@ -362,7 +362,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.approvalHistories = approvalHistories;
     }
 
-    @Column(name = "F_HAVEREPORT")
+    @Column(name = "f_havereport")
     public Boolean getHaveReport(){
         return haveReport;
     }

@@ -63,12 +63,13 @@ exports.createService = function () {
             tripCost = new TripCost();
             tripCost.tripReport = tripReport;
             tripCost.tripPlace = data.tripPlace;
+            tripCost.vehicle = data.vehicle;
             tripCost.trafficCost = data.trafficCost;
             tripCost.stayCost = data.stayCost;
-            tripCost.entertainCost = data.entertainCost;
-            tripCost.otherCost = data.otherCost;
+            tripCost.costMoney = data.costMoney;
+            tripCost.costName = data.costName;
             tripCost.totalCost =  data.totalCost;
-            tripCost.tripTime = new SimpleDateFormat("yyyy-MM-dd").parse(data.tripTime);
+            tripCost.costTime = data.costTime;
             tripCost.remark = data.remark;
             tripCost.creator = user.accountName;
             tripCost.creatorName = user.realName;
@@ -131,7 +132,7 @@ exports.createService = function () {
                 entity.creatorName = user.realName;
                 entity.createdTime = new Date();
                 entity.lastModifiedTime = new Date();
-                entity.totalCost = entity.trafficCost + entity.stayCost + entity.entertainCost+entity.otherCost;
+                entity.totalCost = entity.trafficCost + entity.stayCost + entity.costMoney;
                 applyNo = result.pickerFields[i].colName;
                 trpReportList = tripReportMgr.getTripReportByApplyNo({applyNo: applyNo});
 
@@ -139,6 +140,8 @@ exports.createService = function () {
                     entity.tripReport = trpReportList.get(0);
                     entity.tripReport.flowStatus = "-2";
                     entity.tripReport.haveCosts  = true;
+                }else{
+                    result.failRowIdxes.push(i + 1);
                 }
             }
 

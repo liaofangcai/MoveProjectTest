@@ -150,7 +150,7 @@ exports.createService = function () {
                 entity.creatorName = user.realName;
                 entity.createdTime = new Date();
                 entity.lastModifiedTime = new Date();
-                entity.flowStatus = '0';
+                entity.flowStatus = '-2';
 
                 applierName = result.pickerFields[i * 2].colName;
                 applierList = accountMgr.getAccountByName({name: applierName});

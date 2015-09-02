@@ -32,14 +32,14 @@
               <td colspan="21">
                 <div style = "font-weight:bold;">　出差任务：</div>
                 <div>&nbsp;</div>
-                <div style = "height: 125px;">　　　{{tripTask}}</div>
+                <div style = "height: 100px;">　　　{{tripTask}}</div>
               </td>
             </tr>
             <tr>
               <td colspan="21">
                 <div>　<b>执行情形：</b></div>
                 <div>&nbsp;</div>
-                <div style = "height: 125px">　　　{{completion}}</div>
+                <div style = "height: 100px">　　　{{completion}}</div>
               </td>
             </tr>
             <tr style = "height: 30px; text-align: center; font-weight:bold; font-size: 16px;">
@@ -48,37 +48,41 @@
               </td>
             </tr>
             <tr style = "text-align: center; height: 35px; font-weight:bold; font-size: 12px;">
-                <td colspan = "1" style = "width: 35px;">序号</td>
-                <td colspan = "3" >日期</td>
-                <td colspan = "2" style = "width: 64px;">地点</td>
-                <td colspan = "2">交通费</td>
-                <td colspan = "2">住宿费</td>
-                <td colspan = "3">业务招待费</td>
-                <td colspan = "3">其他费用</td>
-                <td colspan = "2" style = "width: 50px;">合计</td>
-                <td colspan = "3">备注</td>
+                <td colspan = "1" rowspan="2" style = "width: 35px;">序号</td>
+                <td colspan = "5" rowspan="2">日期</td>
+                <td colspan = "3" rowspan="2" style = "width: 64px;">地点</td>
+                <td colspan = "4">车票</td>
+                <td colspan = "2" rowspan="2">住宿费</td>
+                <td colspan = "4" style = "width: 50px;">其他费用</td>
+                <td colspan = "2" rowspan="2"> 合计</td>
+            </tr>
+            <tr style = "text-align: center; height: 35px; font-weight:bold; font-size: 12px;">
+                <td colspan = "2">交通工具</td>
+                <td colspan = "2">金额</td>
+                <td colspan = "2">费用名称</td>
+                <td colspan = "2">金额</td>
             </tr>
           {{#each tripCosts}}
               <tr style = "height: 30px; text-align: right; font-size: 12px;">
                 <td colspan = "1" style = "text-align: center;">{{idx}}</td>
-                <td colspan = "3" style = "width: 90px; text-align: center;">{{tripTime}}</td>
-                <td colspan = "2" style = "width: 70px; text-align: center;">{{tripPlace}}</td>
+                <td colspan = "5" style = "width: 90px; text-align: left;">&nbsp;{{costTime}}</td>
+                <td colspan = "3" style = "text-align: left;">&nbsp; {{tripPlace}}</td>
+                <td colspan = "2" style = "width: 70px; text-align: left;">&nbsp;{{vehicle}}</td>
                 <td colspan = "2">{{trafficCost}}&nbsp;</td>
                 <td colspan = "2">{{stayCost}}&nbsp;</td>
-                <td colspan = "3">{{entertainCost}}&nbsp;</td>
-                <td colspan = "3">{{otherCost}}&nbsp;</td>
+                <td colspan = "2" style = "text-align: left;">&nbsp;{{costName}}</td>
+                <td colspan = "2">{{costMoney}}&nbsp;</td>
                 <td colspan = "2">{{totalCost}}&nbsp;</td>
-                <td colspan = "3" style = "width: 100px">{{remark}}&nbsp;&nbsp;</td>
               </tr>
              {{/each}}
               <tr style = "height: 30px; text-align: right; font-size: 12px;">
-                <td colspan="6" style = "text-align: center; font-weight:bold;">总计(元)</td>
+                <td colspan="9" style = "text-align: center; font-weight:bold;">总计(元)</td>
+                <td colspan = "2"></td>
                 <td colspan = "2">{{tripCosts.trafficCostSum}}&nbsp;</td>
                 <td colspan = "2">{{tripCosts.stayCostSum}}&nbsp;</td>
-                <td colspan = "3">{{tripCosts.entertainCostSum}}&nbsp;</td>
-                <td colspan = "3">{{tripCosts.otherCostSum}}&nbsp;</td>
+                <td colspan = "2"></td>
+                <td colspan = "2">{{tripCosts.costMoneySum}}&nbsp;</td>
                 <td colspan = "2">{{tripCosts.totalCostSum}}&nbsp;</td>
-                <td colspan = "3"></td>
               </tr>
             <tr>
               <td colspan="7" style = "width: 300px;">
@@ -100,7 +104,7 @@
               </td>
             </tr>
           </table>
-      <div style = "height: 66px;">
+      <div style = "height: 50px;">
         <p> 备注：{{remark}}</p>
       </div>
   </div>

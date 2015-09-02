@@ -16,7 +16,9 @@ exports.cdeio = {
     'com.zyeeda.business.process.entity',
 
     // 出差
-    'com.zyeeda.business.trip.entity'
+    'com.zyeeda.business.trip.entity',
+    'com.zyeeda.business.employee.entity',
+    'com.zyeeda.business.recruitment.entity'
   ],
 
   orms: [
@@ -41,7 +43,7 @@ exports.cdeio = {
     // 出差
     'src/main/resources/META-INF/mappings/trip/trip-apply.orm.xml',
     'src/main/resources/META-INF/mappings/trip/trip-cost.orm.xml',
-    'src/main/resources/META-INF/mappings/trip/trip-report.orm.xml',
+    'src/main/resources/META-INF/mappings/trip/trip-report.orm.xml'
 
   ],
 
