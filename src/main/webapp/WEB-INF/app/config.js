@@ -8,7 +8,7 @@ var {FrontendSettingsCollector} = com.zyeeda.cdeio.web;
 
 exports.cdeio = {
   entityPackages: [
-    'com.zyeeda.cdeio.commons.authc.entity',
+    'com.zyeeda.cdeio.commons.authz.entity',
     'com.zyeeda.cdeio.commons.resource.entity',
     'com.zyeeda.cdeio.commons.organization.entity',
     'com.zyeeda.business.commons.entity',

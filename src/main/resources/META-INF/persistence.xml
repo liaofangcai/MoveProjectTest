@@ -42,8 +42,8 @@
         <class>com.zyeeda.cdeio.commons.organization.entity.Department</class>
         <class>com.zyeeda.cdeio.commons.resource.entity.MenuItem</class>
         <class>com.zyeeda.cdeio.commons.resource.entity.SettingItem</class>
-        <class>com.zyeeda.cdeio.commons.authc.entity.Permission</class>
-        <class>com.zyeeda.cdeio.commons.authc.entity.Role</class>
+        <class>com.zyeeda.cdeio.commons.authz.entity.Permission</class>
+        <class>com.zyeeda.cdeio.commons.authz.entity.Role</class>
         <class>com.zyeeda.cdeio.commons.resource.entity.Attachment</class>
 
         <validation-mode>NONE</validation-mode>
@@ -58,7 +58,7 @@
                 value="org.hibernate.transaction.WeblogicTransactionManagerLookup" />
 
             <!-- 配置索引文件夹路径 -->
-            <property name="hibernate.search.default.indexBase" value="/Users/jack/zyeeda-workspace/workspace/business-trip-mis/src/main/webapp/WEB-INF/indexes"/>
+            <property name="hibernate.search.default.indexBase" value="/Users/jack/zyeeda-workspace/workspace/zyeeda-anlmis/src/main/webapp/WEB-INF/indexes"/>
 
             <!-- 自动更新索引 -->
             <property name="hibernate.search.indexing_strategy"  value="event"/>

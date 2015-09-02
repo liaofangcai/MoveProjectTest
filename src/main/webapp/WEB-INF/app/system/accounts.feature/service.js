@@ -5,7 +5,7 @@ var {createManager}     = require('cdeio/manager');
 
 var {BCrypt}           = com.zyeeda.cdeio.commons.crypto;
 var {Account}          = com.zyeeda.cdeio.commons.organization.entity;
-var {Role}             = com.zyeeda.cdeio.commons.authc.entity;
+var {Role}             = com.zyeeda.cdeio.commons.authz.entity;
 
 var {AccountExtension} = com.zyeeda.business.system.entity;
 

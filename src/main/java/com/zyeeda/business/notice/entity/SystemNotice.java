@@ -20,7 +20,7 @@ import com.zyeeda.cdeio.commons.organization.entity.Account;
 import com.zyeeda.cdeio.commons.organization.entity.Department;
 import com.zyeeda.cdeio.commons.resource.entity.Attachment;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
-import com.zyeeda.cdeio.commons.authc.entity.Role;
+import com.zyeeda.cdeio.commons.authz.entity.Role;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
 

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
-import com.zyeeda.cdeio.commons.authc.entity.Role;
+import com.zyeeda.cdeio.commons.authz.entity.Role;
 import com.zyeeda.cdeio.commons.base.entity.DomainEntity;
 import com.zyeeda.cdeio.commons.organization.entity.Account;
 import com.zyeeda.cdeio.commons.organization.entity.Department;
