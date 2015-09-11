@@ -96,6 +96,9 @@ exports.forms = {
       ],
       size: 'large'
   },
+  filter: {
+    groups: [{name: 'filter', columns: 2}], size: 'large'
+  },
   leave: {
       groups: [{name:'leave',columns: 2}],
       size: 'large',
@@ -123,7 +126,10 @@ exports.fieldGroups = {
     inlineOtherInfoGrid:[
       {label: '其他说明', type: 'inline-grid', name: 'otherInfos', allowPick: false, allowAdd: true}
     ],
-    leave:['empName','membership','leaveDate',{name: 'leaveProve', type: 'dropdown', defaultValue: true, source: [{id: true, text: '是'}, {id: false, text: '否'}]},{name:'leaveReason', type: 'textarea',colspan: 2}]
+    leave:['empName','membership','leaveDate',{name: 'leaveProve', type: 'dropdown', defaultValue: true, source: [{id: true, text: '是'}, {id: false, text: '否'}]},{name:'leaveReason', type: 'textarea',colspan: 2}],
+    filter: [
+      'empName', 'membership','department', {name: 'gender', type: 'dropdown', defaultValue: true, source: [{id: true, text: '男'}, {id: false, text: '女'}]},'nation','marriage','phoneNum','idNum'
+    ],
 };
 
 
@@ -162,7 +168,7 @@ exports.operators = {
 
 exports.hooks = {
   beforeCreate: {
-    defaults: mark('services', 'emoloyee/employee-info').on(function (employeeInfoSvc,employeeInfo) {
+    defaults: mark('services', 'employee/employee-info').on(function (employeeInfoSvc,employeeInfo) {
       var subject = SecurityUtils.getSubject(),
           user = subject.getPrincipal();
 
