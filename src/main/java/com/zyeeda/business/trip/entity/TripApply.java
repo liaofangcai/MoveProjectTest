@@ -253,7 +253,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
         this.tripReason = tripReason;
     }
 
-    @Column(name = "f_forecasted_time", length = 20)
+    @Column(name = "f_forecasted_time")
     @Min(value = 0)
     public Integer getForecastedTime() {
         return forecastedTime;

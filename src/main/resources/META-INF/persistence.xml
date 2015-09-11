@@ -36,6 +36,8 @@
         <mapping-file>META-INF/mappings/trip/trip-apply.orm.xml</mapping-file>
         <mapping-file>META-INF/mappings/trip/trip-cost.orm.xml</mapping-file>
         <mapping-file>META-INF/mappings/trip/trip-report.orm.xml</mapping-file>
+        <!-- 员工管理 -->
+        <mapping-file>META-INF/mappings/employee/other-info.orm.xml</mapping-file>
 
         <!-- 系统级实体 -->
         <class>com.zyeeda.cdeio.commons.organization.entity.Account</class>
