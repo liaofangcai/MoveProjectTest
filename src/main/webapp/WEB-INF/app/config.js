@@ -46,6 +46,8 @@ exports.cdeio = {
     'src/main/resources/META-INF/mappings/trip/trip-report.orm.xml',
     //员工管理
     'src/main/resources/META-INF/mappings/employee/other-info.orm.xml',
+    //档案管理
+    'src/main/resources/META-INF/mappings/recruitment/recruitment-interview.orm.xml',
   ],
 
   disableAuthz: false,

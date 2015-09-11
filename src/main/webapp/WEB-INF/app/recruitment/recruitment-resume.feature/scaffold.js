@@ -127,7 +127,14 @@ exports.hooks = {
       recuritmentResume.lastModifierName = user.realName;
       recuritmentResume.lastModifiedTime = new Date();
     }
+  },
+  beforeRemove: {
+    defaults: mark('services', 'recruitment/recruitment-interview').on(function (recruitmentInterviewSvc, recruitmentResume) {
+
+      recruitmentInterviewSvc.removeInterviewByResumeId(recruitmentResume.id);
+    }),
   }
+
 };
 exports.doWithRouter = function(router) {
   //取当前时间
