@@ -109,7 +109,6 @@ public class RecruitmentInterview extends RevisionDomainEntity{
 		this.reexamineReason = reexamineReason;
 	}
 
-	@NotBlank
 	@Column(name = "f_reexamine_result", length = 300)
 	@NullableSize(max = 166)
 	public String getReexamineResult() {

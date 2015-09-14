@@ -129,7 +129,8 @@ public class RecruitmentResume extends RevisionDomainEntity{
 	}
 
   @NotNull
-	@Column(name = "f_idnum")
+	@Column(name = "f_idnum",length = 300)
+	@NullableSize(max = 166)
 	public String getIdNum() {
 		return idNum;
 	}
@@ -158,7 +159,8 @@ public class RecruitmentResume extends RevisionDomainEntity{
 	}
 
   @NotNull
-	@Column(name = "f_phonenum")
+	@Column(name = "f_phonenum", length = 300)
+	@NullableSize(max = 166)
 	public String getPhoneNum() {
 		return phoneNum;
 	}
@@ -241,7 +243,6 @@ public class RecruitmentResume extends RevisionDomainEntity{
       this.buildTime = buildTime;
   }
 
-  @NotNull
 	@OneToMany(mappedBy = "recruitmentResume")
 	public List<RecruitmentInterview> getRecruitmentInterviews() {
 		return recruitmentInterviews;
