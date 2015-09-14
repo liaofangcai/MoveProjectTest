@@ -5,7 +5,7 @@ define([
     return {
         afterShowDialog: function(dialogType, view, data){
             var me = this;
-            $('input[name= "applier"]', view.$el).attr('disabled', true);
+
             if ("add" == dialogType) {
                 //取当前时间
                 me.feature.request({
@@ -15,7 +15,6 @@ define([
 
                     me.feature.model.set('appliedTime', result.result.createdTime);
                     me.feature.model.set('applier', result.result.applier.realName);
-                    me.feature.model.set('department',result.result.department);
                     me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
                 });
 

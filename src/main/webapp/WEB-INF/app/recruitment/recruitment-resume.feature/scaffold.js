@@ -26,7 +26,8 @@ exports.filters = {
   defaults: {
     '!recruitmentResumeFilter': [''],
     '!recruitmentInterviewFilter': ['recruitmentResume'],
-    '!accountFilter': ['']
+    '!accountFilter': [''],
+    '!attachmentFilter': ['']
   },
   accountsFilter: {
     '!accountFilter': ['roles'],

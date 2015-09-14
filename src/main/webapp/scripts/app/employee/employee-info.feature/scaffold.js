@@ -1,6 +1,6 @@
   define([
       'jquery'
-  ],function(){
+  ],function($){
     return{
          //dialogType:add/edit/show, view:the current view, data:this dialog's data
         afterShowDialog: function(dialogType, view, data){
@@ -11,6 +11,7 @@
 
             if('add' === dialogType){//在添加页面设置当前feature中存放的部门
                 view.setFormData({department: currentDepartment});
+                $('input[name = "agreementEnd"]',view.$el).attr('disabled',true);
 
             }
 
@@ -81,7 +82,34 @@
                     $('input[name= "membership"]', view.$el).val(data.membership);
                 });
             },
+            formStatusChanged: function(data, el) {
+                var agreementDate = data.agreementDate,
+                    agreementLast = data.agreementLast,
+                    year, month, day;
+
+
+                if (agreementDate.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null || agreementDate.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null) {
+                    app.error('请输入正确的日期格式！');
+                }else {
+                    agreementDate = new Date(agreementDate);
+                    year  = agreementDate.getFullYear();
+                    if(agreementLast.length == 0){
+                        agreementLast = 0;
+                    }
+                    year  = year + parseInt(agreementLast);
+
+                    month = agreementDate.getMonth() + 1;
+                    if(month<10){
+                        month = "0" + month;
+                    }
+                    day   = agreementDate.getDate();
+
+                    $('input[name= "agreementEnd"]').val(year + "-" + month + "-" + day);
+                }
+            }
 
         }
+
     }
+
 });

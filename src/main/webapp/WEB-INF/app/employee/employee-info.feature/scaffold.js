@@ -57,7 +57,7 @@ exports.labels = {
   probation: '试用期',
   positiveDate: '转正日期',
   agreementDate: '合同起始日期',
-  agreementLast: '合同年限',
+  agreementLast: '合同年限(年)',
   agreementEnd: '合同结束日期',
   graduateSchool: '毕业院校',
   graduateTime: '毕业时间',
@@ -116,7 +116,7 @@ exports.fieldGroups = {
     defaults:[
      'empName','membership',{name: 'gender', type: 'dropdown', defaultValue: true, source: [{id: true, text: '男'}, {id: false, text: '女'}]},'origin',
       'nation','marriage','phoneNum','idNum','birthday','bankNum','insuranceNum','accumulationFund',
-      'attribution','department','post','grade','job','entryTime','seniority','probation','positiveDate','agreementDate','agreementLast','agreementEnd','graduateSchool','graduateTime','education',
+      'attribution','department','post','grade','job','entryTime','seniority','probation','positiveDate',{name:'agreementDate',statusChanger: true},{name:'agreementLast',statusChanger: true},'agreementEnd','graduateSchool','graduateTime','education',
       'major','accountLocation','locationKind','adress','emergency','emergencyRelation',
       'emergencyTel',{name: 'remark', type: 'textarea', colspan: 2},
        {name: 'attachments',
