@@ -16,7 +16,7 @@ var URLDecoder                  = java.net.URLDecoder;
 var fs                          = require('fs');
 var objects                     = require('cdeio/util/objects');
 var response                    = require('ringo/jsgi/response');
-var {createService}             = require('recruitment/recruitment-demand.feature/service');
+
 
 exports.haveFilter = true;
 
@@ -71,7 +71,10 @@ exports.forms = {
       {name: 'defaults', columns: 2}
     ],
     size: 'large'
-  }
+  },
+  filter: {
+    groups: [{name: 'filter', columns: 1}], size: 'small'
+  },
 };
 
 
@@ -79,7 +82,10 @@ exports.fieldGroups = {
   defaults:[
       'department','post','number','experience','education',
       'major','workplace',{name: 'isUrgent', type: 'dropdown', defaultValue: true, source: [{id: true, text: '紧急'}, {id: false, text: '一般'}]},'applier','appliedTime',{name: 'remark', type: 'textarea', colspan: 2}
-  ]
+  ],
+  filter: [
+    'applier', 'post','number', 'education','workplace'
+  ],
 };
 exports.grid = {
     columns: [

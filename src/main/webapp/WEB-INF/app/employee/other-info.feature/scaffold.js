@@ -58,6 +58,9 @@ exports.forms = {
           {name: 'defaults', columns: 2},
         ],
         size: 'large'
+    },
+    filter: {
+      groups: [{name: 'filter', columns: 1}], size: 'small'
     }
 };
 exports.fieldGroups = {
