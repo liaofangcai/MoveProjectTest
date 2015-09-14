@@ -2,7 +2,7 @@ var {mark}                      = require('cdeio/mark');
 var {json}                      = require('cdeio/response');
 var _                           = require('underscore');
 
-var {recruitmentDemand}         = com.zyeeda.business.recruitment.entity;
+var {recruitmentResume}         = com.zyeeda.business.recruitment.entity;
 var {SecurityUtils}             = org.apache.shiro;
 
 var {getOptionInProperties}     = require('cdeio/config');
@@ -16,7 +16,7 @@ var URLDecoder                  = java.net.URLDecoder;
 var fs                          = require('fs');
 var objects                     = require('cdeio/util/objects');
 var response                    = require('ringo/jsgi/response');
-var {createService}             = require('recruitment/recruitment-resume.feature/service');
+
 
 exports.haveFilter = true;
 
@@ -77,6 +77,9 @@ exports.forms = {
     ],
     size: 'large'
   },
+  filter: {
+    groups: [{name: 'filter', columns: 1}], size: 'small'
+  },
 };
 
 exports.fieldGroups = {
@@ -93,7 +96,10 @@ exports.fieldGroups = {
   ],
   inlineRecruitmentInterviewGrid:[
       {label: '面试记录', type: 'inline-grid', name: 'recruitmentInterviews', allowPick: false, allowEdit: true, allowAdd: true}
-  ]
+  ],
+  filter: [
+    'name', 'post', 'education','major','phoneNum'
+  ],
 
 };
 exports.grid = {

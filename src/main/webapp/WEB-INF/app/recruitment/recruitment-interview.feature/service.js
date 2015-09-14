@@ -1,5 +1,4 @@
 var {mark} = require('cdeio/mark');
-var {createService} = require('cdeio/service');
 
 var {RecruitmentInterview}  = com.zyeeda.business.recruitment.entity;
 
@@ -13,7 +12,7 @@ exports.createService = function() {
 
       for(i = 0; i < recruitmentInterviewList.size(); i++){
         recruitmentInterview = recruitmentInterviewList.get(i);
-        recruitmentInterviewMgr.remove(recruitmentInterview);
+        recruitmentInterviewMgr.remove(recruitmentInterview)
       }
     })
   };

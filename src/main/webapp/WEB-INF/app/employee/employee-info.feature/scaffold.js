@@ -97,7 +97,8 @@ exports.forms = {
       size: 'large'
   },
   filter: {
-    groups: [{name: 'filter', columns: 2}], size: 'large'
+    groups: [{name: 'filter', columns: 1}],
+    size: 'small'
   },
   leave: {
       groups: [{name:'leave',columns: 2}],
@@ -111,9 +112,9 @@ exports.feature = {
 
 exports.fieldGroups = {
     defaults:[
-     'empName','membership','department',{name: 'gender', type: 'dropdown', defaultValue: true, source: [{id: true, text: '男'}, {id: false, text: '女'}]},'origin',
+     'empName','membership',{name: 'gender', type: 'dropdown', defaultValue: true, source: [{id: true, text: '男'}, {id: false, text: '女'}]},'origin',
       'nation','marriage','phoneNum','idNum','birthday','bankNum','insuranceNum','accumulationFund',
-      'attribution','post','grade','job','entryTime','seniority','probation','positiveDate','agreementDate','agreementLast','agreementEnd','graduateSchool','graduateTime','education',
+      'attribution','department','post','grade','job','entryTime','seniority','probation','positiveDate','agreementDate','agreementLast','agreementEnd','graduateSchool','graduateTime','education',
       'major','accountLocation','locationKind','adress','emergency','emergencyRelation',
       'emergencyTel',{name: 'remark', type: 'textarea', colspan: 2},
        {name: 'attachments',
@@ -128,8 +129,8 @@ exports.fieldGroups = {
     ],
     leave:['empName','membership','leaveDate',{name: 'leaveProve', type: 'dropdown', defaultValue: true, source: [{id: true, text: '是'}, {id: false, text: '否'}]},{name:'leaveReason', type: 'textarea',colspan: 2}],
     filter: [
-      'empName', 'membership','department', {name: 'gender', type: 'dropdown', defaultValue: true, source: [{id: true, text: '男'}, {id: false, text: '女'}]},'nation','marriage','phoneNum','idNum'
-    ],
+      'empName', 'membership', 'department.name', 'phoneNum','idNum'
+    ]
 };
 
 
