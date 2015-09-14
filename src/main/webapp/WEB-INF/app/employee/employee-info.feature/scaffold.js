@@ -1,26 +1,28 @@
 var {mark}                    = require('cdeio/mark');
 var {json}                    = require('cdeio/response');
 var _                         = require('underscore');
+var fs                        = require('fs');
+var objects                   = require('cdeio/util/objects');
+var response                  = require('ringo/jsgi/response');
+var {getOptionInProperties}   = require('cdeio/config');
+var {join}                    = require('cdeio/util/paths');
 
 var {employeeInfo}            = com.zyeeda.business.employee.entity;
 
 var {SecurityUtils}           = org.apache.shiro;
-var {getOptionInProperties}   = require('cdeio/config');
-var {join}                    = require('cdeio/util/paths');
+
 var {SimpleDateFormat}        = java.text;
 var {Date}                    = java.util;
 var {ArrayList}               = java.util;
 var URLDecoder                = java.net.URLDecoder;
-var fs                        = require('fs');
-var objects                   = require('cdeio/util/objects');
-var response                  = require('ringo/jsgi/response');
 
 exports.filters = {
   defaults: {
     '!employeeInfoFilter': [''],
     '!departmentFilter': ['parent(1)', 'children', 'accounts'],
     '!roleFilter': ['accounts', 'permissions'],
-    '!otherInfoFilter': ['employeeInfo']
+    '!otherInfoFilter': ['employeeInfo'],
+    '!attachmentFilter': ['']
   }
 };
 
@@ -189,7 +191,6 @@ exports.hooks = {
   },
   beforeRemove: {
     defaults: mark('services', 'employee/other-info').on(function (otherInfoSvc, employeeInfo) {
-
       otherInfoSvc.removeOtherInfoByEmployeeId(employeeInfo.id);
     }),
   }
