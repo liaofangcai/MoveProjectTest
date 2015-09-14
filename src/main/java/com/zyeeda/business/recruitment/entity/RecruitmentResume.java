@@ -253,8 +253,8 @@ public class RecruitmentResume extends RevisionDomainEntity{
 	}
 
 	@OneToMany
-	@JoinTable(name = "zda_field_todo_attachment",
-	joinColumns = @JoinColumn(name = "f_todo_id"),
+	@JoinTable(name = "bz_recruitment_resume_attachment",
+	joinColumns = @JoinColumn(name = "f_resume_id"),
 	inverseJoinColumns = @JoinColumn(name = "f_attachment_id"))
 	public List<Attachment> getAttachments() {
 		return attachments;

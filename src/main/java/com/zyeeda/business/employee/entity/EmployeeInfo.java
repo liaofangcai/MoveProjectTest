@@ -124,7 +124,7 @@ public class EmployeeInfo extends RevisionDomainEntity{
   /**
    * 合同期限
    */
-  private String agreementLast;
+  private Integer agreementLast;
   /**
    * 合同结束
    */
@@ -416,13 +416,12 @@ public class EmployeeInfo extends RevisionDomainEntity{
 		this.agreementDate = agreementDate;
 	}
 
-  @Column(name = "f_agreement_last", length = 300)
-  @NullableSize(max = 166)
-	public String getAgreementLast() {
+  @Column(name = "f_agreement_last")
+	public Integer getAgreementLast() {
 		return agreementLast;
 	}
 
-	public void setAgreementLast(String agreementLast) {
+	public void setAgreementLast(Integer agreementLast) {
 		this.agreementLast = agreementLast;
 	}
 
@@ -592,8 +591,8 @@ public class EmployeeInfo extends RevisionDomainEntity{
   }
 
   @OneToMany
-  @JoinTable(name = "zda_field_todo_attachment",
-  joinColumns = @JoinColumn(name = "f_todo_id"),
+  @JoinTable(name = "bz_employee_info_attachment",
+  joinColumns = @JoinColumn(name = "f_employee_id"),
   inverseJoinColumns = @JoinColumn(name = "f_attachment_id"))
   public List<Attachment> getAttachments() {
     return attachments;
