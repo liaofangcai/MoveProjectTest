@@ -54,7 +54,7 @@ exports.labels = {
   job: '职务',
   entryTime: '入职时间',
   seniority: '在职工龄',
-  probation: '试用期',
+  probation: '试用期(月)',
   positiveDate: '转正日期',
   agreementDate: '合同起始日期',
   agreementLast: '合同年限(年)',
@@ -131,7 +131,7 @@ exports.fieldGroups = {
     ],
     leave:['empName','membership','leaveDate',{name: 'leaveProve', type: 'dropdown', defaultValue: true, source: [{id: true, text: '是'}, {id: false, text: '否'}]},{name:'leaveReason', type: 'textarea',colspan: 2}],
     filter: [
-      'empName', 'membership', 'department.name', 'phoneNum','idNum'
+      'empName', 'membership', 'department.name', 'phoneNum'
     ]
 };
 

@@ -46,7 +46,7 @@ exports.labels = {
    number: '人数',
    experience: '工作经验要求',
    education: '学历',
-   major: '专长',
+   major: '专业',
    workplace: '工作地点',
    isUrgent: '是否紧急',
    remark: '备注',
@@ -84,7 +84,7 @@ exports.fieldGroups = {
       'major','workplace',{name: 'isUrgent', type: 'dropdown', defaultValue: true, source: [{id: true, text: '紧急'}, {id: false, text: '一般'}]},'applier','appliedTime',{name: 'remark', type: 'textarea', colspan: 2}
   ],
   filter: [
-    'applier', 'post','number', 'education','workplace'
+    'applier', 'post', 'education','workplace'
   ],
 };
 exports.grid = {

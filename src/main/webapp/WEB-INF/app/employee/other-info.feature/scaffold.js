@@ -36,7 +36,7 @@ exports.enableFrontendExtension = true;
 exports.entityLabel = '其他说明';
 
 exports.labels = {
-  project : '工程',
+  project : '项目',
   content : '内容'
 
 };
