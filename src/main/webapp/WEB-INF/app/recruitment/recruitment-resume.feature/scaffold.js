@@ -42,7 +42,7 @@ exports.labels = {
    gender: '性别',
    post: '面试职位',
    idNum: '身份证号',
-   education: '教育程度',
+   education: '学历',
    major: '专业',
    phoneNum: '联系方式',
    email: '邮箱',
@@ -51,8 +51,8 @@ exports.labels = {
    timeToWork: '参加工作时间',
    workYears: '工作年限',
    infoSources: '信息来源',
-   buildTime: '创建时间',
-   remark: '备注',
+   buildTime: '创建日期',
+   remark: '其他说明',
    attachments:  '附件'
 };
 

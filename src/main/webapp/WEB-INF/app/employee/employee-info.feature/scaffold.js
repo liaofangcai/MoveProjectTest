@@ -42,7 +42,7 @@ exports.labels = {
   phoneNum: '联系方式',
   idNum: '身份证号',
   birthday: '生日',
-  bankNum: '银行卡号',
+  bankNum: '工行卡号',
   insuranceNum: '社保电脑号',
   accumulationFund: '公积金号',
   attribution: '归属地',
@@ -52,27 +52,27 @@ exports.labels = {
   post: '岗位',
   grade: '级别',
   job: '职务',
-  entryTime: '入职时间',
+  entryTime: '入职日期',
   seniority: '在职工龄',
   probation: '试用期(月)',
   positiveDate: '转正日期',
-  agreementDate: '合同起始日期',
-  agreementLast: '合同年限(年)',
-  agreementEnd: '合同结束日期',
-  graduateSchool: '毕业院校',
+  agreementDate: '合同起始',
+  agreementLast: '合同期限(年)',
+  agreementEnd: '合同结束',
+  graduateSchool: '毕业学校',
   graduateTime: '毕业时间',
   education: '学历',
   major: '专业',
   accountLocation: '户籍地址',
   locationKind: '户籍类型',
-  adress: '现地址',
+  adress: '现住址',
   emergency: '紧急联系人',
-  emergencyRelation: '紧急联系人关系',
+  emergencyRelation: '关系',
   emergencyTel: '紧急联系方式',
   remark: '备注',
   attachments: '附件',
   leaveDate: '离职日期',
-  leaveProve: '是否开证明',
+  leaveProve: '离职证明',
   leaveReason: '离职原因'
 };
 
@@ -80,14 +80,14 @@ exports.forms = {
   edit: {
       groups: [
         {name: 'defaults', columns: 2},
-        'inlineOtherInfoGrid'
+        'inlineOtherInfoGrid',
       ],
       size: 'large'
   },
   show: {
       groups: [
         {name: 'defaults', columns: 2},
-        'inlineOtherInfoGrid'
+        'inlineOtherInfoGrid',
       ],
       size: 'large'
   },
@@ -116,7 +116,7 @@ exports.fieldGroups = {
     defaults:[
      'empName','membership',{name: 'gender', type: 'dropdown', defaultValue: true, source: [{id: true, text: '男'}, {id: false, text: '女'}]},'origin',
       'nation','marriage','phoneNum','idNum','birthday','bankNum','insuranceNum','accumulationFund',
-      'attribution','department','post','grade','job','entryTime','seniority','probation','positiveDate',{name:'agreementDate',statusChanger: true},{name:'agreementLast',statusChanger: true},'agreementEnd','graduateSchool','graduateTime','education',
+      'attribution','department','post','grade','job',{name:'entryTime',statusChanger: true},'seniority',  'probation','positiveDate',{name:'agreementDate',statusChanger: true},{name:'agreementLast',statusChanger: true},'agreementEnd','graduateSchool','graduateTime','education',
       'major','accountLocation','locationKind','adress','emergency','emergencyRelation',
       'emergencyTel',{name: 'remark', type: 'textarea', colspan: 2},
        {name: 'attachments',
@@ -149,13 +149,10 @@ exports.grid = {
     multiple: true,
     defaultOrder: 'createdTime-desc'
 };
-
-// exports['inline-grid'] = {
-//     columns: [
-//         'empName','membership',{name: 'department.name', header: '部门'},'phoneNum','attribution'
-//     ]
-// };
-
+exports.operators = {
+    downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
+    importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200}
+};
 exports.picker = {
     grid: {
         columns: [
@@ -167,7 +164,6 @@ exports.picker = {
 exports.operators = {
     leave: { label: '离职', icon: 'icon-leaf', style: 'btn-success', group: '20-selected',show: 'single-selected'}
 };
-
 
 exports.hooks = {
   beforeCreate: {

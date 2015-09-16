@@ -12,6 +12,7 @@
             if('add' === dialogType){//在添加页面设置当前feature中存放的部门
                 view.setFormData({department: currentDepartment});
                 $('input[name = "agreementEnd"]',view.$el).attr('disabled',true);
+                $('input[name = "seniority"]',view.$el).attr('disabled',true);
 
             }
 
@@ -63,6 +64,7 @@
                             }
                             formData = view.getFormData();
                             formData.employeeInfoId = data.id;
+
                             me.feature.request({
                                 url: 'emp-leave',
                                 type: 'post',
@@ -75,41 +77,49 @@
                         }
                     }]
                 }).done(function (dialog) {
-                    $('input[name= "empName"]', view.$el).attr('disabled', true);
-                    $('input[name= "membership"]', view.$el).attr('disabled', true);
+                    $('input[name = "empName"]', view.$el).attr('disabled', true);
+                    $('input[name = "membership"]', view.$el).attr('disabled', true);
 
-                    $('input[name= "empName"]', view.$el).val(data.empName);
-                    $('input[name= "membership"]', view.$el).val(data.membership);
+                    $('input[name = "empName"]', view.$el).val(data.empName);
+                    $('input[name = "membership"]', view.$el).val(data.membership);
+                    // $('input[name = "leaveDate"]'), view.$el).val(new Date())
                 });
             },
             formStatusChanged: function(data, el) {
                 var agreementDate = data.agreementDate,
                     agreementLast = data.agreementLast,
-                    year, month, day;
+                    entryTime = data.entryTime,
+                    endYear, endMonth,endDay,
+                    workYear,workMonth,workDay,
+                    msec,
+                    date = new Date();
 
 
-                if (agreementDate.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null || agreementDate.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null) {
-                    app.error('请输入正确的日期格式！');
-                }else {
+                if(!agreementLast.length == 0 && !agreementDate.length == 0){
+
                     agreementDate = new Date(agreementDate);
-                    year  = agreementDate.getFullYear();
-                    if(agreementLast.length == 0){
-                        agreementLast = 0;
+                    endYear  = agreementDate.getFullYear();
+                    endYear  = endYear + parseInt(agreementLast);
+                    endMonth = agreementDate.getMonth() + 1;
+                    if(endMonth<10){
+                        endMonth = "0" + endMonth;
                     }
-                    year  = year + parseInt(agreementLast);
-
-                    month = agreementDate.getMonth() + 1;
-                    if(month<10){
-                        month = "0" + month;
+                    endDay = agreementDate.getDate() - 1;
+                    $('input[name= "agreementEnd"]').val(endYear + "-" + endMonth + "-" + endDay);
+                }
+                if(!entryTime.length == 0){
+                    entryTime = new Date(entryTime);
+                    if(date.getTime()-entryTime.getTime()>0){
+                        msec    = (date.getTime()-entryTime.getTime());
+                        workYear  = Math.floor(msec/(365*24*3600*1000));
+                        workMonth = Math.floor(msec%(365*24*3600*1000)/(30*24*3600*1000));
+                        workDay   = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000)) + 1;
+                        $('input[name= "seniority"]').val(workYear + "年" + workMonth + "月" + workDay + "天");
+                    }else{
+                        $('input[name= "seniority"]').val(0);
                     }
-                    day   = agreementDate.getDate();
-
-                    $('input[name= "agreementEnd"]').val(year + "-" + month + "-" + day);
                 }
             }
-
         }
-
     }
-
 });
