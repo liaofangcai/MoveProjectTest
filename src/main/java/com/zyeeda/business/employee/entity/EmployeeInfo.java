@@ -105,10 +105,6 @@ public class EmployeeInfo extends RevisionDomainEntity{
    */
   private Date entryTime;
   /**
-   * 在职工龄
-   */
-  private String seniority;
-  /**
    * 试用期
    */
   private String probation;
@@ -376,15 +372,6 @@ public class EmployeeInfo extends RevisionDomainEntity{
 		this.entryTime = entryTime;
 	}
 
-  @Column(name = "f_seniority", length = 300)
-  @NullableSize(max = 166)
-	public String getSeniority() {
-		return seniority;
-	}
-
-	public void setSeniority(String seniority) {
-		this.seniority = seniority;
-	}
 
   @Column(name = "f_probation", length = 300)
   @NullableSize(max = 166)

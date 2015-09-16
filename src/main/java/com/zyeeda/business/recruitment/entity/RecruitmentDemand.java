@@ -70,6 +70,10 @@ public class RecruitmentDemand extends RevisionDomainEntity{
 	  * 申请时间
 	  */
    private Date appliedTime;
+   /**
+    * 是否启用
+    */
+   private Boolean enabled;
 
 	@ManyToOne
 	@NotNull
@@ -174,7 +178,6 @@ public class RecruitmentDemand extends RevisionDomainEntity{
 		this.applier = applier;
 	}
 
-	@NotNull
 	@Temporal(TemporalType.DATE)
   @Column(name = "f_applied_time")
   public Date getAppliedTime() {
@@ -184,5 +187,14 @@ public class RecruitmentDemand extends RevisionDomainEntity{
   public void setAppliedTime(Date appliedTime) {
       this.appliedTime = appliedTime;
   }
+
+  @Column(name = "f_enabled")
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 
 }

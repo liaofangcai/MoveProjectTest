@@ -110,6 +110,7 @@ public class RecruitmentResume extends RevisionDomainEntity{
 		this.name = name;
 	}
 
+	@NotBlank
 	@Column(name = "f_gender")
 	public Boolean getGender() {
 		return gender;
