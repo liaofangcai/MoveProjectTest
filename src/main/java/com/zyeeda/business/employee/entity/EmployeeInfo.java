@@ -41,9 +41,9 @@ public class EmployeeInfo extends RevisionDomainEntity{
    */
   private String membership;
   /**
-   * 性别
+   * 性别 （0：男， 1：女）
    */
-  private Boolean gender;
+  private String gender;
   /**
    * 籍贯
    */
@@ -218,15 +218,17 @@ public class EmployeeInfo extends RevisionDomainEntity{
 		this.membership = membership;
 	}
 
+  @NotBlank
 	@Column(name = "f_gender")
-	public Boolean getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(Boolean gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
+  @NotBlank
   @Column(name = "f_origin", length = 300)
   @NullableSize(max = 166)
 	public String getOrigin() {
@@ -237,6 +239,7 @@ public class EmployeeInfo extends RevisionDomainEntity{
 		this.origin = origin;
 	}
 
+  @NotBlank
 	@Column(name = "f_nation", length = 300)
   @NullableSize(max = 166)
 	public String getNation() {
@@ -247,6 +250,7 @@ public class EmployeeInfo extends RevisionDomainEntity{
 		this.nation = nation;
 	}
 
+  @NotBlank
 	@Column(name = "f_marriage", length = 300)
   @NullableSize(max = 166)
 	public String getMarriage() {
@@ -257,6 +261,7 @@ public class EmployeeInfo extends RevisionDomainEntity{
 		this.marriage = marriage;
 	}
 
+  @NotBlank
   @Column(name = "f_phone_num")
 	public String getPhoneNum() {
 		return phoneNum;
@@ -266,6 +271,7 @@ public class EmployeeInfo extends RevisionDomainEntity{
 		this.phoneNum = phoneNum;
 	}
 
+  @NotBlank
 	@Column(name = "f_id_num")
 	public String getIdNum() {
 		return idNum;

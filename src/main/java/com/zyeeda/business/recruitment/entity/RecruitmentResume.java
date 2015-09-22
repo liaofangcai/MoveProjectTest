@@ -35,9 +35,9 @@ public class RecruitmentResume extends RevisionDomainEntity{
 	 */
 	private String name;
 	/**
-	 * 性别
+	 * 性别(0: 男，1：女)
 	 */
-  private Boolean gender;
+  private String gender;
 	/**
 	 * 面试职位
 	 */
@@ -112,10 +112,10 @@ public class RecruitmentResume extends RevisionDomainEntity{
 
 	@NotBlank
 	@Column(name = "f_gender")
-	public Boolean getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(Boolean gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 

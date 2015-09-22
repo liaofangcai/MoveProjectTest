@@ -51,7 +51,7 @@ public class RecruitmentInterview extends RevisionDomainEntity{
 	 */
 	private String reexamineResult;
 	/**
-	 * 是否入职
+	 * 是否入职（0：否， 1：是）
 	 */
 	private Boolean whetherEntry;
 	/**
@@ -122,7 +122,7 @@ public class RecruitmentInterview extends RevisionDomainEntity{
 	public Boolean getWhetherEntry() {
 		return whetherEntry;
 	}
-	public void setWhetherEntry(Boolean whetherEntry) {
+	public void setWhetherEntry(Boolean  whetherEntry) {
 		this.whetherEntry = whetherEntry;
 	}
 

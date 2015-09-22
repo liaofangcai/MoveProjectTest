@@ -27,7 +27,7 @@ public class RecruitmentDemand extends RevisionDomainEntity{
 	 */
 	 private static final long serialVersionUID = 3728277543938624745L;
 	 /**
-	  * 部门
+	  * 部门名称
 	  */
 	 private Department department;
 	 /**
@@ -35,7 +35,7 @@ public class RecruitmentDemand extends RevisionDomainEntity{
 	  */
 	 private String post;
 	 /**
-	  * 人数
+	  * 需求人数
 	  */
 	 private Integer number;
 	 /**
@@ -55,9 +55,9 @@ public class RecruitmentDemand extends RevisionDomainEntity{
 	  */
 	 private String workplace;
 	 /**
-	  * 是否紧急
+	  * 是否紧急（0：一般，1：紧急）
 	  */
-	 private Boolean isUrgent;
+	 private String isUrgent;
 	 /**
 	  * 其他说明
 	  */
@@ -71,9 +71,9 @@ public class RecruitmentDemand extends RevisionDomainEntity{
 	  */
    private Date appliedTime;
    /**
-    * 是否启用
+    * 状态(0: 关闭，1： 启用 )
     */
-   private Boolean enabled;
+   private String enabled;
 
 	@ManyToOne
 	@NotNull
@@ -150,12 +150,13 @@ public class RecruitmentDemand extends RevisionDomainEntity{
 		this.workplace = workplace;
 	}
 
-	@Column(name = "f_is_urgent")
-	public Boolean getIsUrgent() {
+	@Column(name = "f_is_urgent",length = 300)
+	@NullableSize(max = 166)
+	public String getIsUrgent() {
 		return isUrgent;
 	}
 
-	public void setIsUrgent(Boolean isUrgent) {
+	public void setIsUrgent(String isUrgent) {
 		this.isUrgent = isUrgent;
 	}
 
@@ -188,12 +189,13 @@ public class RecruitmentDemand extends RevisionDomainEntity{
       this.appliedTime = appliedTime;
   }
 
-  @Column(name = "f_enabled")
-	public Boolean getEnabled() {
+  @Column(name = "f_enabled", length = 300)
+  @NullableSize(max = 166)
+	public String getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(Boolean enabled) {
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
 
