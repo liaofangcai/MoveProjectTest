@@ -5,10 +5,12 @@
   ], function($, exportUtil, importUtil){
     return {
          //dialogType:add/edit/show, view:the current view, data:this dialog's data
-        afterShowDialog: function(dialogType, view, data){
-            var me, currentDepartment;
 
-            console.log('view = ', view);
+        afterShowDialog: function(dialogType, view, data){
+            var me, currentDepartment,
+            workYear, workMonth, workDay, entryTime,
+            msec,
+            date = new Date();
 
             me = this;
             currentDepartment = me.feature.department;
@@ -19,12 +21,29 @@
                 $('input[name = "seniority"]', view.$el).attr('disabled',true);
 
             }
-
+            if('show' === dialogType){
+                entryTime = new Date(data.entryTime);
+                msec    = (date.getTime()-entryTime.getTime());
+                workYear  = Math.floor(msec/(365*24*3600*1000));
+                workMonth = Math.floor(msec%(365*24*3600*1000)/(30*24*3600*1000));
+                workDay   = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000)) + 1;
+                me.feature.model.set('seniority', workYear + "年" + workMonth + "月" + workDay + "天");
+                // $('input[name= "seniority"]').val(workYear + "年" + workMonth + "月" + workDay + "天");
+            }
+            if('edit' === dialogType){
+                entryTime = new Date(data.entryTime);
+                msec    = (date.getTime()-entryTime.getTime());
+                workYear  = Math.floor(msec/(365*24*3600*1000));
+                workMonth = Math.floor(msec%(365*24*3600*1000)/(30*24*3600*1000));
+                workDay   = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000)) + 1;
+                me.feature.model.set('seniority', workYear + "年" + workMonth + "月" + workDay + "天");
+                // $('input[name= "seniority"]').val(workYear + "年" + workMonth + "月" + workDay + "天");
+            }
             // 打开form页面时，页面第一个可输入元素获提焦点
             if('show'!== dialogType){
                 $('input[name]', view.$el)[0].focus();
-
             }
+            me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
         },
         renderers:{
             modifyLeaved: function(data, param, gridData) {
@@ -140,7 +159,6 @@
                     birthYear  = idNum.substr(6,4);
                     birthMonth = idNum.substr(10,2);
                     birthDay   = idNum.substr(12,2);
-                    console.log(birthYear + "-" + birthMonth + "-" + birthDay)
                     $('input[name= "birthday"]').val(birthYear + "-" + birthMonth + "-" + birthDay);
                 }
             },

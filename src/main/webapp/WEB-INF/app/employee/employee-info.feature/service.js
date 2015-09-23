@@ -2,6 +2,8 @@ var {mark}               = require('cdeio/mark');
 var commExpService       = require('commons/export-excel.feature/service');
 
 var {Boolean}            = java.lang;
+var {HashMap}            = java.util;
+var {ArrayList}          = java.util;
 var {Date}               = java.util;
 var {SimpleDateFormat}   = java.text;
 var {SecurityUtils}      = org.apache.shiro;
@@ -9,6 +11,7 @@ var {SecurityUtils}      = org.apache.shiro;
 var {Account}            = com.zyeeda.cdeio.commons.organization.entity;
 var {EmployeeInfo}       = com.zyeeda.business.employee.entity;
 var {Department}         = com.zyeeda.cdeio.commons.organization.entity;
+var {EntityMetaResolver} = com.zyeeda.cdeio.web.scaffold;
 
 exports.createService = function() {
   return{
@@ -58,8 +61,8 @@ exports.createService = function() {
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
                 genderMap = {
-                    '1': '男',
-                    '0': '女'
+                    '1': '紧急',
+                    '0': '一般'
                 };
 
             entities = commExpService.createService().listEntities(options, meta);
@@ -70,12 +73,11 @@ exports.createService = function() {
 
                 vo = commExpService.createService().convertEntityToObj(entity);
 
-                vo.gender        = genderMap[entity.gender];
-                vo.birthday      = dateSdf.format(entity.birthday);
-                vo.positiveDate  = dateSdf.format(entity.positiveDate);
-                vo.agreementDate = dateSdf.format(entity.agreementDate);
-                vo.agreementEnd  = dateSdf.format(entity.agreementEnd);
-                vo.graduateTime  = dateSdf.format(entity.graduateTime);
+                vo.gender           = genderMap[entity.gender];
+                vo.entryTime      = dateSdf.format(entity.entryTime);
+                vo.positiveDate      = dateSdf.format(entity.positiveDate);
+                vo.agreementDate      = dateSdf.format(entity.agreementDate);
+                vo.agreementEnd      = dateSdf.format(entity.agreementEnd);
 
                 vos.add(vo);
             }

@@ -128,6 +128,11 @@ exports.hooks = {
   }
 };
 
+exports.exporting = {
+    template: 'recruitment/recruitment-demand/recruitmentDemandModule.xls',
+    fileName: '招聘需求信息表'
+};
+
 exports.importing = {
     module: 'recruitmentDemand',
     enable: true,
@@ -252,4 +257,15 @@ exports.doWithRouter = function(router) {
 
         return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
     });
+    //导出数据
+    router.get('/export-excel', mark('services', 'commons/export-excel', 'recruitment/recruitment-demand').on(function (exportXlsSvc, recruitmentDemandSvc, request) {
+        var options = request.params,
+            result;
+
+        options = exportXlsSvc.dealParameters(options, recruitmentDemandSvc, new RecruitmentDemand());
+
+        result = recruitmentDemandSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
+
+        return json({flag: result.flag, filename: result.filename});
+    }))
 }
