@@ -65,7 +65,7 @@ public class TripApply extends ProcessRevisionDomainEntity {
     private Date appliedTime;
 
     /**
-     * 出发日期
+     * 出发时间
      */
     private Date leavedTime;
 

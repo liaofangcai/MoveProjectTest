@@ -7,13 +7,14 @@ var response                  = require('ringo/jsgi/response');
 var {getOptionInProperties}   = require('cdeio/config');
 var {join}                    = require('cdeio/util/paths');
 
-var {employeeInfo}            = com.zyeeda.business.employee.entity;
+var {EmployeeInfo}            = com.zyeeda.business.employee.entity;
 
 var {SecurityUtils}           = org.apache.shiro;
 
 var {SimpleDateFormat}        = java.text;
 var {Date}                    = java.util;
 var {ArrayList}               = java.util;
+var {Boolean}                 = java.lang;
 var URLDecoder                = java.net.URLDecoder;
 
 exports.filters = {
@@ -73,28 +74,29 @@ exports.labels = {
   attachments: '附件',
   leaveDate: '离职日期',
   leaveProve: '离职证明',
-  leaveReason: '离职原因'
+  leaveReason: '离职原因',
+  whetherLeaved: '状态'
 };
 
 exports.forms = {
   edit: {
       groups: [
         {name: 'defaults', columns: 2},
-        'inlineOtherInfoGrid',
+        {name: 'inlineOtherInfoGrid', label: '其他说明'}
       ],
       size: 'large'
   },
   show: {
       groups: [
         {name: 'defaults', columns: 2},
-        'inlineOtherInfoGrid',
+        {name: 'inlineOtherInfoGrid', label: '其他说明'}
       ],
       size: 'large'
   },
   add: {
       groups: [
         {name: 'defaults', columns: 2},
-        'inlineOtherInfoGrid'
+        {name: 'inlineOtherInfoGrid',label: '其他说明'}
       ],
       size: 'large'
   },
@@ -114,11 +116,18 @@ exports.feature = {
 
 exports.fieldGroups = {
     defaults:[
-     'empName','membership',{name: 'gender', type: 'dropdown', defaultValue: true, source: [{id: true, text: '男'}, {id: false, text: '女'}]},'origin',
-      'nation','marriage','phoneNum','idNum','birthday','bankNum','insuranceNum','accumulationFund',
-      'attribution','department','post','grade','job',{name:'entryTime',statusChanger: true},'seniority',  'probation','positiveDate',{name:'agreementDate',statusChanger: true},{name:'agreementLast',statusChanger: true},'agreementEnd','graduateSchool','graduateTime','education',
-      'major','accountLocation','locationKind','adress','emergency','emergencyRelation',
-      'emergencyTel',{name: 'remark', type: 'textarea', colspan: 2},
+     'empName','membership',{name: 'gender', type: 'dropdown', defaultValue: 1, source: [{id: 1, text: '男'}, {id: 0, text: '女'}]},'origin',
+      'nation','marriage','phoneNum',{name:'idNum', statusChanger: true},'birthday','bankNum',
+      'insuranceNum','accumulationFund',
+      'attribution','department','post','grade','job',
+      {name:'entryTime',statusChanger: true},
+      'seniority',  'probation','positiveDate',
+      {name:'agreementDate',statusChanger: true},
+      {name:'agreementLast',statusChanger: true},
+      'agreementEnd','graduateSchool','graduateTime','education',
+      'major','accountLocation','locationKind','adress','emergency',
+      'emergencyRelation','emergencyTel',
+      {name: 'remark', type: 'textarea', colspan: 2},
        {name: 'attachments',
         colspan: 2,
         type: 'file-picker',
@@ -131,14 +140,15 @@ exports.fieldGroups = {
     ],
     leave:['empName','membership','leaveDate',{name: 'leaveProve', type: 'dropdown', defaultValue: true, source: [{id: true, text: '是'}, {id: false, text: '否'}]},{name:'leaveReason', type: 'textarea',colspan: 2}],
     filter: [
-      'empName', 'membership', 'department.name', 'phoneNum'
+      'empName', 'membership', 'department.name', 'phoneNum',{name: 'whetherLeaved', type: 'dropdown', defaultValue: true, source: [{id: 1, text: '在职'}, {id: 0, text: '离职'}]}
     ]
 };
 
 
 exports.grid = {
     columns: [
-      'empName','membership',{name: 'department.name', header: '部门'},'phoneNum','attribution'
+      'empName','membership','phoneNum','idNum','attribution',
+      {name: 'department.name', header: '部门'},{name:'whetherLeaved', renderer: 'modifyLeaved'}
     ],
     events: {
         'system/departments#tree:onClick': 'departmentChanged'
@@ -149,10 +159,7 @@ exports.grid = {
     multiple: true,
     defaultOrder: 'createdTime-desc'
 };
-exports.operators = {
-    downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
-    importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200}
-};
+
 exports.picker = {
     grid: {
         columns: [
@@ -162,7 +169,10 @@ exports.picker = {
 };
 
 exports.operators = {
-    leave: { label: '离职', icon: 'icon-leaf', style: 'btn-success', group: '20-selected',show: 'single-selected'}
+    leave: { label: '离职', icon: 'icon-leaf', style: 'btn-success', group: '20-selected',show: 'single-selected'},
+    downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
+    importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
+    exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
 };
 
 exports.hooks = {
@@ -174,6 +184,7 @@ exports.hooks = {
       employeeInfo.creator = user.accountName;
       employeeInfo.creatorName = user.realName;
       employeeInfo.createdTime = new Date();
+      employeeInfo.whetherLeaved = new Boolean(true)
     })
   },
   beforeUpdate: {
@@ -192,6 +203,56 @@ exports.hooks = {
     }),
   }
 };
+exports.exporting = {
+    template: 'employee/employee-info/employeeInfoModule.xls',
+    fileName: '员工信息表'
+};
+exports.importing = {
+    module: 'employeeInfo',
+    enable: true,
+    dateFormat: 'yyyy/MM/dd',
+    template: 'employee/employee-info/员工信息.xls',
+    startRow: 2,
+    mapping: [
+        {name: 'empName', column: 1, tileName: '姓名', type: 'string', isNull: false},
+        {name: 'membership', column: 2, tileName: '隶属', type: 'string', isNull: false},
+        {name: 'gender', column: 3, tileName: '性别', type: 'dropdown', isNull: false,
+          source: [{id: '1', text: '男'}, {id: '0', text: '女'}]
+        },
+        {name: 'origin', column: 4, tileName: '籍贯', type: 'string', isNull: false},
+        {name: 'nation', column: 5, tileName: '民族', type: 'string', isNull: false},
+        {name: 'marriage', column: 6, tileName: '婚姻状况', type: 'string', isNull: false},
+        {name: 'phoneNum', column: 7, tileName: '联系方式', type: 'string', isNull: false},
+        {name: 'idNum', column: 8, tileName: '身份证号', type: 'string', isNull: false},
+        {name: 'birthday', column: 9, tileName: '生日（阳历）', type: 'date', isNull: true},
+        {name: 'bankNum', column: 10, tileName: '工行卡号', type: 'string', isNull: true},
+        {name: 'insuranceNum', column: 11, tileName: '社保电脑号', type: 'string', isNull: true},
+        {name: 'accumulationFund', column: 12, tileName: '公积金号', type: 'string', isNull: false},
+        {name: 'attribution', column: 13, tileName: '归属地', type: 'string', isNull: false},
+        {name: 'department', column: 14, tileName: '部门', type: 'picker', isNull: true},
+        {name: 'post', column: 15, tileName: '岗位', type: 'string', isNull: false},
+        {name: 'grade', column: 16, tileName: '级别', type: 'string', isNull: true},
+        {name: 'job', column: 17, tileName: '职务', type: 'string', isNull: false},
+        {name: 'entryTime', column: 18, tileName: '入职日期', type: 'date', isNull: true},
+        {name: 'probation', column: 19, tileName: '试用期（月）', type: 'string', isNull: false},
+        {name: 'positiveDate', column: 20, tileName: '转正日期', type: 'date', isNull: true},
+        {name: 'agreementDate', column: 21, tileName: '合同起始', type: 'date', isNull: true},
+        {name: 'agreementLast', column: 22, tileName: '合同期限（年）', type: 'int', isNull: true},
+        {name: 'agreementEnd', column: 23, tileName: '合同结束', type: 'date', isNull: true},
+        {name: 'graduateSchool', column: 24, tileName: '毕业学校', type: 'string', isNull: true},
+        {name: 'graduateTime', column: 25, tileName: '毕业时间', type: 'date', isNull: true},
+        {name: 'education', column: 26, tileName: '学历', type: 'string', isNull: true},
+        {name: 'major', column: 27, tileName: '专业', type: 'string', isNull: true},
+        {name: 'accountLocation', column: 28, tileName: '户籍地址', type: 'string', isNull: true},
+        {name: 'locationKind', column: 29, tileName: '户籍类型', type: 'string', isNull: true},
+        {name: 'adress', column: 30, tileName: '现住址', type: 'string', isNull: true},
+        {name: 'emergency', column: 31, tileName: '紧急联系人', type: 'string', isNull: true},
+        {name: 'emergencyRelation', column: 32, tileName: '关系', type: 'string', isNull: true},
+        {name: 'emergencyTel', column: 33, tileName: '紧急联系方式', type: 'string', isNull: true},
+        {name: 'remark', column: 34, tileName: '备注', type: 'string', isNull: true}
+
+    ]
+};
 
 exports.doWithRouter = function(router) {
     router.post('/emp-leave', mark('services', 'employee/employee-info').on(function (employeeInfoSvc, request) {
@@ -201,4 +262,86 @@ exports.doWithRouter = function(router) {
 
         return json({flag: true});
     }));
+     //导入已有数据
+    router.post('/import-excel', mark('services', 'commons/import-excel', 'employee/employee-info').on(function (importXlsSvc, employeeInfoSvc, request) {
+        var result, result2, saveAndCheckResult,
+            rowNum, entityArray, i;
+
+        entityArray = [];
+        result = importXlsSvc.importExcel(request.params, exports.importing);
+        rowNum = result.rowNum;
+
+        for (i = 0; i < rowNum; i++) {
+            entityArray.push(new EmployeeInfo());
+        }
+
+        result2 = importXlsSvc.fillEntity(result.rowDataArray, exports.importing, entityArray);
+        saveAndCheckResult = employeeInfoSvc.saveEntities(request.params, result2.entityArray, result);
+        result.failRowIdxes = saveAndCheckResult.failRowIdxes;
+        result.repeatRowIdxes = saveAndCheckResult.repeatRowIdxes;
+
+        return json({
+            entityArray: result2.entityArray,
+            pickerFields: result.pickerFields,
+            specialFields: result.specialFields,
+            failRowIdxes: result.failRowIdxes,
+            repeatRowIdxes: result.repeatRowIdxes,
+            successNum: result2.entityArray.length
+        }, exports.filters.defaults);
+    }));
+    //下载导入模板地址设置
+    router.get('/configuration/importsettings', function (request) {
+        var getFileDirectoryByFilePath, getFileNameByFilePath, templateFilePath;
+
+        getFileDirectoryByFilePath = function(filePath) {
+            return filePath.substring(0, filePath.lastIndexOf('/'));
+        };
+        getFileNameByFilePath = function(filePath) {
+            return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+        };
+
+        if(exports.importing && exports.importing.enable === true){
+
+            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+
+            if(!fs.exists(templateFilePath)){
+                return json({templateExists: false});
+            }
+
+            return json(objects.extend(exports.importing, {filename: getFileNameByFilePath(exports.importing.template)}));
+        }
+
+        return json({exportEnable: false});
+    });
+
+    //下载导入模板
+    router.get('/down-import-template/:filename', function(request, filename) {
+        var getFileDirectoryByFilePath, getFileNameByFilePath, templateFilePath;
+
+        getFileDirectoryByFilePath = function(filePath) {
+            return filePath.substring(0, filePath.lastIndexOf('/'));
+        };
+        getFileNameByFilePath = function(filePath) {
+            return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+        };
+
+        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+
+        if(!fs.exists(templateFilePath)){
+            return {result: "附件不存在"};
+        }
+
+        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
+    });
+    //导出
+    router.get('/export-excel', mark('services', 'commons/export-excel', 'employee/employee-info').on(function (exportXlsSvc, employeeInfoSvc, request) {
+        var options = request.params,
+            result;
+
+        options = exportXlsSvc.dealParameters(options, employeeInfoSvc, new EmployeeInfo());
+
+        result = employeeInfoSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
+
+        return json({flag: result.flag, filename: result.filename});
+    }))
 };

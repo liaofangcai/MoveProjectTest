@@ -31,7 +31,6 @@ exports.filters = {
 
 exports.haveFilter = true;
 
-exports.enableFrontendExtension = true;
 
 exports.entityLabel = '其他说明';
 

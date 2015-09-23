@@ -50,49 +50,71 @@ exports.labels = {
 
 exports.forms = {
   add: {
-    groups: [
-      {name: 'defaults', columns: 2}
-
-    ],
-    size: 'large'
+    groups: [{name: 'interviewTime',  labelOnTop: true, label: '面试时间'},
+             {name: 'whetherSign', labelOnTop: true, label: '是否签到'},
+             {name: 'noSignReason', visible: false, labelOnTop: true, label: '未签到原因'},
+             {name: 'reexamine', labelOnTop: true, label: '是否复试'},
+             {name: 'reexamineReason', visible: false, labelOnTop: true, label: '未复试原因'},
+             {name: 'reexamineResult', labelOnTop: true, label: '复试结果'},
+             {name: 'whetherEntry', labelOnTop: true, label: '是否入职'},
+             {name: 'remark', labelOnTop: true, label: '备注'}]
   },
   edit: {
-    groups: [
-      {name: 'defaults', columns: 2}
-    ],
-    size: 'large'
+    groups: [{name: 'interviewTime',  labelOnTop: true, label: '面试时间'},
+             {name: 'whetherSign', labelOnTop: true, label: '是否签到'},
+             {name: 'noSignReason', visible: false, labelOnTop: true, label: '未签到原因'},
+             {name: 'reexamine', labelOnTop: true, label: '是否复试'},
+             {name: 'reexamineReason', visible: false, labelOnTop: true, label: '未复试原因'},
+             {name: 'reexamineResult', labelOnTop: true, label: '复试结果'},
+             {name: 'whetherEntry', labelOnTop: true, label: '是否入职'},
+             {name: 'remark', labelOnTop: true, label: '备注'}]
   },
   show: {
-    groups: [
-      {name: 'defaults', columns: 2}
-    ],
-    size: 'large'
+    groups: [{name: 'interviewTime',  labelOnTop: true, label: '面试时间'},
+             {name: 'whetherSign', labelOnTop: true, label: '是否签到'},
+             {name: 'noSignReason', visible: true, labelOnTop: true, label: '未签到原因'},
+             {name: 'reexamine', labelOnTop: true, label: '是否复试'},
+             {name: 'reexamineReason', visible: true, labelOnTop: true, label: '未复试原因'},
+             {name: 'reexamineResult', labelOnTop: true, label: '复试结果'},
+             {name: 'whetherEntry', labelOnTop: true, label: '是否入职'},
+             {name: 'remark', labelOnTop: true, label: '备注'}]
   },
   filter: {
-    groups: [{name: 'filter', columns: 1}], size: 'small'
+    groups: [{name: 'filter', columns: 1}], size: 'normal'
   }
 };
 
 exports.fieldGroups = {
-  defaults:[
-    'interviewTime','whetherSign','signReason','reexamine','reexamineReason','reexamineResult',
-    'whetherEntry','remark'
+  interviewTime:[
+    'interviewTime'
   ],
-  inlineRecruitmentInterviewGrid: [{
-        label: '面试记录',
-        type: 'inline-grid',
-        name: 'recruitmentInterview',
-        disableShow: true,
-        allowAdd: true,
-        allowEdit: true,
-        multiple: false,
-        allowPick: false
-    }]
+  whetherSign:[
+    {name:'whetherSign', defaultValue: 'true'}
+  ],
+  noSignReason: [
+    'signReason'
+  ],
+  reexamine : [
+    {name:'reexamine', defaultValue: 'true'}
+  ],
+  reexamineReason: [
+    'reexamineReason'
+  ],
+  reexamineResult: [
+    'reexamineResult'
+  ],
+  whetherEntry:[
+    'whetherEntry'
+  ],
+  remark: [
+    'remark'
+  ]
 };
 exports.grid = {
     columns: [
-      'interviewTime','whetherSign','signReason','reexamine','reexamineReason','reexamineResult',
-      'phoneNum','whetherEntry','remark'
+      'interviewTime', 'whetherSign', 'signReason', 'reexamine',
+      'reexamineReason', 'reexamineResult',
+      'whetherEntry', 'remark'
     ],
     filterToolbar: true,
     fixedHeader: true,
@@ -102,9 +124,9 @@ exports.grid = {
 };
 exports['inline-grid'] = {
     columns: [
-      'interviewTime',{name: 'whetherSign', renderer: 'modifyresult'},'signReason',
-      {name:'reexamine',renderer: 'modifyresult'},'reexamineReason','reexamineResult',
-    {name: 'whetherEntry',renderer: 'modifyresult'},'remark'
+      'interviewTime',{name: 'whetherSign', renderer: 'modifySignin'}, 'signReason',
+      {name:'reexamine', renderer: 'modifySignin'}, 'reexamineReason', 'reexamineResult',
+      {name: 'whetherEntry',renderer: 'modifySignin'}, 'remark'
     ]
 };
 

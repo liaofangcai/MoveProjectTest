@@ -19,7 +19,9 @@ exports.haveFilter = true;
 
 exports.enableFrontendExtension = true;
 
-
+exports.service = function(service){
+    return _.extend(service, createService());
+};
 
 exports.filters = {
   defaults: {

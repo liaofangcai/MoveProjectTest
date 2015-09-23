@@ -16,6 +16,10 @@ var {createService}         = require('trip/trip-apply.feature/service');
 
 exports.haveFilter = true;
 
+exports.service = function(service){
+    return _.extend(service, createService());
+};
+
 exports.enableFrontendExtension = true;
 
 exports.filters = {
