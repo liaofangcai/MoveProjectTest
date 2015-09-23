@@ -99,7 +99,8 @@ exports.fieldGroups = {
       {label: '面试记录', type: 'inline-grid', name: 'recruitmentInterviews', allowPick: false, allowEdit: true, allowAdd: true}
   ],
   filter: [
-    'name', 'post', 'education','major','phoneNum'
+    'name', 'post',
+    {name: 'gender', type: 'dropdown', defaultValue: 1, source: [{id: 1, text: '男'}, {id: 0, text: '女'}]}, 'education','major','phoneNum'
   ]
 };
 exports.grid = {
