@@ -65,7 +65,7 @@ exports.grid = {
         {name: 'flowStatusDesc', header: '待办内容'},
         {name: 'processInstance.submitter.realName', header: '提交人', width: 65},
         {name: 'processInstance.submitTime', header: '提交时间', width: 150},
-        {name: 'isSign', defaultContent: '', renderer: 'modifyIsSign', width: 85},
+        {name: 'isSign', defaultContent: '', renderer: 'modifyIsSign', width: 85}
         // {name: 'signor.realName', defaultContent: '', sortable: false, header: '签收人姓名'},
         // 'signTime'
     ],

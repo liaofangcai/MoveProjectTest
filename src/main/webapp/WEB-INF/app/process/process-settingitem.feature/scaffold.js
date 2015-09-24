@@ -37,7 +37,9 @@ exports.forms = {
     defaults: {
         groups: [
             {name: 'defaults',columns: 2},
-            'inlineAccountsGrid', 'inlineRolesGrid', 'inlineDepartmentsGrid'
+            {name: 'inlineAccountsGrid', label: '审批用户'},
+            {name: 'inlineRolesGrid', label: '审批角色'},
+            {name: 'inlineDepartmentsGrid', label: '审批部门'}
         ],
         size: 'large'
     }

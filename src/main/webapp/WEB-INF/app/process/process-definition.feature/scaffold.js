@@ -41,14 +41,14 @@ exports.forms = {
     defaults: {
         groups: [
             {name: 'defaults',columns: 2},
-            'inlineSettingItemsGrid'
+            {name: 'inlineSettingItemsGrid', label: '流程配置项'}
         ],
         size: 'large'
     },
     show: {
         groups: [
             {name: 'showFormGroup',columns: 2},
-            'inlineSettingItemsGrid'
+            {name: 'inlineSettingItemsGrid', label: '流程配置项'}
         ],
         size: 'large'
     },
