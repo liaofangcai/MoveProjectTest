@@ -381,7 +381,7 @@ var checkExcelData = function(mappingItem, mappingItemType, cellValue, failRowId
 
             logger.error('check fail col null :' + i + ',' + mappingItem.name);
             return false;
-        }else if(isNumeric(cellValue) === false){ // 类型不对
+        }else if(mappingItem.isNull === true && isNumeric(cellValue) === false){ // 类型不对
             // 保存验证失败的行数
             if(_.contains(failRowIdxes, (i + 1)) === false){
                 failRowIdxes.push(i + 1);
