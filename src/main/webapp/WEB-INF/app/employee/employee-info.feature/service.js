@@ -74,11 +74,18 @@ exports.createService = function() {
                 vo = commExpService.createService().convertEntityToObj(entity);
 
                 vo.gender           = genderMap[entity.gender];
-                vo.entryTime      = dateSdf.format(entity.entryTime);
-                vo.positiveDate      = dateSdf.format(entity.positiveDate);
-                vo.agreementDate      = dateSdf.format(entity.agreementDate);
-                vo.agreementEnd      = dateSdf.format(entity.agreementEnd);
-
+                if(!null == entity.entryTime){
+                  vo.entryTime = dateSdf.format(entity.entryTime);
+                }
+                if(!null == entity.positiveDate){
+                  vo.positiveDate  = dateSdf.format(entity.positiveDate);
+                }
+                if(!null == entity.agreementDate){
+                  vo.agreementDate = dateSdf.format(entity.agreementDate);
+                }
+                if(!null == entity.agreementEnd ){
+                  vo.agreementEnd  = dateSdf.format(entity.agreementEnd);
+                }
                 vos.add(vo);
             }
 

@@ -53,10 +53,13 @@ exports.createService = function() {
                 entity = entities.get(i);
 
                 vo = commExpService.createService().convertEntityToObj(entity);
-
-                vo.gender           = genderMap[entity.gender];
-                vo.timeToWork       = dateSdf.format(entity.timeToWork);
-                vo.buildTime        = dateSdf.format(entity.buildTime);
+                vo.gender = genderMap[entity.gender];
+                if(!null == entity.timeToWork){
+                    vo.timeToWork = dateSdf.format(entity.timeToWork);
+                }
+                if(!null == entity.buildTime){
+                    vo.buildTime  = dateSdf.format(entity.buildTime);
+                }
 
                 vos.add(vo);
             }
