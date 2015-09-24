@@ -104,7 +104,7 @@ exports.fieldGroups = {
   ],
   filter: [
     'name', 'post',
-    {name: 'gender', type: 'dropdown', defaultValue: 1, source: [{id: 1, text: '男'}, {id: 0, text: '女'}]}, 'education','major','phoneNum'
+    'education','major','phoneNum',{name: 'buildTime', type: 'date-range'}
   ]
 };
 exports.grid = {

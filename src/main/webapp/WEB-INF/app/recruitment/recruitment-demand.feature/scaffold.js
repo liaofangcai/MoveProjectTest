@@ -88,7 +88,7 @@ exports.fieldGroups = {
       'major','workplace',{name: 'isUrgent', type: 'dropdown', defaultValue: 1, source: [{id: 1, text: '紧急'}, {id: 2, text: '一般'}]},'applier','appliedTime',{name: 'remark', type: 'textarea', colspan: 2}
   ],
   filter: [
-    'department.name','applier', 'post', 'workplace',{name: 'enabled', type: 'dropdown', defaultValue: 1, source: [{id: 1, text: '开启'}, {id: 0, text: '关闭'}]},
+    'department.name','applier',{name: 'appliedTime', type: 'date-range'}, 'post', 'workplace',{name: 'enabled', type: 'dropdown', defaultValue: 1, source: [{id: 1, text: '开启'}, {id: 0, text: '关闭'}]}
   ],
 };
 exports.grid = {
