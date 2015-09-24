@@ -16,9 +16,13 @@ var URLDecoder                  = java.net.URLDecoder;
 var fs                          = require('fs');
 var objects                     = require('cdeio/util/objects');
 var response                    = require('ringo/jsgi/response');
-
+var {createService}             = require('recruitment/recruitment-resume.feature/service');
 
 exports.haveFilter = true;
+
+exports.service = function(service){
+    return _.extend(service, createService());
+};
 
 exports.enableFrontendExtension = true;
 
@@ -105,7 +109,7 @@ exports.fieldGroups = {
 };
 exports.grid = {
     columns: [
-     'name',{name: 'gender', renderer: 'modifyGender'},'post','education','major','phoneNum'
+     'name',{name: 'gender', renderer: 'modifyGender'},'post','education','major','phoneNum','buildTime'
     ],
     filterToolbar: true,
     fixedHeader: true,

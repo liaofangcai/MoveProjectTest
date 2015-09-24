@@ -72,7 +72,7 @@ exports.createService = function() {
                 vo = commExpService.createService().convertEntityToObj(entity);
 
                 vo.isUrgent  = statusMap[entity.isUrgent];
-                if(!null == entity.appliedTime){
+                if(null !== entity.appliedTime){
                     vo.appliedTime = dateSdf.format(entity.appliedTime);
                 }
                 vo.enabled  = statuschangeMap[entity.enabled];

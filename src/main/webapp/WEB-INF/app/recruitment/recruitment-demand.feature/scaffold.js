@@ -6,6 +6,7 @@ var objects                     = require('cdeio/util/objects');
 var response                    = require('ringo/jsgi/response');
 var {getOptionInProperties}     = require('cdeio/config');
 var {join}                      = require('cdeio/util/paths');
+var {createService}             = require('recruitment/recruitment-demand.feature/service');
 
 var {RecruitmentDemand}         = com.zyeeda.business.recruitment.entity;
 var {SecurityUtils}             = org.apache.shiro;
@@ -18,6 +19,10 @@ var URLDecoder                  = java.net.URLDecoder;
 var {Boolean}                   = java.lang;
 
 exports.haveFilter = true;
+
+exports.service = function(service){
+    return _.extend(service, createService());
+};
 
 exports.enableFrontendExtension = true;
 

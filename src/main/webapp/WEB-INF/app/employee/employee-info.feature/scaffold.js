@@ -6,6 +6,7 @@ var objects                   = require('cdeio/util/objects');
 var response                  = require('ringo/jsgi/response');
 var {getOptionInProperties}   = require('cdeio/config');
 var {join}                    = require('cdeio/util/paths');
+var {createService}           = require('employee/employee-info.feature/service');
 
 var {EmployeeInfo}            = com.zyeeda.business.employee.entity;
 
@@ -17,6 +18,7 @@ var {ArrayList}               = java.util;
 var {Boolean}                 = java.lang;
 var URLDecoder                = java.net.URLDecoder;
 
+
 exports.filters = {
   defaults: {
     '!employeeInfoFilter': [''],
@@ -25,6 +27,10 @@ exports.filters = {
     '!otherInfoFilter': ['employeeInfo'],
     '!attachmentFilter': ['']
   }
+};
+
+exports.service = function(service){
+    return _.extend(service, createService());
 };
 
 exports.haveFilter = true;
@@ -227,14 +233,14 @@ exports.importing = {
         {name: 'birthday', column: 9, tileName: '生日（阳历）', type: 'date', isNull: true},
         {name: 'bankNum', column: 10, tileName: '工行卡号', type: 'string', isNull: true},
         {name: 'insuranceNum', column: 11, tileName: '社保电脑号', type: 'string', isNull: true},
-        {name: 'accumulationFund', column: 12, tileName: '公积金号', type: 'string', isNull: false},
-        {name: 'attribution', column: 13, tileName: '归属地', type: 'string', isNull: false},
+        {name: 'accumulationFund', column: 12, tileName: '公积金号', type: 'string', isNull: true},
+        {name: 'attribution', column: 13, tileName: '归属地', type: 'string', isNull: true},
         {name: 'department', column: 14, tileName: '部门', type: 'picker', isNull: true},
-        {name: 'post', column: 15, tileName: '岗位', type: 'string', isNull: false},
+        {name: 'post', column: 15, tileName: '岗位', type: 'string', isNull: true},
         {name: 'grade', column: 16, tileName: '级别', type: 'string', isNull: true},
-        {name: 'job', column: 17, tileName: '职务', type: 'string', isNull: false},
+        {name: 'job', column: 17, tileName: '职务', type: 'string', isNull: true},
         {name: 'entryTime', column: 18, tileName: '入职日期', type: 'date', isNull: true},
-        {name: 'probation', column: 19, tileName: '试用期（月）', type: 'string', isNull: false},
+        {name: 'probation', column: 19, tileName: '试用期（月）', type: 'string', isNull: true},
         {name: 'positiveDate', column: 20, tileName: '转正日期', type: 'date', isNull: true},
         {name: 'agreementDate', column: 21, tileName: '合同起始', type: 'date', isNull: true},
         {name: 'agreementLast', column: 22, tileName: '合同期限（年）', type: 'int', isNull: true},
