@@ -248,7 +248,7 @@ var readExcelContent = function(is, importSetting, params) {
                     }else if(mappingItem.type === 'short'){
                         checkFlag = checkExcelData(mappingItem, mappingItem.type, cellValue, failRowIdxes, i);
                         if(checkFlag === true){
-                            if (isNotBlank(cellValue))
+                            if (isNotBlank(cellValue)){
                                 contentMap[colName] = parseShort(cellValue);
                             }
                         }
