@@ -223,36 +223,48 @@ var readExcelContent = function(is, importSetting, params) {
                     }else if(mappingItem.type === 'int'){
                         checkFlag = checkExcelData(mappingItem, mappingItem.type, cellValue, failRowIdxes, i);
                         if(checkFlag === true){
-                            if(cellValue.lastIndexOf('.') > 0){
-                                contentMap[colName] = new Integer(cellValue.substring(0, cellValue.lastIndexOf('.')));
-                            }else{
-                                contentMap[colName] = new Integer(cellValue);
+                            if (isNotBlank(cellValue)){
+                                if(cellValue.lastIndexOf('.') > 0){
+                                    contentMap[colName] = new Integer(cellValue.substring(0, cellValue.lastIndexOf('.')));
+                                }else{
+                                    contentMap[colName] = new Integer(cellValue);
+                                }
                             }
                         }
                     }else if(mappingItem.type === 'double'){
                         checkFlag = checkExcelData(mappingItem, mappingItem.type, cellValue, failRowIdxes, i);
                         if(checkFlag === true){
-                            contentMap[colName] = parseDouble(cellValue);
+                            if (isNotBlank(cellValue)){
+                                contentMap[colName] = parseDouble(cellValue);
+                            }
                         }
                     }else if(mappingItem.type === 'long'){
                         checkFlag = checkExcelData(mappingItem, mappingItem.type, cellValue, failRowIdxes, i);
                         if(checkFlag === true){
-                            contentMap[colName] = parseLong(cellValue);
+                            if (isNotBlank(cellValue)){
+                                contentMap[colName] = parseLong(cellValue);
+                            }
                         }
                     }else if(mappingItem.type === 'short'){
                         checkFlag = checkExcelData(mappingItem, mappingItem.type, cellValue, failRowIdxes, i);
                         if(checkFlag === true){
-                            contentMap[colName] = parseShort(cellValue);
+                            if (isNotBlank(cellValue))
+                                contentMap[colName] = parseShort(cellValue);
+                            }
                         }
                     }else if(mappingItem.type === 'byte'){
                         checkFlag = checkExcelData(mappingItem, mappingItem.type, cellValue, failRowIdxes, i);
                         if(checkFlag === true){
-                            contentMap[colName] = parseByte(cellValue);
+                            if (isNotBlank(cellValue)){
+                                contentMap[colName] = parseByte(cellValue);
+                            }
                         }
                     }else if(mappingItem.type === 'bigdecimal'){
                         checkFlag = checkExcelData(mappingItem, mappingItem.type, cellValue, failRowIdxes, i);
                         if(checkFlag === true){
-                            contentMap[colName] = parseBigDecimal(cellValue);
+                            if (isNotBlank(cellValue)){
+                                contentMap[colName] = parseBigDecimal(cellValue);
+                            }
                         }
                     }else if(mappingItem.type === 'dropdown'){
                         checkFlag = checkExcelData(mappingItem, mappingItem.type, cellValue, failRowIdxes, i);
