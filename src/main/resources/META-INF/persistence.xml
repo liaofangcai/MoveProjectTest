@@ -40,6 +40,8 @@
         <mapping-file>META-INF/mappings/employee/other-info.orm.xml</mapping-file>
         <!-- 档案管理 -->
         <mapping-file>META-INF/mappings/recruitment/recruitment-interview.orm.xml</mapping-file>
+        <!-- 资产管理 -->
+        <mapping-file>META-INF/mappings/asset/asset-status.orm.xml</mapping-file>
 
         <!-- 系统级实体 -->
         <class>com.zyeeda.cdeio.commons.organization.entity.Account</class>

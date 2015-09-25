@@ -18,7 +18,8 @@ exports.cdeio = {
     // 出差
     'com.zyeeda.business.trip.entity',
     'com.zyeeda.business.employee.entity',
-    'com.zyeeda.business.recruitment.entity'
+    'com.zyeeda.business.recruitment.entity',
+    'com.zyeeda.business.asset.entity'
   ],
 
   orms: [
