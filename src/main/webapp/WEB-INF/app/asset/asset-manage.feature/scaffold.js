@@ -35,10 +35,10 @@ exports.enableFrontendExtension = true;
 exports.entityLabel = '资产信息';
 
 exports.labels = {
-  equipmentNo: '设备编号',
-  equipmentName: '设备名称',
+  equipmentNo: '资产编号',
+  equipmentName: '资产名称',
   equipmentVersion: '规格型号',
-  equipmentId: '机身编号',
+  equipmentId: '序列号',
   manufacturer: '生产厂家',
   unit: '单位',
   purchaseDate: '购置日期',
@@ -147,10 +147,10 @@ exports.importing = {
   template: 'asset/asset-manage/资产信息表.xls',
   startRow: 2,
   mapping: [
-      {name: 'equipmentNo', column: 1, tileName: '设备编号', type: 'string', isNull: false},
-      {name: 'equipmentName', column: 2, tileName: '设备名称', type: 'string', isNull: false},
+      {name: 'equipmentNo', column: 1, tileName: '资产编号', type: 'string', isNull: false},
+      {name: 'equipmentName', column: 2, tileName: '资产名称', type: 'string', isNull: false},
       {name: 'equipmentVersion', column: 3, tileName: '规格型号', type: 'string', isNull: false},
-      {name: 'equipmentId', column: 4, tileName: '机身编号', type: 'string', isNull: true},
+      {name: 'equipmentId', column: 4, tileName: '序列号', type: 'string', isNull: true},
       {name: 'manufacturer', column: 5, tileName: '生产厂家', type: 'string', isNull: true },
       {name: 'unit', column: 6, tileName: '单位', type: 'string', isNull: true },
       {name: 'purchaseDate', column: 7, tileName: '购置日期', type: 'date', isNull: true },
