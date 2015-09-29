@@ -29,11 +29,11 @@ public class AssetManage extends RevisionDomainEntity{
    */
   private static final long serialVersionUID = 3728277543938624745L;
   /**
-   * 设备编号
+   * 资产编号
    */
   private String equipmentNo;
   /**
-   *设备名称
+   *资产名称
    */
   private String equipmentName;
   /**
@@ -41,7 +41,7 @@ public class AssetManage extends RevisionDomainEntity{
    */
   private String equipmentVersion;
   /**
-   * 机身编号
+   * 序列号
    */
   private String equipmentId;
   /**

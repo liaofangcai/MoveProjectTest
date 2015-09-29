@@ -66,7 +66,6 @@ public class AssetStatus extends RevisionDomainEntity{
 		this.startDate = startDate;
 	}
 
-  @NotNull
   @Temporal(TemporalType.DATE)
   @Column(name = "f_end_date")
 	public Date getEndDate() {
