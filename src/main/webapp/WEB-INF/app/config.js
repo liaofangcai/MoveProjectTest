@@ -19,7 +19,8 @@ exports.cdeio = {
     'com.zyeeda.business.trip.entity',
     'com.zyeeda.business.employee.entity',
     'com.zyeeda.business.recruitment.entity',
-    'com.zyeeda.business.asset.entity'
+    'com.zyeeda.business.asset.entity',
+    'com.zyeeda.business.attendance.entity'
   ],
 
   orms: [
@@ -49,6 +50,12 @@ exports.cdeio = {
     'src/main/resources/META-INF/mappings/employee/other-info.orm.xml',
     //档案管理
     'src/main/resources/META-INF/mappings/recruitment/recruitment-interview.orm.xml',
+    //考勤管理
+    'src/main/resources/META-INF/mappings/attendance/holiday-apply.orm.xml',
+    'src/main/resources/META-INF/mappings/attendance/overwork-apply.orm.xml',
+    'src/main/resources/META-INF/mappings/attendance/daysoff-apply.orm.xml',
+    'src/main/resources/META-INF/mappings/attendance/signin-explain.orm.xml'
+
   ],
 
   disableAuthz: false,
