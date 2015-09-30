@@ -19,7 +19,6 @@ var URLDecoder                = java.net.URLDecoder;
 exports.filters = {
   defaults: {
     '!assetManageFilter': [''],
-    '!roleFilter': ['accounts', 'permissions'],
     '!assetStatusFilter': ['assetManage']
   }
 };
@@ -152,8 +151,8 @@ exports.importing = {
       {name: 'equipmentVersion', column: 3, tileName: '规格型号', type: 'string', isNull: false},
       {name: 'equipmentId', column: 4, tileName: '序列号', type: 'string', isNull: true},
       {name: 'manufacturer', column: 5, tileName: '生产厂家', type: 'string', isNull: true },
-      {name: 'unit', column: 6, tileName: '单位', type: 'string', isNull: true },
-      {name: 'purchaseDate', column: 7, tileName: '购置日期', type: 'date', isNull: true },
+      {name: 'unit', column: 6, tileName: '单位', type: 'string', isNull: false },
+      {name: 'purchaseDate', column: 7, tileName: '购置日期', type: 'date', isNull: false },
       {name: 'price', column: 8, tileName: '采购价格', type: 'double', isNull: true },
       {name: 'attachment', column: 9, tileName: '附件配备', type: 'string', isNull: true },
       {name: 'providerName', column: 10, tileName: '供应商名称', type: 'string', isNull: true },
@@ -161,7 +160,7 @@ exports.importing = {
       {name: 'contacts', column: 12, tileName: '联系人', type: 'string', isNull: true },
       {name: 'phoneNum', column: 13, tileName: '联系方式', type: 'string', isNull: true },
       {name: 'address', column: 14, tileName: '地点', type: 'string', isNull: true },
-      {name: 'status', column: 15, tileName: '状态', type: 'dropdown', isNull: true,
+      {name: 'status', column: 15, tileName: '状态', type: 'dropdown', isNull: false,
         source: [{id: '0', text: '闲置'}, {id: '1', text: '使用中'}, {id:'2', text: '待维修'},
         {id:'3', text: '转移'}, {id:'4', text: '报废'}]
       },

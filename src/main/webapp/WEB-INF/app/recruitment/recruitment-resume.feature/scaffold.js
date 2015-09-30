@@ -83,7 +83,7 @@ exports.forms = {
     size: 'large'
   },
   filter: {
-    groups: [{name: 'filter', columns: 1}], size: 'small'
+    groups: [{name: 'filter', columns: 2}], size: 'large'
   },
 };
 

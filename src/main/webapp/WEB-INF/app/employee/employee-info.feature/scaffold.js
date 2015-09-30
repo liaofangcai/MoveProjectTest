@@ -142,11 +142,12 @@ exports.fieldGroups = {
         acceptFileTypes: "(\\.|\\/)(swf|mp4|avi|wmv|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z|pdf|txt|jpg|jpeg|png|gif)$"}
     ],
     inlineOtherInfoGrid:[
-      {label: '其他说明', type: 'inline-grid', name: 'otherInfos', allowPick: false, allowAdd: true}
+      {label: '其他说明', type: 'inline-grid', name: 'otherInfos', allowPick: false, allowAdd: true,
+      allowEdit: true}
     ],
     leave:['empName','membership','leaveDate',{name: 'leaveProve', type: 'dropdown', defaultValue: true, source: [{id: true, text: '是'}, {id: false, text: '否'}]},{name:'leaveReason', type: 'textarea',colspan: 2}],
     filter: [
-      'empName', 'membership', 'department.name', 'phoneNum',{name: 'whetherLeaved', type: 'dropdown', defaultValue: true, source: [{id: 1, text: '在职'}, {id: 0, text: '离职'}]}
+      'empName', 'membership', 'department.name', 'phoneNum',{name: 'whetherLeaved', type: 'dropdown', source: [{id: true, text: '在职'}, {id: false, text: '离职'}]}
     ]
 };
 
