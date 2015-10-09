@@ -19,6 +19,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.zyeeda.business.process.entity.ProcessRevisionDomainEntity;
 import com.zyeeda.business.process.entity.ApprovalHistory;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import com.zyeeda.cdeio.commons.annotation.scaffold.DateTime;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.organization.entity.Account;
 import com.zyeeda.cdeio.commons.organization.entity.Department;
@@ -154,8 +157,10 @@ public class OverWorkApply extends ProcessRevisionDomainEntity {
     	this.job = job;
     }
 
+
     @NotNull
-    @Temporal(TemporalType.DATE)
+    @DateTime
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     @Column(name = "f_expected_begin_time")
     public Date getExpectedBeginTime() {
     	return expectedBeginTime;
@@ -165,7 +170,8 @@ public class OverWorkApply extends ProcessRevisionDomainEntity {
     }
 
     @NotNull
-    @Temporal(TemporalType.DATE)
+    @DateTime
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     @Column(name = "f_expected_end_time")
     public Date getExpectedEndTime() {
     	return expectedEndTime;
@@ -207,6 +213,8 @@ public class OverWorkApply extends ProcessRevisionDomainEntity {
     }
 
 
+    @DateTime
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     @Column(name = "f_begin_time")
     @Temporal(TemporalType.DATE)
     public Date getBeginTime() {
@@ -216,6 +224,9 @@ public class OverWorkApply extends ProcessRevisionDomainEntity {
     	this.beginTime = beginTime;
     }
 
+
+    @DateTime
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     @Column(name = "f_end_time")
     @Temporal(TemporalType.DATE)
     public Date getEndTime() {

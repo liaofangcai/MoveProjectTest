@@ -17,9 +17,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.zyeeda.business.process.entity.ProcessRevisionDomainEntity;
 import com.zyeeda.business.process.entity.ApprovalHistory;
 
+import com.zyeeda.cdeio.commons.annotation.scaffold.DateTime;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.organization.entity.Account;
 import com.zyeeda.cdeio.commons.organization.entity.Department;
@@ -150,6 +153,8 @@ public class DaysoffApply extends ProcessRevisionDomainEntity {
   	}
 
     @NotNull
+    @DateTime
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     @Column(name = "f_daysoff_begin_date")
   	public Date getDaysoffBeginDate() {
   		return daysoffBeginDate;
@@ -159,6 +164,8 @@ public class DaysoffApply extends ProcessRevisionDomainEntity {
   	}
 
     @NotNull
+    @DateTime
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     @Column(name = "f_daysoff_end_date")
   	public Date getDaysoffEndDate() {
   		return daysoffEndDate;
@@ -167,7 +174,7 @@ public class DaysoffApply extends ProcessRevisionDomainEntity {
   		this.daysoffEndDate = daysoffEndDate;
   	}
 
-    @NotBlank
+
     @Column(name = "f_total_time")
   	public String getTotalTime() {
   		return totalTime;

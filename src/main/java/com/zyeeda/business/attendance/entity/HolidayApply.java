@@ -16,13 +16,16 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import com.zyeeda.cdeio.commons.annotation.scaffold.DateTime;
 import com.zyeeda.business.process.entity.ProcessRevisionDomainEntity;
 import com.zyeeda.business.process.entity.ApprovalHistory;
-
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.organization.entity.Account;
 import com.zyeeda.cdeio.commons.organization.entity.Department;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
+
 
 /**
  * 假期申请
@@ -145,8 +148,9 @@ public class HolidayApply extends ProcessRevisionDomainEntity {
 		this.holidayType = holidayType;
 	}
 
-	@NotNull
-  @Temporal(TemporalType.DATE)
+  @NotNull
+  @DateTime
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
   @Column(name = "f_start_time")
 	public Date getStartDate() {
 		return startDate;
@@ -155,9 +159,9 @@ public class HolidayApply extends ProcessRevisionDomainEntity {
 		this.startDate = startDate;
 	}
 
-
-	@NotNull
-  @Temporal(TemporalType.DATE)
+  @NotNull
+  @DateTime
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
   @Column(name = "f_end_time")
 	public Date getEndTime() {
 		return endTime;
@@ -177,7 +181,6 @@ public class HolidayApply extends ProcessRevisionDomainEntity {
 		this.holidayReason = holidayReason;
 	}
 
-	@NotBlank
 	@Column(name = "f_total_time", length = 300)
 	@NullableSize(max = 166)
 	public String getTotalTime() {
