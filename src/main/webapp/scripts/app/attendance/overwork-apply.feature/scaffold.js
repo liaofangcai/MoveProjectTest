@@ -21,6 +21,7 @@ define([
           }
           return true;
       },
+
       afterShowDialog: function(dialogType, view, data){
         var me = this;
         if ("add" == dialogType) {
@@ -112,28 +113,38 @@ define([
 
           })
         },
-        formStatusChanged: function(data, el) {
-          var startDate = data.expectedBeginTime,
-              endTime = data.expectedEndTime,
-              lasthour,lastminute,lastdate,
-              totalTime,msec,
-              date = new Date();
+       formStatusChanged: function(data, el) {
+          var expectedBeginTime = Date.parse(data.expectedBeginTime),
+              expectedEndTime = Date.parse(data.expectedEndTime),
+              beginTime = Date.parse(data.beginTime),
+              endTime = Date.parse(data.endTime),
+              lastminute,lasthour,lastdate,
+              totalTime,msec;
+          if(expectedBeginTime != null && expectedEndTime != null){
 
-          if(!startDate.length == 0 && !endTime.length == 0){
+            if(expectedEndTime.getTime() - expectedBeginTime.getTime()>0){
+              msec    = (expectedEndTime.getTime() - expectedBeginTime.getTime());
+              lastdate  = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000));
+              lasthour  = Math.floor(msec%(24*3600*1000)/(3600*1000));
+              lastminute = Math.floor(msec%(3600*1000)/(60*1000));
 
-              startDate = new Date(startDate);
-              endTime  =  new Date(endTime);
-               if(endTime.getTime()-startDate.getTime()>0){
+              $('input[name= "expectedTotalTime"]').val(lastdate + "天" + lasthour + "小时" + lastminute + "分钟");
+            }else{
+              $('input[name= "expectedTotalTime"]').val(0);
+            }
+          }
+          if(beginTime != null && endTime != null){
 
-                msec    = (endTime.getTime()-startDate.getTime());
-                lastdate  = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000));
-                lasthour  = Math.floor(msec%(24*3600*1000)/(3600*1000));
-                lastminute = Math.floor(msec%(3600*1000)/60*1000);
+            if(endTime.getTime() - beginTime.getTime()>0){
+              msec    = (endTime.getTime() - beginTime.getTime());
+              lastdate  = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000));
+              lasthour  = Math.floor(msec%(24*3600*1000)/(3600*1000));
+              lastminute = Math.floor(msec%(3600*1000)/(60*1000));
 
-                $('input[name= "expectedTotalTime"]').val(lastdate + "天" + lasthour + "小时" + lastminute + "分钟");
-              }else{
-                $('input[name= "expectedTotalTime"]').val(0);
-              }
+              $('input[name= "totalTime"]').val(lastdate + "天" + lasthour + "小时" + lastminute + "分钟");
+            }else{
+              $('input[name= "totalTime"]').val(0);
+            }
           }
         },
         retrieve: function(){
@@ -151,7 +162,7 @@ define([
         },
         sendProcess: function(){
             var me = this,
-                businessName = '请假申请';
+                businessName = '加班申请';
 
             processUtil.sendProcess(me, businessName);
         },

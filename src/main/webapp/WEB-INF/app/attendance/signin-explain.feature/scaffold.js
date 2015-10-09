@@ -108,7 +108,9 @@ exports.fieldGroups = {
     {name: 'signinReason', type: 'textarea', colspan: 2}
   ],
   filter: [
-    'applyNo','applier.realName', {name: 'appliedDate', type: 'date-range' }, 'department.name'
+    'applyNo','applier.realName',
+    {name: 'appliedDate', type: 'date-range' },
+    {name: 'signinDate', type: 'date-range'},  'department.name'
   ],
   audit: [
     {name: 'flowComment', label: '审批结果', type: 'dropdown', source: [{id: '1', text: '同意'}, {id: '2', text: '不同意'}], required: true, validations: {rules: {required: true}}},

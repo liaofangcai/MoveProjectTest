@@ -103,7 +103,7 @@ exports.fieldGroups = {
   ],
   withApplyNoGroup: [
     {name:'applyNo', colspan: 2}, {name: 'applier', textKey: 'realName'}, 'appliedDate', 'department', 'job',
-    'daysoffBeginDate', 'daysoffEndDate', 'totalTime', 'overWorkApply.applyNo',
+    'daysoffBeginDate', 'daysoffEndDate', 'totalTime', {name: 'overWorkApply', textKey: 'applyNo'},
     {name: 'daysoffReason', type: 'textarea', colspan: 2}
   ],
   filter: [

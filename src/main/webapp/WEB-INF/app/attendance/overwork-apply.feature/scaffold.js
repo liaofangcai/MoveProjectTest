@@ -14,15 +14,12 @@ var objects                 = require('cdeio/util/objects');
 var response                = require('ringo/jsgi/response');
 var {createService}         = require('attendance/overwork-apply.feature/service');
 
-
-exports.haveFilter = true;
-
 exports.service = function(service){
     return _.extend(service, createService());
 };
 
+exports.haveFilter = true;
 exports.enableFrontendExtension = true;
-
 
 exports.filters = {
   defaults: {
@@ -93,14 +90,11 @@ exports.forms = {
   }
 };
 
-exports.feature = {
-  views: ['form:audit']
-};
-
 exports.fieldGroups = {
   defaults: [
     {name: 'applier', textKey: 'realName'}, 'appliedDate', 'department','job',
-    {name: 'expectedBeginTime',statusChanger: true}, {name: 'expectedEndTime', statusChanger: true},
+    {name: 'expectedBeginTime',type: 'datetimepicker', statusChanger: true},
+    {name: 'expectedEndTime', type: 'datetimepicker', statusChanger: true},
     {name:'overTime',type: 'dropdown', source: [{id: 0, text: '工作日'}, {id: 1, text: '周末'}, {id: 2,text: '法定节假日'}]}, 'expectedTotalTime',
     {name: 'overTimeReason', type: 'textarea', colspan: 2}
   ],
@@ -126,9 +120,9 @@ exports.fieldGroups = {
     {name: 'flowSuggestion', label: '审批意见', type: 'textarea', colspan: 2}
   ],
   check: [
-    {name: 'beginTime', required: true, validations: {rules: {required: true},
+    {name: 'beginTime', required: true, type: 'datetimepicker', statusChanger: true, validations: {rules: {required: true},
     messages: {required: '不能为空'}}},
-    {name: 'endTime', required: true, validations: {rules: {required: true},
+    {name: 'endTime', required: true,  type: 'datetimepicker', statusChanger: true, validations: {rules: {required: true},
     messages: {required: '不能为空'}}},
     {name: 'totalTime', required: true, validations: {rules: {required: true},
     messages: {required: '不能为空'}}}
@@ -136,7 +130,7 @@ exports.fieldGroups = {
 };
 
 exports.feature = {
-  views: ['form:check']
+  views: ['form:check','form:audit']
 };
 exports.grid = {
     columns: [

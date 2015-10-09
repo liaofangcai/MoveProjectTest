@@ -98,7 +98,8 @@ exports.fieldGroups = {
   defaults: [
     {name: 'applier', textKey: 'realName'}, 'appliedDate', 'department',
     {name:'holidayType',type: 'dropdown', source: [{id: 0, text: '事假'}, {id: 1, text: '病假'}, {id: 2,text: '婚假'}, {id: 3, text: '产假'}, {id: 4, text: '丧假'}, {id: 5, text: '年假'}, {id: 6,text: '其他'}]},
-     {name: 'startDate',statusChanger: true}, {name: 'endTime', statusChanger: true},
+    {name: 'startDate', type: 'datetimepicker', statusChanger: true},
+    {name: 'endTime', type: 'datetimepicker', statusChanger: true},
     {name: 'holidayReason', type: 'textarea', colspan: 2}, 'totalTime', 'deputy',
     {name: 'transfer', type: 'textarea', colspan: 2}
   ],

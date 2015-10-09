@@ -65,22 +65,19 @@ define([
     },
     handlers: {
         formStatusChanged: function(data, el) {
-          var startDate = data.daysoffBeginDate,
-              endTime = data.daysoffEndDate,
+          var startDate = Date.parse(data.daysoffBeginDate),
+              endTime = Date.parse(data.daysoffEndDate),
               lastdate,lasthour,lastminute,msec;
 
 
-          if(!startDate.length == 0 && !endTime.length == 0){
-
-              startDate = new Date(startDate);
-              endTime  =  new Date(endTime);
+          if( startDate != null && endTime != null){
 
               if(endTime.getTime()-startDate.getTime()>0){
 
                 msec    = (endTime.getTime()-startDate.getTime());
                 lastdate  = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000)) + 1;
                 lasthour  = Math.floor(msec%(24*3600*1000)/(3600*1000));
-                lastminute = Math.floor(msec%(3600*1000)/60*1000);
+                lastminute = Math.floor(msec%(3600*1000)/(60*1000));
 
                 $('input[name= "totalTime"]').val(lastdate + "天" + lasthour + "小时" + lastminute + "分钟");
               }else{

@@ -175,6 +175,12 @@ exports.createService = function() {
                 if(null !== entity.appliedDate){
                   vo.appliedDate = dateSdf.format(entity.appliedDate);
                 }
+                if(null !== entity.beginTime ){
+                  vo.beginTime  = dateSdf.format(entity.beginTime);
+                }
+                if(null !== entity.endTime){
+                  vo.endTime =  dateSdf.format(entity.endTime);
+                }
                 vos.add(vo);
             }
 

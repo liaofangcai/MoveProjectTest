@@ -80,26 +80,22 @@ define([
 
     handlers: {
         formStatusChanged: function(data, el) {
-          var startDate = data.startDate,
-              endTime = data.endTime,
+          var startDate = Date.parse(data.startDate),
+              endTime = Date.parse(data.endTime),
               lastminute,lasthour,lastdate,
-              totalTime,msec,
-              date = new Date();
+              totalTime,msec;
 
-          if(!startDate.length == 0 && !endTime.length == 0){
+          if(startDate != null && endTime != null){
 
-              startDate = new Date(startDate);
-              endTime  =  new Date(endTime);
-              if(endTime.getTime()-startDate.getTime()>0){
-                msec    = (endTime.getTime()-startDate.getTime());
-                lastdate  = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000));
-                lasthour  = Math.floor(msec%(24*3600*1000)/(3600*1000));
-                lastminute = Math.floor(msec%(3600*1000)/60*1000);
-
-                $('input[name= "totalTime"]').val(lastdate + "天" + lasthour + "小时" + lastminute + "分钟");
-              }else{
-                $('input[name= "totalTime"]').val(0);
-              }
+            if(endTime.getTime() - startDate.getTime()>0){
+              msec    = (endTime.getTime()-startDate.getTime());
+              lastdate  = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000));
+              lasthour  = Math.floor(msec%(24*3600*1000)/(3600*1000));
+              lastminute = Math.floor(msec%(3600*1000)/(60*1000));
+              $('input[name= "totalTime"]').val(lastdate + "天" + lasthour + "小时" + lastminute + "分钟");
+            }else{
+              $('input[name= "totalTime"]').val(0);
+            }
           }
         },
         retrieve: function(){
