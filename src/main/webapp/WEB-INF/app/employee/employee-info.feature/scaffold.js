@@ -95,7 +95,9 @@ exports.forms = {
   show: {
       groups: [
         {name: 'defaults', columns: 2},
+        {name: 'leave', label: '离职信息'},
         {name: 'inlineOtherInfoGrid', label: '其他说明'}
+
       ],
       size: 'large'
   },
@@ -141,6 +143,7 @@ exports.fieldGroups = {
         url: 'invoke/system/upload',
         acceptFileTypes: "(\\.|\\/)(swf|mp4|avi|wmv|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z|pdf|txt|jpg|jpeg|png|gif)$"}
     ],
+
     inlineOtherInfoGrid:[
       {label: '其他说明', type: 'inline-grid', name: 'otherInfos', allowPick: false, allowAdd: true,
       allowEdit: true}
