@@ -49,7 +49,8 @@ exports.labels = {
   phoneNum: '联系方式',
   address: '地点',
   status: '状态',
-  remark: '备注'
+  remark: '备注',
+  latelyUser: '最近使用人'
 };
 exports.forms = {
   edit: {
@@ -90,12 +91,12 @@ exports.fieldGroups = {
     'address', {name: 'status', type: 'dropdown', defaultValue: 1, source: [{id: 0, text: '闲置'}, {id: 1, text: '使用中'}, {id: 2,text: '待维修'}, {id: 3, text: '转移'}, {id: 4, text: '报废'}]},
    ],
   inlineAssetStatusGrid:[
-    {label: '使用情况', type: 'inline-grid', name: 'assetStatus', allowPick: false, allowAdd: true,allowEdit: true}
+    {label: '使用情况', type: 'inline-grid', name: 'assetStatus', allowPick: false, allowAdd: true, allowEdit: true}
   ]
 };
 
 exports.grid = {
-    columns: ['equipmentNo', 'equipmentName', 'equipmentVersion', 'purchaseDate','address',
+    columns: ['equipmentNo', 'equipmentName', 'latelyUser', 'purchaseDate', 'address',
     {name: 'status',renderer: 'modifyStatus'}],
     filterToolbar: true,
     fixedHeader: true,

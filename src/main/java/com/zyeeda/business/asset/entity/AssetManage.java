@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -12,9 +13,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.persistence.Transient;
 import javax.persistence.Temporal;
+import javax.persistence.OrderBy;
 import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.NotBlank;
+
 
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
@@ -96,6 +100,11 @@ public class AssetManage extends RevisionDomainEntity{
    * 对应的assetStatus;
    */
   private List<AssetStatus>  assetStatus;
+  /**
+   *最近使用人（不存入数据库）
+   */
+  private String latelyUser;
+
 
   @NotBlank
   @Column(name = "f_equipment_no", length = 300)
@@ -249,12 +258,25 @@ public class AssetManage extends RevisionDomainEntity{
 		this.remark = remark;
 	}
 
-  @OneToMany(mappedBy = "assetManage")
+  @OneToMany(mappedBy = "assetManage", fetch = FetchType.LAZY)
+  @OrderBy("startDate DESC")
 	public List<AssetStatus> getAssetStatus() {
 		return assetStatus;
 	}
 	public void setAssetStatus(List<AssetStatus> assetStatus) {
 		this.assetStatus = assetStatus;
 	}
+
+  @Transient
+  public String getLatelyUser(){
+    if(null != assetStatus && !assetStatus.isEmpty()){
+      latelyUser = assetStatus.get(0).getUserName();
+    }
+    System.out.print("assetStatus ========" + assetStatus);
+    return latelyUser;
+  }
+  public void setLatelyUser(String latelyUser){
+    this.latelyUser = latelyUser;
+  }
 
 }
