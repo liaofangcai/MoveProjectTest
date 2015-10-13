@@ -69,16 +69,14 @@ define([
               endTime = Date.parse(data.daysoffEndDate),
               lastdate,lasthour,lastminute,msec;
 
-
           if( startDate != null && endTime != null){
 
               if(endTime.getTime()-startDate.getTime()>0){
 
-                msec    = (endTime.getTime()-startDate.getTime());
-                lastdate  = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000)) + 1;
-                lasthour  = Math.floor(msec%(24*3600*1000)/(3600*1000));
+                msec       = (endTime.getTime()-startDate.getTime());
+                lastdate   = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000));
+                lasthour   = Math.floor(msec%(24*3600*1000)/(3600*1000));
                 lastminute = Math.floor(msec%(3600*1000)/(60*1000));
-
                 $('input[name= "totalTime"]').val(lastdate + "天" + lasthour + "小时" + lastminute + "分钟");
               }else{
                   $('input[name= "totalTime"]').val(0);
