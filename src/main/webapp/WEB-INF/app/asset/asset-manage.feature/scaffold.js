@@ -96,7 +96,7 @@ exports.fieldGroups = {
 };
 
 exports.grid = {
-    columns: ['equipmentNo', 'equipmentName', 'latelyUser', 'purchaseDate', 'address',
+    columns: ['equipmentNo', 'equipmentName', {name: 'latelyUser', sortable: false},  'purchaseDate', 'address',
     {name: 'status',renderer: 'modifyStatus'}],
     filterToolbar: true,
     fixedHeader: true,

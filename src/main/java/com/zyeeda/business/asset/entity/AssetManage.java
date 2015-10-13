@@ -272,7 +272,6 @@ public class AssetManage extends RevisionDomainEntity{
     if(null != assetStatus && !assetStatus.isEmpty()){
       latelyUser = assetStatus.get(0).getUserName();
     }
-    System.out.print("assetStatus ========" + assetStatus);
     return latelyUser;
   }
   public void setLatelyUser(String latelyUser){
