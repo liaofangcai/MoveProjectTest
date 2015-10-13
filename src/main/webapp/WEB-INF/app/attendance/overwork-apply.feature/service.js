@@ -151,7 +151,8 @@ exports.createService = function() {
                 entity, entities,
                 meta = resolver.resolveEntity(OverWorkApply),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
+                dateSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"),
+                dateSdf1 = new SimpleDateFormat("yyyy-MM-dd"),
                 statusMap = {
                     '0': '工作日',
                     '1': '周末',
@@ -173,7 +174,7 @@ exports.createService = function() {
                   vo.expectedEndTime =  dateSdf.format(entity.expectedEndTime);
                 }
                 if(null !== entity.appliedDate){
-                  vo.appliedDate = dateSdf.format(entity.appliedDate);
+                  vo.appliedDate = dateSdf1.format(entity.appliedDate);
                 }
                 if(null !== entity.beginTime ){
                   vo.beginTime  = dateSdf.format(entity.beginTime);

@@ -145,7 +145,8 @@ exports.createService = function() {
                 entity, entities,
                 meta = resolver.resolveEntity(HolidayApply),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
+                dateSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"),
+                dateSdf1 = new SimpleDateFormat("yyyy-MM-dd"),
                 statusMap = {
                     '0': '事假',
                     '1': '病假',
@@ -171,7 +172,7 @@ exports.createService = function() {
                   vo.endTime =  dateSdf.format(entity.endTime);
                 }
                 if(null !== entity.appliedDate){
-                  vo.appliedDate = dateSdf.format(entity.appliedDate);
+                  vo.appliedDate = dateSdf1.format(entity.appliedDate);
                 }
                 vos.add(vo);
             }

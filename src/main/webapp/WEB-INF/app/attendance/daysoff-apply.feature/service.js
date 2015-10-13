@@ -145,7 +145,8 @@ exports.createService = function() {
                 entity, entities,
                 meta = resolver.resolveEntity(DaysoffApply),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                dateSdf = new SimpleDateFormat("yyyy-MM-dd");
+                dateSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                dateSdf1 = new SimpleDateFormat("yyyy-MM-dd");
 
             entities = commExpService.createService().listEntities(options, meta);
 
@@ -162,7 +163,7 @@ exports.createService = function() {
                   vo.daysoffBeginDate =  dateSdf.format(entity.daysoffBeginDate);
                 }
                 if(null !== entity.appliedDate){
-                  vo.appliedDate = dateSdf.format(entity.appliedDate);
+                  vo.appliedDate = dateSdf1.format(entity.appliedDate);
                 }
                 vos.add(vo);
             }
