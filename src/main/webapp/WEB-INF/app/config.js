@@ -20,7 +20,10 @@ exports.cdeio = {
     'com.zyeeda.business.employee.entity',
     'com.zyeeda.business.recruitment.entity',
     'com.zyeeda.business.asset.entity',
-    'com.zyeeda.business.attendance.entity'
+    'com.zyeeda.business.attendance.entity',
+
+    // 信息作业
+    'com.zyeeda.business.experiment.entity'
   ],
 
   orms: [
