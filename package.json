@@ -1,0 +1,18 @@
+{
+  "name": "zyeeda-anlmis",
+  "version": "0.1.0",
+  "description": "中昱达综合行政后勤管理系统",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyeeda/zyeeda-anlmis.git"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jscs-stylish": "^1.3.0",
+    "gulp-jshint": "^2.0.0",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0"
+  }
+}
