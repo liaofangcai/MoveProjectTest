@@ -3,3 +3,6 @@ target/
 work/
 src/main/webapp/scripts/cdeio/
 cdeio
+.checkstyle
+.project
+.settings/
