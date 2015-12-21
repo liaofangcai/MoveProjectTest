@@ -18,17 +18,15 @@ import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
  * 信息系统账号申请实体
  */
 @Entity
-@Table(name="bz_interformation_system")
+@Table(name="BZ_EX_INFOR_SYS")
 @Scaffold("/experiment/interformation")
 public class Interformation extends RevisionDomainEntity{
-  /**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -2707536963585536898L;
-/*
+  /*
   * 信息系统编号
   */
-  private String interformationSystemNo;
+  private String interformationSystemNum;
   /*
   姓名
   */
@@ -52,7 +50,7 @@ public class Interformation extends RevisionDomainEntity{
   /*
   用户名
   */
-  private String username;
+  private String userName;
   /*
   申请内容
   */
@@ -91,26 +89,25 @@ public class Interformation extends RevisionDomainEntity{
   private Date rocessingResultsDate;
 
   @NotBlank
-  @Column(name="interformation_system",length=300)
-  @NullableSize(max=166)
-  public String getInterformationSystemNo() {
-  	return interformationSystemNo;
+  @Column(name="F_INFOR_SYS_NAME",length=300)
+  @NullableSize(max=100)
+  public String getInterformationSystemNum() {
+	return interformationSystemNum;
   }
-  public void setInterformationSystemNo(String interformationSystemNo) {
-  	this.interformationSystemNo = interformationSystemNo;
+  public void setInterformationSystemNum(String interformationSystemNum) {
+	this.interformationSystemNum = interformationSystemNum;
   }
-
   @NotBlank
-  @Column(name="name",length=300)
-  @NullableSize(max=166)
+  @Column(name="F_NAME",length=300)
+  @NullableSize(max=100)
   public String getName() {
   	return name;
   }
-  public void setName(String name) {
+public void setName(String name) {
   	this.name = name;
   }
 
-  @Column(name="email",length=300)
+  @Column(name="F_EMAIL",length=300)
   @Email
   public String getEmail() {
   	return email;
@@ -119,8 +116,8 @@ public class Interformation extends RevisionDomainEntity{
   	this.email = email;
   }
 
-  @Column(name="dept",length=300)
-  @NullableSize(max=166)
+  @Column(name="F_DEPT",length=300)
+  @NullableSize(max=100)
   public String getDept() {
   	return dept;
   }
@@ -128,8 +125,8 @@ public class Interformation extends RevisionDomainEntity{
   	this.dept = dept;
   }
 
-  @Column(name="post",length=300)
-  @NullableSize(max=166)
+  @Column(name="F_POST",length=300)
+  @NullableSize(max=100)
   public String getPost() {
   	return post;
   }
@@ -137,8 +134,8 @@ public class Interformation extends RevisionDomainEntity{
   	this.post = post;
   }
 
-  @Column(name="interformationSystemname",length=300)
-  @NullableSize(max=166)
+  @Column(name="F_INFOR_NAME",length=300)
+  @NullableSize(max=100)
   public String getInterformationSystemName() {
   	return interformationSystemName;
   }
@@ -146,17 +143,17 @@ public class Interformation extends RevisionDomainEntity{
   	this.interformationSystemName = interformationSystemName;
   }
 
-  @Column(name="username",length=300)
-  @NullableSize(max=166)
-  public String getUsername() {
-  	return username;
+  @Column(name="F_USERNAME",length=300)
+  @NullableSize(max=100)
+  public String getUserName() {
+	return userName;
   }
-  public void setUsername(String username) {
-  	this.username = username;
+  public void setUserName(String userName) {
+	this.userName = userName;
   }
 
-  @Column(name="content",length=300)
-  @NullableSize(max=166)
+  @Column(name="F_CONTENT",length=300)
+  @NullableSize(max=100)
   public String getContent() {
   	return content;
   }
@@ -164,8 +161,8 @@ public class Interformation extends RevisionDomainEntity{
   	this.content = content;
   }
 
-  @Column(name="description",length=300)
-  @NullableSize(max=1333)
+  @Column(name="D_DESCRIPTION",length=500)
+  @NullableSize(max=160)
   public String getDescription() {
   	return description;
   }
@@ -173,9 +170,8 @@ public class Interformation extends RevisionDomainEntity{
   	this.description = description;
   }
 
-  @Column(name="aplicationdate",length=300)
+  @Column(name="F_APLICATION_DATE")
   @JsonFormat(pattern = "yyyy-MM-dd ")
-  @NullableSize(max=166)
   public Date getAplicationDate() {
   	return aplicationDate;
   }
@@ -183,8 +179,8 @@ public class Interformation extends RevisionDomainEntity{
   	this.aplicationDate = aplicationDate;
   }
 
-  @Column(name="deptopinions",length=300)
-  @NullableSize(max=1333)
+  @Column(name="F_DEPT_OPINIONS",length=500)
+  @NullableSize(max=160)
   public String getDeptOpinions() {
   	return deptOpinions;
   }
@@ -192,46 +188,49 @@ public class Interformation extends RevisionDomainEntity{
   	this.deptOpinions = deptOpinions;
   }
 
-  @Column(name="deptdate",length=300)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-  @NullableSize(max=166)
+  @Column(name="F_DEPT_DATE")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   public Date getDeptDate() {
   	return deptDate;
   }
   public void setDeptDate(Date deptDate) {
   	this.deptDate = deptDate;
   }
-  @Column(name="administratoraudit",length=300)
-  @NullableSize(max=1333)
+  
+  @Column(name="F_ADMINISTRA",length=300)
+  @NullableSize(max=100)
   public String getAdministratoraudit() {
   	return administratoraudit;
   }
   public void setAdministratoraudit(String administratoraudit) {
   	this.administratoraudit = administratoraudit;
   }
-  @Column(name="administratorauditDate",length=300)
-  @NullableSize(max=166)
+  
+  @Column(name="F_ADMIN_DATE",length=300)
+  @NullableSize(max=100)
   public String getAdministratorauditDate() {
   	return administratorauditDate;
   }
   public void setAdministratorauditDate(String administratorauditDate) {
   	this.administratorauditDate = administratorauditDate;
   }
-  @Column(name="rocessingResults",length=300)
-  @NullableSize(max=1333)
+  
+  @Column(name="F_ROC_RESULT",length=300)
+  @NullableSize(max=100)
   public String getRocessingResults() {
   	return rocessingResults;
   }
   public void setRocessingResults(String rocessingResults) {
   	this.rocessingResults = rocessingResults;
   }
-  @Column(name="rocessingResultsDate",length=300)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-  @NullableSize(max=166)
+  
+  
+  @Column(name="F_ROC_Date")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   public Date getRocessingResultsDate() {
   	return rocessingResultsDate;
   }
   public void setRocessingResultsDate(Date rocessingResultsDate) {
   	this.rocessingResultsDate = rocessingResultsDate;
-  }
+  } 
 }

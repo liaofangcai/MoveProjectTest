@@ -18,13 +18,13 @@ exports.filters ={
 };
 
 exports.labels = {
-     interformationSystemNo: '编号',
+     interformationSystemNum: '编号',
      name: '姓名',
      email: 'Email',
      dept: '部门',
      post: '岗位',
      interformationSystemName: '信息系统名称',
-     username: '用户名',
+     userName: '用户名',
      content: '申请内容',
      description: '增加/减少权限详细描述'
 };
@@ -50,7 +50,7 @@ exports.forms = {
      groups: [
      {name: 'defaults', columns: 2},
      {name: 'userApplication',columns: 2, label: '用户申请'},
-     {name:'examineHandle',columns:2,label:'审核处理'}
+     {name: 'examineHandle',columns:2,label:'审核处理'}
     ],
      size: 'large'
   },
@@ -61,27 +61,25 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'interformationSystemNo',{name:'aplicationDate',type:'datepicker',label:'申请日期'}
+     'interformationSystemNum', {name: 'aplicationDate',type: 'datepicker',label: '申请日期'}
   ],
  userApplication: [
-    'name','email','dept','post','interformationSystemName',
-     {name:'username',type:'text',label:'用户名(新增用户此栏由管理员填写)'} ,
-     {name: 'content', type: 'dropdown', defaultValue: '新建用户',source:[{id:'新建用户',text: '新建用户'},
-                                                                 {id:'取消用户', text: '取消用户'},
-                                                                 {id:'调整权限', text: '调整权限'}
-                                                                    ]},
-     {name:'description',type: 'textarea', colspan: 2}
+    'name', 'email', 'dept', 'post', 'interformationSystemName',
+     {name: 'userName', type: 'text',label: '用户名(新增用户此栏由管理员填写)'},
+     {name: 'content', type: 'dropdown', defaultValue: '新建用户',
+     source: [{id:'新建用户',text: '新建用户'}, {id:'取消用户', text: '取消用户'},{id:'调整权限', text: '调整权限'}]},
+     {name: 'description', type: 'textarea', colspan: 2}
      ],
  examineHandle: [
-     {name:'deptOpinions',type: 'text',label:'部门主管意见'},
-     {name:'deptDate',type:'datepicker',label:'日期'},
-     {name:'administratoraudit',type: 'text', label: '管理员审核'},
-     {name:'administratorauditDate',type:'datepicker',label:'日期'},
-     {name:'rocessingResults',type:'text',label:'处理结果'},
-     {name:'rocessingResultsDate',type:'datepicker',label:'日期'}
+     {name: 'deptOpinions', type: 'text',label: '部门主管意见'},
+     {name: 'deptDate', type: 'datepicker',label: '日期'},
+     {name: 'administratoraudit', type: 'text', label: '管理员审核'},
+     {name: 'administratorauditDate', type: 'datepicker',label: '日期'},
+     {name: 'rocessingResults', type: 'text',label: '处理结果'},
+     {name: 'rocessingResultsDate', type: 'datepicker',label: '日期'}
      ],
 filter: [
-     'interformationSystemNo','name', 'dept','post'
+     'interformationSystemNum', 'name', 'dept', 'post'
   ]
 };
 
