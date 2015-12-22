@@ -19,12 +19,12 @@ import javax.persistence.OrderBy;
 import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.NotBlank;
 
-
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
+
 @Entity
-@Table(name = "bz_automaticBatchOperation")
+@Table(name = "BZ_AUTOMATICBATCHOPERATION")
 @Scaffold("/informationwork/automaticBatchOperation")
 public class AutomaticBatchOperation extends RevisionDomainEntity{
 
@@ -44,61 +44,67 @@ public class AutomaticBatchOperation extends RevisionDomainEntity{
   //备注
   private String mark;
 
-    @NotBlank
-    @Column(name = "F_SYSTEMUPDATERECORDSNO", length = 300)
-	public String getSystemUpdateRecordsNo() {
-		return systemUpdateRecordsNo;
-	}
-	public void setSystemUpdateRecordsNo(String systemUpdateRecordsNo) {
-		this.systemUpdateRecordsNo = systemUpdateRecordsNo;
-	}
-	@NotBlank
-    @Column(name = "F_SYSTEMUPDATERECORDSNAME", length = 300)
-	public String getSystemUpdateRecordsName() {
-		return systemUpdateRecordsName;
-	}
-	public void setSystemUpdateRecordsName(String systemUpdateRecordsName) {
-		this.systemUpdateRecordsName = systemUpdateRecordsName;
-	}
-	@NotBlank
-    @Column(name = "F_ADDRESS", length = 300)
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	@NotBlank
-    @Column(name = "F_OPERATINGPERSONNEL", length = 300)
-	public String getOperatingPersonnel() {
-		return operatingPersonnel;
-	}
-	public void setOperatingPersonnel(String operatingPersonnel) {
-		this.operatingPersonnel = operatingPersonnel;
-	}
-	@NotNull
-    @Column(name = "F_OPERATETIME")
-    @Temporal(TemporalType.DATE)
-	public Date getOperateTime() {
-		return operateTime;
-	}
-	public void setOperateTime(Date operateTime) {
-		this.operateTime = operateTime;
-	}
-	@NotBlank
-    @Column(name = "F_UPDATECONTENT")
-    @NullableSize(max = 1333)
-	public String getUpdateContent() {
-		return updateContent;
-	}
-	public void setUpdateContent(String updateContent) {
-		this.updateContent = updateContent;
-	}
-    @Column(name = "F_MARK")
-	public String getMark() {
-		return mark;
-	}
-	public void setMark(String mark) {
-		this.mark = mark;
-	}
+  @NotBlank
+  @Column(name = "F_SYSTEMUPDATERECORDSNO", length = 300)
+  public String getSystemUpdateRecordsNo() {
+    return systemUpdateRecordsNo;
+  }
+  public void setSystemUpdateRecordsNo(String systemUpdateRecordsNo) {
+    this.systemUpdateRecordsNo = systemUpdateRecordsNo;
+  }
+
+  @NotBlank
+  @Column(name = "F_SYSTEMUPDATERECORDSNAME", length = 300)
+  public String getSystemUpdateRecordsName() {
+    return systemUpdateRecordsName;
+  }
+  public void setSystemUpdateRecordsName(String systemUpdateRecordsName) {
+    this.systemUpdateRecordsName = systemUpdateRecordsName;
+  }
+
+  @NotBlank
+  @Column(name = "F_ADDRESS", length = 300)
+  public String getAddress() {
+    return address;
+  }
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  @NotBlank
+  @Column(name = "F_OPERATINGPERSONNEL", length = 300)
+  public String getOperatingPersonnel() {
+    return operatingPersonnel;
+  }
+  public void setOperatingPersonnel(String operatingPersonnel) {
+    this.operatingPersonnel = operatingPersonnel;
+  }
+
+  @NotNull
+  @Column(name = "F_OPERATETIME")
+  @Temporal(TemporalType.DATE)
+  public Date getOperateTime() {
+    return operateTime;
+  }
+  public void setOperateTime(Date operateTime) {
+    this.operateTime = operateTime;
+  }
+
+  @NotBlank
+  @Column(name = "F_UPDATECONTENT")
+  @NullableSize(max = 1333)
+  public String getUpdateContent() {
+    return updateContent;
+  }
+  public void setUpdateContent(String updateContent) {
+    this.updateContent = updateContent;
+  }
+
+  @Column(name = "F_MARK")
+  public String getMark() {
+    return mark;
+  }
+  public void setMark(String mark) {
+    this.mark = mark;
+  }
 }

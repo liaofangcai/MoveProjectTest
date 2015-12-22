@@ -8,8 +8,8 @@ function($, exportUtil, importUtil) {
   return{
     handlers:{
       exportExcel: function(){
-          var me = this;
-          exportUtil.exportExcel(me);
+        var me = this;
+        exportUtil.exportExcel(me);
       }
     }
   };
