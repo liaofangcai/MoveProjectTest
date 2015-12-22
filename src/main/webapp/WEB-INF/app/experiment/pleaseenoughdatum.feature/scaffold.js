@@ -1,8 +1,6 @@
 var {mark}                    = require('cdeio/mark');
 
 
-
-
 exports.filters = {
   defaults: {
     '!pleaseEnoughDataFilter': ['please'],
@@ -43,7 +41,7 @@ exports.forms = {
 };
 exports.fieldGroups = {
     defaults:[
-      'goodsName' , 'standardModel' , 'company' , 'number' , 'estimatePrice', 'estimateCost'
+      'goodsName', 'standardModel', 'company', 'number', 'estimatePrice', 'estimateCost'
     ],
     inlineAssetStatusGrid: [{
       label: '请购明细',

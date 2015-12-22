@@ -14,7 +14,6 @@ exports.filters = {
   }
 };
 
-
 exports.haveFilter = true;
 
 exports.enableFrontendExtension = true;
@@ -33,6 +32,7 @@ exports.labels = {
   check: '复核',
   generalMnager: '总经理'
 };
+
 exports.forms = {
   edit: {
       groups: [
@@ -56,7 +56,7 @@ exports.forms = {
       size: 'large'
   },
   filter: {
-    groups: [{name: 'filter', columns: 2}],
+    groups: [{name: 'filter'}],
     size: 'large'
   }
 };
@@ -69,7 +69,7 @@ exports.fieldGroups = {
      'aplicationPerson', 'director', 'purchase', 'check', 'generalMnager'
   ],
   filter: [
-     'pleNo'
+     'pleNo', 'demanDept', 'pleData'
    ],
   inlineAssetStatusGrid:[
      {label: '请购明细', type: 'inline-grid', name: 'please', allowPick: false, allowAdd: true, allowEdit: true}
@@ -82,8 +82,9 @@ exports.grid = {
   fixedHeader: true,
   numberColumn: true,
   multiple: true,
-  defaultOrder: 'createdTime-desc'
+  defaultOrder: 'pleData-desc'
 };
+
 exports.operators = {
   exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
 };
@@ -92,7 +93,6 @@ exports.exporting = {
   template: 'experiment/please_en_data/please_en_data.xls',
   fileName: '请购单表'
 };
-
 
 exports.doWithRouter = function(router) {
     //导出数据
