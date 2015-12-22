@@ -101,6 +101,7 @@ exports.exporting = {
 exports.operators = {
     exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
 };
+
 exports.doWithRouter = function(router) {
   router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/engineroom-log').on(function (exportXlsSvc, engineroomLlogSvc, request) {
     var options = request.params, result;
