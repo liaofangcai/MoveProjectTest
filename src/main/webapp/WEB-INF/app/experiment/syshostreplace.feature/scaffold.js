@@ -17,13 +17,13 @@ exports.filters ={
 };
 
 exports.labels = {
-     sys_no: '编号',
-     make_date: '制表日期',
-     host_name: "主机名称",
-     host_url: '主机地址',
-     operation_person: '操作人',
-     operation_date: '操作时间',
-     update_content: '更新内容',
+     sysNumber: '编号',
+     makeDate: '制表日期',
+     hostNmae: "主机名称",
+     hostUrl: '主机地址',
+     operationPerson: '操作人',
+     operationDate: '操作时间',
+     updateContent: '更新内容',
      remarks: '备注'
 };
 
@@ -41,15 +41,25 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'sys_no',{name:'make_date',type:'datepicker'},
-     'host_url','host_name','operation_person',
-     {name:'operation_date',type:'datepicker'},
-     {name: 'update_content',type: 'textarea',colspan: 2},
-     {name: 'remarks',type: 'textarea',colspan: 2}
+     'sysNumber', 
+     {name: 'makeDate', type: 'datepicker'},
+     'hostUrl', 'hostNmae', 'operationPerson',
+     {name: 'operationDate', type: 'datepicker'},
+     {name: 'updateContent', type: 'textarea', colspan: 2},
+     {name: 'remarks',type: 'textarea', colspan: 2}
   ],
  filter: [
-     'sys_no','host_url','host_name'
+     'sysNumber', 'hostUrl', 'hostNmae'
   ]
+};
+
+exports.grid = {
+     columns: ['sysNumber', 'makeDate', 'hostNmae', 'hostUrl', 'operationPerson'],
+     filterToolbar: true,
+     fixedHeader: true,
+     numberColumn: true,
+     multiple: true,
+     defaultOrder: 'makeDate-desc'
 };
 
 exports.operators = {

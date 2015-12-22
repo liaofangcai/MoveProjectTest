@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
@@ -17,7 +18,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  *
  */
 @Entity
-@Table(name="bz_sys_host_replace")
+@Table(name="BZ_SYS_HOST_REPLACE")
 @Scaffold("experiment/syshostreplace")
 public class SysHostReplace extends RevisionDomainEntity{
 
@@ -28,102 +29,104 @@ public class SysHostReplace extends RevisionDomainEntity{
 	/**
 	 * 编号
 	 */
-	private String sys_no;
+	private String sysNumber;
 	/**
 	 * 制表日期
 	 */
-	private Date make_date;
+	private Date makeDate;
 	/**
 	 * 主机名称
 	 */
-    private String host_name;
+    private String hostNmae;
     /**
      * 主机地址
      */
-    private String host_url;
+    private String hostUrl;
     /**
      * 操作人
      */
-    private String operation_person;
+    private String operationPerson;
     /**
      * 操作时间
      */
-    private Date operation_date;
+    private Date operationDate;
     /**
      * 更新内容
      */
-    private String update_content;
+    private String updateContent;
     /**
      * 备注
      */
     private String remarks;
     
+    
     @NotBlank
- 	@Column(name="sys_no",length=300)
- 	@NullableSize(max=166)
-	public String getSys_no() {
-		return sys_no;
+ 	@Column(name="F_SYS_NUMBER",length=300)
+ 	@NullableSize(max=100)
+	public String getSysNumber() {
+		return sysNumber;
 	}
-	public void setSys_no(String sys_no) {
-		this.sys_no = sys_no;
-	}
-	
-	@Column(name="make_date",length=300)
- 	@NullableSize(max=166)
-	public Date getMake_date() {
-		return make_date;
-	}
-	public void setMake_date(Date make_date) {
-		this.make_date = make_date;
+	public void setSysNumber(String sysNumber) {
+		this.sysNumber = sysNumber;
 	}
 	
-	@Column(name="host_name",length=300)
- 	@NullableSize(max=166)
-	public String getHost_name() {
-		return host_name;
+	@Column(name="F_MAKE_DATE")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getMakeDate() {
+		return makeDate;
 	}
-	public void setHost_name(String host_name) {
-		this.host_name = host_name;
-	}
-	
-	@Column(name="host_url",length=300)
- 	@NullableSize(max=166)
-	public String getHost_url() {
-		return host_url;
-	}
-	public void setHost_url(String host_url) {
-		this.host_url = host_url;
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
 	}
 	
-	@Column(name="operation_person",length=300)
- 	@NullableSize(max=166)
-	public String getOperation_person() {
-		return operation_person;
+	@Column(name="F_HOST_NAME",length=300)
+ 	@NullableSize(max=100)
+	public String getHostNmae() {
+		return hostNmae;
 	}
-	public void setOperation_person(String operation_person) {
-		this.operation_person = operation_person;
-	}
-	
-	@Column(name="operation_date",length=300)
- 	@NullableSize(max=166)
-	public Date getOperation_date() {
-		return operation_date;
-	}
-	public void setOperation_date(Date operation_date) {
-		this.operation_date = operation_date;
+	public void setHostNmae(String hostNmae) {
+		this.hostNmae = hostNmae;
 	}
 	
-	@Column(name="update_content",length=300)
- 	@NullableSize(max=166)
-	public String getUpdate_content() {
-		return update_content;
+	@Column(name="F_HOST_URL",length=300)
+ 	@NullableSize(max=100)
+	public String getHostUrl() {
+		return hostUrl;
 	}
-	public void setUpdate_content(String update_content) {
-		this.update_content = update_content;
+	public void setHostUrl(String hostUrl) {
+		this.hostUrl = hostUrl;
 	}
 	
-	@Column(name="remarks",length=300)
- 	@NullableSize(max=166)
+	@Column(name="F_OPERATION_PERSON",length=300)
+ 	@NullableSize(max=100)
+	public String getOperationPerson() {
+		return operationPerson;
+	}
+	public void setOperationPerson(String operationPerson) {
+		this.operationPerson = operationPerson;
+	}
+	
+	@Column(name="F_OPERATION_DATE",length=300)
+	@JsonFormat(pattern="yyyy-MM-dd")
+ 	@NullableSize(max=100)
+	public Date getOperationDate() {
+		return operationDate;
+	}
+	public void setOperationDate(Date operationDate) {
+		this.operationDate = operationDate;
+	}
+	
+	@Column(name="F_UPDATE_CONTENT",length=300)
+ 	@NullableSize(max=100)
+	public String getUpdateContent() {
+		return updateContent;
+	}
+	public void setUpdateContent(String updateContent) {
+		this.updateContent = updateContent;
+	}
+	
+	@Column(name="F_REMANKS",length=300)
+ 	@NullableSize(max=100)
 	public String getRemarks() {
 		return remarks;
 	}
