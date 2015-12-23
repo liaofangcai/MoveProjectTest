@@ -23,8 +23,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
+
 @Entity
-@Table(name = "bz_roomRegistration")
+@Table(name = "BZ_ROOMREGISTRATION")
 @Scaffold("/informationwork/roomRegistration")
 public class RoomRegistration extends RevisionDomainEntity{
 
@@ -44,64 +45,70 @@ public class RoomRegistration extends RevisionDomainEntity{
   //备注
   private String mark;
 
-    @NotBlank
-    @Column(name = "f_systemUpdateRecordsNo", length = 300)
-	public String getSystemUpdateRecordsNo() {
-		return systemUpdateRecordsNo;
-	}
-	public void setSystemUpdateRecordsNo(String systemUpdateRecordsNo) {
-		this.systemUpdateRecordsNo = systemUpdateRecordsNo;
-	}
-	@NotNull
-	@Temporal(TemporalType.DATE)
-    @Column(name = "f_systemUpdateRecordsName")
-	public Date getSystemUpdateRecordsName() {
-		return systemUpdateRecordsName;
-	}
-	public void setSystemUpdateRecordsName(Date systemUpdateRecordsName) {
-		this.systemUpdateRecordsName = systemUpdateRecordsName;
-	}
-	@NotNull
-    @DateTime
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    @Column(name = "f_address")
-	public Date getAddress() {
-		return address;
-	}
-	public void setAddress(Date address) {
-		this.address = address;
-	}
-	@NotBlank
-    @Column(name = "f_operatingPersonnel", length = 300)
-	public String getOperatingPersonnel() {
-		return operatingPersonnel;
-	}
-	public void setOperatingPersonnel(String operatingPersonnel) {
-		this.operatingPersonnel = operatingPersonnel;
-	}
+  @NotBlank
+  @Column(name = "F_UPDATERECORDSNO", length = 300)
+  public String getSystemUpdateRecordsNo() {
+    return systemUpdateRecordsNo;
+  }
+  public void setSystemUpdateRecordsNo(String systemUpdateRecordsNo) {
+    this.systemUpdateRecordsNo = systemUpdateRecordsNo;
+  }
 
-    @Column(name = "f_operateTime")
-	public String getOperateTime() {
-		return operateTime;
-	}
-	public void setOperateTime(String operateTime) {
-		this.operateTime = operateTime;
-	}
-	@NotNull
-	@DateTime
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
-    @Column(name = "f_updateContent")
-	public Date getUpdateContent() {
-		return updateContent;
-	}
-	public void setUpdateContent(Date updateContent) {
-		this.updateContent = updateContent;
-	}
-    @Column(name = "f_mark")
-	public String getMark() {
-		return mark;
-	}
-	public void setMark(String mark) {
-		this.mark = mark;
-	}
+  @NotNull
+  @Temporal(TemporalType.DATE)
+  @Column(name = "F_UPDATERECORDSNAME")
+  public Date getSystemUpdateRecordsName() {
+    return systemUpdateRecordsName;
+  }
+  public void setSystemUpdateRecordsName(Date systemUpdateRecordsName) {
+    this.systemUpdateRecordsName = systemUpdateRecordsName;
+  }
+
+  @NotNull
+  @DateTime
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+  @Column(name = "F_ADDRESS")
+  public Date getAddress() {
+    return address;
+  }
+  public void setAddress(Date address) {
+    this.address = address;
+  }
+
+  @NotBlank
+  @Column(name = "F_OPERATINGPERSONNEL", length = 300)
+  public String getOperatingPersonnel() {
+    return operatingPersonnel;
+  }
+  public void setOperatingPersonnel(String operatingPersonnel) {
+    this.operatingPersonnel = operatingPersonnel;
+  }
+
+  @NotBlank
+  @Column(name = "F_OPERATETIME")
+  public String getOperateTime() {
+    return operateTime;
+  }
+  public void setOperateTime(String operateTime) {
+    this.operateTime = operateTime;
+  }
+
+  @NotNull
+  @DateTime
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+  @Column(name = "F_UPDATECONTENT")
+  public Date getUpdateContent() {
+    return updateContent;
+  }
+  public void setUpdateContent(Date updateContent) {
+   this.updateContent = updateContent;
+  }
+
+  @Column(name = "F_MARK")
+  public String getMark() {
+    return mark;
+  }
+  public void setMark(String mark) {
+    this.mark = mark;
+  }
 }
