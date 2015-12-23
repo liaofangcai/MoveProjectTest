@@ -16,11 +16,11 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 
 /**
  * 信息安全培训记录表
- * @author child
+ * @author luohaibo
  *
  */
 @Entity
-@Table(name="bz_information_security")
+@Table(name="BZ_EX_IN_SECURITY")
 @Scaffold("experiment/informationsecurity")
 public class InformationSecurity extends RevisionDomainEntity{
 	/**
@@ -31,7 +31,7 @@ public class InformationSecurity extends RevisionDomainEntity{
 	/**
 	 * 编号
 	 */
-    private String in_no;
+    private String inNumber;
     /**
      * 姓名
      */
@@ -39,7 +39,7 @@ public class InformationSecurity extends RevisionDomainEntity{
     /**
      * 制作日期
      */
-    private Date makedate;
+    private Date makeDate;
     /**
      * 部门
      */
@@ -63,28 +63,28 @@ public class InformationSecurity extends RevisionDomainEntity{
     /**
      * 不合格
      */
-    private String no_qualified;
+    private String noQualified;
     /**
      * 考评人
      */
-    private String evaluationperson;
+    private String evaluationPerson;
     /**
      *签到
      */
     private String signin;
     
     @NotBlank
-	@Column(name="in_no",length=300)
-	@NullableSize(max=166)
-	public String getIn_no() {
-		return in_no;
+    @Column(name="F_IN_NUMBER",length=300)
+    @NullableSize(max=100)
+	public String getInNumber() {
+		return inNumber;
 	}
-	public void setIn_no(String in_no) {
-		this.in_no = in_no;
+	public void setInNumber(String inNumber) {
+		this.inNumber = inNumber;
 	}
 	
-	@Column(name="name",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_NAME",length=300)
+	@NullableSize(max=100)
 	public String getName() {
 		return name;
 	}
@@ -92,19 +92,18 @@ public class InformationSecurity extends RevisionDomainEntity{
 		this.name = name;
 	}
 	
-	@Column(name="makedate",length=300)
-	@JsonFormat(pattern = "yyyy-MM-dd ")
-	@NullableSize(max=166)
-	public Date getMakedate() {
-		return makedate;
+	@Column(name="F_MAKE_DATE",length=300)
+	@JsonFormat(pattern="yyyy-MM-dd")
+	@NullableSize(max=100)
+	public Date getMakeDate() {
+		return makeDate;
 	}
-	public void setMakedate(Date makedate) {
-		this.makedate = makedate;
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
 	}
 	
-	@NotBlank
-	@Column(name="dept",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_DEPT",length=300)
+	@NullableSize(max=100)
 	public String getDept() {
 		return dept;
 	}
@@ -112,8 +111,8 @@ public class InformationSecurity extends RevisionDomainEntity{
 		this.dept = dept;
 	}
 	
-	@Column(name="job",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_JOB",length=300)
+	@NullableSize(max=100)
 	public String getJob() {
 		return job;
 	}
@@ -121,8 +120,8 @@ public class InformationSecurity extends RevisionDomainEntity{
 		this.job = job;
 	}
 	
-	@Column(name="theory",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_THEORY",length=300)
+	@NullableSize(max=100)
 	public Integer getTheory() {
 		return theory;
 	}
@@ -130,8 +129,8 @@ public class InformationSecurity extends RevisionDomainEntity{
 		this.theory = theory;
 	}
 	
-	@Column(name="operation",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_OPERATION",length=300)
+	@NullableSize(max=100)
 	public Integer getOperation() {
 		return operation;
 	}
@@ -139,8 +138,8 @@ public class InformationSecurity extends RevisionDomainEntity{
 		this.operation = operation;
 	}
 	
-	@Column(name="qualified",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_QUALIFIED",length=300)
+	@NullableSize(max=100)
 	public String getQualified() {
 		return qualified;
 	}
@@ -148,25 +147,26 @@ public class InformationSecurity extends RevisionDomainEntity{
 		this.qualified = qualified;
 	}
 	
-	@Transient
-	public String getNo_qualified() {
-		return no_qualified;
+	@Column(name="F_NO_QUALIFIED",length=300)
+	@NullableSize(max=100)
+	public String getNoQualified() {
+		return noQualified;
 	}
-	public void setNo_qualified(String no_qualified) {
-		this.no_qualified = no_qualified;
-	}
-	
-	@Column(name="evaluation_person",length=300)
-	@NullableSize(max=166)
-	public String getEvaluationperson() {
-		return evaluationperson;
-	}
-	public void setEvaluationperson(String evaluationperson) {
-		this.evaluationperson = evaluationperson;
+	public void setNoQualified(String noQualified) {
+		this.noQualified = noQualified;
 	}
 	
-	@Column(name="signin",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_EVALUATION_PERSON",length=300)
+	@NullableSize(max=100)
+	public String getEvaluationPerson() {
+		return evaluationPerson;
+	}
+	public void setEvaluationPerson(String evaluationPerson) {
+		this.evaluationPerson = evaluationPerson;
+	}
+	
+	@Column(name="F_SINGNIN",length=300)
+	@NullableSize(max=100)
 	public String getSignin() {
 		return signin;
 	}

@@ -1,6 +1,6 @@
 var {mark}                  = require('cdeio/mark');
 var {json}                  = require('cdeio/response');
-var logger = require('ringo/logging').getLogger(module.id);
+var logger                  = require('ringo/logging').getLogger(module.id);
 var {InformationSecurity}   = com.zyeeda.business.experiment.entity;
 exports.style = 'grid';
 
@@ -17,15 +17,15 @@ exports.filters ={
 };
 
 exports.labels = {
-     in_no: '编号',
+     inNumber: '编号',
      name: '姓名',
-     makedate: "制表日期",
+     makeDate: "制表日期",
      dept: '部门',
      job: '职务',
-     theory: '理论',
-     operation: '操作',
+     theory: '理论成绩',
+     operation: '操作成绩',
      qualified: '考核结果',
-     evaluationperson: '考评人',
+     evaluationPerson: '考评人',
      signin:'签到'
 };
 
@@ -55,11 +55,24 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'in_no','name',{name:'makedate',type:'datepicker',label:'申请日期'},'dept','job','theory','operation',{name: 'qualified', type: 'dropdown', defaultValue: '0',source:[{id:'0',text: ' 合格'},{id:'1', text: '不合格'}]},'evaluationperson','signin'
+     'inNumber', 'name',
+     {name: 'makeDate', type: 'datepicker', label: '申请日期'},
+     'dept', 'job', 'theory', 'operation',
+     {name: 'qualified', type: 'dropdown', defaultValue: '合格', source: [{id:'合格', text: '合格'},{id: '不合格', text: '不合格'}]},
+     'evaluationPerson', 'signin'
   ],
  filter: [
-     'in_no','name'
+     'inNumber', 'name'
   ]
+};
+
+exports.grid = {
+  columns: ['inNumber', 'name', 'makeDate', 'dept', 'job'],
+  filterToolbar: true,
+  fixedHeader: true,
+  numberColumn: true,
+  multiple: true,
+  defaultOrder: 'makeDate-desc'
 };
 
 exports.operators = {

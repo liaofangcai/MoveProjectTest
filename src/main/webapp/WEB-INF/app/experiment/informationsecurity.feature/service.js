@@ -20,27 +20,20 @@ exports.createService = function() {
                 meta = resolver.resolveEntity(InformationSecurity),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd")
-                statusMap = {
-                    '1': '不合格',
-                    '0': '合格'
-                }
-            entities = commExpService.createService().listEntities(options, meta);
+                entities = commExpService.createService().listEntities(options, meta);
 
             // 按照自己的要求处理数据
             for (i = 0; i < entities.size(); i++) {
                 entity = entities.get(i);
 
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.makedate){
-                     vo.makedate = dateSdf.format(entity.makedate);
+                if(null !== entity.makeDate){
+                     vo.makeDate = dateSdf.format(entity.makeDate);
                  }
-                 vo.qualified=statusMap[entity.qualified] ; 
                 vos.add(vo);
             }
-
             beans.put('informationsecuritys', vos);
             beans.put('footer', '操作时间:' + dateTimeStr);
-
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
         })
 
