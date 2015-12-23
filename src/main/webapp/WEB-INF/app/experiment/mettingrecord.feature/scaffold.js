@@ -18,16 +18,16 @@ exports.filters ={
 };
 
 exports.labels = {
-     metting_no : '编号',
-     make_date : '制表日期',
-     metting_type : '会议类型',
-     metting_date : '时间',
-     place : '地点',
-     join_personnel : '参加人员',
-     setting_summary : '会议纪要',
-     setting_process: '会议流程',
-     com_content_suggest: '会议类容及建议',
-     setting_summarize : '会议总结'
+     mettingNUmber: '编号',
+     makeDate: '制表日期',
+     mettingType: '会议类型',
+     mettingDate: '时间',
+     place: '地点',
+     joinPersonnel: '参加人员',
+     settingSummary: '会议纪要',
+     settingProcess: '会议流程',
+     comContentSuggest: '会议类容及建议',
+     settingSummarize: '会议总结'
 };
 
 exports.forms = {
@@ -56,31 +56,30 @@ exports.forms = {
 
  exports.fieldGroups = {
   defaults: [
-     'metting_no',{name: 'make_date',type: 'datepicker'},'metting_type',
-     {name: 'metting_date',type: 'datepicker'},
-     'place','join_personnel','setting_summary',
-     {name: 'setting_process',type: 'textarea', colspan: 2},
-     {name: 'com_content_suggest',type: 'textarea', colspan: 2},
-     {name: 'setting_summarize',type: 'textarea', colspan: 2}
+     'mettingNUmber',
+     {name: 'makeDate', type: 'datepicker'},
+     'mettingType',
+     {name: 'mettingDate', type: 'datepicker'},
+     'place', 'joinPersonnel', 'settingSummary',
+     {name: 'settingProcess', type: 'textarea', colspan: 2},
+     {name: 'comContentSuggest', type: 'textarea', colspan: 2},
+     {name: 'settingSummarize', type: 'textarea', colspan: 2}
   ],
 filter: [
-    'metting_no','place','join_personnel'
+    'mettingNUmber', 'place', 'joinPersonnel'
   ]
  };
 
-// exports.grid = {
-//     columns: [
-//       'test_no',{name:'make_date',type:'datepicker',label:'日期'},'the_model','submodule','preposition_condition'
-//     ],
-//     events: {
-//         'system/departments#tree:onClick': 'departmentChanged'
-//     },
-//     filterToolbar: true,
-//     fixedHeader: true,
-//     numberColumn: true,
-//     multiple: true,
-//     defaultOrder: 'createdTime-desc'
-// };
+ exports.grid = {
+  columns: [
+      'mettingNUmber', {name:'makeDate', type:'datepicker',label:'日期'}, 'mettingType', 'place', 'joinPersonnel'
+    ],
+  filterToolbar: true,
+  fixedHeader: true,
+  numberColumn: true,
+  multiple: true,
+  defaultOrder: 'makeDate-desc'
+ };
 
 exports.operators = {
      exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }

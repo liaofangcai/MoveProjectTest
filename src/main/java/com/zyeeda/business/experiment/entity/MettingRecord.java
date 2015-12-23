@@ -13,11 +13,11 @@ import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
 /**
  * 会议记录
- * @author child
+ * @author luohaibo
  *
  */
 @Entity
-@Table(name="bz_metting_record")
+@Table(name="BZ_EX_METTING_RECORD")
 @Scaffold("/experiment/mettingrecord")
 public class MettingRecord extends RevisionDomainEntity{
 
@@ -28,19 +28,19 @@ public class MettingRecord extends RevisionDomainEntity{
 	/**
 	 * 编号
 	 */
-	private String metting_no;
+	private String mettingNUmber;
 	/**
 	 * 会议日期
 	 */
-	private Date make_date;
+	private Date makeDate;
 	/**
 	 * 会议类别
 	 */
-	private String metting_type;
+	private String mettingType;
 	/**
 	 * 时间
 	 */
-	private Date metting_date;
+	private Date mettingDate;
 	/**
 	 * 地点
 	 */
@@ -48,65 +48,63 @@ public class MettingRecord extends RevisionDomainEntity{
 	/**
 	 * 参加人员
 	 */
-	private String join_personnel;
+	private String joinPersonnel;
     /**
      * 会议纪要
      */
-	private String setting_summary;
+	private String settingSummary;
 	/**
 	 * 会议流程
 	 */
-	private String setting_process;
+	private String settingProcess;
 	/**
 	 * 交流内容及建议
 	 */
-	private String com_content_suggest;
+	private String comContentSuggest;
 	/**
 	 * 会议总结
 	 */
-	private String setting_summarize;
+	private String settingSummarize;
 	
 	@NotBlank
-	@Column(name="metting_no",length=300)
-	@NullableSize(max=166)
-	public String getMetting_no() {
-		return metting_no;
+	@Column(name="F_METTING_NUMBER",length=300)
+	@NullableSize(max=100)
+	public String getMettingNUmber() {
+		return mettingNUmber;
 	}
-	public void setMetting_no(String metting_no) {
-		this.metting_no = metting_no;
-	}
-	
-	@Column(name="make_date",length=300)
-	@JsonFormat(pattern=("yyyy-MM-dd"))
-	@NullableSize(max=166)
-	public Date getMake_date() {
-		return make_date;
-	}
-	public void setMake_date(Date make_date) {
-		this.make_date = make_date;
+	public void setMettingNUmber(String mettingNUmber) {
+		this.mettingNUmber = mettingNUmber;
 	}
 	
-	@Column(name="metting_type",length=300)
-	@NullableSize(max=166)
-	public String getMetting_type() {
-		return metting_type;
+	@Column(name="F_MAKE_DATE")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getMakeDate() {
+		return makeDate;
 	}
-	public void setMetting_type(String metting_type) {
-		this.metting_type = metting_type;
-	}
-	
-	@Column(name="metting_date",length=300)
-	@JsonFormat(pattern=("yyyy-MM-dd"))
-	@NullableSize(max=166)
-	public Date getMetting_date() {
-		return metting_date;
-	}
-	public void setMetting_date(Date metting_date) {
-		this.metting_date = metting_date;
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
 	}
 	
-	@Column(name="place",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_METTING_TYPE",length=300)
+	@NullableSize(max=100)
+	public String getMettingType() {
+		return mettingType;
+	}
+	public void setMettingType(String mettingType) {
+		this.mettingType = mettingType;
+	}
+	
+	@Column(name="F_METTINGG_DATE")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getMettingDate() {
+		return mettingDate;
+	}
+	public void setMettingDate(Date mettingDate) {
+		this.mettingDate = mettingDate;
+	}
+	
+	@Column(name="F_PLACE",length=300)
+	@NullableSize(max=100)
 	public String getPlace() {
 		return place;
 	}
@@ -114,50 +112,48 @@ public class MettingRecord extends RevisionDomainEntity{
 		this.place = place;
 	}
 	
-	@Column(name="join_personnel",length=300)
+	@Column(name="F_JOIN_PERSONNEL",length=300)
+	@NullableSize(max=100)
+	public String getJoinPersonnel() {
+		return joinPersonnel;
+	}
+	public void setJoinPersonnel(String joinPersonnel) {
+		this.joinPersonnel = joinPersonnel;
+	}
+	
+	@Column(name="F_SETTING_SUMMARY",length=300)
+	@NullableSize(max=100)
+	public String getSettingSummary() {
+		return settingSummary;
+	}
+	public void setSettingSummary(String settingSummary) {
+		this.settingSummary = settingSummary;
+	}
+	
+	@Column(name="F_SETTING_PRO",length=500)
 	@NullableSize(max=166)
-	public String getJoin_personnel() {
-		return join_personnel;
+	public String getSettingProcess() {
+		return settingProcess;
 	}
-	public void setJoin_personnel(String join_personnel) {
-		this.join_personnel = join_personnel;
+	public void setSettingProcess(String settingProcess) {
+		this.settingProcess = settingProcess;
 	}
 	
-	@Column(name="setting_summary",length=300)
+	@Column(name="F_COM_CONTENT",length=500)
 	@NullableSize(max=166)
-	public String getSetting_summary() {
-		return setting_summary;
+	public String getComContentSuggest() {
+		return comContentSuggest;
 	}
-	public void setSetting_summary(String setting_summary) {
-		this.setting_summary = setting_summary;
+	public void setComContentSuggest(String comContentSuggest) {
+		this.comContentSuggest = comContentSuggest;
 	}
 	
-	@Column(name="setting_process",length=300)
+	@Column(name="F_SETTING_SU",length=500)
 	@NullableSize(max=166)
-	public String getSetting_process() {
-		return setting_process;
+	public String getSettingSummarize() {
+		return settingSummarize;
 	}
-	public void setSetting_process(String setting_process) {
-		this.setting_process = setting_process;
+	public void setSettingSummarize(String settingSummarize) {
+		this.settingSummarize = settingSummarize;
 	}
-	
-	@Column(name="com_content_suggest",length=300)
-	@NullableSize(max=166)
-	public String getCom_content_suggest() {
-		return com_content_suggest;
-	}
-	public void setCom_content_suggest(String com_content_suggest) {
-		this.com_content_suggest = com_content_suggest;
-	}
-	
-	@Column(name="setting_summarize",length=300)
-	@NullableSize(max=166)
-	public String getSetting_summarize() {
-		return setting_summarize;
-	}
-	public void setSetting_summarize(String setting_summarize) {
-		this.setting_summarize = setting_summarize;
-	}
-	
-	
 }

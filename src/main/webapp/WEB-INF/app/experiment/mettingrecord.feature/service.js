@@ -20,19 +20,16 @@ exports.createService = function() {
                 meta = resolver.resolveEntity(MettingRecord),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd")
-
             entities = commExpService.createService().listEntities(options, meta);
-
             // 按照自己的要求处理数据
             for (i = 0; i < entities.size(); i++) {
                 entity = entities.get(i);
-
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.make_date){
-                     vo.make_date = dateSdf.format(entity.make_date);
+                if(null !== entity.makeDate){
+                     vo.makeDate = dateSdf.format(entity.makeDate);
                  }
-                 if(null !== entity.metting_date){
-                     vo.metting_date = dateSdf.format(entity.metting_date);
+                 if(null !== entity.mettingDate){
+                     vo.mettingDate = dateSdf.format(entity.mettingDate);
                  }
                 vos.add(vo);
             }
