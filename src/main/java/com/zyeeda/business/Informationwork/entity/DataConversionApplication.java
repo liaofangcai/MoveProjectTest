@@ -23,170 +23,171 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
+
 @Entity
-@Table(name = "bz_dataConversionApplication")
+@Table(name = "BZ_DATACONVERSIONAPPLICATION")
 @Scaffold("/informationwork/dataConversionApplication")
 public class DataConversionApplication extends RevisionDomainEntity{
 
 	private static final long serialVersionUID = 285243938624745L;
-	//编号
+
 	private String systemRenewalApplicationNo;
-    //申请日期
+
 	private Date applicationTime;
 
-    //系统数据转换申请
-	//信息系统名称
 	private String informationSystemName;
-	//服务器
+
 	private String masterName;
-	//申请原因
+
 	private String address;
-	//影响范围
+
 	private String updateContent;
-	//数据转换详情
+
 	private String  incidence;
-    //转换开始时间
-    private Date proposer;
-    //转换完成时间
-    private Date applicationDepartment;
-    //申请人
-    private String identifierPersonnal;
-    //申请部门
-    private String identifierTime;
 
-    // 审核意见
-    //部门主管意见
-    private String departmentHead;
-    //信息部门意见
-    private String informationDepartment;
-    //公司领导审批
-    private String companyLeadershipApproval;
+	private Date proposer;
 
+	private Date applicationDepartment;
 
-    @NotBlank
-    @Column(name="f_systemRenewalApplicationNo",length=300)
+	private String identifierPersonnal;
+
+	private String identifierTime;
+
+	private String departmentHead;
+
+	private String informationDepartment;
+
+	private String companyLeadershipApproval;
+
+	@NotBlank
+	@Column(name="F_NUMBER",length=300)
 	public String getSystemRenewalApplicationNo() {
-		return systemRenewalApplicationNo;
+	  return systemRenewalApplicationNo;
 	}
 	public void setSystemRenewalApplicationNo(String systemRenewalApplicationNo) {
-		this.systemRenewalApplicationNo = systemRenewalApplicationNo;
+	this.systemRenewalApplicationNo = systemRenewalApplicationNo;
 	}
+
 	@NotNull
 	@Temporal(TemporalType.DATE)
-	@Column(name="f_applicationTime")
+	@Column(name="F_APPLICATIONTIME")
 	public Date getApplicationTime(){
-		return applicationTime;
+	  return applicationTime;
 	}
 	public void setApplicationTime(Date applicationTime){
-		this.applicationTime=applicationTime;
+	  this.applicationTime=applicationTime;
 	}
 
 	@NotBlank
-	@Column(name="f_informationSystemName",length=300)
+	@Column(name="F_INFORMATIONSYSTEMNAME",length=300)
 	public String getInformationSystemName() {
-		return informationSystemName;
+	  return informationSystemName;
 	}
 	public void setInformationSystemName(String informationSystemName) {
-		this.informationSystemName = informationSystemName;
+	  this.informationSystemName = informationSystemName;
 	}
+
 	@NotBlank
-	@Column(name ="f_masterName")
+	@Column(name ="F_MASTERNAME")
 	public String getMasterName() {
-		return masterName;
+	  return masterName;
 	}
 	public void setMasterName(String masterName) {
-		this.masterName = masterName;
+	  this.masterName = masterName;
 	}
+
 	@NotBlank
-	@Column(name="f_address")
+	@Column(name="F_ADDRESS")
 	public String getAddress() {
-		return address;
+	  return address;
 	}
 	public void setAddress(String address) {
-		this.address = address;
+	  this.address = address;
 	}
+
 	@NotBlank
-	@Column(name="f_updateContent")
+	@Column(name="F_UPDATECONTENT")
 	public String getUpdateContent() {
-		return updateContent;
+	  return updateContent;
 	}
 	public void setUpdateContent(String updateContent) {
-		this.updateContent = updateContent;
+	  this.updateContent = updateContent;
 	}
+
 	@NotBlank
-	@Column(name="f_incidence")
+	@Column(name="F_INCIDENCE")
 	public String getIncidence() {
-		return incidence;
+	  return incidence;
 	}
 	public void setIncidence(String incidence) {
-		this.incidence = incidence;
+	  this.incidence = incidence;
 	}
 
-    @NotNull
-    @DateTime
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
-	@Column(name="f_proposer",length=300)
+	@NotNull
+	@DateTime
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+	@Column(name="F_PROPOSER",length=300)
 	public Date getProposer() {
-		return proposer;
+	  return proposer;
 	}
 	public void setProposer(Date proposer) {
-		this.proposer = proposer;
+	  this.proposer = proposer;
 	}
+
 	@NotNull
-    @DateTime
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
-	@Column(name="f_applicationDepartment")
+	@DateTime
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+	@Column(name="F_APPLICATIONDEPARTMENT")
 	public Date getApplicationDepartment() {
-		return applicationDepartment;
+	  return applicationDepartment;
 	}
 	public void setApplicationDepartment(Date applicationDepartment) {
-		this.applicationDepartment = applicationDepartment;
+	  this.applicationDepartment = applicationDepartment;
 	}
+
 	@NotBlank
-	@Column(name="f_departmentHead")
+	@Column(name="F_DEPARTMENTHEAD")
 	public String getDepartmentHead() {
-		return departmentHead;
+	  return departmentHead;
 	}
 	public void setDepartmentHead(String departmentHead) {
-		this.departmentHead = departmentHead;
+	  this.departmentHead = departmentHead;
 	}
+
 	@NotBlank
-	@Column(name="f_informationDepartment")
+	@Column(name="F_INFORMATIONDEPARTMENT")
 	public String getInformationDepartment() {
-		return informationDepartment;
+	  return informationDepartment;
 	}
 	public void setInformationDepartment(String informationDepartment) {
-		this.informationDepartment = informationDepartment;
+	  this.informationDepartment = informationDepartment;
 	}
+
 	@NotBlank
-	@Column(name="f_companyLeadershipApproval")
+	@Column(name="F_COMPANYAPPROVAL")
 	public String getCompanyLeadershipApproval() {
-		return companyLeadershipApproval;
+	  return companyLeadershipApproval;
 	}
 	public void setCompanyLeadershipApproval(String companyLeadershipApproval) {
-		this.companyLeadershipApproval = companyLeadershipApproval;
+	  this.companyLeadershipApproval = companyLeadershipApproval;
 	}
 
-
-
-    @NotBlank
-    @Column(name="f_identifierPersonnal")
+	@NotBlank
+	@Column(name="F_IDENTIFIERPERSONNAL")
 	public String getIdentifierPersonnal() {
-		return identifierPersonnal;
+	  return identifierPersonnal;
 	}
 	public void setIdentifierPersonnal(String identifierPersonnal) {
-		this.identifierPersonnal = identifierPersonnal;
+	  this.identifierPersonnal = identifierPersonnal;
 	}
-    @NotBlank
-    @Column(name="f_identifierTime")
+
+	@NotBlank
+	@Column(name="F_IDENTIFIERTIME")
 	public String getIdentifierTime() {
-		return identifierTime;
+	  return identifierTime;
 	}
 	public void setIdentifierTime(String identifierTime) {
 		this.identifierTime = identifierTime;
 	}
-
-
-
 
 }
