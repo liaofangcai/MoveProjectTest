@@ -17,13 +17,13 @@ exports.filters ={
 };
 
 exports.labels = {
-     sys_no: '编号',
-     make_date: '制表日期',
-     maintain_date: '维护日期',
-     maintion_person: "维护人",
-     host_name: '主机名称',
-     maintion_reason: '维护原因',
-     maintion_content: '维护内容',
+     sysName: '编号',
+     makeDate: '制表日期',
+     maintainDate: '维护日期',
+     maintionPerson: "维护人",
+     hostName: '主机名称',
+     maintionReason: '维护原因',
+     maintionContent: '维护内容',
      remarks: '备注',
 };
 
@@ -41,12 +41,25 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'sys_no',{name:'make_date',type:'datepicker'},{name:'maintain_date',type:'datepicker'},
-     'maintion_person','host_name','maintion_reason','maintion_content','remarks'
+     'sysName',
+     {name: 'makeDate', type: 'datepicker'},
+     {name: 'maintainDate', type: 'datepicker'},
+     'maintionPerson', 'hostName', 'maintionReason', 
+     {name: 'maintionContent', type: 'textarea', colspan: 2},
+     {name: 'remarks', type: 'textarea', colspan: 2}
   ],
  filter: [
-     'sys_no','maintion_person','host_name'
+     'sysName', 'makeDate', 'hostName'
   ]
+};
+
+exports.grid = {
+  columns: ['sysName', 'makeDate', 'maintionPerson', 'hostName', 'maintionReason'],
+  filterToolbar: true,
+  fixedHeader: true,
+  numberColumn: true,
+  multiple: true,
+  defaultOrder: 'makeDate-desc'
 };
 
 exports.operators = {
@@ -63,7 +76,6 @@ exports.doWithRouter = function(router) {
         var options = request.params,
             result;
         options = exportXlsSvc.dealParameters(options, interformationSvc, new SysHostMaintain());
-
         result = interformationSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
 
         return json({flag: result.flag, filename: result.filename});

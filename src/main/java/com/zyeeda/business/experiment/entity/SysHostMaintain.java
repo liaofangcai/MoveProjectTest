@@ -18,7 +18,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  *
  */
 @Entity
-@Table(name="bz_sys_host_maintain")
+@Table(name="BZ_SYS_HOST_MAINTAIN")
 @Scaffold("experiment/syshostmaintain")
 public class SysHostMaintain extends RevisionDomainEntity{
 
@@ -29,109 +29,108 @@ public class SysHostMaintain extends RevisionDomainEntity{
 	/**
 	 * 编号
 	 */
-	private String sys_no;
+	private String sysName;
 	/**
 	 * 制表日期
 	 */
-	private Date make_date;
+	private Date makeDate;
 	/**
 	 * 维护日期
 	 */
-	private Date maintain_date;
+	private Date maintainDate;
     /**
      * 维护人
      */
-    private String  maintion_person;
+    private String  maintionPerson;
     /**
      * 主机名称
      */
-    private String host_name;
+    private String hostName;
     /**
      * 维护原因
      */
-    private String maintion_reason;
+    private String maintionReason;
     /**
      * 维护内容
      */
-    private String maintion_content;
+    private String maintionContent;
     /**
      * 备注
      */
-     private String remarks;
-     
+    private String remarks;
+    
     @NotBlank
- 	@Column(name="sys_no",length=300)
- 	@NullableSize(max=166)
-	public String getSys_no() {
-		return sys_no;
+    @Column(name="F_SYS_NAME",length=300)
+    @NullableSize(max=100)
+	public String getSysName() {
+		return sysName;
 	}
-	public void setSys_no(String sys_no) {
-		this.sys_no = sys_no;
+	public void setSysName(String sysName) {
+		this.sysName = sysName;
 	}
 	
-	@Column(name="make_date",length=300)
+	@Column(name="F_MAKE_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
- 	@NullableSize(max=166)
-	public Date getMake_date() {
-		return make_date;
+    @NullableSize(max=100)
+	public Date getMakeDate() {
+		return makeDate;
 	}
-	public void setMake_date(Date make_date) {
-		this.make_date = make_date;
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
 	}
 	
-	@Column(name="maintain_date",length=300)
+	@Column(name="F_MAINTAIN_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
- 	@NullableSize(max=166)
-	public Date getMaintain_date() {
-		return maintain_date;
+    @NullableSize(max=100)
+	public Date getMaintainDate() {
+		return maintainDate;
 	}
-	public void setMaintain_date(Date maintain_date) {
-		this.maintain_date = maintain_date;
-	}
-	
-	@Column(name="maintion_person",length=300)
- 	@NullableSize(max=166)
-	public String getMaintion_person() {
-		return maintion_person;
-	}
-	public void setMaintion_person(String maintion_person) {
-		this.maintion_person = maintion_person;
+	public void setMaintainDate(Date maintainDate) {
+		this.maintainDate = maintainDate;
 	}
 	
-	@Column(name="host_name",length=300)
- 	@NullableSize(max=166)
-	public String getHost_name() {
-		return host_name;
+	@Column(name="F_MAINTION_PERSON",length=300)
+    @NullableSize(max=100)
+	public String getMaintionPerson() {
+		return maintionPerson;
 	}
-	public void setHost_name(String host_name) {
-		this.host_name = host_name;
-	}
-	
-	@Column(name="maintion_peason",length=300)
- 	@NullableSize(max=166)
-	public String getMaintion_reason() {
-		return maintion_reason;
-	}
-	public void setMaintion_reason(String maintion_reason) {
-		this.maintion_reason = maintion_reason;
+	public void setMaintionPerson(String maintionPerson) {
+		this.maintionPerson = maintionPerson;
 	}
 	
-	@Column(name="maintion_content",length=300)
- 	@NullableSize(max=166)
-	public String getMaintion_content() {
-		return maintion_content;
+	@Column(name="F_HOST_NAME",length=300)
+    @NullableSize(max=100)
+	public String getHostName() {
+		return hostName;
 	}
-	public void setMaintion_content(String maintion_content) {
-		this.maintion_content = maintion_content;
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
 	}
 	
-	@Column(name="remarks",length=300)
- 	@NullableSize(max=166)
+	@Column(name="F_MAINTION_REASON",length=300)
+    @NullableSize(max=100)
+	public String getMaintionReason() {
+		return maintionReason;
+	}
+	public void setMaintionReason(String maintionReason) {
+		this.maintionReason = maintionReason;
+	}
+	
+	@Column(name="F_MAINTION_CONTENT",length=300)
+    @NullableSize(max=100)
+	public String getMaintionContent() {
+		return maintionContent;
+	}
+	public void setMaintionContent(String maintionContent) {
+		this.maintionContent = maintionContent;
+	}
+	
+	@Column(name="F_REMARKS",length=500)
+    @NullableSize(max=166)
 	public String getRemarks() {
 		return remarks;
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-     
 }

@@ -28,18 +28,16 @@ exports.createService = function() {
                 entity = entities.get(i);
 
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.make_date){
-                     vo.make_date = dateSdf.format(entity.make_date);
+                if(null !== entity.makeDate){
+                     vo.makeDate = dateSdf.format(entity.makeDate);
                  }
-                 if (null!==entity.maintain_date) {
-                    vo.maintain_date=dateSdf.format(entity.maintain_date);
+                 if (null !== entity.maintainDate) {
+                    vo.maintainDate = dateSdf.format(entity.maintainDate);
                  };
                 vos.add(vo);
             }
-
             beans.put('Sysdatachanges', vos);
             beans.put('footer', '操作时间:' + dateTimeStr);
-
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
         })
 
