@@ -84,7 +84,6 @@ exports.grid = {
      defaultOrder: 'makeDate-desc'
 };
 
-
 exports.operators = {
      exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
  };
