@@ -18,18 +18,18 @@ exports.filters ={
 };
 
 exports.labels = {
-     test_no : '编号',
-     make_date : '制造日期',
-     case_id : '用例ID',
-     the_model : '所属模块',
+     testNumber : '编号',
+     makeDate : '制造日期',
+     caseId : '用例ID',
+     theModel : '所属模块',
      submodule : '子模块',
-     preposition_condition : '前置条件',
-     input_data : '输入数据',
-     test_step: '测试步骤',
-     pect_outcome: '预期结果',
+     prepositionCondition : '前置条件',
+     inputData : '输入数据',
+     testStep: '测试步骤',
+     pectOutcome: '预期结果',
      state : '状态',
-     actual_result : '实际结果',
-     remakes_information: '备注信息'
+     actualResult : '实际结果',
+     remakesInformation: '备注信息'
 };
 
 exports.forms = {
@@ -49,35 +49,40 @@ exports.forms = {
      groups: [
      {name: 'defaults', columns: 2}
     ],
-    size: 'large'
+     size: 'large'
   },
  filter: {
-    groups: [{name: 'filter', columns: 1}], size: 'small'
+     groups: [{name: 'filter', columns: 1}], size: 'small'
 }
 };
 
 exports.fieldGroups = {
  defaults: [
-     'test_no',{name:'make_date',type:'datepicker'},'case_id',
-     'the_model','submodule','preposition_condition','input_data','test_step','pect_outcome','state','actual_result',{name:'remakes_information',type: 'textarea', colspan: 2}
+     'testNumber',
+     {name:'makeDate',type:'datepicker'},
+     'caseId',
+     'theModel', 'submodule', 'prepositionCondition', 'inputData', 'testStep', 'pectOutcome',
+     'state', 'actualResult',
+     {name:'remakesInformation',type: 'textarea', colspan: 2}
   ],
 filter: [
-     'test_no','the_model','submodule'
+     'testNumber', 'theModel', 'submodule'
   ]
 };
 
 exports.grid = {
     columns: [
-      'test_no',{name:'make_date',type:'datepicker',label:'日期'},'the_model','submodule','preposition_condition'
+     'testNumber',{name:'makeDate',type:'datepicker',label:'日期'},
+     'theModel','submodule','prepositionCondition'
     ],
     events: {
-        'system/departments#tree:onClick': 'departmentChanged'
+     'system/departments#tree:onClick': 'departmentChanged'
     },
     filterToolbar: true,
     fixedHeader: true,
     numberColumn: true,
     multiple: true,
-    defaultOrder: 'createdTime-desc'
+    defaultOrder: 'makeDate-desc'
 };
 
 exports.operators = {
@@ -90,15 +95,14 @@ exports.exporting = {
 };
 
 exports.doWithRouter = function(router) {
-   
     //导出数据
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/testcase').on(function (exportXlsSvc, interformationSvc, request) {
-        var options = request.params,
+         var options = request.params,
             result;
-        options = exportXlsSvc.dealParameters(options, interformationSvc, new TestCase());
+         options = exportXlsSvc.dealParameters(options, interformationSvc, new TestCase());
 
-        result = interformationSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
+         result = interformationSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
 
-        return json({flag: result.flag, filename: result.filename});
+         return json({flag: result.flag, filename: result.filename});
     }))
 }

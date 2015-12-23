@@ -18,7 +18,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  *
  */
 @Entity
-@Table(name="bz_test_case")
+@Table(name="BZ_TEST_CASE")
 @Scaffold("/experiment/testcase")
 public class TestCase extends RevisionDomainEntity {
 	
@@ -29,19 +29,19 @@ public class TestCase extends RevisionDomainEntity {
 	/**
 	 * 测试编号
 	 */
-	private String test_no;
+	private String testNumber;
     /**
      * 制造日期
      */
-	private Date make_date;
+	private Date makeDate;
 	/**
 	 * 用例id
 	 */
-	private String case_id;
+	private String caseId;
 	/**
 	 * 所属模块
 	 */
-	private String the_model;
+	private String theModel;
 	/**
 	 * 子模块
 	 */
@@ -49,19 +49,19 @@ public class TestCase extends RevisionDomainEntity {
 	/**
 	 * 前置条件
 	 */
-	private String preposition_condition;
+	private String prepositionCondition;
 	/**
 	 * 输入数据
 	 */
-	private Integer input_data;
+	private Integer inputData;
 	/**
 	 * 测试步骤
 	 */
-	private String  test_step;
+	private String  testStep;
 	/**
 	 * 预期结果
 	 */
-	private String pect_outcome;
+	private String pectOutcome;
 	/**
 	 * 状态
 	 */
@@ -69,52 +69,52 @@ public class TestCase extends RevisionDomainEntity {
 	/**
 	 * 实际结果
 	 */
-	private String actual_result;
+	private String actualResult;
 	/**
 	 * 备注信息
 	 */
-	private String remakes_information;
+	private String remakesInformation;
 	
 	@NotBlank
-	@Column(name="test_no",length=300)
-	@NullableSize(max=166)
-	public String getTest_no() {
-		return test_no;
+	@Column(name="F_TEXT_NUMBER",length=300)
+	@NullableSize(max=100)
+	public String getTestNumber() {
+		return testNumber;
 	}
-	public void setTest_no(String test_no) {
-		this.test_no = test_no;
+	public void setTestNumber(String testNumber) {
+		this.testNumber = testNumber;
 	}
 	
-	@Column(name="make_date",length=300)
+	
+	@Column(name="F_MAKE_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=166)
-	public Date getMake_date() {
-		return make_date;
+	public Date getMakeDate() {
+		return makeDate;
 	}
-	public void setMake_date(Date make_date) {
-		this.make_date = make_date;
-	}
-	
-	@Column(name="case_id",length=300)
-	@NullableSize(max=166)
-	public String getCase_id() {
-		return case_id;
-	}
-	public void setCase_id(String case_id) {
-		this.case_id = case_id;
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
 	}
 	
-	@Column(name="the_model",length=300)
-	@NullableSize(max=166)
-	public String getThe_model() {
-		return the_model;
+	@Column(name="F_CASE_ID",length=300)
+	@NullableSize(max=100)
+	public String getCaseId() {
+		return caseId;
 	}
-	public void setThe_model(String the_model) {
-		this.the_model = the_model;
+	public void setCaseId(String caseId) {
+		this.caseId = caseId;
 	}
 	
-	@Column(name="submodule",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_THE_MODDEL",length=300)
+	@NullableSize(max=100)
+	public String getTheModel() {
+		return theModel;
+	}
+	public void setTheModel(String theModel) {
+		this.theModel = theModel;
+	}
+	
+	@Column(name="F_SUBMODULE",length=300)
+	@NullableSize(max=100)
 	public String getSubmodule() {
 		return submodule;
 	}
@@ -122,44 +122,44 @@ public class TestCase extends RevisionDomainEntity {
 		this.submodule = submodule;
 	}
 	
-	@Column(name="preposition_condition",length=300)
-	@NullableSize(max=166)
-	public String getPreposition_condition() {
-		return preposition_condition;
+	@Column(name="F_PRE_CON",length=300)
+	@NullableSize(max=100)
+	public String getPrepositionCondition() {
+		return prepositionCondition;
 	}
-	public void setPreposition_condition(String preposition_condition) {
-		this.preposition_condition = preposition_condition;
-	}
-	
-	@Column(name="input_data",length=300)
-	@NullableSize(max=166)
-	public Integer getInput_data() {
-		return input_data;
-	}
-	public void setInput_data(Integer input_data) {
-		this.input_data = input_data;
+	public void setPrepositionCondition(String prepositionCondition) {
+		this.prepositionCondition = prepositionCondition;
 	}
 	
-	@Column(name="test_step",length=300)
-	@NullableSize(max=166)
-	public String getTest_step() {
-		return test_step;
+	@Column(name="F_INPUT_DATA",length=300)
+	@NullableSize(max=100)
+	public Integer getInputData() {
+		return inputData;
 	}
-	public void setTest_step(String test_step) {
-		this.test_step = test_step;
-	}
-	
-	@Column(name="pect_outcome",length=300)
-	@NullableSize(max=166)
-	public String getPect_outcome() {
-		return pect_outcome;
-	}
-	public void setPect_outcome(String pect_outcome) {
-		this.pect_outcome = pect_outcome;
+	public void setInputData(Integer inputData) {
+		this.inputData = inputData;
 	}
 	
-	@Column(name="state",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_TEST_STEP",length=300)
+	@NullableSize(max=100)
+	public String getTestStep() {
+		return testStep;
+	}
+	public void setTestStep(String testStep) {
+		this.testStep = testStep;
+	}
+	
+	@Column(name="F_PECT_OUT",length=300)
+	@NullableSize(max=100)
+	public String getPectOutcome() {
+		return pectOutcome;
+	}
+	public void setPectOutcome(String pectOutcome) {
+		this.pectOutcome = pectOutcome;
+	}
+	
+	@Column(name="F_STATE",length=300)
+	@NullableSize(max=100)
 	public String getState() {
 		return state;
 	}
@@ -167,23 +167,21 @@ public class TestCase extends RevisionDomainEntity {
 		this.state = state;
 	}
 	
-	@Column(name="actual_result",length=300)
+	@Column(name="F_AC_RESULT",length=300)
+	@NullableSize(max=100)
+	public String getActualResult() {
+		return actualResult;
+	}
+	public void setActualResult(String actualResult) {
+		this.actualResult = actualResult;
+	}
+	
+	@Column(name="F_REMAK_INFOR",length=500)
 	@NullableSize(max=166)
-	public String getActual_result() {
-		return actual_result;
+	public String getRemakesInformation() {
+		return remakesInformation;
 	}
-	public void setActual_result(String actual_result) {
-		this.actual_result = actual_result;
+	public void setRemakesInformation(String remakesInformation) {
+		this.remakesInformation = remakesInformation;
 	}
-	
-	@Column(name="remakes_information",length=300)
-	@NullableSize(max=166)
-	public String getRemakes_information() {
-		return remakes_information;
-	}
-	public void setRemakes_information(String remakes_information) {
-		this.remakes_information = remakes_information;
-	}
-	
-	
 }
