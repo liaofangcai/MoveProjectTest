@@ -10,34 +10,33 @@ exports.haveFilter = true;
 
 exports.entityLabel = '研发需求申请';
 
-exports.filters ={
+exports.filters = {
     defaults: {
      '!researchDemandFilter': ['']
     }
 };
 
 exports.labels = {
-     research_no: '编号',
-     make_date: '制表日期',
-     brife_introduction: "事由简述",
-     project_type: '项目类别',
-     demand_put_forword: '需求提出人',
-     demand_forword_date: '需求提出时间',
-     atttibute_dept: '属于部门',
-     contact_informating: '联系方式',
+     researchNumber: '编号',
+     makeDate: '制表日期',
+     brifeIntroduction: "事由简述",
+     projectType: '项目类别',
+     demandPutForword: '需求提出人',
+     demandForworDate: '需求提出时间',
+     atttibuteDept: '属于部门',
+     contactInformating: '联系方式',
      reason: '主要原因或背景 (识别并确认客户或者系统产品开发的要求，市场应用定位等)',
      function: '功能/性能/业务、通信规约、交互接口、技术规范等需求（如果有单独的需求类文档，均可以附件的形式，此时本处只需要填写附件的名称即可)',
-     complete_task: '完成任务（客户/系统产品开发）的进度要求',
-     examine_Opinion: '研发部（包含系统软件开发部、开发测试部开发组、预付费产品开发组）审核意见',
-     examine_sign: '签字',
-     examine_date: '日期',
-     ratify_opinion: '批准意见',
-     ratify_sign: '签字',
-     ratify_date: '日期'
+     completeTask: '完成任务（客户/系统产品开发）的进度要求',
+     examineOpinion: '研发部（包含系统软件开发部、开发测试部开发组、预付费产品开发组）审核意见',
+     examineSign: '签字',
+     examineDate: '日期',
+     ratifyOpinion: '批准意见',
+     ratifySign: '签字',
+     ratifyDate: '日期'
 };
 
 exports.forms = {
-
  defaults: {
      groups: [
      {name: 'defaults', columns: 2},
@@ -46,8 +45,6 @@ exports.forms = {
     ],
      size: 'large'
   },
-
- 
  filter: {
      groups: [{name: 'filter', columns: 1}], size: 'small'
   } 
@@ -55,27 +52,27 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'research_no',{name:'make_date',type:'datepicker',label:'制表日期'}
+     'researchNumber', {name: 'makeDate', type: 'datepicker',label: '制表日期'}
   ],
- basicDocument:['brife_introduction','project_type','demand_put_forword',
-     {name:'demand_forword_date',type:'datepicker',label:'需求提出时间'},'atttibute_dept','contact_informating'],
+ basicDocument:['brifeIntroduction', 'projectType', 'demandPutForword',
+     {name: 'demandForworDate', type: 'datepicker', label: '需求提出时间'}, 'atttibuteDept','contactInformating'],
  userApplication: [
      {name: 'reason',type: 'textarea',colspan: 2},
      {name: 'function',type: 'textarea',colspan: 2},
-     {name: 'complete_task',type: 'textarea',colspan: 2},
-     {name: 'examine_Opinion',type: 'textarea',colspan: 2},'examine_sign',
-     {name:'examine_date',type:'datepicker'},
-     {name: 'ratify_opinion',type: 'textarea',colspan: 2},'ratify_sign',
-     {name:'ratify_date',type:'datepicker'}
+     {name: 'completeTask',type: 'textarea',colspan: 2},
+     {name: 'examineOpinion',type: 'textarea',colspan: 2},'examineSign',
+     {name:'examineDate',type:'datepicker'},
+     {name: 'ratifyOpinion',type: 'textarea',colspan: 2},'ratifySign',
+     {name:'ratifyDate',type:'datepicker'}
      ],
  filter: [
-     'research_no','brife_introduction','project_type'
+     'researchNumber','makeDate','projectType'
   ]
 };
 
 exports.grid = {
     columns: [
-     'research_no',{name:'make_date',type:'datepicker',label:'制表日期'},'brife_introduction','project_type','demand_put_forword'
+     'researchNumber',{name:'makeDate',type:'datepicker',label:'制表日期'},'brifeIntroduction','projectType','demandPutForword'
     ],
     events: {
      'system/departments#tree:onClick': 'departmentChanged'
@@ -84,9 +81,8 @@ exports.grid = {
      fixedHeader: true,
      numberColumn: true,
      multiple: true,
-     defaultOrder: 'createdTime-desc'
+     defaultOrder: 'makeDate-desc'
 };
-
 
 exports.operators = {
      exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
