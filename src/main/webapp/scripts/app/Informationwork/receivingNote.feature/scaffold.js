@@ -6,6 +6,16 @@ define(
   ],
 function($, exportUtil, importUtil) {
   return{
+    renderers: {
+      modifyEnabled: function(data,param, gridData) {
+        var flowStatusMap;
+        flowStatusMap = {
+          'qualified': '合格',
+          'unqualified': '不合格'
+        };
+        return flowStatusMap[data];
+      }
+    },
     handlers:{
       exportExcel: function(){
           var me = this;

@@ -98,20 +98,20 @@ exports.fieldGroups = {
   ],
 
   testConclusions: [
-  'testConclusion_Date', {name: 'testConclusion', type: 'dropdown', defaultValue: 1, source: [{id: '合格', text: '合格'},
-  {id: '不合格', text: '不合格'}]}
+  'testConclusion_Date', {name: 'testConclusion', type: 'dropdown', defaultValue: 'qualified', source: [{id: 'qualified', text: '合格'},
+  {id: 'unqualified', text: '不合格'}]}
   ],
 
   unqualifiedDeals: [ 'auditor', 'auditorDate',
-  {name: 'unqualifiedDeal', type: 'dropdown', colspan: 2,defaultValue: 1,
-  source: [{id: '退货', text: '退货'}, {id: '捡用', text: '捡用'}, {id: '让步接收', text: '让步接收'},
-  {id: '报废', text: '报废'}, {id: '返工', text: '返工'}, {id: '返修', text: '返修'}]}
+  {name: 'unqualifiedDeal', type: 'dropdown', colspan: 2,defaultValue: 'eturnGoods',
+  source: [{id: 'eturnGoods', text: '退货'}, {id: 'pickingUp', text: '捡用'}, {id: 'concessionReception', text: '让步接收'},
+  {id: 'scrap', text: '报废'}, {id: 'overAgain', text: '返工'}, {id: 'repair', text: '返修'}]}
   ],
 
   inlineRecruitmentInterviewGrid: [
   'testCaseName', 'testCaseNo', 'count', 'unqualifiedCount',
-  {name: 'result', type: 'dropdown', colspan: 2,defaultValue: 1, source: [{id: '合格', text: '合格'},
-  {id: '不合格', text: '不合格'}]}, {name : 'mark',type :'textarea',colspan :2}
+  {name: 'result', type: 'dropdown', colspan: 2,defaultValue: 'qualified', source: [{id: 'qualified', text: '合格'},
+  {id: 'unqualified', text: '不合格'}]}, {name : 'mark',type :'textarea',colspan :2}
   ],
 
   filter: [
@@ -120,7 +120,8 @@ exports.fieldGroups = {
 };
 
 exports.grid = {
-  columns: ['receivingNoteNo', 'receivingNoteName', 'orderQuantity', 'inspectionBasis', 'arrivalTime'
+  columns: ['receivingNoteNo', 'receivingNoteName', 'orderQuantity', 'inspectionBasis', 'arrivalTime',
+  {name: 'testConclusion', renderer: 'modifyEnabled'}
   ],
   filterToolbar: true,
   fixedHeader: true,

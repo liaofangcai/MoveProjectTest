@@ -38,9 +38,10 @@ public class ReceivingNote extends RevisionDomainEntity{
 	private String inspectionBasis;
 
 	private Date arrivalTime;
-
+	//校验结论 testConclusion {id: 'qualified', text: '合格'}, {id: 'unqualified', text: '不合格'}
 	private String testConclusion;
-
+	//不合格处理unqualifiedDeal {'eturnGoods': '退货', i'pickingUp': '捡用', 'concessionReception': '让步接收', 'scrap': '报废' ,
+	//'overAgain': '返工', 'repair': '返修'}
 	private String unqualifiedDeal;
 
 	private String testCaseName;
@@ -48,7 +49,7 @@ public class ReceivingNote extends RevisionDomainEntity{
 	private String testCaseNo;
 
 	private Integer count;
-
+	//验收结果 result {id: 'qualified', text: '合格'}, {id: 'unqualified', text: '不合格'}
 	private String result;
 
 	private Integer unqualifiedCount;

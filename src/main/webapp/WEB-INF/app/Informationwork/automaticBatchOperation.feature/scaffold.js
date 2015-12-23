@@ -68,7 +68,7 @@ exports.fieldGroups = {
   defaults: [
   'systemUpdateRecordsNo', 'systemUpdateRecordsName', 'operatingPersonnel', 'operateTime',
   {name: 'address', type: 'textarea', colspan: 2},
-  {name:'updateContent', type: 'textarea',colspan:2},
+  {name:'updateContent', type: 'textarea', colspan: 2},
   {name: 'mark', type: 'textarea', colspan: 2}
   ],
 
