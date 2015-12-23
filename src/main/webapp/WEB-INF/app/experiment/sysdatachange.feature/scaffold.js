@@ -17,42 +17,26 @@ exports.filters ={
 };
 
 exports.labels = {
-     sys_no: '编号',
-     aplicationdate: '申请日期',
-     sys_name: "系统名称",
-     ch_re_type: '变更请求类型',
-     ch_ap_person: '变更申请人',
-     ap_company: '申请单位',
-     ch_ap_describe: '变更申请描述',
+     sysNumber: '编号',
+     aplicationDate: '申请日期',
+     sysNmae: "系统名称",
+     chReType: '变更请求类型',
+     pleaseNote: '请说明',
+     chApPerson: '申请人',
+     apCompany: '申请单位',
+     chApDescribe: '变更申请描述',
+     chInfluence: '变更影响',
+     deptDirectorOpinion: '申请部门主管意见'
 };
 
 exports.forms = {
- add: {
+ defaults: {
      groups: [
      {name: 'defaults', columns: 2},
      {name: 'userApplication', columns: 2,label: '变更申请'},
-     {name: 'pleasenote', columns: 1, visible: false,labelOnTop: true,label: '请说明'},
      {name: 'Other', columns: 2}
      ],
      size: 'large'
-  },
- edit: {
-     groups: [
-     {name: 'defaults', columns: 2},
-     {name: 'userApplication', columns: 2,label: '变更申请'},
-     {name: 'pleasenote', columns: 1, visible: false,labelOnTop: true,label: '请说明'},
-     {name: 'Other', columns: 2}
-     ],
-     size: 'large'
-  },
- show: {
-     groups: [
-     {name: 'defaults', columns: 2},
-     {name: 'userApplication', columns: 2,label: '变更申请'},
-     {name: 'pleasenote', columns: 1, visible: false,labelOnTop: true,label: '请说明'},
-     {name: 'Other', columns: 2}
-    ],
-    size: 'large'
   },
  filter: {
     groups: [{name: 'filter', columns: 1}], size: 'small'
@@ -61,23 +45,31 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'sys_no',{name:'aplicationdate',type:'datepicker',label:'申请日期'}
+     'sysNumber', {name: 'aplicationDate', type: 'datepicker',label: '申请日期'}
   ],
  userApplication: [
-     'sys_name',
-     {name: 'ch_re_type', type: 'dropdown', defaultValue: '数据新增',source:[{id: '数据新增',text: '数据新增'},{id:'数据修改', text: '数据修改'},{id: '数据删除', text: '数据删除'},{id: '其它',text: '其它'}]}
+     'sysNmae',
+     {name: 'chReType', type: 'dropdown', defaultValue: '数据新增',source: [{id: '数据新增',text: '数据新增'}, {id:'数据修改', text: '数据修改'},{id: '数据删除', text: '数据删除'},{id: '其它',text: '其它'}]}, 'pleaseNote'
      ],
- pleasenote: ['pleasenote'],
- Other: ['ch_ap_person','ap_company',
-      {name: 'ch_ap_describe',type: 'textarea',colspan: 2, label: '变更内容描述'},
-      {name: 'ch_influence',type: 'textarea', colspan: 2, label: '变更的影响(该项由维护部门填写)'},
-      {name: 'dept_director_opinion',type: 'text',  label: "申请部门主管意见"},
-      {name: 'director_date',type: 'datepicker',label: '日期'},
-      {name: 'project_opinion',type: 'text',  label: "项目负责人意见(维护部门填写)"},
-      {name: 'project_date',type: 'datepicker',label: '日期'}],
+ Other: ['chApPerson','apCompany',
+      {name: 'chApDescribe', type: 'textarea',colspan: 2, label: '变更内容描述'},
+      {name: 'chInfluence', type: 'textarea', colspan: 2, label: '变更的影响(该项由维护部门填写)'},
+      {name: 'deptDirectorOpinion', type: 'text',  label: "申请部门主管意见"},
+      {name: 'directorDate', type: 'datepicker', label: '日期'},
+      {name: 'projectOpinion', type: 'text',  label: "项目负责人意见(维护部门填写)"},
+      {name: 'projectDate', type: 'datepicker', label: '日期'}],
  filter: [
-     'sys_no','sys_name','ch_ap_describe'
+     'sysNumber', 'sysNmae', 'apCompany'
   ]
+};
+
+exports.grid = {
+  columns: ['sysNumber', 'aplicationDate', 'sysNmae', 'chApPerson', 'apCompany'],
+  filterToolbar: true,
+  fixedHeader: true,
+  numberColumn: true,
+  multiple: true,
+  defaultOrder: 'aplicationDate-desc'
 };
 
 exports.operators = {

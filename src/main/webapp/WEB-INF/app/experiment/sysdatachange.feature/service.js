@@ -19,26 +19,20 @@ exports.createService = function() {
                 entity, entities,
                 meta = resolver.resolveEntity(Sysdatachange),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                dateSdf = new SimpleDateFormat("yyyy-MM-dd")
-
+                dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
             entities = commExpService.createService().listEntities(options, meta);
-
             // 按照自己的要求处理数据
             for (i = 0; i < entities.size(); i++) {
                 entity = entities.get(i);
-
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.aplicationdate){
-                     vo.aplicationdate = dateSdf.format(entity.aplicationdate);
+                if(null !== entity.aplicationDate){
+                     vo.aplicationDate = dateSdf.format(entity.aplicationDate);
                  }
-                 if (null!==entity.ap_company) {
-                    vo.ap_company=dateSdf.format(entity.ap_company);
-                 };
-                 if(null!=entity.director_date){
-                     vo.director_date=dateSdf.format(entity.director_date);
+                 if(null!=entity.directorDate){
+                     vo.directorDate = dateSdf.format(entity.directorDate);
                  }
-                 if(null!=entity.project_date){
-                    vo.project_date=dateSdf.format(entity.project_date);
+                 if(null!=entity.projectDate){
+                    vo.projectDate = dateSdf.format(entity.projectDate);
                  }
                 vos.add(vo);
             }

@@ -16,11 +16,11 @@ import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
 /**
  * 系统数据变更申请表
- * @author child
+ * @author luohaibo
  *
  */
 @Entity
-@Table(name="bz_sysdata_change")
+@Table(name="BZ_EX_SYS_CHANGE")
 @Scaffold("/experiment/sysdatachange")
 public class Sysdatachange extends RevisionDomainEntity{
 
@@ -28,176 +28,173 @@ public class Sysdatachange extends RevisionDomainEntity{
 	/*
 	 *编号
 	 */
-	private String  sys_no;
+	private String  sysNumber;
 	/*
 	 *系统名称
 	 */
-	private String sys_name;
+	private String sysNmae;
 	/*
 	 *申请日期
 	 */
-	private Date aplicationdate;
+	private Date aplicationDate;
 	/*
 	 * 变更请求类型
 	 */
-	private String ch_re_type;
+	private String chReType;
 	/**
 	 * 请说明
 	 */
-	private String pleasenote;
+	private String pleaseNote;
 	/*
 	 *变更申请人
 	 */
-	private String ch_ap_person;
+	private String chApPerson;
     /**
      * 申请单位
      */
-	private Date ap_company;
+	private String apCompany;
 	/**
 	 *变更申请描述
 	 */
-	private String ch_ap_describe;
+	private String chApDescribe;
 	/**
 	 *变更的影响
 	 */
-	private String ch_influence;
+	private String chInfluence;
 	/**
 	 * 申请部门主管的意见
 	 */
-	private String dept_director_opinion;
+	private String deptDirectorOpinion;
 	 /**
 	  * 申请部门主管的日期
 	  */
-	private Date director_date;
+	private Date directorDate;
 	/**
 	 * 项目负责人申请意见
 	 */
-	private String project_opinion;
+	private String projectOpinion;
 	/**
 	 * 项目负责人申请日期
 	 */
-	private Date project_date;
+	private Date projectDate;
+	
 
 	@NotBlank
-	@Column(name="sys_no",length=300)
-	@NullableSize(max=166)
-	public String getSys_no() {
-		return sys_no;
+	@Column(name="F_SYS_NUMBER",length=300)
+	@NullableSize(max=100)
+	public String getSysNumber() {
+		return sysNumber;
 	}
-	public void setSys_no(String sys_no) {
-		this.sys_no = sys_no;
-	}
-
-	@Column(name="application_date",length=300)
-	@JsonFormat(pattern = "yyyy-MM-dd ")
-	@NullableSize(max=166)
-	public Date getAplicationdate() {
-		return aplicationdate;
-	}
-	@NotBlank
-	@Column(name="sys_name",length=300)
-	@NullableSize(max=166)
-	public String getSys_name() {
-		return sys_name;
-	}
-	public void setSys_name(String sys_name) {
-		this.sys_name = sys_name;
-	}
-	public void setAplicationdate(Date aplicationdate) {
-		this.aplicationdate = aplicationdate;
-	}
-
-	@Column(name="ch_re_type",length=300)
-	@NullableSize(max=166)
-	public String getCh_re_type() {
-		return ch_re_type;
-	}
-	public void setCh_re_type(String ch_re_type) {
-		this.ch_re_type = ch_re_type;
-	}
-
-	@Column(name="ch_ap_person",length=300)
-	@NullableSize(max=166)
-	public String getCh_ap_person() {
-		return ch_ap_person;
-	}
-	public void setCh_ap_person(String ch_ap_person) {
-		this.ch_ap_person = ch_ap_person;
-	}
-
-	@Column(name="ap_company",length=300)
-	@JsonFormat(pattern = "yyyy-MM-dd ")
-	@NullableSize(max=166)
-	public Date getAp_company() {
-		return ap_company;
-	}
-	public void setAp_company(Date ap_company) {
-		this.ap_company = ap_company;
-	}
-
-	@Column(name="ch_ap_describe",length=300)
-	@NullableSize(max=1333)
-	public String getCh_ap_describe() {
-		return ch_ap_describe;
-	}
-	public void setCh_ap_describe(String ch_ap_describe) {
-		this.ch_ap_describe = ch_ap_describe;
-	}
-
-	@Column(name="ch_influence",length=300)
-	@NullableSize(max=133)
-	public String getCh_influence() {
-		return ch_influence;
-	}
-	public void setCh_influence(String ch_influence) {
-		this.ch_influence = ch_influence;
-	}
-
-	@Column(name="dept_director_opinion",length=300)
-	@NullableSize(max=133)
-	public String getDept_director_opinion() {
-		return dept_director_opinion;
-	}
-	public void setDept_director_opinion(String dept_director_opinion) {
-		this.dept_director_opinion = dept_director_opinion;
-	}
-
-	@Column(name="director_date",length=300)
-	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=133)
-	public Date getDirector_date() {
-		return director_date;
-	}
-	public void setDirector_date(Date director_date) {
-		this.director_date = director_date;
-	}
-
-	@Column(name="project_opinion",length=300)
-	@NullableSize(max=133)
-	public String getProject_opinion() {
-		return project_opinion;
-	}
-	public void setProject_opinion(String project_opinion) {
-		this.project_opinion = project_opinion;
-	}
-
-	@Column(name="project_date",length=300)
-	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=133)
-	public Date getProject_date() {
-		return project_date;
-	}
-	public void setProject_date(Date project_date) {
-		this.project_date = project_date;
+	public void setSysNumber(String sysNumber) {
+		this.sysNumber = sysNumber;
 	}
 	
+	@Column(name="F_SYS_NAME",length=300)
+	@NullableSize(max=100)
+	public String getSysNmae() {
+		return sysNmae;
+	}
+	public void setSysNmae(String sysNmae) {
+		this.sysNmae = sysNmae;
+	}
 	
-	@Column(name="please_note",length=300)
-	@NullableSize(max=133)
-	public String getPleasenote() {
-		return pleasenote;
+	@Column(name="F_APLICATION_DATE")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getAplicationDate() {
+		return aplicationDate;
 	}
-	public void setPleasenote(String pleasenote) {
-		this.pleasenote = pleasenote;
+	public void setAplicationDate(Date aplicationDate) {
+		this.aplicationDate = aplicationDate;
 	}
+	
+	@Column(name="F_CH_RE_TYPE",length=300)
+	@NullableSize(max=100)
+	public String getChReType() {
+		return chReType;
+	}
+	public void setChReType(String chReType) {
+		this.chReType = chReType;
+	}
+	
+	@Column(name="F_PLEASE_NOTE",length=300)
+	@NullableSize(max=100)
+	public String getPleaseNote() {
+		return pleaseNote;
+	}
+	public void setPleaseNote(String pleaseNote) {
+		this.pleaseNote = pleaseNote;
+	}
+	
+	@Column(name="F_CH_APLICATION_PERSON",length=300)
+	@NullableSize(max=100)
+	public String getChApPerson() {
+		return chApPerson;
+	}
+	public void setChApPerson(String chApPerson) {
+		this.chApPerson = chApPerson;
+	}
+	
+	@Column(name="F_CHAP_DESCTIBE",length=300)
+	@NullableSize(max=100)
+	public String getChApDescribe() {
+		return chApDescribe;
+	}
+	public void setChApDescribe(String chApDescribe) {
+		this.chApDescribe = chApDescribe;
+	}
+	
+	@Column(name="F_CH_INFUENCE",length=300)
+	@NullableSize(max=100)
+	public String getChInfluence() {
+		return chInfluence;
+	}
+	public void setChInfluence(String chInfluence) {
+		this.chInfluence = chInfluence;
+	}
+	
+	@Column(name="F_DEPT_DIREC",length=300)
+	@NullableSize(max=100)
+	public String getDeptDirectorOpinion() {
+		return deptDirectorOpinion;
+	}
+	public void setDeptDirectorOpinion(String deptDirectorOpinion) {
+		this.deptDirectorOpinion = deptDirectorOpinion;
+	}
+	
+	@Column(name="F_DIRECTOR_DATE",length=300)
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getDirectorDate() {
+		return directorDate;
+	}
+	public void setDirectorDate(Date directorDate) {
+		this.directorDate = directorDate;
+	}
+	
+	@Column(name="F_PROJECT_OP",length=300)
+	@NullableSize(max=100)
+	public String getProjectOpinion() {
+		return projectOpinion;
+	}
+	public void setProjectOpinion(String projectOpinion) {
+		this.projectOpinion = projectOpinion;
+	}
+	
+	@Column(name="F_PROJECT_DATE")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getProjectDate() {
+		return projectDate;
+	}
+	public void setProjectDate(Date projectDate) {
+		this.projectDate = projectDate;
+	}
+	
+	@Column(name="F_AP_COMPANY",length=300)
+	@NullableSize(max=100)
+	public String getApCompany() {
+		return apCompany;
+	}
+	public void setApCompany(String apCompany) {
+		this.apCompany = apCompany;
+	}
+	
 }
