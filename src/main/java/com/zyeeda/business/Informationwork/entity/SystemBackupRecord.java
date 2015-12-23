@@ -23,14 +23,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
+
 @Entity
-@Table(name = "bz_systemBackupRecord")
+@Table(name = "BZ_BACKUPRECORD")
 @Scaffold("/informationwork/systemBackupRecord")
 public class SystemBackupRecord extends RevisionDomainEntity{
 
   private static final long serialVersionUID = 2827543938624745L;
   //编号
   private String systemBackupRecordNo;
+  //系统名称
+  private String name;
   //备份时间
   private Date backupTime ;
   //备份方式
@@ -48,84 +51,94 @@ public class SystemBackupRecord extends RevisionDomainEntity{
   //备注
   private String mark;
 
+  @NotBlank
+  @Column(name = "F_NAME")
+  public  String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
 
   @NotBlank
-  @Column(name="f_systemBackupRecordNo")
+  @Column(name="F_BACKUPRECORDNO")
   public String getSystemBackupRecordNo() {
     return systemBackupRecordNo;
   }
   public void setSystemBackupRecordNo(String systemBackupRecordNo) {
     this.systemBackupRecordNo = systemBackupRecordNo;
   }
+
   @NotNull
   @DateTime
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
-  @Column(name="f_backupTime")
+  @Column(name="F_BACKUPTIME")
   public Date getBackupTime() {
     return backupTime;
   }
   public void setBackupTime(Date backupTime) {
     this.backupTime = backupTime;
   }
+
   @NotBlank
-  @Column(name="f_backupMethod")
+  @Column(name="F_BACKUPMETHOD")
   public String getBackupMethod() {
     return backupMethod;
   }
   public void setBackupMethod(String backupMethod) {
     this.backupMethod = backupMethod;
   }
+
   @NotBlank
-  @Column(name="f_backupPersonnel")
+  @Column(name="F_BACKUPPERSONNEL")
   public String getBackupPersonnel() {
     return backupPersonnel;
   }
   public void setBackupPersonnel(String backupPersonnel) {
     this.backupPersonnel = backupPersonnel;
   }
+
   @NotBlank
-  @Column(name="f_backupFormat")
+  @Column(name="F_BACKUPFORMAT")
   public String getBackupFormat() {
     return backupFormat;
   }
   public void setBackupFormat(String backupFormat) {
     this.backupFormat = backupFormat;
   }
+
   @NotBlank
-  @Column(name="f_backupCapacity")
+  @Column(name="F_BACKUPCAPACITY")
   public String getBackupCapacity() {
     return backupCapacity;
   }
   public void setBackupCapacity(String backupCapacity) {
     this.backupCapacity = backupCapacity;
   }
+
   @NotBlank
-  @Column(name="f_backupContent")
+  @Column(name="F_BACKUPCONTENT")
   public String getBackupContent() {
     return backupContent;
   }
   public void setBackupContent(String backupContent) {
     this.backupContent = backupContent;
   }
+
   @NotBlank
-  @Column(name="f_backupAddress")
+  @Column(name="F_BACKUPADDRESS")
   public String getBackupAddress() {
     return backupAddress;
   }
   public void setBackupAddress(String backupAddress) {
     this.backupAddress = backupAddress;
   }
-  @Column(name="f_mark")
+
+  @Column(name="F_MARK")
   public String getMark() {
     return mark;
   }
   public void setMark(String mark) {
     this.mark = mark;
   }
-
-
-
-
-
-
 }
