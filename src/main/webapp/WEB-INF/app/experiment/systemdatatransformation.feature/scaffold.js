@@ -17,18 +17,18 @@ exports.filters ={
 };
 
 exports.labels = {
-     sys_no: '编号',
-     make_date: '制表日期',
-     in_sys_name: "信息系统名称",
+     sysName: '编号',
+     makeDate: '制表日期',
+     inSysName: "信息系统名称",
      server: '服务器',
-     tran_start_data: '转换开始时间',
-     tran_complete_data: '转换完成时间',
-     data_tran_handle: '数据转换处理人',
-     data_conversion_details: '数据转换详情',
-     validation_content: '验证内容',
-     validation_conclusion: '验证结论',
-     validation_person: '验证人',
-     validation_data: '验证时间'
+     tranStartData: '转换开始时间',
+     tranCompleteData: '转换完成时间',
+     dataTranHandle: '数据转换处理人',
+     dataConversionDetails: '数据转换详情',
+     validationContent: '验证内容',
+     validationConclusion: '验证结论',
+     validationPerson: '验证人',
+     validationData: '验证时间'
 };
 
 exports.forms = {
@@ -47,24 +47,34 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'sys_no',{name:'make_date',type:'datepicker'}
+     'sysName', {name: 'makeDate', type:'datepicker'}
   ],
  userApplication: [
-     'in_sys_name','server',
-     {name:'tran_start_data',type:'datepicker'},
-     {name:'tran_complete_data',type:'datepicker'},
-     'data_tran_handle',
-     {name: 'data_conversion_details',type: 'textarea',colspan: 2}
+     'inSysName', 'server',
+     {name: 'tranStartData', type: 'datepicker'},
+     {name: 'tranCompleteData', type: 'datepicker'},
+     'dataTranHandle',
+     {name: 'dataConversionDetails', type: 'textarea', colspan: 2}
      ],
  Other: [
-     {name: 'validation_content',type: 'textarea',colspan: 2},
-     {name: 'validation_conclusion',type: 'textarea',colspan: 2},
-     {name: 'validation_person',type: 'text'},
-     {name: 'validation_data',type: 'datepicker',label: '日期'}
+     {name: 'validationContent', type: 'textarea', colspan: 2},
+     {name: 'validationConclusion', type: 'textarea', colspan: 2},
+     {name: 'validationPerson', type: 'text'},
+     {name: 'validationData', type: 'datepicker', label: '日期'}
      ],
  filter: [
-     'sys_no','in_sys_name','server'
+     'sysName', 'makeDate', 'inSysName'
   ]
+};
+
+
+exports.grid = {
+  columns: ['sysName', 'makeDate', 'inSysName', 'tranStartData', 'dataTranHandle'],
+  filterToolbar: true,
+  fixedHeader: true,
+  numberColumn: true,
+  multiple: true,
+  defaultOrder: 'makeDate-desc'
 };
 
 exports.operators = {

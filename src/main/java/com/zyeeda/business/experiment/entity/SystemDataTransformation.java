@@ -18,7 +18,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  *
  */
 @Entity
-@Table(name="bz_system_data_transformation")
+@Table(name="BZ_SYS_DATA_TRANS")
 @Scaffold("experiment/systemdatatransformation")
 public class SystemDataTransformation extends RevisionDomainEntity{
 
@@ -29,15 +29,15 @@ public class SystemDataTransformation extends RevisionDomainEntity{
 	/**
 	 * 数据转换编号
 	 */
-	private String sys_no;
+	private String sysName;
 	/**
 	 * 制表日期
 	 */
-	private Date make_date;
+	private Date makeDate;
 	/**
 	 * 信息系统名称
 	 */
-	private String in_sys_name;
+	private String inSysName;
 	/**
 	 * 服务器
 	 */
@@ -45,67 +45,67 @@ public class SystemDataTransformation extends RevisionDomainEntity{
 	/**
 	 * 转换开始时间
 	 */
-	private Date tran_start_data;
+	private Date tranStartData;
 	/**
 	 * 转换完成时间
 	 */
-	private Date tran_complete_data;
+	private Date tranCompleteData;
 	/**
 	 * 数据转换处理人
 	 */
-	private String data_tran_handle;
+	private String dataTranHandle;
 	/**
 	 * 数据转换详情  
 	 */
-	private String data_conversion_details;
+	private String dataConversionDetails;
 	/**
 	 * 验证内容
 	 */
-	private String validation_content;
+	private String validationContent;
 	/**
 	 * 验证结论
 	 */
-	private String validation_conclusion;
+	private String validationConclusion;
 	/**
 	 * 验证人
 	 */
-	private String validation_person;
+	private String validationPerson;
 	/**
 	 * 验证时间  
 	 */
-	private Date validation_data;
+	private Date validationData;
 	
 	@NotBlank
-	@Column(name="sys_no",length=300)
-	@NullableSize(max=166)
-	public String getSys_no() {
-		return sys_no;
+    @Column(name="F_SYS_NAME",length=300)
+    @NullableSize(max=100)
+	public String getSysName() {
+		return sysName;
 	}
-	public void setSys_no(String sys_no) {
-		this.sys_no = sys_no;
+	public void setSysName(String sysName) {
+		this.sysName = sysName;
 	}
 	
-	@Column(name="make_date",length=300)
+	@Column(name="F_MAKE_DATE",length=300)
 	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=166)
-	public Date getMake_date() {
-		return make_date;
+    @NullableSize(max=100)
+	public Date getMakeDate() {
+		return makeDate;
 	}
-	public void setMake_date(Date make_date) {
-		this.make_date = make_date;
-	}
-	
-	@Column(name="in_sys_name",length=300)
-	@NullableSize(max=166)
-	public String getIn_sys_name() {
-		return in_sys_name;
-	}
-	public void setIn_sys_name(String in_sys_name) {
-		this.in_sys_name = in_sys_name;
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
 	}
 	
-	@Column(name="server",length=300)
-	@NullableSize(max=166)
+	@Column(name="F_IN_SYS_NAME",length=300)
+    @NullableSize(max=100)
+	public String getInSysName() {
+		return inSysName;
+	}
+	public void setInSysName(String inSysName) {
+		this.inSysName = inSysName;
+	}
+	
+	@Column(name="F_SERVER",length=300)
+    @NullableSize(max=100)
 	public String getServer() {
 		return server;
 	}
@@ -113,81 +113,75 @@ public class SystemDataTransformation extends RevisionDomainEntity{
 		this.server = server;
 	}
 	
-	@Column(name="tran_start_data",length=300)
+	@Column(name="F_TRAN_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=166)
-	public Date getTran_start_data() {
-		return tran_start_data;
+	public Date getTranStartData() {
+		return tranStartData;
 	}
-	public void setTran_start_data(Date tran_start_data) {
-		this.tran_start_data = tran_start_data;
+	public void setTranStartData(Date tranStartData) {
+		this.tranStartData = tranStartData;
 	}
-
-	@Column(name="tran_complete_data",length=300)
+	
+	@Column(name="F_COMPLETE_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getTranCompleteData() {
+		return tranCompleteData;
+	}
+	public void setTranCompleteData(Date tranCompleteData) {
+		this.tranCompleteData = tranCompleteData;
+	}
+	
+	@Column(name="F_DATA_TRAN",length=300)
+	@NullableSize(max=100)
+	public String getDataTranHandle() {
+		return dataTranHandle;
+	}
+	public void setDataTranHandle(String dataTranHandle) {
+		this.dataTranHandle = dataTranHandle;
+	}
+	
+	@Column(name="F_DATA_CONVERSION",length=300)
+	@NullableSize(max=100)
+	public String getDataConversionDetails() {
+		return dataConversionDetails;
+	}
+	public void setDataConversionDetails(String dataConversionDetails) {
+		this.dataConversionDetails = dataConversionDetails;
+	}
+	
+	@Column(name="F_VALIDATION_CONTENT",length=500)
+	@NullableSize(max=100)
+	public String getValidationContent() {
+		return validationContent;
+	}
+	public void setValidationContent(String validationContent) {
+		this.validationContent = validationContent;
+	}
+	
+	@Column(name="F_VALIVATION_CON",length=500)
 	@NullableSize(max=166)
-	public Date getTran_complete_data() {
-		return tran_complete_data;
+	public String getValidationConclusion() {
+		return validationConclusion;
 	}
-	public void setTran_complete_data(Date tran_complete_data) {
-		this.tran_complete_data = tran_complete_data;
-	}
-	
-	
-	@Column(name="data_tran_handle",length=300)
-	@NullableSize(max=166)
-	public String getData_tran_handle() {
-		return data_tran_handle;
-	}
-	public void setData_tran_handle(String data_tran_handle) {
-		this.data_tran_handle = data_tran_handle;
+	public void setValidationConclusion(String validationConclusion) {
+		this.validationConclusion = validationConclusion;
 	}
 	
-	@Column(name="data_conversion_details",length=300)
-	@NullableSize(max=166)
-	public String getData_conversion_details() {
-		return data_conversion_details;
+	@Column(name="F_VALITATION_PERSON",length=300)
+	@NullableSize(max=100)
+	public String getValidationPerson() {
+		return validationPerson;
 	}
-	public void setData_conversion_details(String data_conversion_details) {
-		this.data_conversion_details = data_conversion_details;
-	}
-	
-	@Column(name="validation_content",length=300)
-	@NullableSize(max=166)
-	public String getValidation_content() {
-		return validation_content;
-	}
-	public void setValidation_content(String validation_content) {
-		this.validation_content = validation_content;
+	public void setValidationPerson(String validationPerson) {
+		this.validationPerson = validationPerson;
 	}
 	
-	@Column(name="validation_conclusion",length=300)
-	@NullableSize(max=166)
-	public String getValidation_conclusion() {
-		return validation_conclusion;
-	}
-	public void setValidation_conclusion(String validation_conclusion) {
-		this.validation_conclusion = validation_conclusion;
-	}
-	
-	@Column(name="validation_person",length=300)
-	@NullableSize(max=166)
-	public String getValidation_person() {
-		return validation_person;
-	}
-	public void setValidation_person(String validation_person) {
-		this.validation_person = validation_person;
-	}
-	
-	@Column(name="validation_data",length=300)
+	@Column(name="F_VALIDATION")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=166)
-	public Date getValidation_data() {
-		return validation_data;
+	public Date getValidationData() {
+		return validationData;
 	}
-	public void setValidation_data(Date validation_data) {
-		this.validation_data = validation_data;
+	public void setValidationData(Date validationData) {
+		this.validationData = validationData;
 	}
-	
-	
 }

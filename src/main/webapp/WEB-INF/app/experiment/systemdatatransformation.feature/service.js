@@ -28,24 +28,22 @@ exports.createService = function() {
                 entity = entities.get(i);
 
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.make_date){
-                     vo.make_date = dateSdf.format(entity.make_date);
+                if(null !== entity.makeDate){
+                     vo.makeDate = dateSdf.format(entity.makeDate);
                  }
-                 if (null!==entity.tran_start_data) {
-                    vo.tran_start_data=dateSdf.format(entity.tran_start_data);
+                 if (null!==entity.tranStartData) {
+                    vo.tranStartData = dateSdf.format(entity.tranStartData);
                  };
-                 if(null !== entity.tran_complete_data){
-                     vo.tran_complete_data = dateSdf.format(entity.tran_complete_data);
+                 if(null !== entity.tranCompleteData){
+                     vo.tranCompleteData = dateSdf.format(entity.tranCompleteData);
                  }
-                 if (null!==entity.validation_data) {
-                    vo.validation_data=dateSdf.format(entity.validation_data);
+                 if (null!==entity.validationData) {
+                    vo.validationData = dateSdf.format(entity.validationData);
                  };
                 vos.add(vo);
             }
-
             beans.put('Sysdatachanges', vos);
             beans.put('footer', '操作时间:' + dateTimeStr);
-
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
         })
 
