@@ -14,229 +14,225 @@ import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
 /**
  * 系统上线申请表
- * @author child
+ * @author luohaibo
  *
  */
 @Entity
-@Table(name="bz_information_system")
+@Table(name="BZ_INFOR_SYSTEM")
 @Scaffold("experiment/Informationsystem")
 public class InformationSystem extends RevisionDomainEntity{
-	  /**
+	 /**
 	  * 
 	  */
 	  private static final long serialVersionUID = 1L;
 	  /**
 	   * 编号
 	   */
-      private String in_sys_no;
-      /**
-       * 申请日期
-       */
-      private Date aplicationdate; 
-      /**
-       * 信息系统名称
-       */
-      private String in_sys_name;
-      /**
-       * 系统情况说明
-       */
-      private String sys_condition;
-      /**
-       * 是否完成测试
-       */
-      private  String complete_test;
-      /**
-       * 测试情况
-       */
-      private String test_condition;
-      /**
-       * 上线是否涉及其他系统
-       */
-      private String relate_sys;
-      /**
-       *备注
-       */
-      private String comments;
-      /**
-       * 申请人
-       */
-      private String aplicationperson;
-      /**
-       * 申请部门
-       */
-      private String aplicationdept;
-      /**
-       * 部门主管意见
-       */
-      private String dept_director;
-      /**
-       * 部门主管审批日期
-       */
-      private Date dept_date;
-      /**
-       * 实施部门意见
-       */
-      private String implement_dept;
-      /**
-       * 实施日期
-       */
-      private Date implement_date;
-      /**
-       * 公司领导审批
-       */
-      private String corportionlead;
-      /**
-       * 公司领导审批日期
-       */
-      private Date corportiondate;
+     private String inSysNumber;
+     /**
+      * 申请日期
+      */
+     private Date aplicationDate; 
+     /**
+      * 信息系统名称
+      */
+     private String inSysName;
+     /**
+      * 系统情况说明
+      */
+     private String sysCondition;
+     /**
+      * 是否完成测试
+      */
+     private  String completeTest;
+     /**
+      * 测试情况
+      */
+     private String testCondition;
+     /**
+      * 上线是否涉及其他系统
+      */
+     private String relateSys;
+     /**
+      *备注
+      */
+     private String comments;
+     /**
+      * 申请人
+      */
+     private String aplicationPerson;
+     /**
+      * 申请部门
+      */
+     private String aplicationDept;
+     /**
+      * 部门主管意见
+      */
+     private String deptDirector;
+     /**
+      * 部门主管审批日期
+      */
+     private Date deptDate;
+     /**
+      * 实施部门意见
+      */
+     private String implementDept;
+     /**
+      * 实施日期
+      */
+     private Date implementDate;
+     /**
+      * 公司领导审批
+      */
+     private String corportionlead;
+     /**
+      * 公司领导审批日期
+      */
+     private Date corportionDate;
       
-      @NotBlank
-      @Column(name="in_sys_no",length=300)
-      @NullableSize(max=166)
-	  public String getIn_sys_no() {
-		return in_sys_no;
-	  }
-	  public void setIn_sys_no(String in_sys_no) {
-		this.in_sys_no = in_sys_no;
-	  }
-	  
-	  @Column(name="aplication_date",length=300)
-	  @JsonFormat(pattern="yyyy-MM-dd")
-	  @NullableSize(max=166)
-	  public Date getAplicationdate() {
-		return aplicationdate;
-	  }
-	  public void setAplicationdate(Date aplicationdate) {
-		this.aplicationdate = aplicationdate;
-	  }
-	  
-	  @Column(name="in_sys_name",length=300)
-	  @NullableSize(max=166)
-	  public String getIn_sys_name() {
-		return in_sys_name;
-	  }
-	  public void setIn_sys_name(String in_sys_name) {
-		this.in_sys_name = in_sys_name;
-	  }
-	  
-	  @Column(name="sys_condition",length=300)
-	  @NullableSize(max=166)
-	  public String getSys_condition() {
-		return sys_condition;
-	  }
-	  public void setSys_condition(String sys_condition) {
-		this.sys_condition = sys_condition;
-	  }
-	  
-	  @Column(name="complete_test",length=300)
-	  @NullableSize(max=166)
-	  public String getComplete_test() {
-		return complete_test;
-	  }
-	 public void setComplete_test(String complete_test) {
-		this.complete_test = complete_test;
-	  }
-	 
-	 @Column(name="test_condition",length=300)
-	 @NullableSize(max=166)
-	 public String getTest_condition() {
-		return test_condition;
-	 }
-	 public void setTest_condition(String test_condition) {
-		this.test_condition = test_condition;
-	 }
-	 
-	 @Column(name="relate_sys",length=33)
-	 @NullableSize(max=166)
-	 public String getRelate_sys() {
-		return relate_sys;
-	 }
-	 public void setRelate_sys(String relate_sys) {
-		this.relate_sys = relate_sys;
-	 }
-	 
-	 @Column(name="comments",length=300)
-	 @NullableSize(max=166)
-	 public String getComments() {
-		return comments;
-	 }
-	 public void setComments(String comments) {
-		this.comments = comments;
-	 }
-	 
-	 @Column(name="aplicetion_person",length=300)
-	 @NullableSize(max=166)
-	 public String getAplicationperson() {
-		return aplicationperson;
-	 }
-	 public void setAplicationperson(String aplicationperson) {
-		this.aplicationperson = aplicationperson;
-	 }
-	 
-	 @Column(name="aplication_dept",length=300)
-	 @NullableSize(max=166)
-	 public String getAplicationdept() {
-		return aplicationdept;
-	 }
-	 public void setAplicationdept(String aplicationdept) {
-		this.aplicationdept = aplicationdept;
-	 }
-	 
-	 @Column(name="dept_director",length=300)
-     @NullableSize(max=166)
-	 public String getDept_director() {
-		return dept_director;
-	 }
-	 public void setDept_director(String dept_director) {
-		this.dept_director = dept_director;
-	 }
+    @NotBlank
+    @Column(name="F_IN_SYS_NUMBER",length=300)
+    @NullableSize(max=100)
+    public String getInSysNumber() {
+		return inSysNumber;
+	}
+	public void setInSysNumber(String inSysNumber) {
+		this.inSysNumber = inSysNumber;
+	}
 	
-	 @Column(name="dept_date",length=300)
-	 @NullableSize(max=166)
-	 public Date getDept_date() {
-		return dept_date;
-	 }
-	 public void setDept_date(Date dept_date) {
-		this.dept_date = dept_date;
-	 }
+	@Column(name="F_APPLICATION_DATE")
+    @JsonFormat(pattern="yyyy-MM-dd")
+	public Date getAplicationDate() {
+		return aplicationDate;
+	}
+	public void setAplicationDate(Date aplicationDate) {
+		this.aplicationDate = aplicationDate;
+	}
 	
-	 @Column(name="implement_dept",length=300)
-	 @NullableSize(max=166)
-	 public String getImplement_dept() {
-		return implement_dept;
-	 }
-	 public void setImplement_dept(String implement_dept) {
-		this.implement_dept = implement_dept;
-	 }
+	@Column(name="F_IN_SYS_NAME",length=300)
+    @NullableSize(max=100)
+	public String getInSysName() {
+		return inSysName;
+	}
+	public void setInSysName(String inSysName) {
+		this.inSysName = inSysName;
+	}
 	
-	 @Column(name="implement_date",length=300)
-	 @JsonFormat(pattern="yyyy-MM-dd")
-	 @NullableSize(max=166)
-	 public Date getImplement_date() {
-		return implement_date;
-	 }
-	 public void setImplement_date(Date implement_date) {
-	 	this.implement_date = implement_date;
-	 }
+	@Column(name="F_SYS_CONDITION",length=300)
+    @NullableSize(max=100)
+	public String getSysCondition() {
+		return sysCondition;
+	}
+	public void setSysCondition(String sysCondition) {
+		this.sysCondition = sysCondition;
+	}
 	
-	 @Column(name="corportionlead",length=300)
-	 @NullableSize(max=166)
-	 public String getCorportionlead() {
-		return corportionlead;
-	 }
-	 public void setCorportionlead(String corportionlead) {
-		this.corportionlead = corportionlead;
-	 }
+	@Column(name="F_COMPLETE_TEST",length=300)
+    @NullableSize(max=100)
+	public String getCompleteTest() {
+		return completeTest;
+	}
+	public void setCompleteTest(String completeTest) {
+		this.completeTest = completeTest;
+	}
 	
+	@Column(name="F_TEST_CONDITION",length=300)
+    @NullableSize(max=100)
+	public String getTestCondition() {
+		return testCondition;
+	}
+	public void setTestCondition(String testCondition) {
+		this.testCondition = testCondition;
+	}
 	
-	@Column(name="corportiondate",length=300)
+	@Column(name="F_RELATESYS",length=300)
+    @NullableSize(max=100)
+	public String getRelateSys() {
+		return relateSys;
+	}
+	public void setRelateSys(String relateSys) {
+		this.relateSys = relateSys;
+	}
+	
+	@Column(name="F_APLICATION_PERSON",length=300)
+    @NullableSize(max=100)
+	public String getAplicationPerson() {
+		return aplicationPerson;
+	}
+	public void setAplicationPerson(String aplicationPerson) {
+		this.aplicationPerson = aplicationPerson;
+	}
+	
+	@Column(name="F_APLICATION_DEPT",length=300)
+    @NullableSize(max=100)
+	public String getAplicationDept() {
+		return aplicationDept;
+	}
+	public void setAplicationDept(String aplicationDept) {
+		this.aplicationDept = aplicationDept;
+	}
+	
+	@Column(name="F_DEPT_DIRECTOR",length=300)
+    @NullableSize(max=100)
+	public String getDeptDirector() {
+		return deptDirector;
+	}
+	public void setDeptDirector(String deptDirector) {
+		this.deptDirector = deptDirector;
+	}
+	
+	@Column(name="F_DEPT_DATE",length=300)
+    @JsonFormat(pattern="yyyy-MM-dd")
+	public Date getDeptDate() {
+		return deptDate;
+	}
+	public void setDeptDate(Date deptDate) {
+		this.deptDate = deptDate;
+	}
+	
+	@Column(name="F_IMPLEMENT_DEPT",length=300)
+    @NullableSize(max=100)
+	public String getImplementDept() {
+		return implementDept;
+	}
+	public void setImplementDept(String implementDept) {
+		this.implementDept = implementDept;
+	}
+	
+	@Column(name="F_IMPLEMENT_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=166)
-	public Date getCorportiondate() {
-		return corportiondate;
+	public Date getImplementDate() {
+		return implementDate;
 	}
-	public void setCorportiondate(Date corportiondate) {
-		this.corportiondate = corportiondate;
+	public void setImplementDate(Date implementDate) {
+		this.implementDate = implementDate;
 	}
-      
+	
+	@Column(name="F_CORPORTION_Date")
+    @JsonFormat(pattern="yyyy-MM-dd")
+	public Date getCorportionDate() {
+		return corportionDate;
+	}
+	public void setCorportionDate(Date corportionDate) {
+		this.corportionDate = corportionDate;
+	}
+	
+	@Column(name="F_COMMNENTS",length=300)
+    @NullableSize(max=100)
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	
+	@Column(name="F_CORPORTIONLEAD",length=300)
+    @NullableSize(max=100)
+	public String getCorportionlead() {
+		return corportionlead;
+	}
+	public void setCorportionlead(String corportionlead) {
+		this.corportionlead = corportionlead;
+	}
+	
 }

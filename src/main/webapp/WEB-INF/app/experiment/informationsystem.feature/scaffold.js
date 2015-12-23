@@ -17,38 +17,38 @@ exports.filters ={
 };
 
 exports.labels = {
-     in_sys_no: '编号',
-     aplicationdate: '申请日期',
-     in_sys_name: "信息系统名称",
-     sys_condition: '系统情况说明',
-     complete_test: '是否完成测试',
-     test_condition: '测试情况',
-     relate_sys: '上线信息系统是否涉及其他系统',
+     inSysNumber: '编号',
+     aplicationDate: '申请日期',
+     inSysName: "信息系统名称",
+     sysCondition: '系统情况说明',
+     completeTest: '是否完成测试',
+     testCondition: '测试情况',
+     relateSys: '上线信息系统是否涉及其他系统',
      comments: '备注'
 };
 
 exports.forms = {
  add: {
-     groups: [
+    groups: [
      {name: 'defaults', columns: 2},
-     {name: 'userApplication',columns: 2, label: '上线申请'},
-     {name: 'examineHandle',columns:2,label:'审核意见'}
+     {name: 'userApplication', columns: 2, label: '上线申请'},
+     {name: 'examineHandle', columns:2,label:'审核意见'}
      ],
      size: 'large'
   },
  edit: {
-     groups: [
+    groups: [
      {name: 'defaults', columns: 2},
-     {name: 'userApplication',columns: 2, label: '上线申请'},
-     {name: 'examineHandle',columns:2,label:'审核意见'}
+     {name: 'userApplication', columns: 2, label: '上线申请'},
+     {name: 'examineHandle', columns:2, label: '审核意见'}
      ],
      size: 'large'
   },
  show: {
-     groups: [
+   groups: [
      {name: 'defaults', columns: 2},
-     {name: 'userApplication',columns: 2, label: '上线申请'},
-     {name:'examineHandle',columns:2,label: '审核意见'}
+     {name: 'userApplication', columns: 2, label: '上线申请'},
+     {name:'examineHandle', columns:2, label: '审核意见'}
     ],
     size: 'large'
   },
@@ -59,32 +59,38 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'in_sys_no',{name:'aplicationdate',type:'datepicker',label:'申请日期'}
+     'inSysNumber', {name: 'aplicationDate', type:'datepicker',label: '申请日期'}
   ],
+
  userApplication: [
-    'in_sys_name','sys_condition',
-    {name: 'complete_test', type: 'dropdown', defaultValue: '是',source:[{id:'是',text: '是'},
-                                                                 {id:'否', text: '否'}
-                                                                    ]},
-     {name:'test_condition',type: 'textarea', colspan: 2},
-     {name: 'relate_sys', type: 'dropdown', defaultValue: '是',source:[{id:'是',text: '是'},
-                                                                 {id:'否', text: '否'}
-                                                                    ]},
-     'comments',{name : 'aplicationperson',label: "申请人" },{name: 'aplicationdept' ,label : "申请部门"}
-     ],
+     'inSysName', 'sysCondition',
+     {name: 'completeTest', type: 'dropdown', defaultValue: '是',source: [{id:'是', text: '是'},{id:'否', text: '否'}]},
+     {name: 'testCondition', type: 'textarea', colspan: 2},
+     {name: 'relateSys', type: 'dropdown', defaultValue: '是',source: [{id:'是', text: '是'},{id:'否', text: '否'}]},
+     'comments',
+     {name : 'aplicationPerson', label: "申请人" },{name: 'aplicationdept' , label: "申请部门"}],
+
  examineHandle: [
-     {name:'dept_director',type: 'text',label:'部门主管意见'},
-     {name:'dept_date',type:'datepicker',label:'日期'},
-     {name:'implement_dept',type: 'text', label: '实施部门意见'},
-     {name:'implement_date',type:'datepicker',label:'实施日期'},
-     {name:'corportionlead',type:'text',label:'公司领导审批'},
-     {name:'corportiondate',type:'datepicker',label:'公司领导审批日期'}
+     {name: 'deptDirector', type: 'text', label: '部门主管意见'},
+     {name: 'deptDate', type: 'datepicker',label: '日期'},
+     {name: 'implementDept', type: 'text', label: '实施部门意见'},
+     {name: 'implementDate', type: 'datepicker', label: '实施日期'},
+     {name: 'corportionlead', type: 'text', label: '公司领导审批'},
+     {name: 'corportionDate', type: 'datepicker', label: '公司领导审批日期'}
      ],
 filter: [
-     'in_sys_no','in_sys_name', 'sys_condition'
+     'inSysNumber', 'inSysName', 'sysCondition'
   ]
 };
 
+exports.grid = {
+  columns: ['inSysNumber', 'aplicationDate', 'inSysName', 'relateSys'],
+  filterToolbar: true,
+  fixedHeader: true,
+  numberColumn: true,
+  multiple: true,
+  defaultOrder: 'aplicationDate-desc'
+};
 
 exports.operators = {
      exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
@@ -100,9 +106,7 @@ exports.operators = {
         var options = request.params,
             result;
         options = exportXlsSvc.dealParameters(options, interformationSvc,new InformationSystem());
-
         result = interformationSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
-
         return json({flag: result.flag, filename: result.filename});
     }))
 }

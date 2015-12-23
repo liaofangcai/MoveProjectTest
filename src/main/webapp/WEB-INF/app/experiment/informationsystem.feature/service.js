@@ -20,10 +20,6 @@ exports.createService = function() {
                 meta = resolver.resolveEntity(InformationSystem),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd")
-                statusMap = {
-                    '1': '不合格',
-                    '0': '合格'
-                }
             entities = commExpService.createService().listEntities(options, meta);
 
             // 按照自己的要求处理数据
@@ -31,17 +27,17 @@ exports.createService = function() {
                 entity = entities.get(i);
 
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.aplicationdate){
-                     vo.aplicationdate = dateSdf.format(entity.aplicationdate);
+                if(null !== entity.aplicationDate){
+                     vo.aplicationDate = dateSdf.format(entity.aplicationDate);
                  }
-                if(null !== entity.dept_date){
-                     vo.dept_date = dateSdf.format(entity.dept_date);
+                if(null !== entity.deptDate){
+                     vo.deptDate = dateSdf.format(entity.deptDate);
                  }
-                 if(null !== entity.implement_date){
-                     vo.implement_date = dateSdf.format(entity.implement_date);
+                 if(null !== entity.implementDate){
+                     vo.implementDate = dateSdf.format(entity.implementDate);
                  }
-                 if(null !== entity.corportiondate){
-                     vo.corportiondate = dateSdf.format(entity.corportiondate);
+                 if(null !== entity.corportionDate){
+                     vo.corportionDate = dateSdf.format(entity.corportionDate);
                  }
                 vos.add(vo);
             }
