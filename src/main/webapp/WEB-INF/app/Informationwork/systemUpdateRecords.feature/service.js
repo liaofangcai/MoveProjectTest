@@ -23,7 +23,7 @@ exports.createService = function() {
             vo = commExpService.createService().convertEntityToObj(entity);
             if(null !== entity.operateTime ){
                vo.operateTime  = dateSdf.format(entity.operateTime);
-            }else if(null ！==entity.makeTable){
+            }else if(null !==entity.makeTable){
                 vo.makeTable=dateSdf.format(entity.makeTable);
             }
             vos.add(vo);

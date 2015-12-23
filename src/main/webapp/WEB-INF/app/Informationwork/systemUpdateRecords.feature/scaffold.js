@@ -72,7 +72,7 @@ exports.fieldGroups = {
   defaults:
   [
     'systemUpdateRecordsNo','operatingPersonnel','systemUpdateRecordsName','address','operateTime','makeTable',
-    {name: 'updateContent', type: 'textarea', colspan: 2},{name :'mark',colspan:2}
+    {name: 'updateContent', type: 'textarea', colspan: 2},{name :'mark', type: 'textarea', colspan:2}
   ],
   //配置查询条件
   filter: ['systemUpdateRecordsNo', {name: 'operateTime', type: 'date-range'}]
