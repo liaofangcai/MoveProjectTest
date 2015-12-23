@@ -12,8 +12,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
+/**
+ * 
+ * @author lhb
+ *
+ */
 @Entity
-@Table(name="bz_research_demand")
+@Table(name="BZ_RE_DEMAND")
 @Scaffold("experiment/researchdemand")
 public class ResearchDemand extends RevisionDomainEntity{
 
@@ -24,35 +29,35 @@ public class ResearchDemand extends RevisionDomainEntity{
 	/**
 	 * 编号
 	 */
-	private String research_no;
+	private String researchNumber;
 	/**
 	 * 制表日期
 	 */
-	private Date make_date;
+	private Date makeDate;
 	/**
 	 * 事由简述
 	 */
-	private String brife_introduction;
+	private String brifeIntroduction;
 	/**
 	 * 项目类别
 	 */
-	private String project_type;
+	private String projectType;
 	/**
 	 * 需求提出人
 	 */
-	private String demand_put_forword;
+	private String demandPutForword;
 	/**
 	 * 需求提出时间
 	 */
-	private Date demand_forword_date;
+	private Date demandForworDate;
 	/**
 	 * 属于部门
 	 */
-	private String atttibute_dept;
+	private String atttibuteDept;
 	/**
 	 * 联系方式
 	 */
-	private String contact_informating;
+	private String contactInformating;
 	/**
 	 * 主要原因和背景
 	 */
@@ -64,110 +69,107 @@ public class ResearchDemand extends RevisionDomainEntity{
 	/**
 	 * 完成任务
 	 */
-	private String complete_task;
+	private String completeTask;
 	/**
 	 * 审核意见
 	 */
-	private String examine_Opinion;
+	private String examineOpinion;
 	/**
 	 * 签字
 	 */
-	private String examine_sign;
+	private String examineSign;
 	/**
 	 * 日期
 	 */
-	private Date examine_date;
+	private Date examineDate;
 	/**
 	 * 批准意见
 	 */
-	private String ratify_opinion;
+	private String ratifyOpinion;
 	/**
 	 * 签字
 	 */
-	private String ratify_sign;
+	private String ratifySign;
 	/**
 	 * 日期
 	 */
-	private Date ratify_date;
+	private Date ratifyDate;
 	
-
-    @NotBlank
-    @Column(name="research_no",length=300)
-    @NullableSize(max=166)
-	public String getResearch_no() {
-		return research_no;
+	@NotBlank
+	@Column(name="F_RE_NUMBER",length=300)
+	@NullableSize(max=100)
+	public String getResearchNumber() {
+		return researchNumber;
 	}
-	public void setResearch_no(String research_no) {
-		this.research_no = research_no;
+	public void setResearchNumber(String researchNumber) {
+		this.researchNumber = researchNumber;
 	}
 	
-	@Column(name="make_date",length=300)
+	@Column(name="F_MAKE_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
-    @NullableSize(max=166)
-	public Date getMake_date() {
-		return make_date;
+	public Date getMakeDate() {
+		return makeDate;
 	}
-	public void setMake_date(Date make_date) {
-		this.make_date = make_date;
-	}
-	
-	@Column(name="brife_introduction",length=300)
-    @NullableSize(max=166)
-	public String getBrife_introduction() {
-		return brife_introduction;
-	}
-	public void setBrife_introduction(String brife_introduction) {
-		this.brife_introduction = brife_introduction;
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
 	}
 	
-	@Column(name="project_type",length=300)
-    @NullableSize(max=166)
-	public String getProject_type() {
-		return project_type;
+	@Column(name="F_BR_INTRO",length=300)
+	@NullableSize(max=100)
+	public String getBrifeIntroduction() {
+		return brifeIntroduction;
 	}
-	public void setProject_type(String project_type) {
-		this.project_type = project_type;
-	}
-	
-	@Column(name="demand_put_forword",length=300)
-    @NullableSize(max=166)
-	public String getDemand_put_forword() {
-		return demand_put_forword;
-	}
-	public void setDemand_put_forword(String demand_put_forword) {
-		this.demand_put_forword = demand_put_forword;
+	public void setBrifeIntroduction(String brifeIntroduction) {
+		this.brifeIntroduction = brifeIntroduction;
 	}
 	
-	@Column(name="demand_forword_date",length=300)
+	@Column(name="F_PROJECT_TYPE",length=300)
+	@NullableSize(max=100)
+	public String getProjectType() {
+		return projectType;
+	}
+	public void setProjectType(String projectType) {
+		this.projectType = projectType;
+	}
+	
+	@Column(name="F_DEMAND_PUT",length=300)
+	@NullableSize(max=100)
+	public String getDemandPutForword() {
+		return demandPutForword;
+	}
+	public void setDemandPutForword(String demandPutForword) {
+		this.demandPutForword = demandPutForword;
+	}
+	
+	@Column(name="F_DEMAND_FORWOR")
 	@JsonFormat(pattern="yyyy-MM-dd")
-    @NullableSize(max=166)
-	public Date getDemand_forword_date() {
-		return demand_forword_date;
+	public Date getDemandForworDate() {
+		return demandForworDate;
 	}
-	public void setDemand_forword_date(Date demand_forword_date) {
-		this.demand_forword_date = demand_forword_date;
+	public void setDemandForworDate(Date demandForworDate) {
+		this.demandForworDate = demandForworDate;
 	}
 	
-	@Column(name="attibulte_dept",length=300)
+	@Column(name="F_ATTRI_DEPT",length=300)
+	@NullableSize(max=100)
+	public String getAtttibuteDept() {
+		return atttibuteDept;
+	}
+	public void setAtttibuteDept(String atttibuteDept) {
+		this.atttibuteDept = atttibuteDept;
+	}
+	
+	@Column(name="F_CONTACT_IN",length=500)
+	@NullableSize(max=100)
+	public String getContactInformating() {
+		return contactInformating;
+	}
+	public void setContactInformating(String contactInformating) {
+		this.contactInformating = contactInformating;
+	}
+	
+	@Column(name="F_REASON",length=500)
 	@NullableSize(max=166)
-	public String getAtttibute_dept() {
-		return atttibute_dept;
-	}
-	public void setAtttibute_dept(String atttibute_dept) {
-		this.atttibute_dept = atttibute_dept;
-	}
-	
-	@Column(name="contact_information",length=300)
-    @NullableSize(max=166)
-	public String getContact_informating() {
-		return contact_informating;
-	}
-	public void setContact_informating(String contact_informating) {
-		this.contact_informating = contact_informating;
-	}
-	
-	@Column(name="reason",length=300)
-    @NullableSize(max=166)
 	public String getReason() {
 		return reason;
 	}
@@ -175,8 +177,8 @@ public class ResearchDemand extends RevisionDomainEntity{
 		this.reason = reason;
 	}
 	
-	@Column(name="function",length=300)
-    @NullableSize(max=166)
+	@Column(name="F_FUNCTION",length=500)
+	@NullableSize(max=166)
 	public String getFunction() {
 		return function;
 	}
@@ -184,66 +186,66 @@ public class ResearchDemand extends RevisionDomainEntity{
 		this.function = function;
 	}
 	
-	@Column(name="complete_task",length=300)
-    @NullableSize(max=166)
-	public String getComplete_task() {
-		return complete_task;
+	@Column(name="F_COM_TASK",length=500)
+	@NullableSize(max=100)
+	public String getCompleteTask() {
+		return completeTask;
 	}
-	public void setComplete_task(String complete_task) {
-		this.complete_task = complete_task;
-	}
-	
-	@Column(name="examine_opinion",length=300)
-    @NullableSize(max=166)
-	public String getExamine_Opinion() {
-		return examine_Opinion;
-	}
-	public void setExamine_Opinion(String examine_Opinion) {
-		this.examine_Opinion = examine_Opinion;
+	public void setCompleteTask(String completeTask) {
+		this.completeTask = completeTask;
 	}
 	
-	@Column(name="examine_sign",length=300)
-    @NullableSize(max=166)
-	public String getExamine_sign() {
-		return examine_sign;
+	@Column(name="F_EX_OPINION",length=500)
+	@NullableSize(max=166)
+	public String getExamineOpinion() {
+		return examineOpinion;
 	}
-	public void setExamine_sign(String examine_sign) {
-		this.examine_sign = examine_sign;
-	}
-	
-	@Column(name="examine_date",length=300)
-    @NullableSize(max=166)
-	public Date getExamine_date() {
-		return examine_date;
-	}
-	public void setExamine_date(Date examine_date) {
-		this.examine_date = examine_date;
+	public void setExamineOpinion(String examineOpinion) {
+		this.examineOpinion = examineOpinion;
 	}
 	
-	@Column(name="ratify_opinion",length=300)
-    @NullableSize(max=166)
-	public String getRatify_opinion() {
-		return ratify_opinion;
+	@Column(name="F_EX_SIGN",length=300)
+	@NullableSize(max=100)
+	public String getExamineSign() {
+		return examineSign;
 	}
-	public void setRatify_opinion(String ratify_opinion) {
-		this.ratify_opinion = ratify_opinion;
-	}
-	
-	@Column(name="ratify_sign",length=300)
-    @NullableSize(max=166)
-	public String getRatify_sign() {
-		return ratify_sign;
-	}
-	public void setRatify_sign(String ratify_sign) {
-		this.ratify_sign = ratify_sign;
+	public void setExamineSign(String examineSign) {
+		this.examineSign = examineSign;
 	}
 	
-	@Column(name="ratify_date",length=300)
-    @NullableSize(max=166)
-	public Date getRatify_date() {
-		return ratify_date;
+	@Column(name="F_EX_DATE")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getExamineDate() {
+		return examineDate;
 	}
-	public void setRatify_date(Date ratify_date) {
-		this.ratify_date = ratify_date;
+	public void setExamineDate(Date examineDate) {
+		this.examineDate = examineDate;
+	}
+	
+	@Column(name="F_RA_OPINION",length=500)
+	@NullableSize(max=166)
+	public String getRatifyOpinion() {
+		return ratifyOpinion;
+	}
+	public void setRatifyOpinion(String ratifyOpinion) {
+		this.ratifyOpinion = ratifyOpinion;
+	}
+	
+	@Column(name="F_RA_SIGN",length=300)
+	@NullableSize(max=100)
+	public String getRatifySign() {
+		return ratifySign;
+	}
+	public void setRatifySign(String ratifySign) {
+		this.ratifySign = ratifySign;
+	}
+	
+	@Column(name="F_RA_DATE")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getRatifyDate() {
+		return ratifyDate;
+	}
+	public void setRatifyDate(Date ratifyDate) {
+		this.ratifyDate = ratifyDate;
 	}
 }

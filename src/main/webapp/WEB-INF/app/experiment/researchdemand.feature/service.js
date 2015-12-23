@@ -19,33 +19,28 @@ exports.createService = function() {
                 entity, entities,
                 meta = resolver.resolveEntity(ResearchDemand),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                dateSdf = new SimpleDateFormat("yyyy-MM-dd")
-
+                dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
             entities = commExpService.createService().listEntities(options, meta);
-
             // 按照自己的要求处理数据
             for (i = 0; i < entities.size(); i++) {
                 entity = entities.get(i);
-
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.make_date){
-                     vo.make_date = dateSdf.format(entity.make_date);
+                if(null !== entity.makeDate){
+                     vo.makeDate = dateSdf.format(entity.makeDate);
                  }
-                 if (null!==entity.demand_forword_date) {
-                    vo.demand_forword_date=dateSdf.format(entity.demand_forword_date);
+                 if (null!==entity.demandForworDate) {
+                    vo.demandForworDate=dateSdf.format(entity.demandForworDate);
                  };
-                 if(null!=entity.examine_date){
-                     vo.examine_date=dateSdf.format(entity.examine_date);
+                 if(null!=entity.examineDate){
+                     vo.examineDate=dateSdf.format(entity.examineDate);
                  }
-                 if(null!=entity.ratify_date){
-                    vo.ratify_date=dateSdf.format(entity.ratify_date);
+                 if(null!=entity.ratifyDate){
+                    vo.ratifyDate=dateSdf.format(entity.ratifyDate);
                  }
                 vos.add(vo);
             }
-
             beans.put('researchs', vos);
             beans.put('footer', '操作时间:' + dateTimeStr);
-
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
         })
 
