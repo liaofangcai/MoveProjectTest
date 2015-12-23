@@ -18,7 +18,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  *
  */
 @Entity
-@Table(name="bz_system_remote_visit")
+@Table(name="BZ_SYS_REMOTE_VISIT")
 @Scaffold("experiment/systemremotevisit")
 public class SystemRemoteVisit extends RevisionDomainEntity{
 
@@ -29,201 +29,198 @@ public class SystemRemoteVisit extends RevisionDomainEntity{
 	/**
 	 * 编号
 	 */
-	private String vi_no;
+	private String viNumber;
 	/**
 	 * 申请日期
 	 */
-	private Date ap_date;
+	private Date apDate;
 	/**
 	 * 信息系统名称
 	 */
-	private String in_ap_name;
+	private String inApNmae;
 	/**
 	 * 服务器地址
 	 */
-	private String server_url;
+	private String serverUrl;
 	/**
 	 * 服务器用途
 	 */
-	private String server_uses;
+	private String serverUses;
 	/**
 	 * 访问原因
 	 */
-	private String visit_reason;
+	private String visitReason;
 	/**
 	 * 操作内容
 	 */
-	private String operation_content;
+	private String operationContent;
 	/**
 	 * 申请人
 	 */
-	private String ap_person;
+	private String apPerson;
 	/**
 	 * 申请部门
 	 */
-	private String ap_dept;
+	private String apDept;
 	/**
 	 * 部门主管意见
 	 */
-	private String dept_charge_opinion;
+	private String deptChargeOpinion;
 	/**
 	 * 日期
 	 */
-	private Date dept_date;
+	private Date deptDate;
 	/**
 	 * 信息部门意见
 	 */
-	private String in_dept_opinion;
+	private String inDeptOpinion;
 	/**
 	 *日期
 	 */
-	private Date in_date;
+	private Date inDate;
 	/**
 	 * 公司领导审批
 	 */
-	private String company_leader;
+	private String companyLeader;
 	/**
 	 * 日期
 	 */
-	private Date leader_date;
+	private Date leaderDate;
 	
 	@NotBlank
-	@Column(name="vi_no",length=300)
-	@NullableSize(max=166)
-	public String getVi_no() {
-		return vi_no;
+    @Column(name="F_VI_NUMBER",length=300)
+    @NullableSize(max=100)
+	public String getViNumber() {
+		return viNumber;
 	}
-	public void setVi_no(String vi_no) {
-		this.vi_no = vi_no;
+	public void setViNumber(String viNumber) {
+		this.viNumber = viNumber;
 	}
 	
-	@Column(name="ap_date",length=300)
+    @Column(name="F_AP_DATE")
+    @JsonFormat(pattern="yyyy-MM-dd")
+	public Date getApDate() {
+		return apDate;
+	}
+	public void setApDate(Date apDate) {
+		this.apDate = apDate;
+	}
+	
+	@Column(name="F_IN_AP_NAME",length=300)
+    @NullableSize(max=100)
+	public String getInApNmae() {
+		return inApNmae;
+	}
+	public void setInApNmae(String inApNmae) {
+		this.inApNmae = inApNmae;
+	}
+	
+	@Column(name="F_SERVER_URL",length=300)
+	@NullableSize(max=100)
+	public String getServerUrl() {
+		return serverUrl;
+	}
+	public void setServerUrl(String serverUrl) {
+		this.serverUrl = serverUrl;
+	}
+	
+	@Column(name="F_SERVER_USES",length=300)
+	@NullableSize(max=100)
+	public String getServerUses() {
+		return serverUses;
+	}
+	public void setServerUses(String serverUses) {
+		this.serverUses = serverUses;
+	}
+	
+	@Column(name="F_VI_REASON",length=500)
+	@NullableSize(max=166)
+	public String getVisitReason() {
+		return visitReason;
+	}
+	public void setVisitReason(String visitReason) {
+		this.visitReason = visitReason;
+	}
+	
+    @Column(name="F_OP_CONTENT",length=500)
+	@NullableSize(max=166)
+	public String getOperationContent() {
+		return operationContent;
+	}
+	public void setOperationContent(String operationContent) {
+		this.operationContent = operationContent;
+	}
+	
+	@Column(name="F_AP_PERSOM",length=300)
+	@NullableSize(max=100)
+	public String getApPerson() {
+		return apPerson;
+	}
+	public void setApPerson(String apPerson) {
+		this.apPerson = apPerson;
+	}
+	
+	@Column(name="F_AP_DEPT",length=300)
+	@NullableSize(max=100)
+	public String getApDept() {
+		return apDept;
+	}
+	public void setApDept(String apDept) {
+		this.apDept = apDept;
+	}
+	
+	@Column(name="F_DEPT_CH",length=300)
+	@NullableSize(max=100)
+	public String getDeptChargeOpinion() {
+		return deptChargeOpinion;
+	}
+	public void setDeptChargeOpinion(String deptChargeOpinion) {
+		this.deptChargeOpinion = deptChargeOpinion;
+	}
+	
+	@Column(name="F_DEPT_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=166)
-	public Date getAp_date() {
-		return ap_date;
+	public Date getDeptDate() {
+		return deptDate;
 	}
-	public void setAp_date(Date ap_date) {
-		this.ap_date = ap_date;
-	}
-	
-	@Column(name="in_ap_name",length=300)
-	@NullableSize(max=166)
-	public String getIn_ap_name() {
-		return in_ap_name;
-	}
-	public void setIn_ap_name(String in_ap_name) {
-		this.in_ap_name = in_ap_name;
+	public void setDeptDate(Date deptDate) {
+		this.deptDate = deptDate;
 	}
 	
-	@Column(name="server_url",length=300)
-	 @NullableSize(max=166)
-	public String getServer_url() {
-		return server_url;
+	@Column(name="F_IN_DEPT_OP",length=300)
+	@NullableSize(max=100)
+	public String getInDeptOpinion() {
+		return inDeptOpinion;
 	}
-	public void setServer_url(String server_url) {
-		this.server_url = server_url;
-	}
-	
-	
-	@Column(name="server_uses",length=300)
-	@NullableSize(max=166)
-	public String getServer_uses() {
-		return server_uses;
-	}
-	public void setServer_uses(String server_uses) {
-		this.server_uses = server_uses;
+	public void setInDeptOpinion(String inDeptOpinion) {
+		this.inDeptOpinion = inDeptOpinion;
 	}
 	
-	@Column(name="visit_reason",length=300)
-	@NullableSize(max=166)
-	public String getVisit_reason() {
-		return visit_reason;
-	}
-	public void setVisit_reason(String visit_reason) {
-		this.visit_reason = visit_reason;
-	}
-	
-	@Column(name="operation_content",length=300)
-	@NullableSize(max=166)
-	public String getOperation_content() {
-		return operation_content;
-	}
-	public void setOperation_content(String operation_content) {
-		this.operation_content = operation_content;
-	}
-	
-	@Column(name="ap_person",length=300)
-	@NullableSize(max=166)
-	public String getAp_person() {
-		return ap_person;
-	}
-	public void setAp_person(String ap_person) {
-		this.ap_person = ap_person;
-	}
-	
-	@Column(name="ap_dept",length=300)
-	@NullableSize(max=166)
-	public String getAp_dept() {
-		return ap_dept;
-	}
-	public void setAp_dept(String ap_dept) {
-		this.ap_dept = ap_dept;
-	}
-	
-	@Column(name="dept_charge_opinion",length=300)
-	@NullableSize(max=166)
-	public String getDept_charge_opinion() {
-		return dept_charge_opinion;
-	}
-	public void setDept_charge_opinion(String dept_charge_opinion) {
-		this.dept_charge_opinion = dept_charge_opinion;
-	}
-	
-	@Column(name="dept_date",length=300)
-	@NullableSize(max=166)
-	public Date getDept_date() {
-		return dept_date;
-	}
-	public void setDept_date(Date dept_date) {
-		this.dept_date = dept_date;
-	}
-	
-	@Column(name="in_dept_opinion",length=300)
-	@NullableSize(max=166)
-	public String getIn_dept_opinion() {
-		return in_dept_opinion;
-	}
-	public void setIn_dept_opinion(String in_dept_opinion) {
-		this.in_dept_opinion = in_dept_opinion;
-	}
-	
-	@Column(name="in_date",length=300)
-	@NullableSize(max=166)
-	public Date getIn_date() {
-		return in_date;
-	}
-	public void setIn_date(Date in_date) {
-		this.in_date = in_date;
-	}
-	
-	@Column(name="company_leader",length=300)
-	@NullableSize(max=166)
-	public String getCompany_leader() {
-		return company_leader;
-	}
-	public void setCompany_leader(String company_leader) {
-		this.company_leader = company_leader;
-	}
-	
-	@Column(name="leader_date",length=300)
+	@Column(name="F_IN_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	@NullableSize(max=166)
-	public Date getLeader_date() {
-		return leader_date;
+	public Date getInDate() {
+		return inDate;
 	}
-	public void setLeader_date(Date leader_date) {
-		this.leader_date = leader_date;
+	public void setInDate(Date inDate) {
+		this.inDate = inDate;
+	}
+	
+	@Column(name="F_CPMPANY_LEANDER",length=300)
+	@NullableSize(max=100)
+	public String getCompanyLeader() {
+		return companyLeader;
+	}
+	public void setCompanyLeader(String companyLeader) {
+		this.companyLeader = companyLeader;
+	}
+	
+	@Column(name="F_LEADER_DATE")
+	@JsonFormat(pattern="yyyy-MM-dd")
+	public Date getLeaderDate() {
+		return leaderDate;
+	}
+	public void setLeaderDate(Date leaderDate) {
+		this.leaderDate = leaderDate;
 	}
 	
 }
