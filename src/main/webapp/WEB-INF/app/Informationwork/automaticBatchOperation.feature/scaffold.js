@@ -66,8 +66,10 @@ exports.forms = {
 
 exports.fieldGroups = {
   defaults: [
-  'systemUpdateRecordsNo', 'systemUpdateRecordsName','address','operatingPersonnel','operateTime','mark',
-  {name:'updateContent', type: 'textarea',colspan:2}
+  'systemUpdateRecordsNo', 'systemUpdateRecordsName', 'operatingPersonnel', 'operateTime',
+  {name: 'address', type: 'textarea', colspan: 2},
+  {name:'updateContent', type: 'textarea',colspan:2},
+  {name: 'mark', type: 'textarea', colspan: 2}
   ],
 
   filter: [
@@ -76,7 +78,7 @@ exports.fieldGroups = {
 };
 
 exports.grid = {
-  columns: ['systemUpdateRecordsNo', 'systemUpdateRecordsName', 'address','mark',{name: 'updateContent',
+  columns: ['systemUpdateRecordsNo', 'systemUpdateRecordsName', 'address', {name: 'updateContent',
   type: 'textarea'}],
   filterToolbar: true,
   fixedHeader: true,

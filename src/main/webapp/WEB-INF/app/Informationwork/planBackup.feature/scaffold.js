@@ -70,8 +70,7 @@ exports.fieldGroups = {
   defaults: [
   'systemUpdateRecordsNo', 'name', {name: 'systemUpdateRecordsName', type: 'datetimepicker', statusChanger: true},
   'updateContent','address',
-  'operatingPersonnel',{name: 'mark', type: 'textarea', colspan:2},
-  {name: 'operateTime', type: 'textarea', colspan: 2}
+  'operatingPersonnel', {name: 'operateTime', type: 'textarea', colspan: 2}, {name: 'mark', type: 'textarea', colspan:2},
   ],
 
   filter: [

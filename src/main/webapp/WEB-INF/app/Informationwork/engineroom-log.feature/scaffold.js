@@ -69,9 +69,9 @@ exports.forms = {
 exports.fieldGroups = {
   defaults:
   [
-    'engineroomLogNo', 'engineroomLogDate',
-    {name: 'engineroomLogWork', type: 'textarea',colspan:2},
-    'mark','makeTable'
+  {name: 'engineroomLogNo', colspan: 2}, 'engineroomLogDate', 'makeTable',
+  {name: 'engineroomLogWork', type: 'textarea',colspan:2},
+  {name: 'mark', type: 'textarea', colspan: 2}
   ],
 
   filter:

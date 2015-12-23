@@ -94,6 +94,7 @@ public class PlanBackup extends RevisionDomainEntity{
     this.operatingPersonnel = operatingPersonnel;
   }
 
+  @NotBlank
   @Column(name = "F_OPERATETIME")
   public String getOperateTime() {
     return operateTime;
