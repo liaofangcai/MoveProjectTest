@@ -1,6 +1,6 @@
-var {mark}                  = require('cdeio/mark');
-var {json}                    = require('cdeio/response');
-var logger = require('ringo/logging').getLogger(module.id);
+var {mark}         = require('cdeio/mark');
+var {json}         = require('cdeio/response');
+var logger         = require('ringo/logging').getLogger(module.id);
 var {TestCase}     = com.zyeeda.business.experiment.entity;
 
 exports.style = 'grid';
@@ -59,11 +59,11 @@ exports.forms = {
 exports.fieldGroups = {
  defaults: [
      'testNumber',
-     {name:'makeDate',type:'datepicker'},
+     {name: 'makeDate',type: 'datepicker'},
      'caseId',
      'theModel', 'submodule', 'prepositionCondition', 'inputData', 'testStep', 'pectOutcome',
      'state', 'actualResult',
-     {name:'remakesInformation',type: 'textarea', colspan: 2}
+     {name: 'remakesInformation', type: 'textarea', colspan: 2}
   ],
 filter: [
      'testNumber', 'theModel', 'submodule'
@@ -72,8 +72,8 @@ filter: [
 
 exports.grid = {
     columns: [
-     'testNumber',{name:'makeDate',type:'datepicker',label:'日期'},
-     'theModel','submodule','prepositionCondition'
+     'testNumber', {name: 'makeDate', type: 'datepicker', label: '日期'},
+     'theModel', 'submodule', 'prepositionCondition'
     ],
     events: {
      'system/departments#tree:onClick': 'departmentChanged'
