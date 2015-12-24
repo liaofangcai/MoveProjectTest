@@ -67,8 +67,8 @@
             modifyLeaved: function(data, param, gridData) {
                 var flowStatusMap;
                 flowStatusMap = {
-                    true: '在职',
-                    false: '离职'
+                    'true': '在职',
+                    'false': '离职'
                 };
                 return flowStatusMap[data];
             },
