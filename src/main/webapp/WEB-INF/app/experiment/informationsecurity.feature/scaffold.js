@@ -2,10 +2,12 @@ var {mark}                  = require('cdeio/mark');
 var {json}                  = require('cdeio/response');
 var logger                  = require('ringo/logging').getLogger(module.id);
 var {InformationSecurity}   = com.zyeeda.business.experiment.entity;
+
+var {SimpleDateFormat}          = java.text;
+var {Date}                      = java.util;
+
 exports.style = 'grid';
-
 exports.enableFrontendExtension = true;
-
 exports.haveFilter = true;
 
 exports.entityLabel = '信息安全培训记录';
@@ -19,14 +21,14 @@ exports.filters ={
 exports.labels = {
      inNumber: '编号',
      name: '姓名',
-     makeDate: "制表日期",
+     makeDate: "培训日期",
      dept: '部门',
      job: '职务',
-     theory: '理论成绩',
-     operation: '操作成绩',
+     theory: '训练类别',
      qualified: '考核结果',
      evaluationPerson: '考评人',
-     signin:'签到'
+     signin: '签到',
+     manks: '备注'
 };
 
 exports.forms = {
@@ -49,20 +51,24 @@ exports.forms = {
     size: 'large'
   },
  filter: {
-    groups: [{name: 'filter', columns: 1}], size: 'small'
+    groups: [{name: 'filter', columns: 2}], size: 'small'
 }
 };
 
 exports.fieldGroups = {
  defaults: [
      'inNumber', 'name',
-     {name: 'makeDate', type: 'datepicker', label: '申请日期'},
-     'dept', 'job', 'theory', 'operation',
+     {name: 'makeDate', type: 'datepicker'},
+     'dept', 'job',
+     {name: 'theory', type: 'dropdown', defaultValue: '理论', source: [{id:'伦理', text: '理论'},{id: '操作', text: '操作'}]},
      {name: 'qualified', type: 'dropdown', defaultValue: '合格', source: [{id:'合格', text: '合格'},{id: '不合格', text: '不合格'}]},
-     'evaluationPerson', 'signin'
+     'evaluationPerson',
+     {name: 'signin', type: 'dropdown', defaultValue: '是', source: [{id:'是', text: '是'},
+     {id: '否', text: '否'}]} ,
+     {name: 'manks', type: 'textarea',  colspan: 2}
   ],
  filter: [
-     'inNumber', 'name'
+     'inNumber', 'name', 'dept', 'job'
   ]
 };
 
@@ -85,6 +91,15 @@ exports.operators = {
  };
 
  exports.doWithRouter = function(router) {
+    router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
+    
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/informationsecurity').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;

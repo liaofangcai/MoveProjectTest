@@ -49,21 +49,13 @@ public class InformationSecurity extends RevisionDomainEntity{
      */
     private String job;
     /**
-     * 理论
+     * 考核结果
      */
-    private Integer theory;
-    /**
-     * 安全
-     */
-    private Integer operation;
+    private String theory;
     /**
      *合格
      */
     private String qualified;
-    /**
-     * 不合格
-     */
-    private String noQualified;
     /**
      * 考评人
      */
@@ -72,6 +64,10 @@ public class InformationSecurity extends RevisionDomainEntity{
      *签到
      */
     private String signin;
+    /**
+     *备注
+     */
+    private String manks;
     
     @NotBlank
     @Column(name="F_IN_NUMBER",length=300)
@@ -122,20 +118,11 @@ public class InformationSecurity extends RevisionDomainEntity{
 	
 	@Column(name="F_THEORY",length=300)
 	@NullableSize(max=100)
-	public Integer getTheory() {
+	public String getTheory() {
 		return theory;
 	}
-	public void setTheory(Integer theory) {
+	public void setTheory(String theory) {
 		this.theory = theory;
-	}
-	
-	@Column(name="F_OPERATION",length=300)
-	@NullableSize(max=100)
-	public Integer getOperation() {
-		return operation;
-	}
-	public void setOperation(Integer operation) {
-		this.operation = operation;
 	}
 	
 	@Column(name="F_QUALIFIED",length=300)
@@ -145,15 +132,6 @@ public class InformationSecurity extends RevisionDomainEntity{
 	}
 	public void setQualified(String qualified) {
 		this.qualified = qualified;
-	}
-	
-	@Column(name="F_NO_QUALIFIED",length=300)
-	@NullableSize(max=100)
-	public String getNoQualified() {
-		return noQualified;
-	}
-	public void setNoQualified(String noQualified) {
-		this.noQualified = noQualified;
 	}
 	
 	@Column(name="F_EVALUATION_PERSON",length=300)
@@ -172,6 +150,15 @@ public class InformationSecurity extends RevisionDomainEntity{
 	}
 	public void setSignin(String signin) {
 		this.signin = signin;
+	}
+	
+	@Column(name="F_MANKS",length=2000)
+	@NullableSize(max=600)
+	public String getManks() {
+		return manks;
+	}
+	public void setManks(String manks) {
+		this.manks = manks;
 	}
     
 }
