@@ -70,6 +70,10 @@ public class InformationSystem extends RevisionDomainEntity{
       */
      private String deptDirector;
      /**
+      * 处理人
+      */
+     private String depeHandle;
+     /**
       * 部门主管审批日期
       */
      private Date deptDate;
@@ -78,6 +82,10 @@ public class InformationSystem extends RevisionDomainEntity{
       */
      private String implementDept;
      /**
+      * 处理人
+      */
+     private String impleHandle;
+     /**
       * 实施日期
       */
      private Date implementDate;
@@ -85,6 +93,10 @@ public class InformationSystem extends RevisionDomainEntity{
       * 公司领导审批
       */
      private String corportionlead;
+     /**
+      * 处理人
+      */
+     private String corportionPerson;
      /**
       * 公司领导审批日期
       */
@@ -172,8 +184,8 @@ public class InformationSystem extends RevisionDomainEntity{
 		this.aplicationDept = aplicationDept;
 	}
 	
-	@Column(name="F_DEPT_DIRECTOR",length=300)
-    @NullableSize(max=100)
+	@Column(name="F_DEPT_DIRECTOR",length=2000)
+    @NullableSize(max=666)
 	public String getDeptDirector() {
 		return deptDirector;
 	}
@@ -190,8 +202,8 @@ public class InformationSystem extends RevisionDomainEntity{
 		this.deptDate = deptDate;
 	}
 	
-	@Column(name="F_IMPLEMENT_DEPT",length=300)
-    @NullableSize(max=100)
+	@Column(name="F_IMPLEMENT_DEPT",length=2000)
+    @NullableSize(max=666)
 	public String getImplementDept() {
 		return implementDept;
 	}
@@ -226,13 +238,40 @@ public class InformationSystem extends RevisionDomainEntity{
 		this.comments = comments;
 	}
 	
-	@Column(name="F_CORPORTIONLEAD",length=300)
-    @NullableSize(max=100)
+	@Column(name="F_CORPORTIONLEAD",length=2000)
+    @NullableSize(max=666)
 	public String getCorportionlead() {
 		return corportionlead;
 	}
 	public void setCorportionlead(String corportionlead) {
 		this.corportionlead = corportionlead;
+	}
+	
+	@Column(name="F_DEPT_HANDLE",length=300)
+    @NullableSize(max=100)
+	public String getDepeHandle() {
+		return depeHandle;
+	}
+	public void setDepeHandle(String depeHandle) {
+		this.depeHandle = depeHandle;
+	}
+	
+	@Column(name="F_IMPLE_HANDLE",length=300)
+    @NullableSize(max=100)
+	public String getImpleHandle() {
+		return impleHandle;
+	}
+	public void setImpleHandle(String impleHandle) {
+		this.impleHandle = impleHandle;
+	}
+	
+	@Column(name="F_COR_HANDLE",length=300)
+    @NullableSize(max=100)
+	public String getCorportionPerson() {
+		return corportionPerson;
+	}
+	public void setCorportionPerson(String corportionPerson) {
+		this.corportionPerson = corportionPerson;
 	}
 	
 }
