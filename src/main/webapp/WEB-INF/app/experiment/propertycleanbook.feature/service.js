@@ -20,7 +20,7 @@ exports.createService = function() {
                 meta = resolver.resolveEntity(PropertyCleanBook),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
                 dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
-            entities = commExpService.createService().listEntities(options, meta);
+                entities = commExpService.createService().listEntities(options, meta);
             // 按照自己的要求处理数据
             for (i = 0; i < entities.size(); i++) {
                 entity = entities.get(i);

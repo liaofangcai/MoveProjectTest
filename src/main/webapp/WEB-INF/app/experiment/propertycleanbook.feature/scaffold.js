@@ -18,16 +18,15 @@ exports.filters ={
 };
 
 exports.labels = {
-     propertyNum : '编号',
-     propertyDate : '日期',
-     propertyNumber : '生产编号',
+     propertyDate : '录入日期',
+     propertyNumber : '资产编号',
      propertyName : '资产名称',
-     modelNorms : '型号规格',
+     modelNorms : '规格型号',
      safekeepingPerson : '保管人',
      produceVender : '生产厂家',
-     company: '单位',
+     company : '单位',
      purchaseDate: '购置日期',
-     purchasePrice : '采购价格',
+     purchasePrice : '采购价格(元)',
      contaceinFormation : '联系方式',
      site: '地点',
      remark: '备注'
@@ -59,22 +58,20 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'propertyNum',
-     {name: 'propertyDate', type: 'datepicker',label: '日期'},
      'propertyNumber', 'propertyName', 'modelNorms', 'safekeepingPerson', 'produceVender',
-     'company',
-     {name: 'purchaseDate',type: 'datepicker',label: '日期'}, 'purchasePrice',
+     'company', 'propertyDate',
+     {name: 'purchaseDate',type: 'datepicker'}, 'purchasePrice',
      'contaceinFormation',
      'site',
      {name: 'remark', type: 'textarea', colspan: 2}
   ],
 filter: [
-     'propertyNum', 'propertyName'
+     'propertyDate', 'propertyName'
   ]
 };
 
 exports.grid = {
-  columns: ['propertyNum', 'propertyDate', 'propertyNumber', 'modelNorms', 'safekeepingPerson'],
+  columns: ['propertyDate', 'propertyNumber', 'modelNorms', 'safekeepingPerson', 'produceVender', 'company'],
   filterToolbar: true,
   fixedHeader: true,
   numberColumn: true,

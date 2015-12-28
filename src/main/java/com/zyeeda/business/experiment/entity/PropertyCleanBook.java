@@ -24,10 +24,6 @@ public class PropertyCleanBook extends RevisionDomainEntity{
 
   private static final long serialVersionUID = 1L;
   /**
-  *编号
-  */
-  private String propertyNum;
-  /**
    *日期
    */
   private Date  propertyDate;
@@ -74,16 +70,7 @@ public class PropertyCleanBook extends RevisionDomainEntity{
   /**
   *备注
   */
-  private String remark;
-  @NotBlank
-  @Column(name="F_PRO_NUM",length=300)
-  @NullableSize(max=100)
-  public String getPropertyNum() {
-  return propertyNum;
-  }
-  public void setPropertyNum(String propertyNum) {
-  this.propertyNum = propertyNum;
-  }  
+  private String remark; 
    
   @Column(name="F_PRO_DATE")
   @JsonFormat(pattern="yyyy-MM-dd")
