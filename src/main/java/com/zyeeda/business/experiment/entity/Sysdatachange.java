@@ -65,8 +65,12 @@ public class Sysdatachange extends RevisionDomainEntity{
 	 * 申请部门主管的意见
 	 */
 	private String deptDirectorOpinion;
+	/**
+	 *处理人
+	 */
+	private String deptPerson;
 	 /**
-	  * 申请部门主管的日期
+	  * 处理日期
 	  */
 	private Date directorDate;
 	/**
@@ -74,7 +78,11 @@ public class Sysdatachange extends RevisionDomainEntity{
 	 */
 	private String projectOpinion;
 	/**
-	 * 项目负责人申请日期
+	 * 处理人
+	 */
+	private String projectPerson;
+	/**
+	 * 处理日期
 	 */
 	private Date projectDate;
 	
@@ -195,6 +203,24 @@ public class Sysdatachange extends RevisionDomainEntity{
 	}
 	public void setApCompany(String apCompany) {
 		this.apCompany = apCompany;
+	}
+	
+	@Column(name="F_DEPT_PERSON",length=300)
+	@NullableSize(max=100)
+	public String getDeptPerson() {
+		return deptPerson;
+	}
+	public void setDeptPerson(String deptPerson) {
+		this.deptPerson = deptPerson;
+	}
+	
+	@Column(name="F_PROJECT_PERSON",length=300)
+	@NullableSize(max=100)
+	public String getProjectPerson() {
+		return projectPerson;
+	}
+	public void setProjectPerson(String projectPerson) {
+		this.projectPerson = projectPerson;
 	}
 	
 }

@@ -6,10 +6,19 @@ define([
 ], function ($, exportUtil, importUtil) {
     return {
         afterShowDialog: function(dialogType, view, data){
+            var me = this;
             if('add' == dialogType ){
-                $('input[name = "ch_re_type"]',view.$el).change(
+                 //取当前时间
+                me.feature.request({
+                    url: 'get-current-info',
+                    type: 'get'
+                }).done(function (result){
+                    me.feature.model.set('aplicationDate', result.result.createdTime);
+                    me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
+                });
+                $('input[name = "chReType"]',view.$el).change(
                     function(){
-                        if('其它' ==  $('input[name = "ch_re_type"]',view.$el).val()){
+                        if('其它' ==  $('input[name = "chReType"]',view.$el).val()){
                             view.groups[2].setVisible(true);
                         }else{
                             view.groups[2].setVisible(false);
@@ -18,15 +27,15 @@ define([
                 )
             }
             if('edit' == dialogType){
-                if('其它' ==  $('input[name = "ch_re_type"]',view.$el).val()){
+                if('其它' ==  $('input[name = "chReType"]',view.$el).val()){
                             console.log("1234")
                             view.groups[2].setVisible(true);
                         }else{
                             view.groups[2].setVisible(false);
                         }
-                $('input[name = "ch_re_type"]',view.$el).change(
+                $('input[name = "chReType"]',view.$el).change(
                     function(){
-                        if('其它' ==  $('input[name = "ch_re_type"]',view.$el).val()){
+                        if('其它' ==  $('input[name = "chReType"]',view.$el).val()){
                             console.log("1234")
                             view.groups[2].setVisible(true);
                         }else{
