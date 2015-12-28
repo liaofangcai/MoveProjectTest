@@ -2,10 +2,12 @@ var {mark}                  = require('cdeio/mark');
 var {json}                  = require('cdeio/response');
 var logger = require('ringo/logging').getLogger(module.id);
 var {ResearchDemand}        = com.zyeeda.business.experiment.entity;
+
+var {SimpleDateFormat}          = java.text;
+var {Date}                      = java.util;
+
 exports.style = 'grid';
-
 exports.enableFrontendExtension = true;
-
 exports.haveFilter = true;
 
 exports.entityLabel = '研发需求申请';
@@ -23,12 +25,12 @@ exports.labels = {
      projectType: '项目类别',
      demandPutForword: '需求提出人',
      demandForworDate: '需求提出时间',
-     atttibuteDept: '属于部门',
+     atttibuteDept: '所属部门',
      contactInformating: '联系方式',
-     reason: '主要原因或背景 (识别并确认客户或者系统产品开发的要求，市场应用定位等)',
-     function: '功能/性能/业务、通信规约、交互接口、技术规范等需求（如果有单独的需求类文档，均可以附件的形式，此时本处只需要填写附件的名称即可)',
-     completeTask: '完成任务（客户/系统产品开发）的进度要求',
-     examineOpinion: '研发部（包含系统软件开发部、开发测试部开发组、预付费产品开发组）审核意见',
+     reason: '主要原因或背景',
+     function: '功能/性能/业务、通信规约、交互接口、技术规范等需求',
+     completeTask: '完成任务的进度要求',
+     examineOpinion: '研发部审核意见',
      examineSign: '签字',
      examineDate: '日期',
      ratifyOpinion: '批准意见',
@@ -55,9 +57,11 @@ exports.fieldGroups = {
      'researchNumber', {name: 'makeDate', type: 'datepicker',label: '制表日期'}
   ],
  basicDocument:['brifeIntroduction', 'projectType', 'demandPutForword',
-     {name: 'demandForworDate', type: 'datepicker', label: '需求提出时间'}, 'atttibuteDept','contactInformating'],
+     {name: 'demandForworDate', type: 'datepicker', label: '需求提出时间'}, 
+     'atttibuteDept','contactInformating',
+     {name: 'reason',type: 'textarea',colspan: 2}
+     ],
  userApplication: [
-     {name: 'reason',type: 'textarea',colspan: 2},
      {name: 'function',type: 'textarea',colspan: 2},
      {name: 'completeTask',type: 'textarea',colspan: 2},
      {name: 'examineOpinion',type: 'textarea',colspan: 2},'examineSign',
@@ -94,6 +98,15 @@ exports.operators = {
  };
 
  exports.doWithRouter = function(router) {
+    router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
+    
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/researchdemand').on(function (exportXlsSvc, interformationSvc, request) {
      var options = request.params,
             result;
