@@ -2,10 +2,12 @@ var {mark}                  = require('cdeio/mark');
 var {json}                    = require('cdeio/response');
 var logger = require('ringo/logging').getLogger(module.id);
 var {SystemRemoteVisit}         = com.zyeeda.business.experiment.entity;
+
+var {SimpleDateFormat}          = java.text;
+var {Date}                      = java.util;
+
 exports.style = 'grid';
-
 exports.enableFrontendExtension = true;
-
 exports.haveFilter = true;
 
 exports.entityLabel = '系统远程访问申请单';
@@ -27,12 +29,14 @@ exports.labels = {
      apPerson: '申请人',
      apDept: '申请部门',
      deptChargeOpinion: '部门主管意见',
+     deptHanlePerson: '处理人',
      deptDate: '日期',
      inDeptOpinion: '信息部门意见',
+     inHandlePerson: '处理人',
      inDate: '日期',
      companyLeader: '公司领导审批',
+     companyHandlePerson: '处理人',
      leaderDate: '日期'
-
 };
 
 exports.forms = {
@@ -76,17 +80,19 @@ exports.fieldGroups = {
      'apPerson', 'apDept'
      ],
  Other: [
-     {name: 'deptChargeOpinion', type: 'text', label: '部门主管意见'},
+     {name: 'deptChargeOpinion', colspan: 2 ,type: 'textarea', label: '部门主管意见'},
+     'deptHanlePerson',
      {name: 'deptDate', type: 'datepicker', label: '日期'},
-     {name: 'inDeptOpinion', type: 'text', label: "信息部门意见"},
+     {name: 'inDeptOpinion', type: 'textarea', label: "信息部门意见", colspan: 2},
+     'inHandlePerson',
      {name: 'inDate', type: 'datepicker', label: '日期'},
-     {name: 'companyLeader', type: 'text', label: "公司领导审批"},
+     {name: 'companyLeader', type: 'textarea', label: "公司领导审批", colspan: 2},
+     'companyHandlePerson',
      {name: 'leaderDate', type: 'datepicker', label: '日期'}],
  filter: [
      'viNumber', 'inApNmae', 'serverUses'
   ]
 };
-
 
 exports.grid = {
   columns: ['viNumber', 'apDate', 'inApNmae', 'serverUrl', 'serverUses'],
@@ -97,18 +103,25 @@ exports.grid = {
   defaultOrder: 'apDate-desc'
 };
 
-
 exports.operators = {
      exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
  };
 
  exports.exporting = {
      template: 'experiment/systemremotevisit/systemremotevisit.xls',
-     fileName: '系统数据变更申请表'
+     fileName: '系统远程访问申请单表'
  };
 
 
 exports.doWithRouter = function(router) {
+    router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/systemremotevisit').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;

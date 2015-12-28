@@ -67,6 +67,10 @@ public class SystemRemoteVisit extends RevisionDomainEntity{
 	 */
 	private String deptChargeOpinion;
 	/**
+	 * 部门处理人
+	 */
+	private String deptHanlePerson;
+	/**
 	 * 日期
 	 */
 	private Date deptDate;
@@ -75,6 +79,10 @@ public class SystemRemoteVisit extends RevisionDomainEntity{
 	 */
 	private String inDeptOpinion;
 	/**
+	 *处理人
+	 */
+	private String inHandlePerson;
+	/**
 	 *日期
 	 */
 	private Date inDate;
@@ -82,6 +90,10 @@ public class SystemRemoteVisit extends RevisionDomainEntity{
 	 * 公司领导审批
 	 */
 	private String companyLeader;
+	/**
+	 * 处理人
+	 */
+	private String companyHandlePerson;
 	/**
 	 * 日期
 	 */
@@ -169,8 +181,8 @@ public class SystemRemoteVisit extends RevisionDomainEntity{
 		this.apDept = apDept;
 	}
 	
-	@Column(name="F_DEPT_CH",length=300)
-	@NullableSize(max=100)
+	@Column(name="F_DEPT_CH",length=2000)
+	@NullableSize(max=666)
 	public String getDeptChargeOpinion() {
 		return deptChargeOpinion;
 	}
@@ -187,8 +199,8 @@ public class SystemRemoteVisit extends RevisionDomainEntity{
 		this.deptDate = deptDate;
 	}
 	
-	@Column(name="F_IN_DEPT_OP",length=300)
-	@NullableSize(max=100)
+	@Column(name="F_IN_DEPT_OP",length=2000)
+	@NullableSize(max=666)
 	public String getInDeptOpinion() {
 		return inDeptOpinion;
 	}
@@ -205,8 +217,8 @@ public class SystemRemoteVisit extends RevisionDomainEntity{
 		this.inDate = inDate;
 	}
 	
-	@Column(name="F_CPMPANY_LEANDER",length=300)
-	@NullableSize(max=100)
+	@Column(name="F_CPMPANY_LEANDER",length=2000)
+	@NullableSize(max=666)
 	public String getCompanyLeader() {
 		return companyLeader;
 	}
@@ -223,4 +235,30 @@ public class SystemRemoteVisit extends RevisionDomainEntity{
 		this.leaderDate = leaderDate;
 	}
 	
+	@Column(name="F_DEPT_HANDLEPERSON",length=300)
+	@NullableSize(max=100)
+	public String getDeptHanlePerson() {
+		return deptHanlePerson;
+	}
+	public void setDeptHanlePerson(String deptHanlePerson) {
+		this.deptHanlePerson = deptHanlePerson;
+	}
+	
+	@Column(name="F_INHANDLE_PERSON",length=300)
+	@NullableSize(max=100)
+	public String getInHandlePerson() {
+		return inHandlePerson;
+	}
+	public void setInHandlePerson(String inHandlePerson) {
+		this.inHandlePerson = inHandlePerson;
+	}
+	
+	@Column(name="F_COMPANY_HANDLEPERSON",length=300)
+	@NullableSize(max=100)
+	public String getCompanyHandlePerson() {
+		return companyHandlePerson;
+	}
+	public void setCompanyHandlePerson(String companyHandlePerson) {
+		this.companyHandlePerson = companyHandlePerson;
+	}
 }
