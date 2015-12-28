@@ -6,35 +6,18 @@ define([
 ], function ($, exportUtil, importUtil) {
     return {
         afterShowDialog: function(dialogType, view, data){
-            if('add' == dialogType ){
-                $('input[name = "ch_re_type"]',view.$el).change(
-                    function(){
-                        if('其它' ==  $('input[name = "ch_re_type"]',view.$el).val()){
-                            view.groups[2].setVisible(true);
-                        }else{
-                            view.groups[2].setVisible(false);
-                        }
-                    }
-                )
-            }
-            if('edit' == dialogType){
-                if('其它' ==  $('input[name = "ch_re_type"]',view.$el).val()){
-                            console.log("1234")
-                            view.groups[2].setVisible(true);
-                        }else{
-                            view.groups[2].setVisible(false);
-                        }
-                $('input[name = "ch_re_type"]',view.$el).change(
-                    function(){
-                        if('其它' ==  $('input[name = "ch_re_type"]',view.$el).val()){
-                            console.log("1234")
-                            view.groups[2].setVisible(true);
-                        }else{
-                            view.groups[2].setVisible(false);
-                        }
-                    }
-                )
-            }
+            var me = this;
+
+            if ("add" == dialogType) {
+                   //取当前时间
+                me.feature.request({
+                    url: 'get-current-info',
+                    type: 'get'
+                }).done(function (result){
+                    me.feature.model.set('makeDate', result.result.createdTime);
+                    me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
+                });
+            } 
         },
         handlers:{
             exportExcel: function(){

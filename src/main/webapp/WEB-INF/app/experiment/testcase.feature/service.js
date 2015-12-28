@@ -1,7 +1,7 @@
 var {mark}                  = require('cdeio/mark');
 var commExpService          = require('commons/export-excel.feature/service');
 
-var {TestCase}         = com.zyeeda.business.experiment.entity;
+var {TestCase}     = com.zyeeda.business.experiment.entity;
 var {EntityMetaResolver}    = com.zyeeda.cdeio.web.scaffold;
 
 var {SecurityUtils}         = org.apache.shiro;
@@ -19,24 +19,19 @@ exports.createService = function() {
                 entity, entities,
                 meta = resolver.resolveEntity(TestCase),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                dateSdf = new SimpleDateFormat("yyyy-MM-dd")
-
+                dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
             entities = commExpService.createService().listEntities(options, meta);
-
             // 按照自己的要求处理数据
             for (i = 0; i < entities.size(); i++) {
                 entity = entities.get(i);
-
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.makeDate){
-                     vo.makeDate = dateSdf.format(entity.makeDate);
+                 if(null !== entity.makeDate){
+                vo.makeDate = dateSdf.format(entity.makeDate);
                  }
                 vos.add(vo);
             }
-
             beans.put('testcases', vos);
             beans.put('footer', '操作时间:' + dateTimeStr);
-
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
         })
 

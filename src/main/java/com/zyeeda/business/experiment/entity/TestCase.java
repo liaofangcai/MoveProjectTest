@@ -43,6 +43,10 @@ public class TestCase extends RevisionDomainEntity {
 	 */
 	private String theModel;
 	/**
+	 * 系统名称
+	 */
+	private String sysName;
+	/**
 	 * 子模块
 	 */
 	private String submodule;
@@ -53,7 +57,7 @@ public class TestCase extends RevisionDomainEntity {
 	/**
 	 * 输入数据
 	 */
-	private Integer inputData;
+	private String inputData;
 	/**
 	 * 测试步骤
 	 */
@@ -133,10 +137,10 @@ public class TestCase extends RevisionDomainEntity {
 	
 	@Column(name="F_INPUT_DATA",length=300)
 	@NullableSize(max=100)
-	public Integer getInputData() {
+	public String getInputData() {
 		return inputData;
 	}
-	public void setInputData(Integer inputData) {
+	public void setInputData(String inputData) {
 		this.inputData = inputData;
 	}
 	
@@ -183,5 +187,14 @@ public class TestCase extends RevisionDomainEntity {
 	}
 	public void setRemakesInformation(String remakesInformation) {
 		this.remakesInformation = remakesInformation;
+	}
+	
+	@Column(name="F_SYS_NAME",length=300)
+	@NullableSize(max=100)
+	public String getSysName() {
+		return sysName;
+	}
+	public void setSysName(String sysName) {
+		this.sysName = sysName;
 	}
 }

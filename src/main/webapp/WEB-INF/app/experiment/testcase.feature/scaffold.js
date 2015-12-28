@@ -3,10 +3,11 @@ var {json}         = require('cdeio/response');
 var logger         = require('ringo/logging').getLogger(module.id);
 var {TestCase}     = com.zyeeda.business.experiment.entity;
 
+var {SimpleDateFormat}          = java.text;
+var {Date}                      = java.util;
+
 exports.style = 'grid';
-
 exports.enableFrontendExtension = true;
-
 exports.haveFilter = true;
 
 exports.entityLabel = '测试用例';
@@ -19,11 +20,12 @@ exports.filters ={
 
 exports.labels = {
      testNumber : '编号',
-     makeDate : '制造日期',
+     makeDate : '编写日期',
      caseId : '用例ID',
      theModel : '所属模块',
      submodule : '子模块',
      prepositionCondition : '前置条件',
+     sysName: '系统名称',
      inputData : '输入数据',
      testStep: '测试步骤',
      pectOutcome: '预期结果',
@@ -60,9 +62,9 @@ exports.fieldGroups = {
  defaults: [
      'testNumber',
      {name: 'makeDate',type: 'datepicker'},
-     'caseId',
-     'theModel', 'submodule', 'prepositionCondition', 'inputData', 'testStep', 'pectOutcome',
-     'state', 'actualResult',
+     'caseId', 'sysName','theModel', 'submodule', 'prepositionCondition', 'inputData', 
+     'pectOutcome', 'state', 'actualResult',
+     {name: 'testStep', type: 'textarea', colspan: 2},
      {name: 'remakesInformation', type: 'textarea', colspan: 2}
   ],
 filter: [
@@ -73,7 +75,7 @@ filter: [
 exports.grid = {
     columns: [
      'testNumber', {name: 'makeDate', type: 'datepicker', label: '日期'},
-     'theModel', 'submodule', 'prepositionCondition'
+     'sysName','theModel', 'submodule', 'prepositionCondition'
     ],
     events: {
      'system/departments#tree:onClick': 'departmentChanged'
@@ -95,6 +97,15 @@ exports.exporting = {
 };
 
 exports.doWithRouter = function(router) {
+    router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
+    
     //导出数据
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/testcase').on(function (exportXlsSvc, interformationSvc, request) {
          var options = request.params,
