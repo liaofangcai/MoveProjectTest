@@ -67,6 +67,10 @@ public class Interformation extends RevisionDomainEntity{
    * 部门主管意见
    */
   private String deptOpinions;
+  /**
+   * 部门处理人
+   */
+  private String deptHandlePerson;
    /*
    * 部门日期
    */
@@ -75,14 +79,22 @@ public class Interformation extends RevisionDomainEntity{
    * 管理员审核
    */
   private String administratoraudit;
+  /**
+   * 处理人
+   */
+  private String  adminHandlePerson;
   /*
    * 管理员审核日期
    */
-  private String administratorauditDate;
+  private Date administratorauditDate;
   /*
    * 处理结果
    */
   private String rocessingResults;
+  /**
+   * 处理人
+   */
+  private String handlePserson;
   /*
    * 处理日期
    */
@@ -103,7 +115,7 @@ public class Interformation extends RevisionDomainEntity{
   public String getName() {
   	return name;
   }
-public void setName(String name) {
+ public void setName(String name) {
   	this.name = name;
   }
 
@@ -161,8 +173,8 @@ public void setName(String name) {
   	this.content = content;
   }
 
-  @Column(name="D_DESCRIPTION",length=500)
-  @NullableSize(max=160)
+  @Column(name="D_DESCRIPTION",length=2000)
+  @NullableSize(max=666)
   public String getDescription() {
   	return description;
   }
@@ -179,8 +191,8 @@ public void setName(String name) {
   	this.aplicationDate = aplicationDate;
   }
 
-  @Column(name="F_DEPT_OPINIONS",length=500)
-  @NullableSize(max=160)
+  @Column(name="F_DEPT_OPINIONS",length=2000)
+  @NullableSize(max=666)
   public String getDeptOpinions() {
   	return deptOpinions;
   }
@@ -197,8 +209,8 @@ public void setName(String name) {
   	this.deptDate = deptDate;
   }
   
-  @Column(name="F_ADMINISTRA",length=300)
-  @NullableSize(max=100)
+  @Column(name="F_ADMINISTRA",length=2000)
+  @NullableSize(max=666)
   public String getAdministratoraudit() {
   	return administratoraudit;
   }
@@ -206,17 +218,17 @@ public void setName(String name) {
   	this.administratoraudit = administratoraudit;
   }
   
-  @Column(name="F_ADMIN_DATE",length=300)
-  @NullableSize(max=100)
-  public String getAdministratorauditDate() {
+  @Column(name="F_ADMIN_DATE")
+  @JsonFormat(pattern="yyyy-MM-dd")
+  public Date getAdministratorauditDate() {
   	return administratorauditDate;
   }
-  public void setAdministratorauditDate(String administratorauditDate) {
+  public void setAdministratorauditDate(Date administratorauditDate) {
   	this.administratorauditDate = administratorauditDate;
   }
   
-  @Column(name="F_ROC_RESULT",length=300)
-  @NullableSize(max=100)
+  @Column(name="F_ROC_RESULT",length=2000)
+  @NullableSize(max=666)
   public String getRocessingResults() {
   	return rocessingResults;
   }
@@ -232,5 +244,32 @@ public void setName(String name) {
   }
   public void setRocessingResultsDate(Date rocessingResultsDate) {
   	this.rocessingResultsDate = rocessingResultsDate;
-  } 
+  }
+  
+  @Column(name="F_HAND_PERSON",length=300)
+  @NullableSize(max=100)
+  public String getDeptHandlePerson() {
+		return deptHandlePerson;
+  }
+  public void setDeptHandlePerson(String deptHandlePerson) {
+		this.deptHandlePerson = deptHandlePerson;
+  }
+  
+  @Column(name="F_ANDMIN_HANDLE",length=300)
+  @NullableSize(max=100)
+  public String getAdminHandlePerson() {
+		return adminHandlePerson;
+  }
+  public void setAdminHandlePerson(String adminHandlePerson) {
+		this.adminHandlePerson = adminHandlePerson;
+  }
+  
+  @Column(name="F_PERSON",length=300)
+  @NullableSize(max=100)
+  public String getHandlePserson() {
+		return handlePserson;
+  }
+  public void setHandlePserson(String handlePserson) {
+		this.handlePserson = handlePserson;
+  }
 }

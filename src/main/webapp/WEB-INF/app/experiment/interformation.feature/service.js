@@ -39,7 +39,9 @@ exports.createService = function() {
              beans.put('Inteformations', vos);
              beans.put('footer', '操作时间:' + dateTimeStr);
              return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
+        }),
+    getTripApplyByIds: mark('managers', Interformation).mark('tx').on(function (inforMgr, entryIds){
+            return inforMgr.find.apply(inforMgr, entryIds);
         })
-
     };
 }

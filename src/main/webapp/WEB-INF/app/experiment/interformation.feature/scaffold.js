@@ -3,6 +3,9 @@ var {json}                    = require('cdeio/response');
 var logger = require('ringo/logging').getLogger(module.id);
 var {Interformation}     = com.zyeeda.business.experiment.entity;
 
+var {SimpleDateFormat}          = java.text;
+var {Date}                      = java.util;
+
 exports.style = 'grid';
 
 exports.enableFrontendExtension = true;
@@ -19,6 +22,7 @@ exports.filters ={
 
 exports.labels = {
      interformationSystemNum: '编号',
+     aplicationDate: '申请日期',
      name: '姓名',
      email: 'Email',
      dept: '部门',
@@ -26,36 +30,30 @@ exports.labels = {
      interformationSystemName: '信息系统名称',
      userName: '用户名',
      content: '申请内容',
-     description: '增加/减少权限详细描述'
+     description: '增加/减少权限详细描述',
+     deptOpinions: '部门主管意见',
+     deptHandlePerson :'处理人',
+     deptDate: '处理日期',
+     administratoraudit: '管理员审核',
+     adminHandlePerson: '处理人',
+     administratorauditDate: '处理日期',
+     rocessingResults: '处理结果',
+     handlePserson: '处理人',
+     rocessingResultsDate: '处理日期'
+
 };
 
 exports.forms = {
- add: {
+ defaults: {
      groups: [
      {name: 'defaults', columns: 2},
      {name: 'userApplication',columns: 2, label: '用户申请'},
      {name: 'examineHandle',columns:2,label:'审核处理'}
      ],
-     size: 'large'
-  },
- edit: {
-     groups: [
-     {name: 'defaults', columns: 2},
-     {name: 'userApplication',columns: 2, label: '用户申请'},
-     {name: 'examineHandle',columns:2,label:'审核处理'}
-     ],
-     size: 'large'
-  },
- show: {
-     groups: [
-     {name: 'defaults', columns: 2},
-     {name: 'userApplication',columns: 2, label: '用户申请'},
-     {name: 'examineHandle',columns:2,label:'审核处理'}
-    ],
      size: 'large'
   },
  filter: {
-     groups: [{name: 'filter', columns: 1}], size: 'small'
+     groups: [{name: 'filter', columns: 2}], size: 'small'
 }
 };
 
@@ -71,20 +69,33 @@ exports.fieldGroups = {
      {name: 'description', type: 'textarea', colspan: 2}
      ],
  examineHandle: [
-     {name: 'deptOpinions', type: 'text',label: '部门主管意见'},
-     {name: 'deptDate', type: 'datepicker',label: '日期'},
-     {name: 'administratoraudit', type: 'text', label: '管理员审核'},
-     {name: 'administratorauditDate', type: 'datepicker',label: '日期'},
-     {name: 'rocessingResults', type: 'text',label: '处理结果'},
-     {name: 'rocessingResultsDate', type: 'datepicker',label: '日期'}
+     {name: 'deptOpinions', type: 'textarea',label: '部门主管意见', colspan: 2},
+     'deptHandlePerson',
+     {name: 'deptDate', type: 'datepicker',label: '处理日期'},
+     {name: 'administratoraudit', type: 'textarea', label: '管理员审核', colspan: 2},
+     'adminHandlePerson',
+     {name: 'administratorauditDate', type: 'datepicker',label: '处理日期'},
+     {name: 'rocessingResults', type: 'textarea',label: '处理结果', colspan: 2},
+     'handlePserson',
+     {name: 'rocessingResultsDate', type: 'datepicker',label: '处理日期'}
      ],
 filter: [
      'interformationSystemNum', 'name', 'dept', 'post'
   ]
 };
 
+exports.grid = {
+  columns: ['interformationSystemNum', 'aplicationDate', 'name', 'email', 'dept'],
+  filterToolbar: true,
+  fixedHeader: true,
+  numberColumn: true,
+  multiple: true,
+  defaultOrder: 'aplicationDate-desc'
+};
+
 exports.operators = {
-     exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
+     exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' },
+     print: {label: '打印', icon: 'icon-print', group: '30-custom', order: 200, show: 'always', style: 'btn-info'}
 };
 
 exports.exporting = {
@@ -92,7 +103,16 @@ exports.exporting = {
      fileName: '信息系统账号权限申请信息'
 };
 
- exports.doWithRouter = function(router) {
+exports.doWithRouter = function(router) {
+    //取当前时间
+    router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/interformation').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;
@@ -101,5 +121,12 @@ exports.exporting = {
         result = interformationSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
 
         return json({flag: result.flag, filename: result.filename});
-    }))
+    }));
+    router.get('/get_interformation_sys', mark('services', 'experiment/interformation').on(function (inSvc, request) {
+        var entryIds = request.params.selectedDataIds;
+  
+        entryIdArr = new String(entryIds).split(",");
+        tripApplys = inSvc.getTripApplyByIds(entryIdArr);
+        return json({tripApplys: tripApplys}, exports.filters.defaults);
+    }));
 }
