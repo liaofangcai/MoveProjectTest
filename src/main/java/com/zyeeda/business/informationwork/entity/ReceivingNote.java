@@ -22,6 +22,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.zyeeda.cdeio.commons.annotation.scaffold.Scaffold;
 import com.zyeeda.cdeio.commons.base.entity.RevisionDomainEntity;
 import com.zyeeda.cdeio.validation.constraint.NullableSize;
+import com.zyeeda.business.informationwork.entity.AcceptanceCondition;
+
 @Entity
 @Table(name = "BZ_RECEIVING_NOTE")
 @Scaffold("/informationwork/receivingNote")
@@ -44,18 +46,6 @@ public class ReceivingNote extends RevisionDomainEntity{
 	//'overAgain': '返工', 'repair': '返修'}
 	private String unqualifiedDeal;
 
-	private String testCaseName;
-
-	private String testCaseNo;
-
-	private Integer count;
-	//验收结果 result {id: 'qualified', text: '合格'}, {id: 'unqualified', text: '不合格'}
-	private String result;
-
-	private Integer unqualifiedCount;
-
-	private String mark;
-
 	private Date testConclusion_Date;
 
 	private String auditor;
@@ -67,6 +57,8 @@ public class ReceivingNote extends RevisionDomainEntity{
 	private String checker;
 
 	private String charge;
+
+	private List<AcceptanceCondition>  please;
 
 	@NotBlank
 	@Column(name = "F_RECEIVINGNOTENO", length = 300)
@@ -113,7 +105,6 @@ public class ReceivingNote extends RevisionDomainEntity{
 		this.arrivalTime = arrivalTime;
 	}
 
-	@NotBlank
 	@Column(name = "F_TESTCONCLUSION", length = 300)
 	public String getTestConclusion() {
 		return testConclusion;
@@ -128,59 +119,6 @@ public class ReceivingNote extends RevisionDomainEntity{
 	}
 	public void setUnqualifiedDeal(String unqualifiedDeal) {
 		this.unqualifiedDeal = unqualifiedDeal;
-	}
-
-	@NotBlank
-	@Column(name = "F_TESTCASENAME", length = 300)
-	public String getTestCaseName() {
-		return testCaseName;
-	}
-	public void setTestCaseName(String testCaseName) {
-		this.testCaseName = testCaseName;
-	}
-
-	@NotBlank
-	@Column(name = "F_TESTCASENO", length = 300)
-	public String getTestCaseNo() {
-		return testCaseNo;
-	}
-	public void setTestCaseNo(String testCaseNo) {
-		this.testCaseNo = testCaseNo;
-	}
-
-	@NotNull
-	@Column(name = "F_COUNT")
-	public Integer getCount() {
-		return count;
-	}
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	@NotBlank
-	@Column(name = "F_RESULT", length = 300)
-	public String getResult() {
-		return result;
-	}
-	public void setResult(String result) {
-		this.result = result;
-	}
-
-	@NotNull
-	@Column(name = "F_UNQUALIFIEDCOUNT")
-	public Integer getUnqualifiedCount() {
-		return unqualifiedCount;
-	}
-	public void setUnqualifiedCount(Integer unqualifiedCount) {
-		this.unqualifiedCount = unqualifiedCount;
-	}
-
-	@Column(name = "F_MARK", length = 300)
-	public String getMark(){
-		return mark;
-	}
-	public void setMark(String mark){
-		this.mark=mark;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -231,5 +169,13 @@ public class ReceivingNote extends RevisionDomainEntity{
 	}
 	public void setCharge(String charge) {
 		this.charge = charge;
+	}
+
+	@OneToMany(mappedBy="ple",fetch=FetchType.LAZY)
+	public List<AcceptanceCondition> getPlease() {
+		return please;
+	}
+	public void setPlease(List<AcceptanceCondition> please) {
+		this.please = please;
 	}
 }

@@ -33,7 +33,6 @@ exports.createService = function() {
                 entity = entities.get(i);
 
                 vo = commExpService.createService().convertEntityToObj(entity);
-                vo.result  = statusMap[entity.result];
                 vo.testConclusion  = statusMap[entity.testConclusion];
                 vo.unqualifiedDeal  = statusMaps[entity.unqualifiedDeal];
                 if(null !== entity.arrivalTime ){

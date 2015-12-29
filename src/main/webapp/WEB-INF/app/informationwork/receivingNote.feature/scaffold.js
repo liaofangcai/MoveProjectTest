@@ -24,7 +24,8 @@ exports.entityLabel = '验收单';
 
 exports.filters = {
   defaults: {
-    '!receivingNoteFilter': ['']
+    '!receivingNoteFilter': [''],
+    '!acceptanceConditionFilter': ['ple']
   }
 };
 
@@ -40,15 +41,17 @@ exports.labels = {
   arrivalTime:'到货日期',
   testConclusion:'校验结论',
   unqualifiedDeal: '不合格处理',
+
   testCaseName:'产品名称',
   testCaseNo:'规格型号',
   count:'交付数量',
   result:'验收结果',
   unqualifiedCount:'不合格数量',
   mark:'备注',
-  testConclusion_Date:'日期',
+
+  testConclusion_Date:'校验日期',
   auditor:'审核人',
-  auditorDate:'日期',
+  auditorDate:'审核日期',
   purchasingAgent:'采购人',
   checker:'验收人',
   charge:'部门主管'
@@ -58,9 +61,9 @@ exports.forms = {
   edit: {
     groups: [
     {name: 'defaults', columns: 2},
-    {name: 'inlineRecruitmentInterviewGrid', columns: 2,label: '检验情况'},
-    {name : 'testConclusions',label: '校验结论',columns:2},
-    {name : 'unqualifiedDeals',label: '处理', columns: 2}
+    {name: 'inlineAssetStatusGrid', labelOnTop: true,columns: 2,label: '检验项目和验收情况'},
+    {name : 'testConclusion', labelOnTop: true, label: '校验结论',columns:2},
+    {name : 'unqualifiedDeals',  visible: false, labelOnTop: true, label: '不合格的处理', columns: 2}
     ],
     size: 'medium'
   },
@@ -68,9 +71,9 @@ exports.forms = {
   show: {
     groups: [
     {name: 'defaults', columns: 2},
-    {name: 'inlineRecruitmentInterviewGrid', columns: 2,label: '检验情况'},
-    {name : 'testConclusions',label: '校验结论', columns:2},
-    {name : 'unqualifiedDeals',label: '处理', columns: 2}
+    {name: 'inlineAssetStatusGrid', labelOnTop: true, columns: 2,label: '检验项目和验收情况'},
+    {name : 'testConclusion',labelOnTop: true, label: '校验结论', columns:2},
+    {name : 'unqualifiedDeals',  visible: true, labelOnTop: true, label: '不合格的处理', columns: 2}
     ],
     size: 'medium'
   },
@@ -78,9 +81,9 @@ exports.forms = {
   add: {
     groups: [
     {name: 'defaults', columns: 2},
-    {name: 'inlineRecruitmentInterviewGrid', columns: 2,label: '检验情况'},
-    {name : 'testConclusions',label: '校验结论', columns: 2},
-    {name : 'unqualifiedDeals',label: '处理', columns: 2}
+    {name: 'inlineAssetStatusGrid', labelOnTop: true, columns: 2,label: '检验项目和验收情况'},
+    {name : 'testConclusion', labelOnTop: true, label: '校验结论', columns: 2},
+    {name : 'unqualifiedDeals',  visible: false, labelOnTop: true, label: '不合格的处理', columns: 2}
     ],
     size: 'medium'
   },
@@ -97,13 +100,13 @@ exports.fieldGroups = {
   'arrivalTime', 'purchasingAgent', 'checker', 'charge'
   ],
 
-  testConclusions: [
-  'testConclusion_Date', {name: 'testConclusion', type: 'dropdown', defaultValue: 'qualified', source: [{id: 'qualified', text: '合格'},
-  {id: 'unqualified', text: '不合格'}]}
+  testConclusion: [
+  {name: 'testConclusion', type: 'dropdown', defaultValue: 'qualified', source: [{id: 'qualified', text: '合格'},
+  {id: 'unqualified', text: '不合格'}]}, 'testConclusion_Date'
   ],
 
   unqualifiedDeals: [ 'auditor', 'auditorDate',
-  {name: 'unqualifiedDeal', type: 'dropdown', colspan: 2,defaultValue: 'eturnGoods',
+  {name: 'unqualifiedDeal', type: 'dropdown', colspan: 2,defaultValue: '',
   source: [{id: 'eturnGoods', text: '退货'}, {id: 'pickingUp', text: '捡用'}, {id: 'concessionReception', text: '让步接收'},
   {id: 'scrap', text: '报废'}, {id: 'overAgain', text: '返工'}, {id: 'repair', text: '返修'}]}
   ],
@@ -115,8 +118,13 @@ exports.fieldGroups = {
   ],
 
   filter: [
-  'receivingNoteNo', 'receivingNoteName', {name: 'arrivalTime', type: 'date-range'}
+  'receivingNoteNo', 'receivingNoteName', 'inspectionBasis', {name: 'arrivalTime', type: 'date-range'}
+  ],
+
+inlineAssetStatusGrid:[
+     {label: '检验项目和验收情况', type: 'inline-grid', name: 'please', allowPick: false, allowAdd: true, allowEdit: true}
   ]
+
 };
 
 exports.grid = {
