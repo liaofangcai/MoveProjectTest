@@ -30,9 +30,9 @@ exports.filters = {
 
 exports.labels = {
   systemUpdateRecordsNo: '编号',
-  systemUpdateRecordsName: '日期',
+  systemUpdateRecordsName: '登记日期',
   address: '进入时间',
-  operatingPersonnel:'是由',
+  operatingPersonnel:'事由',
   updateContent:'离开时间',
   operateTime:'登记人',
   mark: '备注'
@@ -54,7 +54,7 @@ exports.forms = {
   },
 
   filter: {
-    groups: [{name: 'filter'}],
+    groups: [{name: 'filter', columns: 2}],
     size: 'medium'
   }
 };
@@ -63,18 +63,20 @@ exports.fieldGroups = {
   defaults:[
   'systemUpdateRecordsNo', 'systemUpdateRecordsName', {name: 'address', type: 'datetimepicker', statusChanger: true},
   {name: 'updateContent', type: 'datetimepicker', statusChanger: true},
-  {name: 'operateTime', type: 'textarea', colspan: 2},
-  {name: 'operatingPersonnel', type: 'textarea', colspan: 2},
+  {name: 'operateTime', colspan: 2}, {name: 'operatingPersonnel', type: 'textarea', colspan: 2},
   {name: 'mark', type: 'textarea', colspan: 2}
   ],
 
   filter: [
-  'systemUpdateRecordsNo',  {name: 'systemUpdateRecordsName', type: 'date-range'}
+   'systemUpdateRecordsNo', 'operateTime',
+  {name: 'address', type: 'date-range',colspan: 2},
+  {name: 'updateContent', type: 'date-range', colspan: 2},
+   {name: 'systemUpdateRecordsName', type: 'date-range', colspan: 2}
   ]
 };
 
 exports.grid = {
-  columns: ['systemUpdateRecordsNo', 'systemUpdateRecordsName','operatingPersonnel',
+  columns: ['systemUpdateRecordsNo', 'systemUpdateRecordsName',
   {name: 'address', type: 'datetimepicker', statusChanger: true},
   {name: 'updateContent', type: 'datetimepicker', statusChanger: true}, 'operateTime'
   ],
