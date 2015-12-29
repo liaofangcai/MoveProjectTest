@@ -15,6 +15,7 @@ var {SimpleDateFormat}        = java.text;
 var {Date}                    = java.util;
 var {ArrayList}               = java.util;
 var URLDecoder                = java.net.URLDecoder;
+var dateTimeStr                  = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 exports.style = 'grid';
 //启用前台交互扩展，这样就可以给按钮添加事件了
@@ -41,15 +42,15 @@ exports.labels = {
   changeRecords:'变更申请记录人',
   completionTime: '变更完成时间',
   //变更申请
-  requestPerson:'变更申请人',
-  applicationTime:'申请日期',
+  requestPerson:'申请人',
+  applicationTime:'申请时间',
   stage:'所处阶段',
   changeContent: '变更内容',
   changInflunence:'变更原因',
   changReason:'变更影响',
   //审批变更申请
-  approvalOpinion:'ccb审批的意见',
-  ccbsign:'ccb负责人签字',
+  approvalOpinion:'CCB审批意见',
+  ccbsign:'CCB负责人签字',
   signTime:'日期',
   objectForApproval: '批准变更的对象',
   changeTheExecutive: '变更执行人',
@@ -59,11 +60,11 @@ exports.labels = {
   changPerson:'负责人',
   finishTime:'变更完成日期',
   result:'评审结论',
-  reviewSign:'评审人签字',
+  reviewSign:'评审组长签字',
   reviewTime: '日期',
   reviewAndCountersign:'评审会签',
-  opinion:'ccb审批的意见',
-  sign:'ccb负责人签字',
+  opinion:'CCB审批的意见',
+  sign:'CCB负责人签字',
   time:'日期'
 };
 
@@ -72,7 +73,7 @@ exports.forms = {
       groups: [
         {name: 'defaults',columns: 2},
         {name: 'remoteAccessApplications',label: '变更申请', columns: 2},
-        {name: 'auditOpinion', label: '审批更申请', columns: 2},
+        {name: 'auditOpinion', label: '审批变更申请', columns: 2},
         {name: 'theExecutive', label: '变更执行跟踪', colspan: 2}
       ],
       size: 'medium'
@@ -81,7 +82,7 @@ exports.forms = {
       groups: [
         {name: 'defaults',columns: 2},
         {name: 'remoteAccessApplications',label: '变更申请', columns: 2},
-        {name: 'auditOpinion', label: '审批更申请', columns: 2},
+        {name: 'auditOpinion', label: '审批变更申请', columns: 2},
         {name: 'theExecutive', label: '变更执行跟踪', colspan: 2}
       ],
       size: 'medium'
@@ -90,24 +91,24 @@ exports.forms = {
       groups: [
         {name: 'defaults',columns: 2},
         {name: 'remoteAccessApplications',label: '变更申请', columns: 2},
-        {name: 'auditOpinion', label: '审批更申请', columns: 2},
+        {name: 'auditOpinion', label: '审批变更申请', columns: 2},
         {name: 'theExecutive', label: '变更执行跟踪', colspan: 2}
       ],
       size: 'medium'
   },
   filter: {
-    groups: [{name: 'filter',columns:2}],
+    groups: [{name: 'filter'}],
     size: 'medium'
   }
 };
 
 exports.fieldGroups = {
   defaults: [
-  'number', 'createTime', 'name', 'projectLeader', 'changeRecords', 'completionTime'
+  'number', {name: 'createTime', defaultValue: dateTimeStr}, 'name', 'projectLeader', 'changeRecords', 'completionTime'
   ],
   //变更申请
   remoteAccessApplications: [
-  'requestPerson', 'applicationTime',
+  'requestPerson', {name: 'applicationTime', defaultValue: dateTimeStr},
   {name: 'stage', type: 'dropdown', defaultValue: 1, colspan: 2,source:
   [{id: '需求阶段', text: '需求阶段'}, {id: '设计阶段', text: '设计阶段'}, {id: '编码阶段', text: '编码阶段'}, {id: '测试阶段', text: '测试阶段'}, {id: '维护阶段', text: '维护阶段'}]},
   {name: 'changeContent',type :'textarea' ,colspan : 2},
@@ -130,8 +131,8 @@ exports.fieldGroups = {
   filter: ['number','name', 'createTime', {name: 'completionTime', type: 'date-range'}]
 };
 exports.grid = {
-  columns: ['number', 'createTime','projectLeader','changeRecords',
-  'identifierTime','identifierPersonnal'],
+  columns: ['number', 'createTime','projectLeader','changeRecords'
+  ],
   filterToolbar: true,
   fixedHeader: true,
   numberColumn: true,

@@ -100,7 +100,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.number = number;
   }
 
-  @NotNull
   @Column(name = "F_CREATETIME")
   @Temporal(TemporalType.DATE)
   public Date getCreateTime() {
@@ -119,7 +118,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.name = name;
   }
 
-  @NotBlank
   @Column(name = "F_LEADER")
   public String getProjectLeader() {
     return projectLeader;
@@ -128,7 +126,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.projectLeader = projectLeader;
   }
 
-  @NotBlank
   @Column(name = "F_REQUESTPERSON")
   public String getRequestPerson() {
     return requestPerson;
@@ -137,7 +134,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.requestPerson = requestPerson;
   }
 
-  @NotNull
   @Temporal(TemporalType.DATE)
   @Column(name = "F_APPLICATIONTIME")
   public Date getApplicationTime() {
@@ -147,7 +143,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.applicationTime = applicationTime;
   }
 
-  @NotBlank
   @Column(name = "F_STAGE")
   public String getStage() {
     return stage;
@@ -156,7 +151,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.stage = stage;
   }
 
-  @NotBlank
   @Column(name = "F_CAHNGCONTEN", length = 2000)
   public String getChangeContent() {
     return changeContent;
@@ -165,7 +159,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.changeContent = changeContent;
   }
 
-  @NotBlank
   @Column(name = "F_CHANGINFLUENCE", length = 2000)
   public String getChangInflunence() {
     return changInflunence;
@@ -174,7 +167,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.changInflunence = changInflunence;
   }
 
-  @NotBlank
   @Column(name = "F_CHANGREASON", length = 2000)
   public String getChangReason() {
     return changReason;
@@ -183,7 +175,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.changReason = changReason;
   }
 
-  @NotBlank
   @Column(name = "F_APPROVALOPINION", length = 2000)
   public String getApprovalOpinion() {
     return approvalOpinion;
@@ -192,7 +183,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.approvalOpinion = approvalOpinion;
   }
 
-  @NotBlank
   @Column(name = "F_CCBSIGN")
   public String getCcbsign() {
     return ccbsign;
@@ -201,7 +191,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.ccbsign = ccbsign;
   }
 
-  @NotNull
   @Column(name = "F_SIGNTIME")
   @Temporal(TemporalType.DATE)
   public Date getSignTime() {
@@ -211,7 +200,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.signTime = signTime;
   }
 
-  @NotBlank
   @Column(name = "F_OBJECTFORAPPROVAL")
   public String getObjectForApproval() {
     return objectForApproval;
@@ -220,7 +208,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.objectForApproval = objectForApproval;
   }
 
-  @NotBlank
   @Column(name = "F_CHANGETHEEXECUTIVE")
   public String getChangeTheExecutive() {
     return changeTheExecutive;
@@ -229,7 +216,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.changeTheExecutive = changeTheExecutive;
   }
 
-  @NotNull
   @DateTime
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
   @Column(name = "F_TIMELIMIT")
@@ -240,7 +226,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.timeLimit = timeLimit;
   }
 
-  @NotBlank
   @Column(name = "F_OBJECTAFTERCHANGE", length = 2000)
   public String getObjectAfterChange() {
     return objectAfterChange;
@@ -249,7 +234,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.objectAfterChange = objectAfterChange;
   }
 
-  @NotBlank
   @Column(name = "F_CHANGPERSON")
   public String getChangPerson() {
     return changPerson;
@@ -258,7 +242,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.changPerson = changPerson;
   }
 
-  @NotNull
   @Temporal(TemporalType.DATE)
   @Column(name = "F_FINISHTIME")
   public Date getFinishTime() {
@@ -268,7 +251,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.finishTime = finishTime;
   }
 
-  @NotBlank
   @Column(name = "F_RESULT")
   public String getResult() {
     return result;
@@ -277,7 +259,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.result = result;
   }
 
-  @NotBlank
   @Column(name = "F_REVIEWSIGN")
   public String getReviewSign() {
     return reviewSign;
@@ -286,7 +267,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.reviewSign = reviewSign;
   }
 
-  @NotNull
   @Column(name = "F_REVIEWTIME")
   @Temporal(TemporalType.DATE)
   public Date getReviewTime() {
@@ -296,7 +276,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.reviewTime = reviewTime;
   }
 
-  @NotNull
   @Column(name = "F_REVIWCONTERSIGN", length = 2000)
   public String getReviewAndCountersign() {
     return reviewAndCountersign;
@@ -305,7 +284,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.reviewAndCountersign = reviewAndCountersign;
   }
 
-  @NotBlank
   @Column(name = "F_OPINION")
   public String getOpinion() {
     return opinion;
@@ -314,7 +292,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.opinion = opinion;
   }
 
-  @NotBlank
   @Column(name = "F_SIGN")
   public String getSign() {
     return sign;
@@ -323,7 +300,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.sign = sign;
   }
 
-  @NotNull
   @Column(name = "F_TIME")
   @Temporal(TemporalType.DATE)
   public Date getTime() {
@@ -333,7 +309,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.time = time;
   }
 
-  @NotBlank
   @Column(name = "F_CHANGRECORDS")
   public String getChangeRecords() {
     return changeRecords;
@@ -342,7 +317,6 @@ public class ChangeRequest extends RevisionDomainEntity{
     this.changeRecords = changeRecords;
   }
 
-  @NotNull
   @DateTime
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
   @Column(name = "F_COMPLETIONTIME")
