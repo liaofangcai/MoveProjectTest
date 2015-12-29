@@ -13,6 +13,7 @@ var {SimpleDateFormat}                     = java.text;
 var {Date}                                            = java.util;
 var {ArrayList}                                     = java.util;
 var URLDecoder                                 = java.net.URLDecoder;
+var dateTimeStr                  = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 exports.style = 'grid';
 
@@ -35,45 +36,55 @@ exports.service = function(service){
 exports.labels = {
   systemRenewalApplicationNo: '编号',
   //系统数据转换计划
+  maketable: '制表日期',
   informationSystemName: '信息系统名称',
   masterName:'转换内容',
   address:'风险评估',
   updateContent:'实施步骤',
   incidence:'参与人员',
-  proposer: '开始转换时间',
-  applicationDepartment:'结束时间',
+  proposer: '转换开始时间',
+  applicationDepartment:'转换结束时间',
   identifierPersonnal:'验证人',
   identifierTime:'验证时间',
   //审核意见
   departmentHead:'部门主管意见',
   informationDepartment:'信息部门意见',
-  companyLeadershipApproval: '公司领导审批'
+  companyLeadershipApproval: '公司领导审批',
+
+  headperson: '处理人',
+  headdate: '处理日期',
+
+  departmentperson: '处理人',
+  departmentdate: '处理日期',
+
+  approvalperson: '处理人',
+  approvaldate: '处理日期'
 };
 
 exports.forms = {
   edit: {
     groups: [
-    {name: 'defaults',columns:2},
-    {name: 'remoteAccessApplications',label:'转换计划',columns:2},
-    {name: 'auditOpinion',label: '审核意见'}
+    {name: 'defaults',columns: 2},
+    {name: 'remoteAccessApplications',label:'系统数据转换计划',columns: 2},
+    {name: 'auditOpinion',label: '审核意见', columns: 2}
     ],
     size: 'medium'
   },
 
   show: {
     groups: [
-    {name: 'defaults',columns:2},
-    {name: 'remoteAccessApplications',label:'转换计划',columns:2},
-    {name: 'auditOpinion',label: '审核意见'}
+    {name: 'defaults',columns: 2},
+    {name: 'remoteAccessApplications',label:'系统数据转换计划',columns: 2},
+    {name: 'auditOpinion',label: '审核意见', columns: 2}
     ],
     size: 'medium'
   },
 
   add: {
     groups: [
-    {name: 'defaults',columns:2},
-    {name: 'remoteAccessApplications',label:'转换计划',columns:2},
-    {name: 'auditOpinion',label: '审核意见'}
+    {name: 'defaults',columns: 2},
+    {name: 'remoteAccessApplications',label:'系统数据转换计划',columns: 2},
+    {name: 'auditOpinion',label: '审核意见', columns: 2}
     ],
     size: 'medium'
   },
@@ -85,31 +96,33 @@ exports.forms = {
 };
 
 exports.fieldGroups = {
-  defaults: ['systemRenewalApplicationNo','informationSystemName'],
+  defaults: ['systemRenewalApplicationNo', {name: 'maketable', defaultValue: dateTimeStr}],
 
   remoteAccessApplications: [
+  {name: 'informationSystemName', colspan: 2},
   {name: 'masterName',type :'textarea' ,colspan : 2},
   {name: 'address',type :'textarea' ,colspan : 2},{name: 'incidence',type :'textarea' ,colspan : 2},
-  {name: 'updateContent',type :'textarea' ,colspan : 2}, {name: 'proposer', type: 'datetimepicker', statusChanger: true},
-  {name: 'applicationDepartment', type: 'datetimepicker', statusChanger: true},'identifierPersonnal',
-  {name: 'identifierTime', type: 'datetimepicker', statusChanger: true}
+  {name: 'updateContent',type :'textarea' ,colspan : 2}, 'proposer',
+  'applicationDepartment', 'identifierPersonnal', 'identifierTime'
   ],
 
   auditOpinion: [
-  {name: 'departmentHead', type: 'textarea'},
-  {name: 'informationDepartment',type:  'textarea'},
-  {name : 'companyLeadershipApproval',type:  'textarea'}
+  {name: 'departmentHead', type: 'textarea', colspan: 2}, 'headperson', 'headdate',
+  {name: 'informationDepartment',type:  'textarea', colspan: 2}, 'departmentperson', 'departmentdate',
+  {name : 'companyLeadershipApproval',type:  'textarea', colspan: 2}, 'approvalperson', 'approvaldate'
   ],
 
   filter: [
-    'systemRenewalApplicationNo', 'informationSystemName', {name: 'identifierTime',type: 'date-range'}, 'identifierPersonnal'
+    'systemRenewalApplicationNo', 'maketable', 'informationSystemName', 'identifierPersonnal',
+    {name: 'proposer',type: 'date-range'},
+    {name: 'identifierTime',type: 'date-range'},
     ]
 };
 
 exports.grid = {
   columns: [
   'systemRenewalApplicationNo', 'informationSystemName','proposer','applicationDepartment',
-  'identifierTime','identifierPersonnal'
+  'identifierPersonnal'
   ],
   filterToolbar: true,
   fixedHeader: true,

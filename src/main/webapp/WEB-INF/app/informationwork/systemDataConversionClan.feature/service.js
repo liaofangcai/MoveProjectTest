@@ -16,18 +16,25 @@ exports.createService = function() {
 
         meta = resolver.resolveEntity(SystemDataConversionClan),
         dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-        dateTimeStrs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"),
         dateSdf = new SimpleDateFormat("yyyy-MM-dd"),
         entities = commExpService.createService().listEntities(options, meta);
         for (i = 0; i < entities.size(); i++) {
             entity = entities.get(i);
             vo = commExpService.createService().convertEntityToObj(entity);
             if(null !== entity.proposer ){
-               vo.proposer  = dateTimeStrs.format(entity.proposer);
+               vo.proposer  = dateSdf.format(entity.proposer);
             }else if (null !== entity.applicationDepartment ) {
-               vo.applicationDepartment  = dateTimeStrs.format(entity.applicationDepartment);
+               vo.applicationDepartment  = dateSdf.format(entity.applicationDepartment);
             }else if (null !== entity.identifierTime ) {
-                vo.identifierTime  = dateTimeStrs.format(entity.identifierTime);
+                vo.identifierTime  = dateSdf.format(entity.identifierTime);
+            }else if(null !== entity.headdate ){
+                vo.headdate  = dateSdf.format(entity.headdate);
+            }else if(null !== entity.departmentdate ){
+                vo.departmentdate  = dateSdf.format(entity.departmentdate);
+            }else if(null !== entity.approvaldate ){
+                vo.approvaldate  = dateSdf.format(entity.approvaldate);
+            }else if(null !== entity.maketable ){
+                vo.maketable  = dateSdf.format(entity.maketable);
             }
             vos.add(vo);
         }

@@ -32,6 +32,7 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
   private static final long serialVersionUID = 2875243938624745L;
   //编号
   private String systemRenewalApplicationNo;
+  private Date maketable;
   //系统数据转换计划
   //信息系统名称
   private String informationSystemName;
@@ -58,6 +59,18 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
   private String informationDepartment;
   //公司领导审批
   private String companyLeadershipApproval;
+
+  private String headperson;
+
+  private Date headdate;
+
+  private String departmentperson;
+
+  private Date departmentdate;
+
+  private String approvalperson;
+
+  private Date approvaldate;
 
   @NotBlank
   @Column(name="F_RENEWALAPPLICATIONNO",length=300)
@@ -86,7 +99,6 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.masterName = masterName;
   }
 
-  @NotBlank
   @Column(name="F_ADDRESS")
   public String getAddress() {
     return address;
@@ -95,7 +107,6 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.address = address;
   }
 
-  @NotBlank
   @Column(name="F_UPDATECONTENT")
   public String getUpdateContent() {
     return updateContent;
@@ -104,7 +115,6 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.updateContent = updateContent;
   }
 
-  @NotBlank
   @Column(name="F_INCIDENCE")
   public String getIncidence() {
     return incidence;
@@ -113,9 +123,7 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.incidence = incidence;
   }
 
-  @NotNull
-  @DateTime
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+  @Temporal(TemporalType.DATE)
   @Column(name="F_PROPOSER",length=300)
   public Date getProposer() {
     return proposer;
@@ -124,9 +132,7 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.proposer = proposer;
   }
 
-  @NotNull
-  @DateTime
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+  @Temporal(TemporalType.DATE)
   @Column(name="F_APPLICATIONDEPARTMENT")
   public Date getApplicationDepartment() {
     return applicationDepartment;
@@ -135,7 +141,6 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.applicationDepartment = applicationDepartment;
   }
 
-  @NotBlank
   @Column(name="F_DEPARTMENTHEAD")
   public String getDepartmentHead() {
     return departmentHead;
@@ -144,7 +149,6 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.departmentHead = departmentHead;
   }
 
-  @NotBlank
   @Column(name="F_DEPARTMENT")
   public String getInformationDepartment() {
     return informationDepartment;
@@ -153,7 +157,6 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.informationDepartment = informationDepartment;
   }
 
-  @NotBlank
   @Column(name="F_SHIPAPPROVAL")
   public String getCompanyLeadershipApproval() {
     return companyLeadershipApproval;
@@ -162,7 +165,6 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
     this.companyLeadershipApproval = companyLeadershipApproval;
   }
 
-  @NotBlank
   @Column(name="F_IDENTIFIERPERSONNAL")
   public String getIdentifierPersonnal() {
     return identifierPersonnal;
@@ -171,9 +173,7 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
    this.identifierPersonnal = identifierPersonnal;
   }
 
-  @NotNull
-  @DateTime
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+  @Temporal(TemporalType.DATE)
   @Column(name="F_IDENTIFIERTIME")
   public Date getIdentifierTime() {
     return identifierTime;
@@ -181,4 +181,72 @@ public class SystemDataConversionClan extends RevisionDomainEntity{
   public void setIdentifierTime(Date identifierTime) {
     this.identifierTime = identifierTime;
   }
+
+
+  @Column(name = "F_HEADPERSON")
+  public String getHeadperson() {
+    return headperson;
+  }
+
+  public void setHeadperson(String headperson) {
+    this.headperson = headperson;
+  }
+
+  @Temporal(TemporalType.DATE)
+  @Column(name = "F_HEADDATE")
+  public Date getHeaddate() {
+    return headdate;
+  }
+
+  public void setHeaddate(Date headdate) {
+    this.headdate = headdate;
+  }
+
+  @Column(name = "F_DEPARTMENTPERSON")
+  public String getDepartmentperson() {
+    return departmentperson;
+  }
+
+  public void setDepartmentperson(String departmentperson) {
+    this.departmentperson = departmentperson;
+  }
+
+  @Temporal(TemporalType.DATE)
+  @Column(name = "F_DEPARTMENTDATE")
+  public Date getDepartmentdate() {
+    return departmentdate;
+  }
+
+  public void setDepartmentdate(Date departmentdate) {
+    this.departmentdate = departmentdate;
+  }
+
+  @Column(name = "F_APPROVALPERSON")
+  public String getApprovalperson() {
+    return approvalperson;
+  }
+
+  public void setApprovalperson(String approvalperson) {
+    this.approvalperson = approvalperson;
+  }
+
+  @Temporal(TemporalType.DATE)
+  @Column(name = "F_APPROVALDATE")
+  public Date getApprovaldate() {
+    return approvaldate;
+  }
+
+  public void setApprovaldate(Date approvaldate) {
+    this.approvaldate = approvaldate;
+  }
+
+  @Column(name = "F_MAKETABLE")
+  @Temporal(TemporalType.DATE)
+  public Date getMaketable() {
+    return maketable;
+  }
+  public void setMaketable(Date maketable) {
+    this.maketable = maketable;
+  }
+
 }
