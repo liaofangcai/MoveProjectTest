@@ -31,9 +31,9 @@ public class SysHostReplace extends RevisionDomainEntity{
 	 */
 	private String sysNumber;
 	/**
-	 * 制表日期
+	 * 系统名称
 	 */
-	private Date makeDate;
+	private String sysName; 
 	/**
 	 * 主机名称
 	 */
@@ -68,15 +68,6 @@ public class SysHostReplace extends RevisionDomainEntity{
 	}
 	public void setSysNumber(String sysNumber) {
 		this.sysNumber = sysNumber;
-	}
-	
-	@Column(name="F_MAKE_DATE")
-	@JsonFormat(pattern="yyyy-MM-dd")
-	public Date getMakeDate() {
-		return makeDate;
-	}
-	public void setMakeDate(Date makeDate) {
-		this.makeDate = makeDate;
 	}
 	
 	@Column(name="F_HOST_NAME",length=300)
@@ -116,8 +107,8 @@ public class SysHostReplace extends RevisionDomainEntity{
 		this.operationDate = operationDate;
 	}
 	
-	@Column(name="F_UPDATE_CONTENT",length=300)
- 	@NullableSize(max=100)
+	@Column(name="F_UPDATE_CONTENT",length=2000)
+ 	@NullableSize(max=666)
 	public String getUpdateContent() {
 		return updateContent;
 	}
@@ -125,12 +116,21 @@ public class SysHostReplace extends RevisionDomainEntity{
 		this.updateContent = updateContent;
 	}
 	
-	@Column(name="F_REMANKS",length=300)
- 	@NullableSize(max=100)
+	@Column(name="F_REMANKS",length=2000)
+ 	@NullableSize(max=666)
 	public String getRemarks() {
 		return remarks;
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	
+	@Column(name="F_SYS_NAME",length=300)
+ 	@NullableSize(max=100)
+	public String getSysName() {
+		return sysName;
+	}
+	public void setSysName(String sysName) {
+		this.sysName = sysName;
 	}
 }

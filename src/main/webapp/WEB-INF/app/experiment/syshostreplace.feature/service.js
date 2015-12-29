@@ -25,11 +25,7 @@ exports.createService = function() {
             // 按照自己的要求处理数据
             for (i = 0; i < entities.size(); i++) {
                 entity = entities.get(i);
-
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.makeDate){
-                     vo.makeDate = dateSdf.format(entity.makeDate);
-                 }
                  if (null!==entity.operationDate) {
                     vo.operationDate=dateSdf.format(entity.operationDate);
                  };

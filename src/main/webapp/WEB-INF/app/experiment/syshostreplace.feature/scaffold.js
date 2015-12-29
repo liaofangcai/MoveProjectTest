@@ -2,10 +2,12 @@ var {mark}                    = require('cdeio/mark');
 var {json}                    = require('cdeio/response');
 var logger = require('ringo/logging').getLogger(module.id);
 var {SysHostReplace}= com.zyeeda.business.experiment.entity;
+
+var {SimpleDateFormat}          = java.text;
+var {Date}                      = java.util;
+
 exports.style = 'grid';
-
 exports.enableFrontendExtension = true;
-
 exports.haveFilter = true;
 
 exports.entityLabel = '系统主机更新记录';
@@ -18,12 +20,12 @@ exports.filters ={
 
 exports.labels = {
      sysNumber: '编号',
-     makeDate: '制表日期',
+     sysName: '系统名称',
      hostNmae: "主机名称",
      hostUrl: '主机地址',
      operationPerson: '操作人',
      operationDate: '操作时间',
-     updateContent: '更新内容',
+     updateContent: '更新内容(文件)',
      remarks: '备注'
 };
 
@@ -41,9 +43,7 @@ exports.forms = {
 
 exports.fieldGroups = {
  defaults: [
-     'sysNumber', 
-     {name: 'makeDate', type: 'datepicker'},
-     'hostUrl', 'hostNmae', 'operationPerson',
+     'sysNumber', 'sysName', 'hostUrl', 'hostNmae', 'operationPerson',
      {name: 'operationDate', type: 'datepicker'},
      {name: 'updateContent', type: 'textarea', colspan: 2},
      {name: 'remarks',type: 'textarea', colspan: 2}
@@ -54,12 +54,12 @@ exports.fieldGroups = {
 };
 
 exports.grid = {
-     columns: ['sysNumber', 'makeDate', 'hostNmae', 'hostUrl', 'operationPerson'],
+     columns: ['sysNumber', 'sysName', 'hostNmae', 'hostUrl', 'operationPerson'],
      filterToolbar: true,
      fixedHeader: true,
      numberColumn: true,
      multiple: true,
-     defaultOrder: 'makeDate-desc'
+     defaultOrder: 'operationDate-desc'
 };
 
 exports.operators = {
@@ -73,6 +73,14 @@ exports.operators = {
 
 
 exports.doWithRouter = function(router) {
+    router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/syshostreplace').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;
