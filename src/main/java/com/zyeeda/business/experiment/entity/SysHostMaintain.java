@@ -31,10 +31,6 @@ public class SysHostMaintain extends RevisionDomainEntity{
 	 */
 	private String sysName;
 	/**
-	 * 制表日期
-	 */
-	private Date makeDate;
-	/**
 	 * 维护日期
 	 */
 	private Date maintainDate;
@@ -42,6 +38,10 @@ public class SysHostMaintain extends RevisionDomainEntity{
      * 维护人
      */
     private String  maintionPerson;
+    /**
+     * 系统名称
+     */
+    private String sysNum;
     /**
      * 主机名称
      */
@@ -67,16 +67,6 @@ public class SysHostMaintain extends RevisionDomainEntity{
 	}
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
-	}
-	
-	@Column(name="F_MAKE_DATE")
-	@JsonFormat(pattern="yyyy-MM-dd")
-    @NullableSize(max=100)
-	public Date getMakeDate() {
-		return makeDate;
-	}
-	public void setMakeDate(Date makeDate) {
-		this.makeDate = makeDate;
 	}
 	
 	@Column(name="F_MAINTAIN_DATE")
@@ -132,5 +122,14 @@ public class SysHostMaintain extends RevisionDomainEntity{
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	
+	@Column(name="F_SYS_NUM",length=300)
+    @NullableSize(max=100)
+	public String getSysNum() {
+		return sysNum;
+	}
+	public void setSysNum(String sysNum) {
+		this.sysNum = sysNum;
 	}
 }

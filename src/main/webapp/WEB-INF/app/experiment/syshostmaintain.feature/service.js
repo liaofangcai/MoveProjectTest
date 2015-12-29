@@ -28,9 +28,6 @@ exports.createService = function() {
                 entity = entities.get(i);
 
                 vo = commExpService.createService().convertEntityToObj(entity);
-                if(null !== entity.makeDate){
-                     vo.makeDate = dateSdf.format(entity.makeDate);
-                 }
                  if (null !== entity.maintainDate) {
                     vo.maintainDate = dateSdf.format(entity.maintainDate);
                  };
