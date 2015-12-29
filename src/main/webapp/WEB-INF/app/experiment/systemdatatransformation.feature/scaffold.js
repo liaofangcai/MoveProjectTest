@@ -2,10 +2,12 @@ var {mark}                    = require('cdeio/mark');
 var {json}                    = require('cdeio/response');
 var logger = require('ringo/logging').getLogger(module.id);
 var {SystemDataTransformation}= com.zyeeda.business.experiment.entity;
+
+var {SimpleDateFormat}          = java.text;
+var {Date}                      = java.util;
+
 exports.style = 'grid';
-
 exports.enableFrontendExtension = true;
-
 exports.haveFilter = true;
 
 exports.entityLabel = '系统数据转换确认单';
@@ -60,7 +62,7 @@ exports.fieldGroups = {
      {name: 'validationContent', type: 'textarea', colspan: 2},
      {name: 'validationConclusion', type: 'textarea', colspan: 2},
      {name: 'validationPerson', type: 'text'},
-     {name: 'validationData', type: 'datepicker', label: '日期'}
+     {name: 'validationData', type: 'datepicker'}
      ],
  filter: [
      'sysName', 'makeDate', 'inSysName'
@@ -88,6 +90,14 @@ exports.operators = {
 
 
 exports.doWithRouter = function(router) {
+    router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/systemdatatransformation').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;
