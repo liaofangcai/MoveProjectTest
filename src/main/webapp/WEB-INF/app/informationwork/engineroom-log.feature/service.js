@@ -24,8 +24,6 @@ exports.createService = function() {
                 vo = commExpService.createService().convertEntityToObj(entity);
             if(null !== entity.engineroomLogDate ){
                 vo.engineroomLogDate  = dateSdf.format(entity.engineroomLogDate);
-            }else if(null !== entity.makeTable ){
-                vo.makeTable  = dateSdf.format(entity.makeTable);
             }
             vos.add(vo);
         }

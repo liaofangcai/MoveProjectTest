@@ -39,7 +39,7 @@ public class EngineroomLog extends RevisionDomainEntity{
 
   private String mark;
 
-  private Date makeTable;
+
 
   @NotBlank
   @Column(name = "F_ENGINEROOMLOG_NO", length = 300)
@@ -50,7 +50,6 @@ public class EngineroomLog extends RevisionDomainEntity{
   	this.engineroomLogNo = engineroomLogNo;
   }
 
-  @NotNull
   @Temporal(TemporalType.DATE)
   @Column(name = "F_ENGINEROOMLOG_DATE")
   public Date getEngineroomLogDate() {
@@ -75,15 +74,5 @@ public class EngineroomLog extends RevisionDomainEntity{
   }
   public void setMark(String mark) {
     this.mark = mark;
-  }
-
-  @NotNull
-  @Temporal(TemporalType.DATE)
-  @Column(name="F_MAKETABLE")
-  public Date getMakeTable() {
-    return makeTable;
-  }
-  public void setMakeTable(Date makeTable) {
-    this.makeTable = makeTable;
   }
 }

@@ -36,9 +36,8 @@ exports.service = function(service){
 exports.labels = {
   engineroomLogNo: '日志编号',
   engineroomLogDate: '日期',
-  engineroomLogWork: '工作内容',
-  mark: '备注',
-  makeTable: '制表日期'
+  engineroomLogWork: '工作事项(内容)',
+  mark: '备注'
 };
 
 exports.forms = {
@@ -69,13 +68,14 @@ exports.forms = {
 exports.fieldGroups = {
   defaults:
   [
-  {name: 'engineroomLogNo', colspan: 2}, 'engineroomLogDate', 'makeTable',
+  'engineroomLogNo', 'engineroomLogDate',
   {name: 'engineroomLogWork', type: 'textarea',colspan:2},
   {name: 'mark', type: 'textarea', colspan: 2}
   ],
 
   filter:
-  ['engineroomLogNo', {name: 'engineroomLogDate', type: 'date-range'}]
+  ['engineroomLogNo', {name: 'engineroomLogDate', type: 'date-range'}, 'engineroomLogWork', 'mark'
+  ]
 };
 
 exports.grid = {
