@@ -14,8 +14,8 @@ exports.labels = {
   modelStandard : '规格型号',
   company: '单位',
   number: '数量',
-  univalent: '单价',
-  money: '金额'
+  univalent: '单价(元)',
+  money: '金额(元)'
 };
 exports.forms = {
     edit: {

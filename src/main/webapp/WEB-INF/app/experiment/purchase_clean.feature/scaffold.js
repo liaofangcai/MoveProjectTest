@@ -25,7 +25,7 @@ exports.labels = {
   sellerContacts: '联系人',
   buyers: '需求方名称',
   buyersContacts: '联系人',
-  telephone: '电话',
+  telephone: '联系电话',
   contactsNumber: '联系电话',
   purchaseDate: '日期',
   deliveryDate: '交货日期',
@@ -77,6 +77,7 @@ exports.grid = {
   multiple: true,
   defaultOrder: 'deliveryDate-desc'
 };
+
 exports.operators = {
   exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
 };
@@ -88,6 +89,15 @@ exports.exporting = {
 
 
 exports.doWithRouter = function(router) {
+  router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
+
     //导出数据
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/purchase_clean').on(function (exportXlsSvc, interformationSvc, request) {
          var options = request.params,result;
