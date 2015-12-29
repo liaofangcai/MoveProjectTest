@@ -24,6 +24,12 @@ exports.createService = function() {
             vo = commExpService.createService().convertEntityToObj(entity);
             if(null !== entity.systemRenewalApplicationDate ){
                 vo.systemRenewalApplicationDate  = dateSdf.format(entity.systemRenewalApplicationDate);
+            }else if(null !== entity.headdate ){
+                vo.headdate  = dateSdf.format(entity.headdate);
+            }else if(null !== entity.departmentdate ){
+                vo.departmentdate  = dateSdf.format(entity.departmentdate);
+            }else if(null !== entity.approvaldate ){
+                vo.approvaldate  = dateSdf.format(entity.approvaldate);
             }
             vos.add(vo);
         }

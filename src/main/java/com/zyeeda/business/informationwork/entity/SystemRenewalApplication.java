@@ -57,6 +57,18 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 	//公司领导审批
 	private String companyLeadershipApproval;
 
+	private String headperson;
+
+	private Date headdate;
+
+	private String departmentperson;
+
+	private Date departmentdate;
+
+	private String approvalperson;
+
+	private Date approvaldate;
+
 	@NotBlank
 	@Column(name="F_RENEWALAPPLICATIONNO",length=300)
 	public String getSystemRenewalApplicationNo() {
@@ -76,7 +88,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.systemRenewalApplicationDate = systemRenewalApplicationDate;
 	}
 
-	@NotBlank
 	@Column(name="F_SYSTEMNAME",length=300)
 	public String getInformationSystemName() {
 		return informationSystemName;
@@ -85,7 +96,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.informationSystemName = informationSystemName;
 	}
 
-	@NotBlank
 	@Column(name ="F_MASTERNAME")
 	public String getMasterName() {
 		return masterName;
@@ -94,7 +104,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.masterName = masterName;
 	}
 
-	@NotBlank
 	@Column(name="F_ADDRESS")
 	public String getAddress() {
 		return address;
@@ -103,7 +112,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.address = address;
 	}
 
-	@NotBlank
 	@Column(name="F_UPDATECONTENT")
 	public String getUpdateContent() {
 		return updateContent;
@@ -112,7 +120,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.updateContent = updateContent;
 	}
 
-	@NotBlank
 	@Column(name="F_INCIDENCE")
 	public String getIncidence() {
 		return incidence;
@@ -121,7 +128,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.incidence = incidence;
 	}
 
-	@NotBlank
 	@Column(name="F_PROPOSER",length=300)
 	public String getProposer() {
 		return proposer;
@@ -130,7 +136,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.proposer = proposer;
 	}
 
-	@NotBlank
 	@Column(name="F_APPLICATION")
 	public String getApplicationDepartment() {
 		return applicationDepartment;
@@ -139,7 +144,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.applicationDepartment = applicationDepartment;
 	}
 
-	@NotBlank
 	@Column(name="F_DEPARTMENTHEAD")
 	public String getDepartmentHead() {
 		return departmentHead;
@@ -148,7 +152,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.departmentHead = departmentHead;
 	}
 
-	@NotBlank
 	@Column(name="F_INFORMATION")
 	public String getInformationDepartment() {
 		return informationDepartment;
@@ -157,7 +160,6 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 		this.informationDepartment = informationDepartment;
 	}
 
-	@NotBlank
 	@Column(name="F_LEADERSHIPAPPROVAL")
 	public String getCompanyLeadershipApproval() {
 		return companyLeadershipApproval;
@@ -165,4 +167,63 @@ public class SystemRenewalApplication extends RevisionDomainEntity{
 	public void setCompanyLeadershipApproval(String companyLeadershipApproval) {
 		this.companyLeadershipApproval = companyLeadershipApproval;
 	}
+
+	@Column(name = "F_HEADPERSON")
+	public String getHeadperson() {
+		return headperson;
+	}
+
+	public void setHeadperson(String headperson) {
+		this.headperson = headperson;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "F_HEADDATE")
+	public Date getHeaddate() {
+		return headdate;
+	}
+
+	public void setHeaddate(Date headdate) {
+		this.headdate = headdate;
+	}
+
+	@Column(name = "F_DEPARTMENTPERSON")
+	public String getDepartmentperson() {
+		return departmentperson;
+	}
+
+	public void setDepartmentperson(String departmentperson) {
+		this.departmentperson = departmentperson;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "F_DEPARTMENTDATE")
+	public Date getDepartmentdate() {
+		return departmentdate;
+	}
+
+	public void setDepartmentdate(Date departmentdate) {
+		this.departmentdate = departmentdate;
+	}
+
+	@Column(name = "F_APPROVALPERSON")
+	public String getApprovalperson() {
+		return approvalperson;
+	}
+
+	public void setApprovalperson(String approvalperson) {
+		this.approvalperson = approvalperson;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "F_APPROVALDATE")
+	public Date getApprovaldate() {
+		return approvaldate;
+	}
+
+	public void setApprovaldate(Date approvaldate) {
+		this.approvaldate = approvaldate;
+	}
+
+
 }
