@@ -30,6 +30,8 @@ public class AutomaticBatchOperation extends RevisionDomainEntity {
 
 	private static final long serialVersionUID = 728277543938624745L;
 
+      private String name;
+
 	private String systemUpdateRecordsNo;
 
 	private String systemUpdateRecordsName;
@@ -62,7 +64,6 @@ public class AutomaticBatchOperation extends RevisionDomainEntity {
     this.systemUpdateRecordsName = systemUpdateRecordsName;
   }
 
-  	@NotBlank
   	@Column(name = "F_ADDRESS", length = 300)
   	public String getAddress() {
   		return this.address;
@@ -72,7 +73,7 @@ public class AutomaticBatchOperation extends RevisionDomainEntity {
   		this.address = address;
   	}
 
-  @NotBlank
+
   @Column(name = "F_OPERATINGPERSONNEL", length = 300)
   public String getOperatingPersonnel() {
     return operatingPersonnel;
@@ -81,7 +82,6 @@ public class AutomaticBatchOperation extends RevisionDomainEntity {
     this.operatingPersonnel = operatingPersonnel;
   }
 
-  @NotNull
   @Column(name = "F_OPERATETIME")
   @Temporal(TemporalType.DATE)
   public Date getOperateTime() {
@@ -92,7 +92,7 @@ public class AutomaticBatchOperation extends RevisionDomainEntity {
   }
 
   @NotBlank
-  @Column(name = "F_UPDATECONTENT")
+  @Column(name = "F_UPDATECONTENT", length = 2000)
   @NullableSize(max = 1333)
   public String getUpdateContent() {
     return updateContent;
@@ -101,11 +101,19 @@ public class AutomaticBatchOperation extends RevisionDomainEntity {
     this.updateContent = updateContent;
   }
 
-  @Column(name = "F_MARK")
+  @Column(name = "F_MARK", length = 600)
   public String getMark() {
     return mark;
   }
   public void setMark(String mark) {
     this.mark = mark;
+  }
+
+  @Column(name = "F_NAME")
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
   }
 }

@@ -22,7 +22,7 @@ exports.enableFrontendExtension = true;
 
 exports.haveFilter = true;
 
-exports.entityLabel = '自动批次作业表';
+exports.entityLabel = '系统自动批次作业列表';
 
 exports.filters = {
   defaults: {'!automaticBatchOperationFilter': ['']}
@@ -34,6 +34,7 @@ exports.service = function(service){
 
 exports.labels = {
   systemUpdateRecordsNo: '编号',
+  name: '系统名称',
   systemUpdateRecordsName: '所在主机名称',
   address: '所在主机地址',
   operatingPersonnel:'job名称',
@@ -66,20 +67,19 @@ exports.forms = {
 
 exports.fieldGroups = {
   defaults: [
-  'systemUpdateRecordsNo', 'systemUpdateRecordsName', 'operatingPersonnel', 'operateTime',
-  {name: 'address', type: 'textarea', colspan: 2},
+  'systemUpdateRecordsNo', 'name', 'systemUpdateRecordsName', 'address', 'operateTime', 'operatingPersonnel',
   {name:'updateContent', type: 'textarea', colspan: 2},
   {name: 'mark', type: 'textarea', colspan: 2}
   ],
 
   filter: [
-    'systemUpdateRecordsNo','operatingPersonnel', {name: 'operateTime', type: 'date-range'}
+    'systemUpdateRecordsNo', 'name', 'systemUpdateRecordsName',
+    'operatingPersonnel', {name: 'operateTime', type: 'date-range'}
   ]
 };
 
 exports.grid = {
-  columns: ['systemUpdateRecordsNo', 'systemUpdateRecordsName', 'address', {name: 'updateContent',
-  type: 'textarea'}],
+  columns: ['systemUpdateRecordsNo', 'name', 'systemUpdateRecordsName', 'address', 'operatingPersonnel' ],
   filterToolbar: true,
   fixedHeader: true,
   numberColumn: true,
@@ -89,7 +89,7 @@ exports.grid = {
 
 exports.exporting = {
   template: 'informationwork/automaticBatchOperation/automaticBatchOperationModule.xls',
-  fileName: '自动批次作业表'
+  fileName: '系统自动批次作业列表'
 };
 
 exports.operators = {
