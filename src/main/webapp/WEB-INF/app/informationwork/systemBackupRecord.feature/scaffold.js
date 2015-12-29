@@ -41,9 +41,9 @@ exports.labels = {
   backupMethod: '备份方式',
   backupPersonnel:'备份人',
   backupFormat:'备份格式',
-  backupCapacity:'备份容量',
+  backupCapacity:'备份容量大小',
   backupContent:'备份内容',
-  backupAddress:'存放地址',
+  backupAddress:'存放地点',
   mark: '备注'
 };
 
@@ -79,12 +79,12 @@ exports.fieldGroups = {
   ],
 
   filter: [
-    'systemBackupRecordNo', 'backupPersonnel', {name: 'backupTime', type: 'date-range'}
+    'systemBackupRecordNo', 'name', 'backupAddress', 'backupPersonnel', {name: 'backupTime', type: 'date-range'}
    ]
 };
 
 exports.grid = {
-  columns: ['systemBackupRecordNo', 'name', 'backupTime', 'backupContent',
+  columns: ['systemBackupRecordNo', 'name', 'backupTime',
   'backupPersonnel'
   ],
   filterToolbar: true,

@@ -75,8 +75,7 @@ public class RoomRegistration extends RevisionDomainEntity{
     this.address = address;
   }
 
-  @NotBlank
-  @Column(name = "F_OPERATINGPERSONNEL", length = 300)
+  @Column(name = "F_OPERATINGPERSONNEL", length = 2000)
   public String getOperatingPersonnel() {
     return operatingPersonnel;
   }
@@ -84,7 +83,6 @@ public class RoomRegistration extends RevisionDomainEntity{
     this.operatingPersonnel = operatingPersonnel;
   }
 
-  @NotBlank
   @Column(name = "F_OPERATETIME")
   public String getOperateTime() {
     return operateTime;
@@ -93,7 +91,6 @@ public class RoomRegistration extends RevisionDomainEntity{
     this.operateTime = operateTime;
   }
 
-  @NotNull
   @DateTime
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
   @Column(name = "F_UPDATECONTENT")
@@ -104,7 +101,7 @@ public class RoomRegistration extends RevisionDomainEntity{
    this.updateContent = updateContent;
   }
 
-  @Column(name = "F_MARK")
+  @Column(name = "F_MARK", length = 300)
   public String getMark() {
     return mark;
   }

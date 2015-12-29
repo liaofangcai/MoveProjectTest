@@ -69,7 +69,6 @@ public class SystemBackupRecord extends RevisionDomainEntity{
     this.systemBackupRecordNo = systemBackupRecordNo;
   }
 
-  @NotNull
   @DateTime
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
   @Column(name="F_BACKUPTIME")
@@ -80,7 +79,6 @@ public class SystemBackupRecord extends RevisionDomainEntity{
     this.backupTime = backupTime;
   }
 
-  @NotBlank
   @Column(name="F_BACKUPMETHOD")
   public String getBackupMethod() {
     return backupMethod;
@@ -89,7 +87,6 @@ public class SystemBackupRecord extends RevisionDomainEntity{
     this.backupMethod = backupMethod;
   }
 
-  @NotBlank
   @Column(name="F_BACKUPPERSONNEL")
   public String getBackupPersonnel() {
     return backupPersonnel;
@@ -98,7 +95,6 @@ public class SystemBackupRecord extends RevisionDomainEntity{
     this.backupPersonnel = backupPersonnel;
   }
 
-  @NotBlank
   @Column(name="F_BACKUPFORMAT")
   public String getBackupFormat() {
     return backupFormat;
@@ -107,7 +103,6 @@ public class SystemBackupRecord extends RevisionDomainEntity{
     this.backupFormat = backupFormat;
   }
 
-  @NotBlank
   @Column(name="F_BACKUPCAPACITY")
   public String getBackupCapacity() {
     return backupCapacity;
@@ -116,7 +111,6 @@ public class SystemBackupRecord extends RevisionDomainEntity{
     this.backupCapacity = backupCapacity;
   }
 
-  @NotBlank
   @Column(name="F_BACKUPCONTENT")
   public String getBackupContent() {
     return backupContent;
@@ -125,7 +119,6 @@ public class SystemBackupRecord extends RevisionDomainEntity{
     this.backupContent = backupContent;
   }
 
-  @NotBlank
   @Column(name="F_BACKUPADDRESS")
   public String getBackupAddress() {
     return backupAddress;
