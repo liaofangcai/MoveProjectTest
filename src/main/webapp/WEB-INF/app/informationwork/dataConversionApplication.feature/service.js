@@ -25,9 +25,15 @@ exports.createService = function() {
                 if(null !== entity.applicationTime ){
                     vo.applicationTime  = dateSdf.format(entity.applicationTime);
                 }else if (null !== entity.proposer ) {
-                    vo.proposer  = dateTimeStrs.format(entity.proposer);
+                    vo.proposer  = dateSdf.format(entity.proposer);
                 }else if (null !== entity.applicationDepartment ) {
-                    vo.applicationDepartment  = dateTimeStrs.format(entity.applicationDepartment);
+                    vo.applicationDepartment  = dateSdf.format(entity.applicationDepartment);
+                }else if(null !== entity.headdate ){
+                vo.headdate  = dateSdf.format(entity.headdate);
+                }else if(null !== entity.departmentdate ){
+                    vo.departmentdate  = dateSdf.format(entity.departmentdate);
+                }else if(null !== entity.approvaldate ){
+                    vo.approvaldate  = dateSdf.format(entity.approvaldate);
                 }
                 vos.add(vo);
             }

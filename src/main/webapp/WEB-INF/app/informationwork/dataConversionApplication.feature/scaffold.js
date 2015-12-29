@@ -13,6 +13,7 @@ var {SimpleDateFormat}                   = java.text;
 var {Date}                                          = java.util;
 var {ArrayList}                                   = java.util;
 var URLDecoder                               = java.net.URLDecoder;
+var dateTimeStr                  = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 exports.style = 'grid';
 
@@ -42,21 +43,30 @@ exports.labels = {
   updateContent:'影响范围',
   incidence:'数据转换详情',
   proposer: '转换开始时间',
-  applicationDepartment:'完成转换时间',
+  applicationDepartment:'转换完成时间',
   identifierPersonnal:'申请人',
   identifierTime:'申请部门',
   //审核意见
   departmentHead:'部门主管意见',
   informationDepartment:'信息部门意见',
   companyLeadershipApproval: '公司领导审批',
+
+  headperson: '处理人',
+  headdate: '处理日期',
+
+  departmentperson: '处理人',
+  departmentdate: '处理日期',
+
+  approvalperson: '处理人',
+  approvaldate: '处理日期'
 };
 
 exports.forms = {
   edit: {
     groups: [
     {name: 'defaults',columns:2},
-    {name: 'remoteAccessApplications',label:'数据转换计划',columns:2},
-    {name: 'auditOpinion',label: '审核意见'}
+    {name: 'remoteAccessApplications',label:'系统数据转换申请',columns:2},
+    {name: 'auditOpinion',label: '审核意见', columns: 2}
     ],
     size: 'medium'
   },
@@ -64,8 +74,8 @@ exports.forms = {
   show: {
     groups: [
     {name: 'defaults',columns:2},
-    {name: 'remoteAccessApplications',label:'数据转换计划',columns:2},
-    {name: 'auditOpinion',label: '审核意见'}
+    {name: 'remoteAccessApplications',label:'系统数据转换申请',columns:2},
+    {name: 'auditOpinion',label: '审核意见', columns: 2}
     ],
     size: 'medium'
   },
@@ -73,44 +83,44 @@ exports.forms = {
   add: {
     groups: [
     {name: 'defaults',columns:2},
-    {name: 'remoteAccessApplications',label:'数据转换计划',columns:2},
-    {name: 'auditOpinion',label: '审核意见'}
+    {name: 'remoteAccessApplications',label:'系统数据转换申请',columns:2},
+    {name: 'auditOpinion',label: '审核意见', columns: 2}
     ],
     size: 'medium'
   },
 
   filter: {
-    groups: [{name: 'filter',columns:2}],
+    groups: [{name: 'filter'}],
     size: 'medium'
   }
 };
 
 exports.fieldGroups = {
-  defaults: ['systemRenewalApplicationNo','applicationTime'],
+  defaults: ['systemRenewalApplicationNo', {name: 'applicationTime', defaultValue: dateTimeStr},],
   //申请部门
   remoteAccessApplications: [
   'informationSystemName','masterName',
   {name: 'address',type :'textarea' ,colspan : 2},{name: 'incidence',type :'textarea' ,colspan : 2},
-  {name: 'updateContent',type :'textarea' ,colspan : 2}, {name: 'proposer', type: 'datetimepicker', statusChanger: true},
-  {name: 'applicationDepartment', type: 'datetimepicker', statusChanger: true},'identifierPersonnal','identifierTime'
+  {name: 'updateContent',type :'textarea' ,colspan : 2}, 'proposer',
+  'applicationDepartment', 'identifierPersonnal','identifierTime'
   ],
   //审核意见
   auditOpinion: [
-  {name: 'departmentHead', type: 'textarea'},
-  {name: 'informationDepartment',type:  'textarea'},
-  {name : 'companyLeadershipApproval',type:  'textarea'}
+  {name: 'departmentHead', type: 'textarea', colspan: 2}, 'headperson', 'headdate',
+  {name: 'informationDepartment',type:  'textarea', colspan: 2}, 'departmentperson', 'departmentdate',
+  {name : 'companyLeadershipApproval',type:  'textarea', colspan: 2} ,'approvalperson', 'approvaldate'
   ],
 
   filter: [
   'systemRenewalApplicationNo','informationSystemName', 'identifierPersonnal','identifierTime',
-  {name: 'applicationTime', type: 'date-range'}, {name: 'applicationDepartment',type: 'date-range'}
+  {name: 'applicationTime', type: 'date-range', colspan: 2}, {name: 'applicationDepartment',type: 'date-range', colspan: 2}
   ]
 };
 
 exports.grid = {
   columns: [
-  'systemRenewalApplicationNo', 'applicationTime','informationSystemName','proposer','applicationDepartment',
-  'identifierTime','identifierPersonnal'
+  'systemRenewalApplicationNo', 'informationSystemName','proposer','applicationDepartment',
+  'identifierPersonnal'
   ],
   filterToolbar: true,
   fixedHeader: true,
