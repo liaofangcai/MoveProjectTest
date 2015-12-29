@@ -65,7 +65,6 @@ public class PlanBackup extends RevisionDomainEntity{
     this.systemUpdateRecordsNo = systemUpdateRecordsNo;
   }
 
-  @NotNull
   @DateTime
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
   @Column(name = "F_SYSTEMUPDATERECORDSNAME")
@@ -76,7 +75,6 @@ public class PlanBackup extends RevisionDomainEntity{
     this.systemUpdateRecordsName = systemUpdateRecordsName;
   }
 
-  @NotBlank
   @Column(name = "F_ADDRESS")
   public String getAddress() {
     return address;
@@ -85,7 +83,6 @@ public class PlanBackup extends RevisionDomainEntity{
     this.address = address;
   }
 
-  @NotBlank
   @Column(name = "F_OPERATINGPERSONNEL", length = 300)
   public String getOperatingPersonnel() {
     return operatingPersonnel;
@@ -94,8 +91,7 @@ public class PlanBackup extends RevisionDomainEntity{
     this.operatingPersonnel = operatingPersonnel;
   }
 
-  @NotBlank
-  @Column(name = "F_OPERATETIME")
+  @Column(name = "F_OPERATETIME", length = 2000)
   public String getOperateTime() {
     return operateTime;
   }
@@ -103,7 +99,6 @@ public class PlanBackup extends RevisionDomainEntity{
     this.operateTime = operateTime;
   }
 
-  @NotBlank
   @Column(name = "F_UPDATECONTENT")
   public String getUpdateContent() {
     return updateContent;
@@ -112,7 +107,7 @@ public class PlanBackup extends RevisionDomainEntity{
     this.updateContent = updateContent;
   }
 
-  @Column(name = "F_MARK")
+  @Column(name = "F_MARK", length = 600)
   public String getMark() {
     return mark;
   }

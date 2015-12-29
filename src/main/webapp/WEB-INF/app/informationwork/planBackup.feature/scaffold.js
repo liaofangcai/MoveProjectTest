@@ -74,7 +74,8 @@ exports.fieldGroups = {
   ],
 
   filter: [
-  'systemUpdateRecordsNo',  {name: 'systemUpdateRecordsName', type: 'date-range'}
+  'systemUpdateRecordsNo', 'name', 'address', 'operatingPersonnel',
+  {name: 'systemUpdateRecordsName', type: 'date-range'}
    ]
 };
 
