@@ -95,6 +95,14 @@ exports.exporting = {
 };
 
 exports.doWithRouter = function(router) {
+    router.get('/get-current-info', function (request) {
+        var date = new Date(),
+            sd = new SimpleDateFormat("yyyy-MM-dd"),
+            createdTime,
+            result = {};
+            result.createdTime =  sd.format(date);
+        return json({result: result}, exports.filters.accountsFilter);
+    });
     //导出数据
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/pleaseenoughdata').on(function (exportXlsSvc, interformationSvc, request) {
          var options = request.params,result;

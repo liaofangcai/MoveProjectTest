@@ -15,8 +15,8 @@ exports.labels = {
   standardModel : '规格型号',
   company: '单位',
   number: '数量',
-  estimatePrice: '预计价格',
-  estimateCost: '预计费用'
+  estimatePrice: '预计价格(元)',
+  estimateCost: '预计费用(元)'
 };
 exports.forms = {
     edit: {
