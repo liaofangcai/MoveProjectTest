@@ -1,0 +1,100 @@
+{{#layout}}
+<div id="tripapply-container"></div>
+{{/layout}}
+
+{{#view "tripapply-printarea"}}
+<div id="printArea" style="margin-left: 40px;margin-right: 40px; margin-top: 20px; ">
+{{#each tripApplys}}
+  <div>
+      <div style = "font-size: 20px; font-family: SimSun;">
+          <p style = "text-align: center; font-weight: bold;">研发需求申请单</p>
+      </div>
+      <table border = "0" cellpadding = "3" cellspacing = "0" margin = "0" width = "100%" bgcolor = "#ffffff" style = "text-align: left; border-collapse: collapse;" >
+          <tr style = "height: 30px;">
+            <td  style = " font-weight:bold; ">编号：{{researchNumber}}</td>
+            <td style = " font-weight:bold; text-align: right;">制表日期：{{makeDate}}&nbsp&nbsp</td>
+          </tr>
+      </table>
+      <div style="text-align:center; font-family: SimSun;">
+        <table border = "1" cellpadding = "3" cellspacing = "0" margin = "0" width = "100%" bgcolor = "#ffffff" style = "text-align: left; border-collapse: collapse;" >
+            <tr style = "height: 30px;">
+              <td style = " font-weight:bold; text-align: center;">事由简述</td>
+              <td colspan="5">{{brifeIntroduction}}</td>
+            </tr>
+            <tr style = "height: 30px;">
+              <td  style = " font-weight:bold; text-align: center;">项目类别</td>
+              <td colspan="2" style="width: 200px;">{{projectType}}</td>
+              <td style = " font-weight:bold; text-align: center;">需求提出人</td>
+              <td colspan="2" style="width: 200px;">{{demandPutForword}}</td>
+            </tr>
+            <tr style = "height: 30px;">
+              <td  style = " font-weight:bold; text-align: center;">需求提出时间</td>
+              <td colspan="2">{{demandForworDate}}</td>
+              <td  style = "font-weight:bold; text-align: center;">所属部门</td>
+              <td colspan="2">{{atttibuteDept}}</td>
+            </tr>
+            <tr style = "height: 30px;">
+            <td style = "font-weight:bold; text-align: center;">联系方式</td>
+            <td colspan="5">{{contactInformating}}</td>
+            </tr>
+            <tr >
+              <td colspan="6" style="text-align: left;">
+                <div style="height: 150px;">
+                <b>主要原因或背景（识别并确认客户或者系统产品开发的需求，市场应用定位等）：</b>
+                  <p>　　{{reason}}</p>
+                </div>
+              </td>
+            </tr>
+            <tr >
+              <td colspan="6" style="text-align: left;">
+                <div style="height: 150px;">
+                <b>功能/性能/业务、通信规约、交互接口、技术规范等需求：</b>
+                  <p>　　{{function}}</p>
+                </div>
+              </td>
+            </tr>
+            <tr >
+              <td colspan="6" style="text-align: left;">
+                <div style="height: 140px;">
+                <b>完成任务（客户/系统产品开发）的进度要求：</b>
+                  <p>　　{{completeTask}}</p>
+                </div>
+              </td>
+            </tr>
+            <tr >
+              <td colspan="6" style="text-align: left;">
+                <div style="height: 120px;">
+                <b>研发部（系统软件开发部、开发测试部开发组、预付费产品开发组）审核意见：</b>
+                  <p>　　{{examineOpinion}}</p>
+                </div>
+               <div style="height: 20px;float: right;">
+                        <table border = "0" >
+                          <tr>
+                            <td style=" text-align: left; width:160px; ">处理人：{{examineSign}} </td>
+                            <td style=" text-align: left;width:160px;">日期：{{examineDate}}&nbsp&nbsp</td>
+                          </tr>
+                        </table>
+                </div>
+              </td>
+            </tr>
+            <tr >
+              <td colspan="6" style="text-align: left;">
+                <div style="height: 120px;">
+                <b>批准意见：</b>
+                  <p>　　{{ratifyOpinion}}</p>
+                </div>
+                <div style="height: 20px;float: right;">
+                        <table border = "0" >
+                          <tr>
+                            <td style=" text-align: left; width:160px; ">处理人：{{ratifySign}} </td>
+                            <td style=" text-align: left;width:160px;">日期：{{ratifyDate}}&nbsp&nbsp</td>
+                          </tr>
+                        </table>
+                </div>
+              </td>
+            </tr>
+        </table>
+      </div>
+  {{/each}}
+</div>
+{{/view}}
