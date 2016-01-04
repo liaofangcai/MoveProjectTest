@@ -13,6 +13,10 @@ var {SimpleDateFormat}      = java.text;
 
 exports.createService = function() {
     return{
+        getTripApplyByIds: mark('managers', InformationSystem).mark('tx').on(function (tripApplyMgr, entryIds){
+            return tripApplyMgr.find.apply(tripApplyMgr, entryIds);
+        }),
+
         exportExcel: mark('beans',EntityMetaResolver).on(function (resolver, options, exportModule, exportFileName) {
             var beans = new HashMap(),
                 vo, vos = new ArrayList(),

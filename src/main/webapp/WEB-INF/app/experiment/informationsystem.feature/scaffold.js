@@ -69,7 +69,7 @@ exports.fieldGroups = {
   ],
 
  userApplication: [
-     'inSysName', 
+     'inSysName',
      {name: 'sysCondition', type: 'textarea', colspan: 2},
      {name: 'completeTest', type: 'dropdown', defaultValue: '是',source: [{id:'是', text: '是'},{id:'否', text: '否'}]},
      {name: 'relateSys', type: 'dropdown', defaultValue: '是',source: [{id:'是', text: '是'},{id:'否', text: '否'}]},
@@ -103,7 +103,8 @@ exports.grid = {
 };
 
 exports.operators = {
-     exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
+     exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' },
+     print: {label: '打印', icon: 'icon-print', group: '30-custom', order: 200, show: 'always', style: 'btn-info'}
  };
 
  exports.exporting = {
@@ -112,6 +113,16 @@ exports.operators = {
  };
 
  exports.doWithRouter = function(router) {
+
+    router.get('/get-researchdemand-by-id', mark('services', 'experiment/InformationSystem', 'common-routers').on(function (tripApplySvc, commSvc, request) {
+    var entryIds = request.params.selectedDataIds, result, tripApplys,
+    entryIdArr = new String(entryIds).split(","), i;
+
+    tripApplys = tripApplySvc.getTripApplyByIds(entryIdArr);
+
+    return json({tripApplys: tripApplys}, exports.filters.defaults);
+    }));
+
     router.get('/get-current-info', function (request) {
         var date = new Date(),
             sd = new SimpleDateFormat("yyyy-MM-dd"),
@@ -120,7 +131,7 @@ exports.operators = {
             result.createdTime =  sd.format(date);
         return json({result: result}, exports.filters.accountsFilter);
     });
-    
+
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/InformationSystem').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;
