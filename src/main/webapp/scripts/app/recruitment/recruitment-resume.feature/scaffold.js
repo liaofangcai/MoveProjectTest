@@ -23,9 +23,7 @@ define([
 
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
         },
-
         afterShowInlineGridDialog: function(dialogType, view, data){
-
             if('add' == dialogType ){
                 $('input[name = "whetherSign"]',view.$el).change(
                     function(){

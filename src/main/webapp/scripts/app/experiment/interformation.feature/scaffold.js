@@ -46,7 +46,7 @@ define([
                         }
                     }else{
                         $.ajax({
-                            url: 'invoke/scaffold/experiment/interformation/get_interformation_sys',
+                            url: 'invoke/scaffold/experiment/interformation',
                             type: 'get',
                             async: false,
                             cache: false

@@ -113,6 +113,7 @@ exports.doWithRouter = function(router) {
             result.createdTime =  sd.format(date);
         return json({result: result}, exports.filters.accountsFilter);
     });
+
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/interformation').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;
@@ -122,11 +123,11 @@ exports.doWithRouter = function(router) {
 
         return json({flag: result.flag, filename: result.filename});
     }));
+    
     router.get('/get_interformation_sys', mark('services', 'experiment/interformation').on(function (inSvc, request) {
-        var entryIds = request.params.selectedDataIds;
-  
-        entryIdArr = new String(entryIds).split(",");
-        tripApplys = inSvc.getTripApplyByIds(entryIdArr);
-        return json({tripApplys: tripApplys}, exports.filters.defaults);
+         var entryIds = request.params.selectedDataIds, result, informations,
+         entryIdArr = new String(entryIds).split(",");
+        informations = inSvc.getTripApplyByIds(entryIdArr);
+        return json({informations: informations}, exports.filters.defaults);
     }));
 }

@@ -11,7 +11,7 @@ define([
             $('input[name= "appliedTime"]', view.$el).attr('disabled', true);
             $('input[name = "applier"]',view.$el).attr('disabled', true);
             if ("add" == dialogType) {
-                   //取当前时间
+                   取当前时间
                 me.feature.request({
                     url: 'get-current-info',
                     type: 'get'
