@@ -1,0 +1,111 @@
+{{#layout}}
+<div id="tripapply-container"></div>
+{{/layout}}
+
+{{#view "tripapply-printarea"}}
+<div id="printArea" style="margin-left: 40px;margin-right: 40px; margin-top: 20px; ">
+{{#each tripApplys}}
+  <div>
+      <div style = "font-size: 20px; font-family: SimSun;">
+          <p style = "text-align: center; font-weight: bold;">信息系统上线申请单</p>
+      </div>
+      <table border = "0" cellpadding = "3" cellspacing = "0" margin = "0" width = "100%" bgcolor = "#ffffff" style = "text-align: left; border-collapse: collapse;" >
+          <tr style = "height: 30px;">
+            <td  style = " font-weight:bold; ">编号：{{inSysNumber}}</td>
+            <td style = " font-weight:bold; text-align: right;">申请日期：{{aplicationDate}}&nbsp&nbsp</td>
+          </tr>
+      </table>
+      <div style="text-align:center; font-family: SimSun;">
+        <table border = "1" cellpadding = "3" cellspacing = "0" margin = "0" width = "100%" bgcolor = "#ffffff" style = "text-align: left; border-collapse: collapse;" >
+            <tr style = "height: 98px;">
+              <td  rowspan="6"  style = "font-weight:bold; text-align: center; width: 20px">
+              <div >上线申请</div>
+              </td>
+              <td style = "font-weight:bold; height: 40px; text-align: center; width: 100px;  ">信息系统名称</td>
+              <td colspan="3">{{inSysName}}</td>
+            </tr>
+            <tr style = "height: 98px;">
+              <td style = "font-weight:bold; height: 40px; text-align: center; width: 100px; ">系统情况说明</td>
+              <td colspan="3">{{sysCondition}}</td>
+            </tr>
+            <tr style = "height: 70px;">
+              <td style = "font-weight:bold; height: 40px; text-align: center; width: 100px; ">是否完成测试</td>
+              <td colspan="3">{{completeTest}}</td>
+            </tr>
+            <tr style = "height: 98px;">
+              <td style = "font-weight:bold; height: 40px; text-align: center; width: 100px; ">测试情况</td>
+              <td colspan="3">{{testCondition}}</td>
+            </tr>
+            <tr style = "height: 98px;">
+              <td style = "font-weight:bold; width: 100px; height: 40px; text-align: center; ">上线系统是否涉及其它系统</td>
+              <td colspan="3">
+                <div style="height: 20px;">
+                  <p>{{relateSys}}</p>
+                </div>
+                <div style="margin-right: 40px; text-align: left; ">
+                         <p>备注：{{comments}}</p>
+                </div>
+              </td>
+            </tr>
+            <tr style = "height: 98px;">
+              <td style = "font-weight:bold; height: 40px; text-align: center; width: 100px;  " >申请人</td>
+              <td>{{aplicationPerson}}</td>
+              <td style = "font-weight:bold; width: 100px; text-align: center; ">申请部门</td>
+              <td>{{aplicationDept}}</td>
+            </tr>
+            <tr style = "height: 30px;">
+              <td rowspan="3" style = "font-weight:bold; text-align: center;width: 20px ">
+              <div>审核意见</div>
+              </td>
+              <td style = "font-weight:bold; text-align: center;  width: 100px; ">部门主管意见</td>
+              <td colspan="3">
+                <div style="height: 80px; text-align: center;">
+                  <p>　　{{deptDirector}}</p>
+                </div>
+                <div style="height: 20px;float: right;">
+                        <table border = "0" >
+                          <tr>
+                            <td style=" text-align: left; width:160px; ">处理人：{{depeHandle}}  </td>
+                            <td style=" text-align: left; width: 160px;">日期：{{deptDate}}&nbsp&nbsp</td>
+                          </tr>
+                        </table>
+                </div>
+              </td>
+            </tr>
+            <tr style = "height: 30px;">
+              <td style = "font-weight:bold; text-align: center; width: 100px; ">实施部门意见</td>
+              <td colspan="3">
+                <div style="height: 80px; text-align: center;">
+                  <p>　　{{implementDept}}</p>
+                </div>
+                <div style="height: 20px;float: right;">
+                        <table border = "0" >
+                          <tr>
+                            <td style=" text-align: left; width:160px; ">处理人：{{impleHandle}}  </td>
+                            <td style=" text-align: left; width: 160px;">日期：{{implementDate}}&nbsp&nbsp</td>
+                          </tr>
+                        </table>
+                </div>
+              </td>
+            </tr>
+            <tr style = "height: 30px;">
+              <td style = "font-weight:bold; text-align: center;  width: 100px; ">公司领导审批</td>
+              <td colspan="3">
+                <div style="height: 80px; text-align: center;">
+                  <p>　　{{corportionlead}}</p>
+                </div>
+               <div style="height: 20px;float: right;">
+                        <table border = "0" >
+                          <tr>
+                            <td style=" text-align: left; width:160px; ">处理人：{{corportionPerson}} </td>
+                            <td style=" text-align: left;width:160px;">日期：{{corportionDate}}&nbsp&nbsp</td>
+                          </tr>
+                        </table>
+                </div>
+              </td>
+            </tr>
+        </table>
+      </div>
+  {{/each}}
+</div>
+{{/view}}
