@@ -85,7 +85,8 @@ filter: [
  };
 
 exports.operators = {
-     exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
+     exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' },
+     print: {label: '打印', icon: 'icon-print', group: '30-custom', order: 200, show: 'always', style: 'btn-info'}
 };
 
 exports.exporting = {
@@ -112,5 +113,12 @@ exports.doWithRouter = function(router) {
         result = interformationSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
 
         return json({flag: result.flag, filename: result.filename});
-    }))
+    }));
+
+    router.get('/get_interformation_sys', mark('services', 'experiment/mettingrecord').on(function (inSvc, request) {
+         var entryIds = request.params.selectedDataIds, result, mettingrecords,
+         entryIdArr = new String(entryIds).split(",");
+         mettingrecords = inSvc.getTripApplyByIds(entryIdArr);
+        return json({mettingrecords: mettingrecords}, exports.filters.defaults);
+    }));
 }

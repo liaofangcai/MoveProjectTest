@@ -38,7 +38,9 @@ exports.createService = function() {
             beans.put('footer', '操作时间:' + dateTimeStr);
 
             return commExpService.createService().exportExcel(beans, exportModule, exportFileName);
+        }),
+        getTripApplyByIds: mark('managers', MettingRecord).mark('tx').on(function (inforMgr, entryIds){
+            return inforMgr.find.apply(inforMgr, entryIds);
         })
-
     };
 }
