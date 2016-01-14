@@ -24,7 +24,10 @@ exports.cdeio = {
 
     // 信息作业
     'com.zyeeda.business.experiment.entity',
-    'com.zyeeda.business.informationwork.entity'
+    'com.zyeeda.business.informationwork.entity',
+
+    // 信息循环
+    'com.zyeeda.business.informationcycle.entity'
   ],
 
   orms: [
