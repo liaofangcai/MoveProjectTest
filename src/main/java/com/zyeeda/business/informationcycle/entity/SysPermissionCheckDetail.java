@@ -44,6 +44,8 @@ public class SysPermissionCheckDetail extends RevisionDomainEntity{
   private Date startDate;
   /**
    * 是否仍在使用
+   * in: 在用
+   * notIn: 停用
    */
   private String ifInUse;
   /**

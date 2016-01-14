@@ -31,7 +31,7 @@ public class SysPermissionCheck extends RevisionDomainEntity{
    */
   private String checkName;
   /**
-   *系统名称
+   * 系统名称
    */
   private String sysName;
   /**
@@ -43,7 +43,7 @@ public class SysPermissionCheck extends RevisionDomainEntity{
    */
   private String checkMan;
   /**
-   * 检查日期日期
+   * 检查日期
    */
   private Date checkDate;
   /**

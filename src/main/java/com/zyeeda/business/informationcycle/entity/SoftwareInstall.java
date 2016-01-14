@@ -58,7 +58,7 @@ public class SoftwareInstall extends RevisionDomainEntity{
    */
   private String remark;
   /**
-   * 系统账号权限清查明细
+   * 软件安装情况清查明细
    */
   private List<SoftwareInstallDetail> softwareInstallDetails;
 
