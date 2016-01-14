@@ -26,7 +26,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 @Scaffold("/informationcycle/yearsbudget-detail")
 public class YearsBudgetDetail extends RevisionDomainEntity{
   /**
-   * 重点工作项目
+   * 需求说明
    */
   private String demandExplain;
   /**
@@ -78,6 +78,10 @@ public class YearsBudgetDetail extends RevisionDomainEntity{
    */
   private Integer december;
   /**
+   * 合计
+   */
+  private Integer total;
+  /**
    * 销售订单
    */
   private YearsBudget yearsBudget;
@@ -103,7 +107,7 @@ public class YearsBudgetDetail extends RevisionDomainEntity{
 
   @Column(name = "F_FEBRUARY", length = 20)
   @Min(value = 0)
-  public Integer geFebruary() {
+  public Integer getFebruary() {
     return february;
   }
   public void setFebruary(Integer february) {
@@ -112,7 +116,7 @@ public class YearsBudgetDetail extends RevisionDomainEntity{
 
   @Column(name = "F_MARCH", length = 20)
   @Min(value = 0)
-  public Integer geMarch() {
+  public Integer getMarch() {
     return march;
   }
   public void setMarch(Integer march) {
@@ -121,7 +125,7 @@ public class YearsBudgetDetail extends RevisionDomainEntity{
 
   @Column(name = "F_APRIL", length = 20)
   @Min(value = 0)
-  public Integer geApril() {
+  public Integer getApril() {
     return april;
   }
   public void setApril(Integer april) {
@@ -198,6 +202,15 @@ public class YearsBudgetDetail extends RevisionDomainEntity{
   }
   public void setDecember(Integer december) {
     this.december = december;
+  }
+
+  @Column(name = "F_TOTAL", length = 20)
+  @Min(value = 0)
+  public Integer getTotal() {
+    return total;
+  }
+  public void setTotal(Integer total) {
+    this.total = total;
   }
 
   @ManyToOne

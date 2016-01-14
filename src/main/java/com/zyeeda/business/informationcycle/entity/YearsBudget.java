@@ -112,7 +112,7 @@ public class YearsBudget extends RevisionDomainEntity{
 
   @Column(name = "F_TOTAL", length = 20)
   @Min(value = 0)
-  public Integer geTotal() {
+  public Integer getTotal() {
     return total;
   }
   public void setTotal(Integer total) {
