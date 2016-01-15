@@ -32,55 +32,55 @@ public class YearsBudgetDetail extends RevisionDomainEntity{
   /**
    * 一月
    */
-  private Integer january;
+  private Double january;
   /**
    * 二月
    */
-  private Integer february;
+  private Double february;
   /**
    * 三月
    */
-  private Integer march;
+  private Double march;
   /**
    * 四月
    */
-  private Integer april;
+  private Double april;
   /**
    * 五月
    */
-  private Integer may;
+  private Double may;
   /**
    * 六月
    */
-  private Integer june;
+  private Double june;
   /**
    * 七月
    */
-  private Integer july;
+  private Double july;
   /**
    * 八月
    */
-  private Integer august;
+  private Double august;
   /**
    * 九月
    */
-  private Integer september;
+  private Double september;
   /**
    * 十月
    */
-  private Integer october;
+  private Double october;
   /**
    * 十一月
    */
-  private Integer november;
+  private Double november;
   /**
    * 十二月
    */
-  private Integer december;
+  private Double december;
   /**
    * 合计
    */
-  private Integer total;
+  private Double total;
   /**
    * 销售订单
    */
@@ -98,118 +98,118 @@ public class YearsBudgetDetail extends RevisionDomainEntity{
 
   @Column(name = "F_JANUARY", length = 20)
   @Min(value = 0)
-  public Integer getJanuary() {
+  public Double getJanuary() {
     return january;
   }
-  public void setJanuary(Integer january) {
+  public void setJanuary(Double january) {
     this.january = january;
   }
 
   @Column(name = "F_FEBRUARY", length = 20)
   @Min(value = 0)
-  public Integer getFebruary() {
+  public Double getFebruary() {
     return february;
   }
-  public void setFebruary(Integer february) {
+  public void setFebruary(Double february) {
     this.february = february;
   }
 
   @Column(name = "F_MARCH", length = 20)
   @Min(value = 0)
-  public Integer getMarch() {
+  public Double getMarch() {
     return march;
   }
-  public void setMarch(Integer march) {
+  public void setMarch(Double march) {
     this.march = march;
   }
 
   @Column(name = "F_APRIL", length = 20)
   @Min(value = 0)
-  public Integer getApril() {
+  public Double getApril() {
     return april;
   }
-  public void setApril(Integer april) {
+  public void setApril(Double april) {
     this.april = april;
   }
 
   @Column(name = "F_MAY", length = 20)
   @Min(value = 0)
-  public Integer getMay() {
+  public Double getMay() {
     return may;
   }
-  public void setMay(Integer may) {
+  public void setMay(Double may) {
     this.may = may;
   }
 
   @Column(name = "F_JUNE", length = 20)
   @Min(value = 0)
-  public Integer getJune() {
+  public Double getJune() {
     return june;
   }
-  public void setJune(Integer june) {
+  public void setJune(Double june) {
     this.june = june;
   }
 
   @Column(name = "F_JULY", length = 20)
   @Min(value = 0)
-  public Integer getJuly() {
+  public Double getJuly() {
     return july;
   }
-  public void setJuly(Integer july) {
+  public void setJuly(Double july) {
     this.july = july;
   }
 
   @Column(name = "F_AUGUST", length = 20)
   @Min(value = 0)
-  public Integer getAugust() {
+  public Double getAugust() {
     return august;
   }
-  public void setAugust(Integer august) {
+  public void setAugust(Double august) {
     this.august = august;
   }
 
   @Column(name = "F_SEPTEMBER", length = 20)
   @Min(value = 0)
-  public Integer getSeptember() {
+  public Double getSeptember() {
     return september;
   }
-  public void setSeptember(Integer september) {
+  public void setSeptember(Double september) {
     this.september = september;
   }
 
   @Column(name = "F_OCTOBER", length = 20)
   @Min(value = 0)
-  public Integer getOctober() {
+  public Double getOctober() {
     return october;
   }
-  public void setOctober(Integer october) {
+  public void setOctober(Double october) {
     this.october = october;
   }
 
   @Column(name = "F_NOVEMBER", length = 20)
   @Min(value = 0)
-  public Integer getNovember() {
+  public Double getNovember() {
     return november;
   }
-  public void setNovember(Integer november) {
+  public void setNovember(Double november) {
     this.november = november;
   }
 
   @Column(name = "F_DECEMBER", length = 20)
   @Min(value = 0)
-  public Integer getDecember() {
+  public Double getDecember() {
     return december;
   }
-  public void setDecember(Integer december) {
+  public void setDecember(Double december) {
     this.december = december;
   }
 
   @Column(name = "F_TOTAL", length = 20)
   @Min(value = 0)
-  public Integer getTotal() {
+  public Double getTotal() {
     return total;
   }
-  public void setTotal(Integer total) {
+  public void setTotal(Double total) {
     this.total = total;
   }
 
