@@ -61,7 +61,7 @@ exports.fieldGroups = {
     'approved', {name: 'remark', type: 'textarea', colspan: 2}
   ],
   filter: [
-    'budgetNum', 'budgetName', 'years', {name: 'department', header: '部门'}, 'writer', {name: 'writeDate', type: 'date-range'}
+    'budgetNum', 'budgetName', 'years', 'department.name', 'writer', {name: 'writeDate', type: 'date-range'}
   ],
   inlineYearsBudgetDetailGrid:[
     {label: '年度预算明细', type: 'inline-grid', name: 'yearsBudgetDetails', allowPick: false, allowAdd: true, allowEdit: true}

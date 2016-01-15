@@ -61,7 +61,7 @@ exports.fieldGroups = {
     {name: 'remark', type: 'textarea', colspan: 2}
   ],
   filter: [
-    'planNum', 'planName', 'years', {name: 'department', header: '部门'}, 'writer', {name: 'writeDate', type: 'date-range'}
+    'planNum', 'planName', 'years', 'department.name', 'writer', {name: 'writeDate', type: 'date-range'}
   ],
   inlineYearsPlanDetailGrid:[
     {label: '年度计划明细', type: 'inline-grid', name: 'yearsPlanDetails', allowPick: false, allowAdd: true,
