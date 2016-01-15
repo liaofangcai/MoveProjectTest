@@ -46,6 +46,6 @@ exports.fieldGroups = {
 
 exports['inline-grid'] = {
   columns: [
-    'accountName', 'userName', 'accountType', 'startDate', 'ifInUse'
+    'accountName', 'userName', 'accountType', 'startDate', {name: 'ifInUse', header: '是否仍在使用', renderer: 'useStatus'}
   ]
 };

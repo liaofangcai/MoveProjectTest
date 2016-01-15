@@ -1,7 +1,6 @@
 define([
-    'jquery',
-    'app/commons/export-excel.feature/export-excel-function',
-], function ($, exportUtil) {
+    'jquery'
+], function ($) {
     return {
         afterShowDialog: function(dialogType, view, data){
             var me = this;
@@ -18,6 +17,18 @@ define([
                 });
             }
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
+        },
+        renderers:{
+            useStatus: function(data, param, gridData) {
+                var useStatusMap;
+
+                useStatusMap = {
+                    'in': '在用',
+                    'notIn': '停用'
+                };
+
+                return useStatusMap[data];
+            }
         }
     }
 })
