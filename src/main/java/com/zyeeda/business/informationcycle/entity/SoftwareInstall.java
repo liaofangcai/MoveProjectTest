@@ -136,7 +136,7 @@ public class SoftwareInstall extends RevisionDomainEntity{
     this.remark = remark;
   }
 
-  @OneToMany(mappedBy = "sysPermissionCheck")
+  @OneToMany(mappedBy = "softwareInstall")
   public List<SoftwareInstallDetail> getSoftwareInstallDetails() {
     return softwareInstallDetails;
   }

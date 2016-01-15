@@ -15,7 +15,7 @@ define([
                     //默认当前时间和数量
                     me.feature.model.set('writeDate', result.result.createdTime);
                     if(result.result.department){
-                        me.feature.model.set('department', result.result.department.name);
+                        me.feature.model.set('department',result.result.department);
                     }
                     me.feature.model.set('writer', result.result.applier.realName);
                     me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());

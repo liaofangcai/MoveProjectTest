@@ -49,9 +49,9 @@ public class SoftwareInstallDetail extends RevisionDomainEntity{
    */
   private String remark;
   /**
-   * 系统账户权限清查
+   * 软件安装情况清查明细
    */
-  private SysPermissionCheck sysPermissionCheck;
+  private SoftwareInstall softwareInstall;
 
   @Column(name = "F_PCNAME", length = 500)
   @NotNull
@@ -110,11 +110,11 @@ public class SoftwareInstallDetail extends RevisionDomainEntity{
   }
 
   @ManyToOne
-  @JoinColumn(name = "F_SYSPERMISSIONCHECK_ID" )
-  public SysPermissionCheck getSysPermissionCheck() {
-    return sysPermissionCheck;
+  @JoinColumn(name = "F_SOFTWAREINSTALL_ID" )
+  public SoftwareInstall getSoftwareInstall() {
+    return softwareInstall;
   }
-  public void setSysPermissionCheck(SysPermissionCheck sysPermissionCheck) {
-    this.sysPermissionCheck = sysPermissionCheck;
+  public void setSoftwareInstall(SoftwareInstall softwareInstall) {
+    this.softwareInstall = softwareInstall;
   }
 }
