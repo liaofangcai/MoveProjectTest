@@ -30,7 +30,6 @@ exports.entityLabel = '软件安装情况清查';
 exports.labels = {
   checkNum: '清查单号',
   checkName: '清查名称',
-  sysName: '系统名称',
   years: '年度',
   checkMan: '检查人',
   checkDate: '检查日期',
@@ -54,7 +53,7 @@ exports.forms = {
 
 exports.fieldGroups = {
   defaults: [
-    'checkNum', 'checkName', 'sysName', 'years', 'checkMan', 'checkDate', 'manager',
+    'checkNum', 'checkName', 'years', 'manager', 'checkMan', 'checkDate',
     {name: 'remark', type: 'textarea', colspan: 2}
   ],
   filter: [
@@ -67,7 +66,7 @@ exports.fieldGroups = {
 
 exports.grid = {
   columns: [
-    'checkNum', 'checkName', 'sysName', 'years', 'checkMan', 'checkDate'
+    'checkNum', 'checkName',  'years', 'checkMan', 'checkDate'
   ],
   filterToolbar: true,
   fixedHeader: true,
