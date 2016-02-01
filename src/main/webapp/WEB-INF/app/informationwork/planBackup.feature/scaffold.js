@@ -90,15 +90,15 @@ exports.grid = {
 };
 
 exports.exporting = {
-  template: 'informationwork/planBackup/planBackupModule.xls',
-  fileName: '系统备份计划表'
+  template: 'informationwork/planBackup/planbackup.xls',
+  fileName: 'planbackup'
 };
 
 exports.operators = {
   exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
 };
 exports.doWithRouter = function(router) {
-  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/planBackup').on(function (exportXlsSvc, planBackupSvc, request) {
+  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/planbackup').on(function (exportXlsSvc, planBackupSvc, request) {
     var options = request.params, result;
 
     options = exportXlsSvc.dealParameters(options, planBackupSvc, new PlanBackup());

@@ -95,15 +95,15 @@ exports.grid = {
 };
 
 exports.exporting = {
-  template: 'informationwork/systemBackupRecord/systemBackupRecordModule.xls',
-  fileName: '系统备份记录'
+  template: 'informationwork/systemBackupRecord/systembackuprecord.xls',
+  fileName: 'systembackuprecord'
 };
 
 exports.operators = {
   exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
 };
 exports.doWithRouter = function(router) {
-  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/systemBackupRecord').on(function (exportXlsSvc, systemBackupRecordSvc, request) {
+  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/systembackuprecord').on(function (exportXlsSvc, systemBackupRecordSvc, request) {
     var options = request.params, result;
 
     options = exportXlsSvc.dealParameters(options, systemBackupRecordSvc, new SystemBackupRecord());

@@ -109,12 +109,12 @@ exports.operators = {
 
  exports.exporting = {
      template: 'experiment/informationsystem/informationsystem.xls',
-     fileName: '信息系统上线申请表'
+     fileName: 'informationsystem'
  };
 
  exports.doWithRouter = function(router) {
 
-    router.get('/get-researchdemand-by-id', mark('services', 'experiment/InformationSystem', 'common-routers').on(function (tripApplySvc, commSvc, request) {
+    router.get('/get-researchdemand-by-id', mark('services', 'experiment/informationsystem', 'common-routers').on(function (tripApplySvc, commSvc, request) {
     var entryIds = request.params.selectedDataIds, result, tripApplys,
     entryIdArr = new String(entryIds).split(","), i;
 
@@ -132,7 +132,7 @@ exports.operators = {
         return json({result: result}, exports.filters.accountsFilter);
     });
 
-    router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/InformationSystem').on(function (exportXlsSvc, interformationSvc, request) {
+    router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/informationsystem').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;
         options = exportXlsSvc.dealParameters(options, interformationSvc,new InformationSystem());

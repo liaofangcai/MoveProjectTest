@@ -26,7 +26,7 @@ import com.zyeeda.business.informationwork.entity.AcceptanceCondition;
 
 @Entity
 @Table(name = "BZ_RECEIVING_NOTE")
-@Scaffold("/informationwork/receivingNote")
+@Scaffold("/informationwork/receivingnote")
 public class ReceivingNote extends RevisionDomainEntity{
 
 	private static final long serialVersionUID = 2728277543938624745L;

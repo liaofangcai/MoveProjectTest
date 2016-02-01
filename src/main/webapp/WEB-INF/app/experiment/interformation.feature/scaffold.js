@@ -99,8 +99,8 @@ exports.operators = {
 };
 
 exports.exporting = {
-     template: 'experiment/interformation/Inteformation.xls',
-     fileName: '信息系统账号权限申请信息'
+     template: 'experiment/interformation/inteformation.xls',
+     fileName: 'inteformation'
 };
 
 exports.doWithRouter = function(router) {
@@ -123,7 +123,7 @@ exports.doWithRouter = function(router) {
 
         return json({flag: result.flag, filename: result.filename});
     }));
-    
+
     router.get('/get_interformation_sys', mark('services', 'experiment/interformation').on(function (inSvc, request) {
          var entryIds = request.params.selectedDataIds, result, informations,
          entryIdArr = new String(entryIds).split(",");

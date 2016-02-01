@@ -26,7 +26,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 
 @Entity
 @Table(name = "BZ_BACKUPRECORD")
-@Scaffold("/informationwork/systemBackupRecord")
+@Scaffold("/informationwork/systembackuprecord")
 public class SystemBackupRecord extends RevisionDomainEntity{
 
   private static final long serialVersionUID = 2827543938624745L;

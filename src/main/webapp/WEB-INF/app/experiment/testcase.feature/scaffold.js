@@ -62,7 +62,7 @@ exports.fieldGroups = {
  defaults: [
      'testNumber',
      {name: 'makeDate',type: 'datepicker'},
-     'caseId', 'sysName','theModel', 'submodule', 'prepositionCondition', 'inputData', 
+     'caseId', 'sysName','theModel', 'submodule', 'prepositionCondition', 'inputData',
      'pectOutcome', 'state', 'actualResult',
      {name: 'testStep', type: 'textarea', colspan: 2},
      {name: 'remakesInformation', type: 'textarea', colspan: 2}
@@ -93,7 +93,7 @@ exports.operators = {
 
 exports.exporting = {
     template: 'experiment/testcase/testcase.xls',
-    fileName: '测试用例表'
+    fileName: 'testcase'
 };
 
 exports.doWithRouter = function(router) {
@@ -105,7 +105,7 @@ exports.doWithRouter = function(router) {
             result.createdTime =  sd.format(date);
         return json({result: result}, exports.filters.accountsFilter);
     });
-    
+
     //导出数据
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/testcase').on(function (exportXlsSvc, interformationSvc, request) {
          var options = request.params,

@@ -52,7 +52,7 @@ exports.createService = function() {
                 filename,
                 dataFormat = new SimpleDateFormat('yyyyMMddHHmmssSSS');
 
-            templateFileName = join(config.getOptionInProperties('cdeio.webapp.path'), 'module/export', exportModule);
+            templateFileName = join(config.getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/export', exportModule);
 
             filename = exportFileName + '_' + dataFormat.format(new Date()) + '.' + ext;
             destFilePath = join(config.getOptionInProperties('cdeio.upload.path'), 'export');

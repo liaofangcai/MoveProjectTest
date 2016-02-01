@@ -26,7 +26,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 
 @Entity
 @Table(name = "BZ_DATACONVERSIONCLAN")
-@Scaffold("/informationwork/systemDataConversionClan")
+@Scaffold("/informationwork/systemdataconversionclan")
 public class SystemDataConversionClan extends RevisionDomainEntity{
 
   private static final long serialVersionUID = 2875243938624745L;

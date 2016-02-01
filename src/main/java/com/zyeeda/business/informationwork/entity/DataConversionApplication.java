@@ -26,7 +26,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 
 @Entity
 @Table(name = "BZ_DATACONVERSIONAPPLICATION")
-@Scaffold("/informationwork/dataConversionApplication")
+@Scaffold("/informationwork/dataconversionapplication")
 public class DataConversionApplication extends RevisionDomainEntity{
 
 	private static final long serialVersionUID = 285243938624745L;

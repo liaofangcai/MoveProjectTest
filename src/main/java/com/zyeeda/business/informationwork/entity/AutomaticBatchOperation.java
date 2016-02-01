@@ -25,7 +25,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 
 @Entity
 @Table(name = "BZ_AUTOMATICBATCHOPERATION")
-@Scaffold("/informationwork/automaticBatchOperation")
+@Scaffold("/informationwork/automaticbatchoperation")
 public class AutomaticBatchOperation extends RevisionDomainEntity {
 
 	private static final long serialVersionUID = 728277543938624745L;

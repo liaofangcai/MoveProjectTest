@@ -26,7 +26,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 
 @Entity
 @Table(name = "BZ_PLANBACKUP")
-@Scaffold("/informationwork/planBackup")
+@Scaffold("/informationwork/planbackup")
 public class PlanBackup extends RevisionDomainEntity{
 
   private static final long serialVersionUID = 2827543938624745L;

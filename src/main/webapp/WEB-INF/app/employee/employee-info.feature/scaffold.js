@@ -214,14 +214,14 @@ exports.hooks = {
   }
 };
 exports.exporting = {
-    template: 'employee/employee-info/employeeInfoModule.xls',
-    fileName: '员工信息表'
+    template: 'employee/employee-info/employee-info.xls',
+    fileName: 'employee-info'
 };
 exports.importing = {
     module: 'employeeInfo',
     enable: true,
     dateFormat: 'yyyy/MM/dd',
-    template: 'employee/employee-info/员工信息.xls',
+    template: 'employee/employee-info/employee-info.xls',
     startRow: 2,
     mapping: [
         {name: 'empName', column: 1, tileName: '姓名', type: 'string', isNull: false},
@@ -312,7 +312,7 @@ exports.doWithRouter = function(router) {
 
         if(exports.importing && exports.importing.enable === true){
 
-            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
 
             if(!fs.exists(templateFilePath)){
                 return json({templateExists: false});
@@ -335,13 +335,13 @@ exports.doWithRouter = function(router) {
             return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
         };
 
-        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
 
         if(!fs.exists(templateFilePath)){
             return {result: "附件不存在"};
         }
 
-        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
+        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
     });
     //导出
     router.get('/export-excel', mark('services', 'commons/export-excel', 'employee/employee-info').on(function (exportXlsSvc, employeeInfoSvc, request) {

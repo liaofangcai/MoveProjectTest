@@ -85,7 +85,7 @@ exports.operators = {
 
  exports.exporting = {
      template: 'experiment/systemdatatransformation/systemdatatransformation.xls',
-     fileName: '系统数据转换确认表'
+     fileName: 'systemdatatransformation'
  };
 
 

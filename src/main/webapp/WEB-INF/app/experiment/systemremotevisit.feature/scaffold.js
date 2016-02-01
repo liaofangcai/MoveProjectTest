@@ -109,7 +109,7 @@ exports.operators = {
 
  exports.exporting = {
      template: 'experiment/systemremotevisit/systemremotevisit.xls',
-     fileName: '系统远程访问申请单表'
+     fileName: 'systemremotevisit'
  };
 
 

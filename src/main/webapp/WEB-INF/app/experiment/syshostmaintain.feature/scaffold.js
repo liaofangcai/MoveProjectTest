@@ -45,7 +45,7 @@ exports.fieldGroups = {
  defaults: [
      'sysName',
      {name: 'maintainDate', type: 'datepicker'},
-     'sysNum','maintionPerson', 'hostName', 'maintionReason', 
+     'sysNum','maintionPerson', 'hostName', 'maintionReason',
      {name: 'maintionContent', type: 'textarea', colspan: 2},
      {name: 'remarks', type: 'textarea', colspan: 2}
   ],
@@ -69,9 +69,9 @@ exports.operators = {
 
  exports.exporting = {
      template: 'experiment/syshostmaintain/syshostmaintain.xls',
-     fileName: '系统主机维护记录表'
+     fileName: 'syshostmaintain'
  };
- 
+
 exports.doWithRouter = function(router) {
   router.get('/get-current-info', function (request) {
         var date = new Date(),

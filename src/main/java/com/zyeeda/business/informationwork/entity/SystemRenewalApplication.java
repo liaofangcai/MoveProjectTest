@@ -26,7 +26,7 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
 
 @Entity
 @Table(name = "BZ_RENEWALAPPLICATION")
-@Scaffold("/informationwork/systemRenewalApplication")
+@Scaffold("/informationwork/systemrenewalapplication")
 public class SystemRenewalApplication extends RevisionDomainEntity{
 
 	private static final long serialVersionUID = 287543938624745L;

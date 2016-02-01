@@ -139,8 +139,8 @@ exports.grid = {
 };
 
 exports.exporting = {
-  template: 'informationwork/receivingNote/receivingNoteModule.xls',
-  fileName: '验收单'
+  template: 'informationwork/receivingNote/receivingnote.xls',
+  fileName: 'receivingnote'
 };
 
 exports.operators = {
@@ -148,7 +148,7 @@ exports.operators = {
 };
 
 exports.doWithRouter = function(router) {
-  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/receivingNote').on(function (exportXlsSvc, receivingNoteSvc, request) {
+  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/receivingnote').on(function (exportXlsSvc, receivingNoteSvc, request) {
     var options = request.params, result;
 
     options = exportXlsSvc.dealParameters(options, receivingNoteSvc, new ReceivingNote());

@@ -134,15 +134,15 @@ exports.hooks = {
 };
 
 exports.exporting = {
-    template: 'recruitment/recruitment-demand/recruitmentDemandModule.xls',
-    fileName: '招聘需求信息表'
+    template: 'recruitment/recruitment-demand/recruitmentdemand.xls',
+    fileName: 'recruitmentdemand'
 };
 
 exports.importing = {
     module: 'recruitmentDemand',
     enable: true,
     dateFormat: 'yyyy/MM/dd',
-    template: 'recruitment/recruitment-demand/招聘需求信息.xls',
+    template: 'recruitment/recruitment-demand/recruitmentdemand.xls',
     startRow: 2,
     mapping: [
         {name: 'department', column: 1, tileName: '部门名称', type: 'picker', isNull: false},
@@ -232,7 +232,7 @@ exports.doWithRouter = function(router) {
 
         if(exports.importing && exports.importing.enable === true){
 
-            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
 
             if(!fs.exists(templateFilePath)){
                 return json({templateExists: false});
@@ -254,13 +254,13 @@ exports.doWithRouter = function(router) {
             return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
         };
 
-        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
 
         if(!fs.exists(templateFilePath)){
             return {result: "附件不存在"};
         }
 
-        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
+        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
     });
     //导出数据
     router.get('/export-excel', mark('services', 'commons/export-excel', 'recruitment/recruitment-demand').on(function (exportXlsSvc, recruitmentDemandSvc, request) {

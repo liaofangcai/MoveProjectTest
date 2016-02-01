@@ -140,8 +140,8 @@ exports.grid = {
   defaultOrder: 'createdTime-desc'
 };
 exports.exporting = {
-  template: 'informationwork/changerequest/changerequestModule.xls',
-  fileName: '变更申请'
+  template: 'informationwork/changerequest/changerequest.xls',
+  fileName: 'changerequest'
 };
 exports.operators = {
     exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }

@@ -39,12 +39,12 @@ exports.cdeio = {
     'src/main/resources/META-INF/mappings/system/my-notice.orm.xml',
 
     // 流程
-    'src/main/resources/META-INF/mappings/process/businessDefinition.orm.xml',
-    'src/main/resources/META-INF/mappings/process/processDefinition.orm.xml',
-    'src/main/resources/META-INF/mappings/process/processInstance.orm.xml',
-    'src/main/resources/META-INF/mappings/process/processTaskInfo.orm.xml',
-    'src/main/resources/META-INF/mappings/process/processSettingItem.orm.xml',
-    'src/main/resources/META-INF/mappings/process/approvalHistory.orm.xml',
+    'src/main/resources/META-INF/mappings/process/business-definition.orm.xml',
+    'src/main/resources/META-INF/mappings/process/process-definition.orm.xml',
+    'src/main/resources/META-INF/mappings/process/process-instance.orm.xml',
+    'src/main/resources/META-INF/mappings/process/process-taskInfo.orm.xml',
+    'src/main/resources/META-INF/mappings/process/process-settingItem.orm.xml',
+    'src/main/resources/META-INF/mappings/process/approval-history.orm.xml',
 
     // 数据字典
     'src/main/resources/META-INF/mappings/dictionary/main-dictionary.orm.xml',

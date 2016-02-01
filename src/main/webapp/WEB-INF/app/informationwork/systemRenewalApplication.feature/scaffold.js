@@ -123,15 +123,15 @@ exports.grid = {
 };
 
 exports.exporting = {
-  template: 'informationwork/systemRenewalApplication/systemRenewalApplicationModule.xls',
-  fileName: '系统主机更新申请'
+  template: 'informationwork/systemrenewalapplication/systemrenewalapplication.xls',
+  fileName: 'systemrenewalapplication'
 };
 
 exports.operators = {
   exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
 };
 exports.doWithRouter = function(router) {
-  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/systemRenewalApplication').on(function (exportXlsSvc, systemRenewalApplicationSvc, request) {
+  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/systemrenewalapplication').on(function (exportXlsSvc, systemRenewalApplicationSvc, request) {
     var options = request.params, result;
 
     options = exportXlsSvc.dealParameters(options, systemRenewalApplicationSvc, new SystemRenewalApplication());

@@ -88,8 +88,8 @@ exports.grid = {
 };
 
 exports.exporting = {
-  template: 'informationwork/roomRegistration/roomRegistrationModule.xls',
-  fileName: '机房进出登记记录表'
+  template: 'informationwork/roomRegistration/roomregistration.xls',
+  fileName: 'roomregistration'
 };
 
 exports.operators = {
@@ -97,7 +97,7 @@ exports.operators = {
 };
 
 exports.doWithRouter = function(router) {
-  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/roomRegistration').on(function (exportXlsSvc, roomRegistrationSvc, request) {
+  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/roomregistration').on(function (exportXlsSvc, roomRegistrationSvc, request) {
     var options = request.params, result;
 
     options = exportXlsSvc.dealParameters(options, roomRegistrationSvc, new RoomRegistration());

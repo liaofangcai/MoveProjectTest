@@ -94,8 +94,8 @@ exports.grid = {
 };
 
 exports.exporting = {
-  template: 'informationwork/engineroom-log/engineroomLogModule.xls',
-  fileName: '机房工作日志表'
+  template: 'informationwork/engineroom-log/engineroomlog.xls',
+  fileName: 'engineroomlog'
 };
 
 exports.operators = {

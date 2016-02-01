@@ -88,8 +88,8 @@ exports.grid = {
 };
 
 exports.exporting = {
-  template: 'informationwork/automaticBatchOperation/automaticBatchOperationModule.xls',
-  fileName: '系统自动批次作业列表'
+  template: 'informationwork/automaticBatchOperation/automaticbatchoperation.xls',
+  fileName: 'automaticbatchoperation'
 };
 
 exports.operators = {

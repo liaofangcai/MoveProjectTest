@@ -22,11 +22,11 @@ import com.zyeeda.cdeio.validation.constraint.NullableSize;
  */
 @Entity
 @Table(name="BZ_EX_PURCHASE")
-@Scaffold("/experiment/purchase_clean")
+@Scaffold("/experiment/purchase-clean")
 public class PurchaseCleanSingle extends RevisionDomainEntity {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -90,12 +90,12 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	 */
 	private String generalManager;
 	/**
-	 * 
+	 *
 	 * 与PurchaseDetailed关联
 	 */
 	private List<PurchaseDetailed> pude;
-	
-	
+
+
 	@NotBlank
 	@Column(name="F_PURCHASE_NUMBER",length=300)
 	@NullableSize(max=100)
@@ -105,7 +105,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setPurchaseNumber(String purchaseNumber) {
 		this.purchaseNumber = purchaseNumber;
 	}
-	
+
 	@Column(name="F_SELLER",length=300)
 	@NullableSize(max=100)
 	public String getSeller() {
@@ -114,7 +114,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setSeller(String seller) {
 		this.seller = seller;
 	}
-	
+
 	@Column(name="F_SELLER_CONTACTS",length=300)
 	@NullableSize(max=100)
 	public String getSellerContacts() {
@@ -123,7 +123,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setSellerContacts(String sellerContacts) {
 		this.sellerContacts = sellerContacts;
 	}
-	
+
 	@Column(name="F_BUYERS",length=300)
 	@NullableSize(max=100)
 	public String getBuyers() {
@@ -132,7 +132,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setBuyers(String buyers) {
 		this.buyers = buyers;
 	}
-	
+
 	@Column(name="F_BUYERS_CONTACTS",length=300)
 	@NullableSize(max=100)
 	public String getBuyersContacts() {
@@ -141,7 +141,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setBuyersContacts(String buyersContacts) {
 		this.buyersContacts = buyersContacts;
 	}
-	
+
 	@Column(name="F_TELEPHONE",length=300)
 	@NullableSize(max=100)
 	public String getTelephone() {
@@ -150,7 +150,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	
+
 	@Column(name="F_CONTACTS_NUMBER",length=300)
 	@NullableSize(max=100)
 	public String getContactsNumber() {
@@ -159,7 +159,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setContactsNumber(String contactsNumber) {
 		this.contactsNumber = contactsNumber;
 	}
-	
+
 	@Column(name="F_PUR_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
 	public Date getPurchaseDate() {
@@ -168,7 +168,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setPurchaseDate(Date purchaseDate) {
 		this.purchaseDate = purchaseDate;
 	}
-	
+
 	@Column(name="F_AP_PRESON",length=300)
 	@NullableSize(max=100)
 	public String getAplicationPreson() {
@@ -177,7 +177,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setAplicationPreson(String aplicationPreson) {
 		this.aplicationPreson = aplicationPreson;
 	}
-	
+
 	@Column(name="F_DEPT_DRICTOR",length=300)
 	@NullableSize(max=100)
 	public String getDeptDrictor() {
@@ -186,7 +186,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setDeptDrictor(String deptDrictor) {
 		this.deptDrictor = deptDrictor;
 	}
-	
+
 	@Column(name="F_PURCHASE",length=300)
 	@NullableSize(max=100)
 	public String getPurchase() {
@@ -195,7 +195,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setPurchase(String purchase) {
 		this.purchase = purchase;
 	}
-	
+
 	@Column(name="F_CHECK",length=300)
 	@NullableSize(max=100)
 	public String getCheck() {
@@ -204,7 +204,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setCheck(String check) {
 		this.check = check;
 	}
-	
+
 	@Column(name="F_GENERAL_MANAGER",length=300)
 	@NullableSize(max=100)
 	public String getGeneralManager() {
@@ -213,7 +213,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setGeneralManager(String generalManager) {
 		this.generalManager = generalManager;
 	}
-	
+
 	@Column(name="F_DELIVERY_DATE")
 	@JsonFormat(pattern="yyyy-MM-dd")
 	public Date getDeliveryDate() {
@@ -222,7 +222,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
-	
+
 	@Column(name="F_REMANKS",length=300)
 	@NullableSize(max=100)
 	public String getRemanks() {
@@ -231,7 +231,7 @@ public class PurchaseCleanSingle extends RevisionDomainEntity {
 	public void setRemanks(String remanks) {
 		this.remanks = remanks;
 	}
-	
+
 	@OneToMany(mappedBy="pu",fetch=FetchType.LAZY)
 	public List<PurchaseDetailed> getPude() {
 		return pude;

@@ -195,15 +195,15 @@ exports.hooks = {
 };
 
 exports.exporting = {
-    template: 'attendance/overwork-apply/overWorkApplyModule.xls',
-    fileName: '加班申请信息'
+    template: 'attendance/overwork-apply/overwork-apply.xls',
+    fileName: 'overwork-apply'
 };
 // 报告导入
 exports.importing = {
     module: 'overWorkApply',
     enable: true,
     dateFormat: 'yyyy/MM/dd',
-    template: 'attendance/overwork-apply/加班申请信息.xls',
+    template: 'attendance/overwork-apply/overwork-apply.xls',
     startRow: 2,
     mapping: [
         {name: 'applyNo', column: 1, tileName: '申请单号', type: 'string', isNull: false, unique: true},
@@ -362,7 +362,7 @@ exports.doWithRouter = function(router) {
 
         if(exports.importing && exports.importing.enable === true){
 
-            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
 
             if(!fs.exists(templateFilePath)){
                 return json({templateExists: false});
@@ -385,13 +385,13 @@ exports.doWithRouter = function(router) {
             return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
         };
 
-        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
 
         if(!fs.exists(templateFilePath)){
             return {result: "附件不存在"};
         }
 
-        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
+        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
     });
     //导出
     router.get('/export-excel', mark('services', 'commons/export-excel', 'attendance/overwork-apply').on(function (exportXlsSvc, overWorkApplySvc, request) {

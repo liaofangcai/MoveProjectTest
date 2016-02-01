@@ -43,7 +43,7 @@
                 <Get name="driverProperties">
                     <Put name="URL">jdbc:mysql://localhost:3306/anlmis?pinGlobalTxToPhysicalConnection=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8</Put>
                     <Put name="user">root</Put>
-                    <Put name="password">root</Put>
+                    <Put name="password">mysecretpassword</Put>
                 </Get>
                 <Call name="init"></Call>
             </New>

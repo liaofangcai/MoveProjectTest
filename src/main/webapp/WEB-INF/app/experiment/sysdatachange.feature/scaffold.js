@@ -86,7 +86,7 @@ exports.operators = {
 
  exports.exporting = {
      template: 'experiment/sysdatachange/sysdatachange.xls',
-     fileName: '系统数据变更申请表'
+     fileName: 'sysdatachange'
  };
 
  exports.doWithRouter = function(router) {

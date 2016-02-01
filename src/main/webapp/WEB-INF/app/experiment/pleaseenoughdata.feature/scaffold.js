@@ -63,8 +63,8 @@ exports.forms = {
 
 exports.fieldGroups = {
   defaults:[
-     'pleNo', 'pleData', 'demanDept', 
-     'demandDate', 
+     'pleNo', 'pleData', 'demanDept',
+     'demandDate',
      {name: 'demandReason', type: 'textarea', colspan: 2},
      'aplicationPerson', 'director', 'purchase', 'check', 'generalMnager'
   ],
@@ -90,8 +90,8 @@ exports.operators = {
 };
 
 exports.exporting = {
-  template: 'experiment/please_en_data/please_en_data.xls',
-  fileName: '请购单表'
+  template: 'experiment/please-en-data/please-en-data.xls',
+  fileName: 'please-en-data'
 };
 
 exports.doWithRouter = function(router) {
@@ -106,7 +106,7 @@ exports.doWithRouter = function(router) {
     //导出数据
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/pleaseenoughdata').on(function (exportXlsSvc, interformationSvc, request) {
          var options = request.params,result;
-           options = exportXlsSvc.dealParameters(options, interformationSvc, 
+           options = exportXlsSvc.dealParameters(options, interformationSvc,
             new PleaseEnoughData());
            result = interformationSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
            return json({flag: result.flag, filename: result.filename});

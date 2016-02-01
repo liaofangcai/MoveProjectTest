@@ -87,7 +87,7 @@ exports.operators = {
 
  exports.exporting = {
      template: 'experiment/informationsecurity/inteformationsecurity.xls',
-     fileName: '信息安全培训记录表'
+     fileName: 'inteformationsecurity'
  };
 
  exports.doWithRouter = function(router) {
@@ -99,7 +99,7 @@ exports.operators = {
             result.createdTime =  sd.format(date);
         return json({result: result}, exports.filters.accountsFilter);
     });
-    
+
     router.get('/export-excel', mark('services', 'commons/export-excel', 'experiment/informationsecurity').on(function (exportXlsSvc, interformationSvc, request) {
         var options = request.params,
             result;

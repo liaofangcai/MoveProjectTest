@@ -95,7 +95,7 @@ exports.operators = {
 
  exports.exporting = {
      template: 'experiment/researchdemand/researchdemand.xls',
-     fileName: '研发需求申请表'
+     fileName: 'researchdemand'
  };
 
  exports.doWithRouter = function(router) {

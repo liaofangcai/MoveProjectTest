@@ -163,6 +163,33 @@ INSERT INTO `cde_permission` VALUES ('ad7f8cba-81bd-4b18-bc3d-ef6f42e6244e', '�
 INSERT INTO `cde_permission` VALUES ('bae8c0a7-fca7-4306-b47a-d8f210faf6b6', '综合管理', '查看我的通知', null, 'system/my-notice:show');
 INSERT INTO `cde_permission` VALUES ('e971e4ab-4981-4c32-a643-9754291d25da', '系统流程', '显示流程业务定义界面', null, 'process/business-definition:show');
 INSERT INTO `cde_permission` VALUES ('f2a3c47b-5949-4fc4-abb4-bafd284f1279', '系统流程', '编辑流程定义', null, 'process/process-definition:edit');
+INSERT INTO `cde_permission` VALUES ('1201', '资讯循环>年度计划', '显示年度计划界面', null, 'informationcycle/yearsplan:show');
+INSERT INTO `cde_permission` VALUES ('1202', '资讯循环>年度计划', '添加年度计划', null, 'informationcycle/yearsplan:add');
+INSERT INTO `cde_permission` VALUES ('1203', '资讯循环>年度计划', '编辑年度计划', null, 'informationcycle/yearsplan:edit');
+INSERT INTO `cde_permission` VALUES ('1204', '资讯循环>年度计划', '删除年度计划', null, 'informationcycle/yearsplan:del');
+INSERT INTO `cde_permission` VALUES ('1205', '资讯循环>年度计划', '导出年度计划', null, 'informationcycle/yearsplan:exportExcel');
+INSERT INTO `cde_permission` VALUES ('1206', '资讯循环>年度预算', '显示年度预算界面', null, 'informationcycle/yearsbudget:show');
+INSERT INTO `cde_permission` VALUES ('1207', '资讯循环>年度预算', '添加年度预算', null, 'informationcycle/yearsbudget:add');
+INSERT INTO `cde_permission` VALUES ('1208', '资讯循环>年度预算', '编辑年度预算', null, 'informationcycle/yearsbudget:edit');
+INSERT INTO `cde_permission` VALUES ('1209', '资讯循环>年度预算', '删除年度预算', null, 'informationcycle/yearsbudget:del');
+INSERT INTO `cde_permission` VALUES ('1210', '资讯循环>年度预算', '导出年度预算', null, 'informationcycle/yearsbudget:exportExcel');
+INSERT INTO `cde_permission` VALUES ('1211', '资讯循环>稽核计划', '显示稽核计划界面', null, 'informationcycle/auditplan:show');
+INSERT INTO `cde_permission` VALUES ('1212', '资讯循环>稽核计划', '添加年度计划', null, 'informationcycle/auditplan:add');
+INSERT INTO `cde_permission` VALUES ('1213', '资讯循环>稽核计划', '编辑年度计划', null, 'informationcycle/auditplan:edit');
+INSERT INTO `cde_permission` VALUES ('1214', '资讯循环>稽核计划', '删除年度计划', null, 'informationcycle/auditplan:del');
+INSERT INTO `cde_permission` VALUES ('1215', '资讯循环>稽核计划', '导出年度计划', null, 'informationcycle/auditplan:exportExcel');
+INSERT INTO `cde_permission` VALUES ('1216', '资讯循环>系统账号权限清查', '显示系统账号权限清查界面', null, 'informationcycle/syspermissioncheck:show');
+INSERT INTO `cde_permission` VALUES ('1217', '资讯循环>系统账号权限清查', '添加系统账号权限清查', null, 'informationcycle/syspermissioncheck:add');
+INSERT INTO `cde_permission` VALUES ('1218', '资讯循环>系统账号权限清查', '编辑系统账号权限清查', null, 'informationcycle/syspermissioncheck:edit');
+INSERT INTO `cde_permission` VALUES ('1219', '资讯循环>系统账号权限清查', '删除系统账号权限清查', null, 'informationcycle/syspermissioncheck:del');
+INSERT INTO `cde_permission` VALUES ('1220', '资讯循环>系统账号权限清查', '导出系统账号权限清查', null, 'informationcycle/syspermissioncheck:exportExcel');
+INSERT INTO `cde_permission` VALUES ('1221', '资讯循环>软件安装情况清查', '显示软件安装清查界面', null, 'informationcycle/softwareinstall:show');
+INSERT INTO `cde_permission` VALUES ('1222', '资讯循环>软件安装情况清查', '添加软件安装清查', null, 'informationcycle/softwareinstall:add');
+INSERT INTO `cde_permission` VALUES ('1223', '资讯循环>软件安装情况清查', '编辑软件安装清查', null, 'informationcycle/softwareinstall:edit');
+INSERT INTO `cde_permission` VALUES ('1224', '资讯循环>软件安装情况清查', '删除软件安装清查', null, 'informationcycle/softwareinstall:del');
+INSERT INTO `cde_permission` VALUES ('1225', '资讯循环>年度计划情况清查', '导出软件安装清查', null, 'informationcycle/softwareinstall:exportExcel');
+
+
 
 -- ----------------------------
 -- Table structure for `cde_role`
@@ -256,7 +283,31 @@ INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70'
 INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', 'bae8c0a7-fca7-4306-b47a-d8f210faf6b6');
 INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', 'e971e4ab-4981-4c32-a643-9754291d25da');
 INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', 'f2a3c47b-5949-4fc4-abb4-bafd284f1279');
-
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1201');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1202');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1203');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1204');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1205');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1206');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1207');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1208');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1209');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1210');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1211');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1212');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1213');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1214');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1215');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1216');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1217');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1218');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1219');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1220');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1221');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1222');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1223');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1224');
+INSERT INTO `cde_role_permission` VALUES ('26c49fad-dc2b-4b9a-b8fc-88324e3e0d70', '1225');
 -- ----------------------------
 -- Table structure for `cde_settingitem`
 -- ----------------------------

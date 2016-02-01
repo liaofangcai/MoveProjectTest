@@ -137,14 +137,14 @@ exports.hooks = {
   },
 };
 exports.exporting = {
-  template: 'asset/asset-manage/assetManageModule.xls',
-  fileName: '资产信息表'
+  template: 'asset/asset-manage/assetmanage.xls',
+  fileName: 'assetmanage'
 };
 exports.importing = {
   module: 'assetManage',
   enable: true,
   dateFormat: 'yyyy/MM/dd',
-  template: 'asset/asset-manage/资产信息表.xls',
+  template: 'asset/asset-manage/assetmanage.xls',
   startRow: 2,
   mapping: [
       {name: 'equipmentNo', column: 1, tileName: '资产编号', type: 'string', isNull: false},

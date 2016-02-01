@@ -61,7 +61,7 @@ exports.forms = {
      {name: 'makeDate', type: 'datepicker'},
      {name: 'mettingType', colspan: 2},
      {name: 'mettingDate', type: 'datepicker'},
-     'place', 
+     'place',
      {name: 'joinPersonnel', colspan: 2},
      {name: 'settingSummary', type: 'textarea', colspan: 2},
      {name: 'settingProcess', type: 'textarea', colspan: 2},
@@ -91,7 +91,7 @@ exports.operators = {
 
 exports.exporting = {
     template: 'experiment/mettingrecord/mettingrecord.xls',
-    fileName: '会议记录表'
+    fileName: 'mettingrecord'
 };
 
 exports.doWithRouter = function(router) {

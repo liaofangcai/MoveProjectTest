@@ -22,12 +22,12 @@
         <mapping-file>META-INF/mappings/system/my-notice.orm.xml</mapping-file>
 
         <!-- 流程 -->
-        <mapping-file>META-INF/mappings/process/businessDefinition.orm.xml</mapping-file>
-        <mapping-file>META-INF/mappings/process/processDefinition.orm.xml</mapping-file>
-        <mapping-file>META-INF/mappings/process/processInstance.orm.xml</mapping-file>
-        <mapping-file>META-INF/mappings/process/processTaskInfo.orm.xml</mapping-file>
-        <mapping-file>META-INF/mappings/process/processSettingItem.orm.xml</mapping-file>
-        <mapping-file>META-INF/mappings/process/approvalHistory.orm.xml</mapping-file>
+        <mapping-file>META-INF/mappings/process/business-definition.orm.xml</mapping-file>
+        <mapping-file>META-INF/mappings/process/process-definition.orm.xml</mapping-file>
+        <mapping-file>META-INF/mappings/process/process-instance.orm.xml</mapping-file>
+        <mapping-file>META-INF/mappings/process/process-taskInfo.orm.xml</mapping-file>
+        <mapping-file>META-INF/mappings/process/process-settingItem.orm.xml</mapping-file>
+        <mapping-file>META-INF/mappings/process/approval-history.orm.xml</mapping-file>
 
         <!-- 数据字典 -->
         <mapping-file>META-INF/mappings/dictionary/main-dictionary.orm.xml</mapping-file>

@@ -132,15 +132,15 @@ exports.grid = {
 };
 
 exports.exporting = {
-  template: 'informationwork/systemDataConversionClan/systemDataConversionClanModule.xls',
-  fileName: '系统数据转换计划'
+  template: 'informationwork/systemdataconversionclan/systemdataconversionclan.xls',
+  fileName: 'systemdataconversionclan'
 };
 exports.operators = {
   exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
 };
 
 exports.doWithRouter = function(router) {
-  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/systemDataConversionClan').on(function (exportXlsSvc, systemDataConversionClanSvc, request) {
+  router.get('/export-excel', mark('services', 'commons/export-excel', 'informationwork/systemdataconversionClan').on(function (exportXlsSvc, systemDataConversionClanSvc, request) {
     var options = request.params, result;
 
     options = exportXlsSvc.dealParameters(options, systemDataConversionClanSvc, new SystemDataConversionClan());

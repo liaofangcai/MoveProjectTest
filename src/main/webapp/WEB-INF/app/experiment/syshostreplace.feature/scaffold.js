@@ -68,7 +68,7 @@ exports.operators = {
 
  exports.exporting = {
      template: 'experiment/syshostreplace/syshostreplace.xls',
-     fileName: '系统(主机)更新记录表'
+     fileName: 'syshostreplace'
  };
 
 

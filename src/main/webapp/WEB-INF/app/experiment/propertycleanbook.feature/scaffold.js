@@ -86,7 +86,7 @@ exports.operators = {
 
 exports.exporting = {
     template: 'experiment/propertycleanbook/propertycleanbook.xls',
-    fileName: '资产清册表'
+    fileName: 'propertycleanbook'
 };
 
 exports.doWithRouter = function(router) {
