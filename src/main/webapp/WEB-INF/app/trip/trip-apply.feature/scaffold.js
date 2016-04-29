@@ -38,7 +38,6 @@ exports.filters = {
   }
 };
 
-
 exports.entityLabel = '出差申请单';
 
 exports.labels = {
@@ -205,7 +204,7 @@ exports.importing = {
         {name: 'department', column: 3, tileName: '部门', type: 'picker', isNull: false},
         {name: 'job', column: 4, tileName: '职位', type: 'string', isNull: false},
         {name: 'appliedTime', column: 5, tileName: '申请日期', type: 'date', isNull: false},
-        {name: 'leavedTime', column: 6, tileName: '出发日期', type: 'date', isNull: false},
+        {name: 'leavedTime', column: 6, tileName: '出发日期', type: 'date', isNull: true},
         {name: 'tripPlace', column: 7, tileName: '出差地点', type: 'string', isNull: false},
         {name: 'deputy', column: 8, tileName: '职务代理人', type: 'string', isNull: true},
         {name: 'tripType', column: 9, tileName: '出差类别', type: 'string', isNull: true},
