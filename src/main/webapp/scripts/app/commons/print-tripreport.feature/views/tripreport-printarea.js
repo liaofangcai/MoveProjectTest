@@ -11,12 +11,12 @@
                         trafficCostSum, stayCostSum, costMoneySum, totalCostSum,
                         i, j, k, l;
 
-                    // 返回往后顺延最近的工作日日期.
+                    // 返回出差结束日期往后顺延最近的工作日日期.
                     var getApplyTimeByEndTime = function (endTime) {
                         var applyTimeYear, applyTimeMonth, applyTimeDate,
                             applyTime = new Date(endTime.substr(0, 4), parseInt(endTime.substr(5, 2)) - 1, parseInt(endTime.substr(8, 2)) + 1);
 
-                        // weekday 0 =  "Sunday"
+                        // weekday 0 = "Sunday"
                         // weekday 1 = "Monday"
                         // weekday 2 = "Tuesday"
                         // weekday 3 = "Wednesday"
