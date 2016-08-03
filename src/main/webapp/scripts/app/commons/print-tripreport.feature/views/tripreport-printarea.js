@@ -9,7 +9,32 @@
                         tripCosts = [], costsSize = 0, historysize = 0,
                         selectedDataIds = this.feature.selectedDataIds,
                         trafficCostSum, stayCostSum, costMoneySum, totalCostSum,
-                        i, j, k ,l;
+                        i, j, k, l;
+
+                    // 返回往后顺延最近的工作日日期.
+                    var getApplyTimeByEndTime = function (endTime) {
+                        var applyTimeYear, applyTimeMonth, applyTimeDate,
+                            applyTime = new Date(endTime.substr(0, 4), parseInt(endTime.substr(5, 2)) - 1, parseInt(endTime.substr(8, 2)) + 1);
+
+                        // weekday 0 =  "Sunday"
+                        // weekday 1 = "Monday"
+                        // weekday 2 = "Tuesday"
+                        // weekday 3 = "Wednesday"
+                        // weekday 4 = "Thursday"
+                        // weekday 5 = "Friday"
+                        // weekday 6 = "Saturday"
+                        if (0 === applyTime.getDay()) {// 周日，需要再加一天，推迟到下周一.
+                            applyTime = new Date(endTime.substr(0, 4), parseInt(endTime.substr(5, 2)) - 1, parseInt(endTime.substr(8, 2)) + 1 + 1);
+                        } else if (6 === applyTime.getDay()) { // 周六，需要再加两天，推迟到下周一.
+                            applyTime = new Date(endTime.substr(0, 4), parseInt(endTime.substr(5, 2)) - 1, parseInt(endTime.substr(8, 2)) + 1 + 2);
+                        }
+
+                        applyTimeYear = applyTime.getFullYear()
+                        applyTimeMonth = (applyTime.getMonth() + 1) < 10 ? '0' + (applyTime.getMonth() + 1) : (applyTime.getMonth() + 1);
+                        applyTimeDate = applyTime.getDate() < 10 ? '0' + applyTime.getDate() : applyTime.getDate();
+
+                        return applyTimeYear + '-' + applyTimeMonth + '-' + applyTimeDate;
+                    }
 
                     if (this.feature.printData.length > 0) {
                         tripReports = this.feature.printData;
@@ -51,6 +76,8 @@
                         trafficCostSum = 0, stayCostSum = 0, costMoneySum = 0, totalCostSum = 0;
 
                         tripReports[i].createdTime = tripReports[i].createdTime.substr(0, 10);
+
+                        tripReports[i].applyTime = getApplyTimeByEndTime(tripReports[i].endTime)
 
                         if (tripReports[i].approvalHistories) {
                             for(l = 0; l < tripReports[i].approvalHistories.length; l++){

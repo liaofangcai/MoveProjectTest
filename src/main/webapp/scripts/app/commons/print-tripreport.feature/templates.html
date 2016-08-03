@@ -11,6 +11,8 @@
       </div>
       <div style = "float: left; font-weight:bold;">部门：</div>
       <div style = "float: left; width: 400px; ">{{tripApply.department.name}}</div>
+      <div style = "float: left; font-weight:bold;">日期：</div>
+      <div style = "float: left;">{{applyTime}}</div>
       <div style = "text-align: left;">
           <table border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="#ffffff" style = "border-collapse: collapse;">
             <tr style = "height: 30px;">
@@ -86,7 +88,7 @@
               <td colspan="7" style = "width: 300px;">
                 <div style = "height: 60px;"></div>
                 <div style = "height: 30px;">　报告人：　{{tripApply.applier.realName}}</div>
-                <div>　日　期： {{createdTime}}</div>
+                <div>　日　期： {{applyTime}}</div>
               </td>
               <td colspan="7" style = "width: 300px;">&nbsp;总监意见:
                 <div style = "height: 30px;"></div>
