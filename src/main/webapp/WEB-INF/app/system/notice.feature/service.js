@@ -3,7 +3,7 @@ var {createService} = require('cdeio/service');
 var {json}          = require('cdeio/response');
 var {createManager} = require('cdeio/manager');
 
-var {AccountExtension}   = com.zyeeda.business.system.entity;
+//var {AccountExtension}   = com.zyeeda.business.system.entity;
 var {SystemNotice}       = com.zyeeda.business.notice.entity;
 
 var {EntityMetaResolver} = com.zyeeda.cdeio.web.scaffold;
@@ -25,23 +25,23 @@ var getNowDate = function (dateFormat) {
 
 exports.createService = function () {
     return {
-        list: mark('beans', EntityMetaResolver).mark('managers', AccountExtension).mark('tx').on(function (resolver, accountExtendMgr, entity, options) {
-            var meta = resolver.resolveEntity(SystemNotice),
-                noticeMgr = createManager(meta.entityClass),
-                i, _i, _ref2, currSessionUser, currUserExtension, currUserExtensions,
-                currDepartPath, currDeptPathArr, likeDeptPath;
+        // list: mark('beans', EntityMetaResolver).mark('managers', AccountExtension).mark('tx').on(function (resolver, accountExtendMgr, entity, options) {
+        //     var meta = resolver.resolveEntity(SystemNotice),
+        //         noticeMgr = createManager(meta.entityClass),
+        //         i, _i, _ref2, currSessionUser, currUserExtension, currUserExtensions,
+        //         currDepartPath, currDeptPathArr, likeDeptPath;
 
-            options.filters = options.filters || [];
-            options.orderBy = options.orderBy || [];
+        //     options.filters = options.filters || [];
+        //     options.orderBy = options.orderBy || [];
 
-            if (options.filters) {
-                fetchResult = noticeMgr.findByEntity(options);
-            } else {
-                fetchResult = noticeMgr.findByExample(entity, options);
-            }
+        //     if (options.filters) {
+        //         fetchResult = noticeMgr.findByEntity(options);
+        //     } else {
+        //         fetchResult = noticeMgr.findByExample(entity, options);
+        //     }
 
-            return fetchResult;
-        }),
+        //     return fetchResult;
+        // }),
         getUserNoticelist: mark('managers', SystemNotice).mark('tx').on(function (noticeMgr) {
             var user = SecurityUtils.getSubject().getPrincipal(),
                 notices;
