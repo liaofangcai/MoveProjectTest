@@ -14,6 +14,7 @@ exports.cdeio = {
     'com.zyeeda.business.commons.entity',
     'com.zyeeda.business.notice.entity',
     'com.zyeeda.business.process.entity',
+    'com.zyeeda.business.system.entity',
 
     // 出差
     'com.zyeeda.business.trip.entity',
@@ -27,7 +28,10 @@ exports.cdeio = {
     'com.zyeeda.business.informationwork.entity',
 
     // 信息循环
-    'com.zyeeda.business.informationcycle.entity'
+    'com.zyeeda.business.informationcycle.entity',
+
+    //工资信息
+    'com.zyeeda.business.salarymanager.entity'
   ],
 
   orms: [

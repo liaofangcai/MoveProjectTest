@@ -172,7 +172,7 @@ exports.grid = {
 
 exports.picker = {
     grid: {
-        columns: [
+        columns: [{ name: 'empName', header: '姓名', defaultContent: '', sortable: false, filter: 'text' },
             { name: 'department.name', header: '部门', defaultContent: '', sortable: false, filter: 'text' }
         ]
     },

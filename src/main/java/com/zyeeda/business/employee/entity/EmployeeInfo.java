@@ -1,5 +1,7 @@
 package com.zyeeda.business.employee.entity;
 
+import com.zyeeda.business.salarymanager.entity.SalaryInfo;
+
 import java.util.Date;
 import java.util.List;
 
@@ -194,6 +196,11 @@ public class EmployeeInfo extends RevisionDomainEntity{
    * 附件
    */
   private List<Attachment> attachments;
+
+  /**
+   * 工资信息
+   */
+  private List<SalaryInfo> salaryInfos ;
 
 
   @Column(name = "f_emp_name", length = 300)
@@ -593,6 +600,15 @@ public class EmployeeInfo extends RevisionDomainEntity{
 
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
+  }
+
+  @OneToMany(mappedBy = "employeeInfo")
+  public List<SalaryInfo> getSalaryInfos() {
+    return salaryInfos;
+  }
+
+  public void setSalaryInfos(List<SalaryInfo> salaryInfos) {
+    this.salaryInfos = salaryInfos;
   }
 
 }
