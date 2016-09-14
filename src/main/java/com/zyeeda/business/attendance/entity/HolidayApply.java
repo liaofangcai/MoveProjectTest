@@ -51,7 +51,7 @@ public class HolidayApply extends ProcessRevisionDomainEntity {
     /**
      * 部门
      */
-    private Department department;
+    private Department department; 
 
     /**
      * 申请日期

@@ -9,7 +9,7 @@ var getSession = function() {
     var subject = SecurityUtils.getSubject(),
         p = subject.getPrincipal(),
         service = createService(),
-        isAdmin = false,
+        isAdmin = false, roles, role, permission, o,
         i,
         j;
 

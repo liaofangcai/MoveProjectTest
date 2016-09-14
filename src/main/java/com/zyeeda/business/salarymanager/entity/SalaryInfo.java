@@ -32,10 +32,6 @@ public class SalaryInfo extends RevisionDomainEntity{
    * 序列化
    */
   	private static final long serialVersionUID = 3790277543938624745L;
-	// /*
-	//  * 员工姓名
-	//  */
-	// private EmployeeInfo empName ;
 	/*
 	 * 月份
 	 */
@@ -129,15 +125,6 @@ public class SalaryInfo extends RevisionDomainEntity{
 	 */
 	private EmployeeInfo employeeInfo ;
 
-	// @Column(name = "f_emp_name", length = 300)
-	// @NotBlank
-	// @NullableSize(max = 166)
-	// public EmployeeInfo getEmpName() {
-	// 	return empName;
-	// }
-	// public void setEmpName(EmployeeInfo empName) {
-	// 	this.empName = empName;
-	// }
 
 	@Column(name = "f_mounth")
 	public Date getMounth() {
@@ -323,6 +310,4 @@ public class SalaryInfo extends RevisionDomainEntity{
 	public void setEmployeeInfo(EmployeeInfo employeeInfo) {
 		this.employeeInfo = employeeInfo;
 	} 
-	
-	
 }

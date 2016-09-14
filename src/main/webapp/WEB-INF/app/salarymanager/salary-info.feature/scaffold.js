@@ -1,9 +1,33 @@
+var {mark}                      = require('cdeio/mark');
+var {json}                      = require('cdeio/response');
+var _                           = require('underscore');
+var fs                          = require('fs');
+var objects                     = require('cdeio/util/objects');
+var response                    = require('ringo/jsgi/response');
+var {getOptionInProperties}     = require('cdeio/config');
+var {join}                      = require('cdeio/util/paths');
+var {createService}             = require('salarymanager/salary-info.feature/service');
+
+var {SalaryInfo}                = com.zyeeda.business.salarymanager.entity;
+var {SecurityUtils}             = org.apache.shiro;
+
+var {SimpleDateFormat}          = java.text;
+var {Date}                      = java.util;
+var {ArrayList}                 = java.util;
+var URLDecoder                  = java.net.URLDecoder;
+
+var {Boolean}                   = java.lang;
 
 exports.filters = {
 	defaults: {
 		'!salaryInfoFilter': [''],
-		'!employeeInfoFilter': ['salaryInfos', 'department', 'otherInfos', 'attachments']
+		'!employeeInfoFilter': ['otherInfos', 'attachments'],
+		'!departmentFilter': ['parent(1)', 'children', 'accounts']
 	}
+}
+
+exports.service = function(service){
+    return _.extend(service, createService());
 }
 
 exports.haveFilter = true
@@ -13,6 +37,8 @@ exports.entityLabel = "工资信息"
 exports.labels = {
 	employeeInfo: '员工姓名',
 	'employeeInfo.empName': '员工姓名',
+	'employeeInfo.department': '部门',
+	'employeeInfo.department.name': '部门',
 	mounth: '月份',
 	basicSalary: '基本工资',
 	levelSalary: '级别工资',
@@ -45,41 +71,60 @@ exports.fieldGroups = {
 		'levelSalary',
 		'postSalary',
 		'managerSalary',
-		'salaryTotal',
 		'shouldWorks',
 		'realityWorks',
-		'attendeSalary',
 		'gradeLevel',
-		'gradeReward',
-		'gradeSalary',
 		'allowance',
 		'other',
-		'shouldSalary',
 		'insuranceCom',
 		'insuranceEmp',
 		'accumulationFundCom',
 		'accumulationFundEmp',
 		'tax',
-		'realitySalary',
 		{name: 'remark', type: 'textarea', colspan: 2}
 	 ],
-	 // inlineEmpNameGrid: [
-	 // 	{
-	 // 		label: '选择员工'
-	 // 		name: 'employeeInfo', 
-	 // 		type: 'inline-grid', 
-	 // 		allowPick: false, 
-	 // 		allowAdd: true,
-  //     		allowEdit: true
-  //     	}
-	 // ],
+	 employeeName: [
+	 	'employeeInfo',
+	 	'mounth',
+		'basicSalary',
+		'levelSalary',
+		'postSalary',
+		'managerSalary',
+		'shouldWorks',
+		'realityWorks',
+		'gradeLevel',
+		'allowance',
+		'other',
+		'insuranceCom',
+		'insuranceEmp',
+		'accumulationFundCom',
+		'accumulationFundEmp',
+		'tax',
+		{name: 'remark', type: 'textarea', colspan: 2}
+	 ],
+	 disabledGroup: [ //不可编辑的控件
+	 	'salaryTotal',
+	 	'attendeSalary',
+	 	'gradeReward',
+		'gradeSalary',
+		'shouldSalary',
+		'realitySalary'
+	 ],
 	 filter: [
 	 	'employeeInfo.empName',
+	 	'employeeInfo.department.name',
 	 	'mounth'
 	 ]
 }
 
 exports.forms = {
+	defaults: {
+		groups: [
+			{name: 'defaults', columns: 2}
+			
+		],
+		size: 'large'
+	},
 	edit: {
 		groups: [
 			{name: 'defaults', columns: 2}
@@ -97,12 +142,19 @@ exports.forms = {
 			{name: 'filter', columns: 1}
 		],
 		size: 'small'
+	},
+	show: {
+		groups: [
+			{name: 'employeeName', columns: 2},
+			{name: 'disabledGroup', columns: 2}
+		],
+		 size: 'large'
 	}
 }
 
 exports.grid = {
 	columns: [
-		'employeeInfo', 
+		{name: 'employeeInfo.empName', header: '员工姓名'},
 		'shouldWorks', 
 		'realityWorks',
 		'salaryTotal', 
@@ -117,30 +169,23 @@ exports.grid = {
     defaultOrder: 'createdTime-desc'
 }
 
-// exports.hooks = {
-//   beforeCreate: {
-//     defaults: mark('services', 'dealer/dealer-connection').on(function (dealerInfoSvc,dealerConnection) {
-//       var subject = SecurityUtils.getSubject(),
-//           user = subject.getPrincipal();
+exports.hooks = {
+  beforeCreate: {
+    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
+        var subject = SecurityUtils.getSubject(),
+          	user = subject.getPrincipal();
+      	
+      	//工资总额自动计算
+	    salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
+	 	//考勤工资自动计算
+	 	salaryInfo.attendeSalary = salaryInfo.salaryTotal/salaryInfo.shouldWorks*salaryInfo.realityWorks
+	 	//绩效工资计算
+	 	//salaryInfo.gradeSalary = 
+	 	//绩效奖自动计算
+	 	//salaryInfo.gradeReward = (salaryInfo.gradeLevel - 1)*salaryInfo.gradeSalary
+      
 
-//       dealerConnection.creator = user.accountName;
-//       dealerConnection.creatorName = user.realName;
-//       dealerConnection.createdTime = new Date();
-//     })
-//   },
-//   beforeUpdate: {
-//     defaults: function (dealerConnection) {
-//       var subject = SecurityUtils.getSubject(),
-//           user = subject.getPrincipal();
-
-//       dealerConnection.lastModifier = user.accountName;
-//       dealerConnection.lastModifierName = user.realName;
-//       dealerConnection.lastModifiedTime = new Date();
-//     }
-//   },
-//   // beforeRemove: {
-//   //   defaults: mark('services', 'commodity/other-prop').on(function (otherPropertySvc, commodityInfo) {
-//   //      otherPropertySvc.removeOtherInfoByCommodityInfoId(commodityInfo.id);
-//   //   }),
-//   // }
-// }
+      
+    })
+  }
+}
