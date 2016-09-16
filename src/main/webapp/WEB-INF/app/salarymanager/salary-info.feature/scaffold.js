@@ -32,6 +32,8 @@ exports.service = function(service){
 
 exports.haveFilter = true
 
+exports.enableFrontendExtension = true
+
 exports.entityLabel = "工资信息"
 
 exports.labels = {
@@ -65,33 +67,14 @@ exports.labels = {
 
 exports.fieldGroups = {
 	 defaults: [
-	 	'employeeInfo',
+	 	{name: 'employeeInfo', displayString: '{{empName}}'},
 		'mounth',
 		'basicSalary',
 		'levelSalary',
 		'postSalary',
 		'managerSalary',
-		'shouldWorks',
-		'realityWorks',
-		'gradeLevel',
-		'allowance',
-		'other',
-		'insuranceCom',
-		'insuranceEmp',
-		'accumulationFundCom',
-		'accumulationFundEmp',
-		'tax',
-		{name: 'remark', type: 'textarea', colspan: 2}
-	 ],
-	 employeeName: [
-	 	'employeeInfo',
-	 	'mounth',
-		'basicSalary',
-		'levelSalary',
-		'postSalary',
-		'managerSalary',
-		'shouldWorks',
-		'realityWorks',
+		{name: 'shouldWorks', type: 'number', default: 0},
+		{name: 'realityWorks', type: 'number', default: 0},
 		'gradeLevel',
 		'allowance',
 		'other',
@@ -127,7 +110,8 @@ exports.forms = {
 	},
 	edit: {
 		groups: [
-			{name: 'defaults', columns: 2}
+			{name: 'defaults', columns: 2},
+			{name: 'disabledGroup', columns: 2}
 		],
 		 size: 'large'
 	},
@@ -145,10 +129,10 @@ exports.forms = {
 	},
 	show: {
 		groups: [
-			{name: 'employeeName', columns: 2},
+			{name: 'defaults', columns: 2},
 			{name: 'disabledGroup', columns: 2}
 		],
-		 size: 'large'
+		size: 'large'
 	}
 }
 
@@ -169,23 +153,159 @@ exports.grid = {
     defaultOrder: 'createdTime-desc'
 }
 
-exports.hooks = {
-  beforeCreate: {
-    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
-        var subject = SecurityUtils.getSubject(),
-          	user = subject.getPrincipal();
-      	
-      	//工资总额自动计算
-	    salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
-	 	//考勤工资自动计算
-	 	salaryInfo.attendeSalary = salaryInfo.salaryTotal/salaryInfo.shouldWorks*salaryInfo.realityWorks
-	 	//绩效工资计算
-	 	//salaryInfo.gradeSalary = 
-	 	//绩效奖自动计算
-	 	//salaryInfo.gradeReward = (salaryInfo.gradeLevel - 1)*salaryInfo.gradeSalary
-      
+exports.operators = {
+    downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
+    importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
+    exportExcel: { label: '导出', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
+}
 
-      
+exports.hooks = {
+  	beforeCreate: {
+	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
+	        var subject = SecurityUtils.getSubject(),
+	          	user = subject.getPrincipal();
+	      	//工资总额自动计算
+		    salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
+		 	//考勤工资自动计算
+		 	salaryInfo.attendeSalary = (salaryInfo.salaryTotal/salaryInfo.shouldWorks*salaryInfo.realityWorks).toFixed(2)
+		 	//绩效工资计算
+		 	salaryInfo.gradeSalary = 1
+		 	//绩效奖自动计算
+		 	salaryInfo.gradeReward = 1
+		 	//应付工资自动计算
+		 	salaryInfo.shouldSalary = 1
+		 	//实发工资自动计算
+		 	salaryInfo.realitySalary = 1
+    	})
+  	}
+}
+
+exports.exporting = {
+    template: 'salarymanager/salary-info/salaryinfo.xls',
+    fileName: 'salaryinfo'
+}
+
+exports.importing = {
+    module: 'salaryInfo',
+    enable: true,
+    dateFormat: 'yyyy/MM/dd',
+    template: 'salarymanager/salary-info/salaryinfo.xls',
+    startRow: 2,
+    mapping: [
+        {name: 'employeeInfo', column: 1, tileName: '员工姓名', type: 'picker', isNull: false},
+        {name: 'mounth', column: 2, tileName: '月份', type: 'date', isNull: true},
+        {name: 'basicSalary', column: 3, tileName: '基本工资', type: 'double', isNull: false},
+        {name: 'levelSalary', column: 4, tileName: '级别工资', type: 'double', isNull: false},
+        {name: 'postSalary', column: 5, tileName: '岗位工资', type: 'double', isNull: false},
+        {name: 'managerSalary', column: 6, tileName: '管理工资', type: 'double', isNull: false},
+        {name: 'salaryTotal', column: 7, tileName: '工资总额', type: 'double', isNull: false},
+        {name: 'shouldWorks', column: 8, tileName: '应出勤天数', type: 'double', isNull: false},
+        {name: 'realityWorks', column: 9, tileName: '实际出勤天数', type: 'double', isNull: false},
+        {name: 'attendeSalary', column: 10, tileName: '考勤工资', type: 'double', isNull: true},
+        {name: 'gradeLevel', column: 11, tileName: '绩效系数', type: 'double', isNull: false},
+        {name: 'gradeReward', column: 12, tileName: '绩效奖', type: 'double', isNull: true},
+        {name: 'gradeSalary', column: 13, tileName: '绩效工资', type: 'double', isNull: true},
+        {name: 'allowance', column: 14, tileName: '补助', type: 'double', isNull: false},
+        {name: 'other', column: 15, tileName: '其他', type: 'double', isNull: true},
+        {name: 'shouldSalary', column: 16, tileName: '应付工资', type: 'double', isNull: true},
+        {name: 'insuranceCom', column: 17, tileName: '社保（公司）', type: 'double', isNull: false},
+        {name: 'insuranceEmp', column: 18, tileName: '社保（个人）', type: 'double', isNull: false},
+        {name: 'accumulationFundCom', column: 19, tileName: '公积金（公司）', type: 'double', isNull: false},
+        {name: 'accumulationFundEmp', column: 20, tileName: '公积金（个人）', type: 'double', isNull: false},
+        {name: 'tax', column: 21, tileName: '个人所得税', type: 'double', isNull: false},
+        {name: 'realitySalary', column: 22, tileName: '实发工资', type: 'double', isNull: true},
+        {name: 'remark', column: 23, tileName: '备注', type: 'string', isNull: true},
+    ]
+}
+
+exports.doWithRouter = function(router) {
+
+	//导出数据
+    router.get('/export-excel', mark('services', 'commons/export-excel', 'salarymanager/salary-info').on(function (exportXlsSvc, salaryInfoSvc, request) {
+        var options = request.params,
+            result;
+
+        options = exportXlsSvc.dealParameters(options, salaryInfoSvc, new SalaryInfo());
+
+        result = salaryInfoSvc.exportExcel(options, exports.exporting.template, exports.exporting.fileName);
+
+        return json({flag: result.flag, filename: result.filename});
+    }))
+
+    //下载导入模板地址设置
+    router.get('/configuration/importsettings', function (request) {
+        var getFileDirectoryByFilePath, getFileNameByFilePath, templateFilePath;
+
+        getFileDirectoryByFilePath = function(filePath) {
+            return filePath.substring(0, filePath.lastIndexOf('/'));
+        };
+        getFileNameByFilePath = function(filePath) {
+            return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+        };
+
+        if(exports.importing && exports.importing.enable === true){
+
+            templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+
+            if(!fs.exists(templateFilePath)){
+                return json({templateExists: false});
+            }
+            return json(objects.extend(exports.importing, {filename: getFileNameByFilePath(exports.importing.template)}));
+        }
+
+        return json({exportEnable: false});
+    });
+
+    //下载导入模板
+    router.get('/down-import-template/:filename', function(request, filename) {
+        var getFileDirectoryByFilePath, getFileNameByFilePath, templateFilePath;
+
+        getFileDirectoryByFilePath = function(filePath) {
+            return filePath.substring(0, filePath.lastIndexOf('/'));
+        };
+        getFileNameByFilePath = function(filePath) {
+            return filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+        };
+
+        templateFilePath = join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8'));
+
+        if(!fs.exists(templateFilePath)){
+            return {result: "附件不存在"};
+        }
+
+        return response["static"](join(getOptionInProperties('cdeio.webapp.path'), 'WEB-INF/module/import', getFileDirectoryByFilePath(exports.importing.template), URLDecoder.decode(getFileNameByFilePath(exports.importing.template), 'utf-8')), 'application/vnd.ms-excel');
     })
-  }
+
+    //导入已有数据
+    router.post('/import-excel', mark('services', 'commons/import-excel', 'salarymanager/salary-info').on(function (importXlsSvc, salaryInfoSvc, request) {
+        var result, result2, saveAndCheckResult,
+            rowNum, entityArray, i;
+
+        entityArray = [];
+
+        result = importXlsSvc.importExcel(request.params, exports.importing);
+
+        rowNum = result.rowNum;
+
+        for (i = 0; i < rowNum; i++) {
+            entityArray.push(new SalaryInfo());
+        }
+
+        result2 = importXlsSvc.fillEntity(result.rowDataArray, exports.importing, entityArray);
+
+        saveAndCheckResult = salaryInfoSvc.saveEntities(request.params, result2.entityArray, result);
+        result.failRowIdxes = saveAndCheckResult.failRowIdxes;
+        result.repeatRowIdxes = saveAndCheckResult.repeatRowIdxes;
+
+        return json({
+            entityArray: result2.entityArray,
+            pickerFields: result.pickerFields,
+            specialFields: result.specialFields,
+            failRowIdxes: result.failRowIdxes,
+            repeatRowIdxes: result.repeatRowIdxes,
+            successNum: result2.entityArray.length
+        }, exports.filters.defaults);
+    }));
+
+
 }

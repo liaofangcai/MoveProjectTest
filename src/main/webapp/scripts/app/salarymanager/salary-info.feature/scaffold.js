@@ -1,4 +1,4 @@
- define([
+define([
         'jquery',
         'app/commons/export-excel.feature/export-excel-function',
         'app/commons/import-excel.feature/import-excel-function'
@@ -8,61 +8,91 @@
 
         afterShowDialog: function(dialogType, view, data){
             var me, currentEmployeeInfo,
-            // agreementDate = data.agreementDate,
-            // agreementLast = data.agreementLast,
-            // endYear, endMonth,endDay,
-            // workYear, workMonth, workDay, entryTime,
-            // msec,
-            // date = new Date();
+            me = this
 
-            me = this;
+            $('input[name = "salaryTotal"]', view.$el).attr('disabled',true)
+            $('input[name = "attendeSalary"]', view.$el).attr('disabled',true)
+            $('input[name = "gradeReward"]', view.$el).attr('disabled',true)
+            $('input[name = "gradeSalary"]', view.$el).attr('disabled',true)
+            $('input[name = "shouldSalary"]', view.$el).attr('disabled',true)
+            $('input[name = "realitySalary"]', view.$el).attr('disabled',true)
             currentEmployeeInfo = me.feature.employeeInfo
             console.log('dialogType')
             if('add' === dialogType){//在添加页面设置当前feature中存放的部门
                 view.setFormData({employeeInfo: currentEmployeeInfo})
-                
-                // $('input[name = "agreementEnd"]', view.$el).attr('disabled',true);
-                // $('input[name = "seniority"]', view.$el).attr('disabled',true);
-
             }
-            // if('show' === dialogType){
-            //     entryTime = new Date(data.entryTime);
-            //     msec    = (date.getTime()-entryTime.getTime());
-            //     workYear  = Math.floor(msec/(365*24*3600*1000));
-            //     workMonth = Math.floor(msec%(365*24*3600*1000)/(30*24*3600*1000));
-            //     workDay   = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000)) + 1;
-            //     me.feature.model.set('seniority', workYear + "年" + workMonth + "月" + workDay + "天");
-            //     // $('input[name= "seniority"]').val(workYear + "年" + workMonth + "月" + workDay + "天");
-            // }
-            // if('edit' === dialogType){
-            //     if(!agreementLast.length == 0 && !agreementDate.length == 0){
+        },
+        handlers:{
+            exportExcel: function(){
+                var me = this;
+                exportUtil.exportExcel(me)
+            },
+            downloadImportTemplate: function() {
+                importUtil.downloadImportTemplate(this)
+            },
+            importXls: function(){
+                    var commonImportFeature, importView, me, message, checkFlag, grid
 
-            //         agreementDate = new Date(agreementDate);
-            //         endYear  = agreementDate.getFullYear();
-            //         endYear  = endYear + parseInt(agreementLast);
-            //         endMonth = agreementDate.getMonth() + 1;
-            //         if(endMonth<10){
-            //             endMonth = "0" + endMonth;
-            //         }
-            //         endDay = agreementDate.getDate() - 1;
-            //         $('input[name= "agreementEnd"]').val(endYear + "-" + endMonth + "-" + endDay);
-            //     }
-            //     entryTime = new Date(data.entryTime);
-            //     msec    = (date.getTime()-entryTime.getTime());
-            //     workYear  = Math.floor(msec/(365*24*3600*1000));
-            //     workMonth = Math.floor(msec%(365*24*3600*1000)/(30*24*3600*1000));
-            //     workDay   = Math.floor(msec%(30*24*3600*1000)/(24*3600*1000)) + 1;
+                    me = this;
+                    message = ''
+                    checkFlag = false
+                    grid = this.feature.views['grid:body'].components[0]
+                    commonImportFeature = app.loadFeature('commons/import-excel', {container: '<div></div>', ignoreExists: true})
 
-            //     $('input[name = "agreementEnd"]', view.$el).attr('disabled',true);
-            //     $('input[name = "seniority"]', view.$el).attr('disabled',true);
-            //     me.feature.model.set('seniority', workYear + "年" + workMonth + "月" + workDay + "天");
-            //     // $('input[name= "seniority"]').val(workYear + "年" + workMonth + "月" + workDay + "天");
-            // }
-            // // 打开form页面时，页面第一个可输入元素获提焦点
-            // if('show'!== dialogType){
-            //     $('input[name]', view.$el)[0].focus();
-            // }
-            // me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
+                    commonImportFeature.done(function(feature) {
+                        importView = feature.views['common-import-view']
+                        app.showDialog({
+                            view: importView,
+                            title: '导入 Excel',
+                            onClose: function() {
+                                feature.stop()
+                            },
+                            buttons: [{
+                                label: '确定',
+                                status: 'btn-primary',
+                                fn: function() {
+                                    data = importView.getFormData()
+                                    if (undefined === data.attachment.id) {
+                                        app.error('请选择要导入的 excel 文件, 注意: 支持的文件格式为 xls')
+                                        return false
+                                    }
+                                    if(!data.attachment){
+                                        app.error('请选择要导入的 excel 文件, 注意: 支持的文件格式为 xls')
+                                        return false
+                                    }else if(importView.isValid()){
+                                        me.feature.request({
+                                            url: 'import-excel',
+                                            type: 'post',
+                                            data: {attachment: data.attachment}
+                                        }).done(function(result){
+                                            if(result.repeatRowIdxes.length > 0 || result.failRowIdxes.length > 0){
+                                                message += '共有 ' + (Number(result.repeatRowIdxes.length) + Number(result.failRowIdxes.length)) +' 行数据导入失败'
+
+                                                if(result.repeatRowIdxes.length > 0){
+                                                    message += ',第' + result.repeatRowIdxes.join(',') + '行数据重复'
+                                                }
+                                                if(result.failRowIdxes.length > 0){
+                                                    message += ',第' + result.failRowIdxes.join(',') + '行数据验证失败'
+                                                }
+                                            }else{
+                                                message += '共有 ' + result.successNum + ' 行数据导入成功'
+                                                checkFlag = true
+                                            }
+
+                                            if(checkFlag === true){
+                                                app.success(message)
+                                                grid.refresh()
+                                            }else{
+                                                app.error(message)
+                                            }
+                                        })
+                                    }
+                                }
+                            }]
+                        })
+                    })
+                }
+            }
         }
     }
-  })
+)

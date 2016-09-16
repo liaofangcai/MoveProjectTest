@@ -125,8 +125,9 @@ public class SalaryInfo extends RevisionDomainEntity{
 	 */
 	private EmployeeInfo employeeInfo ;
 
-
+	@Temporal(TemporalType.DATE)
 	@Column(name = "f_mounth")
+	@NotNull
 	public Date getMounth() {
 		return mounth;
 	}
@@ -143,6 +144,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_shouldworks")
+	@NotNull
 	public Double getShouldWorks() {
 		return shouldWorks;
 	}
@@ -151,6 +153,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_realityworks")
+	@NotNull
 	public Double getRealityWorks() {
 		return realityWorks;
 	}
@@ -167,6 +170,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_emp_insurance")
+	@NotNull
 	public Double getInsuranceEmp() {
 		return insuranceEmp;
 	}
@@ -175,6 +179,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_emp_fund")
+	@NotNull
 	public Double getAccumulationFundEmp() {
 		return accumulationFundEmp;
 	}
@@ -191,6 +196,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	} 
 
 	@Column(name = "f_basicsalary")
+	@NotNull
 	public Double getBasicSalary() {
 		return basicSalary;
 	}
@@ -199,6 +205,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_levelsalary")
+	@NotNull
 	public Double getLevelSalary() {
 		return levelSalary;
 	}
@@ -207,6 +214,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_postsalary")
+	@NotNull
 	public Double getPostSalary() {
 		return postSalary;
 	}
@@ -215,6 +223,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_managersalary")
+	@NotNull
 	public Double getManagerSalary() {
 		return managerSalary;
 	}
@@ -231,6 +240,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_gradelevel")
+	@NotNull
 	public Double getGradeLevel() {
 		return gradeLevel;
 	}
@@ -255,6 +265,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_allowance")
+	@NotNull
 	public Double getAllowance() {
 		return allowance;
 	}
@@ -271,6 +282,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_com_insurance")
+	@NotNull
 	public Double getInsuranceCom() {
 		return insuranceCom;
 	}
@@ -279,6 +291,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_com_fund")
+	@NotNull
 	public Double getAccumulationFundCom() {
 		return accumulationFundCom;
 	}
@@ -287,6 +300,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_tax")
+	@NotNull
 	public Double getTax() {
 		return tax;
 	}
@@ -303,6 +317,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 	
 	@JoinColumn(name = "f_emp_info")
+	@NotNull
 	@ManyToOne
 	public EmployeeInfo getEmployeeInfo() {
 		return employeeInfo;

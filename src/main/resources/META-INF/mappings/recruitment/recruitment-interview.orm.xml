@@ -9,7 +9,7 @@
 
     <named-query name="getInterviewByResumeId">
         <query>
-            select ri from RecruitmentInterview ri where ri.recruitmentResume.id = :recruitmentResumeId
+           select ri from RecruitmentInterview ri where ri.recruitmentResume.id = :recruitmentResumeId
         </query>
     </named-query>
 </entity-mappings>

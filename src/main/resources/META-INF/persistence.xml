@@ -48,6 +48,9 @@
         <mapping-file>META-INF/mappings/attendance/daysoff-apply.orm.xml</mapping-file>
         <mapping-file>META-INF/mappings/attendance/signin-explain.orm.xml</mapping-file>
 
+         <!-- 薪资管理 -->
+        <mapping-file>META-INF/mappings/salarymanager/salary-info.orm.xml</mapping-file>
+
         <!-- 系统级实体 -->
         <class>com.zyeeda.cdeio.commons.organization.entity.Account</class>
         <class>com.zyeeda.cdeio.commons.organization.entity.Department</class>
