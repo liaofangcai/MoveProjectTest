@@ -34,6 +34,49 @@ exports.createService = function() {
                 }
                 return {failRowIdxes: result.failRowIdxes, repeatRowIdxes: result.repeatRowIdxes};
         }),
+        //用来处理添加和更新数据的方法
+        dataHandler: function(salaryInfo) {
+            //工资总额自动计算
+            salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
+            //考勤工资自动计算
+            salaryInfo.attendeSalary = (salaryInfo.salaryTotal/salaryInfo.shouldWorks*salaryInfo.realityWorks).toFixed(2)
+            //绩效奖自动计算
+            salaryInfo.gradeReward = ((salaryInfo.gradeLevel - 1) * salaryInfo.gradeLines).toFixed(2)
+            //绩效工资计算
+            salaryInfo.gradeSalary = (salaryInfo.attendeSalary + salaryInfo.gradeReward).toFixed(2)
+            //应付工资自动计算
+            salaryInfo.shouldSalary = salaryInfo.gradeSalary + salaryInfo.other + salaryInfo.allowance
+            //个人所得税计算
+            salaryInfo.tax = (taxHandler(salaryInfo.shouldSalary)).toFixed(2)
+            //实发工资自动计算
+            salaryInfo.realitySalary = (salaryInfo.shouldSalary - salaryInfo.insuranceEmp - salaryInfo.accumulationFundEmp - salaryInfo.tax).toFixed(2)
+
+            function taxHandler(salary) {
+                var taxSalary = salary - 3500
+                if(taxSalary <= 1455) {
+                    return taxSalary * 0.03 
+                }
+                if(taxSalary>1455 && taxSalary<=4155) {
+                    return taxSalary * 0.1 - 105
+                }
+                if(taxSalary>4155 && taxSalary<=7755) {
+                    return taxSalary * 0.2 - 555
+                }
+                if(taxSalary>7755 && taxSalary<=27255) {
+                    return taxSalary * 0.25 - 1005
+                }
+                if(taxSalary>27255 && taxSalary<=41255) {
+                    return taxSalary * 0.30 - 2755
+                }
+                if(taxSalary>41255 && taxSalary<=57505) {
+                    return taxSalary * 0.35 - 5505
+                }
+                if(taxSalary>57505) {
+                    return taxSalary * 0.4 - 13505
+                }
+            }
+        },
+
 
 		//导出工资信息
 		exportExcel: mark('beans', EntityMetaResolver).on(function (resolver, options, exportModule, exportFileName) {

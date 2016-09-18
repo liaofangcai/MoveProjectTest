@@ -47,6 +47,7 @@ exports.labels = {
 	postSalary: '岗位工资',
 	managerSalary: '管理工资',
 	salaryTotal: '工资总额',
+	gradeLines: '绩效工资额度',
 	shouldWorks: '应出勤天数',
 	realityWorks: '实际出勤天数',
 	attendeSalary: '考勤工资',
@@ -73,25 +74,45 @@ exports.fieldGroups = {
 		'levelSalary',
 		'postSalary',
 		'managerSalary',
-		{name: 'shouldWorks', type: 'number', default: 0},
-		{name: 'realityWorks', type: 'number', default: 0},
+		'gradeLines',
 		'gradeLevel',
 		'allowance',
 		'other',
+		{name: 'shouldWorks', type: 'number', default: 0},
+		{name: 'realityWorks', type: 'number', default: 0},
 		'insuranceCom',
 		'insuranceEmp',
 		'accumulationFundCom',
 		'accumulationFundEmp',
-		'tax',
 		{name: 'remark', type: 'textarea', colspan: 2}
 	 ],
 	 disabledGroup: [ //不可编辑的控件
+	 	'tax',
 	 	'salaryTotal',
 	 	'attendeSalary',
 	 	'gradeReward',
 		'gradeSalary',
 		'shouldSalary',
 		'realitySalary'
+	 ],
+	  show: [
+	 	'employeeInfo.empName',
+		'mounth',
+		'basicSalary',
+		'levelSalary',
+		'postSalary',
+		'managerSalary',
+		'gradeLines',
+		'gradeLevel',
+		'allowance',
+		'other',
+		{name: 'shouldWorks', type: 'number', default: 0},
+		{name: 'realityWorks', type: 'number', default: 0},
+		'insuranceCom',
+		'insuranceEmp',
+		'accumulationFundCom',
+		'accumulationFundEmp',
+		{name: 'remark', type: 'textarea', colspan: 2}
 	 ],
 	 filter: [
 	 	'employeeInfo.empName',
@@ -110,8 +131,7 @@ exports.forms = {
 	},
 	edit: {
 		groups: [
-			{name: 'defaults', columns: 2},
-			{name: 'disabledGroup', columns: 2}
+			{name: 'defaults', columns: 2}
 		],
 		 size: 'large'
 	},
@@ -129,7 +149,7 @@ exports.forms = {
 	},
 	show: {
 		groups: [
-			{name: 'defaults', columns: 2},
+			{name: 'show', columns: 2},
 			{name: 'disabledGroup', columns: 2}
 		],
 		size: 'large'
@@ -162,22 +182,14 @@ exports.operators = {
 exports.hooks = {
   	beforeCreate: {
 	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
-	        var subject = SecurityUtils.getSubject(),
-	          	user = subject.getPrincipal();
-	      	//工资总额自动计算
-		    salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
-		 	//考勤工资自动计算
-		 	salaryInfo.attendeSalary = (salaryInfo.salaryTotal/salaryInfo.shouldWorks*salaryInfo.realityWorks).toFixed(2)
-		 	//绩效工资计算
-		 	salaryInfo.gradeSalary = 1
-		 	//绩效奖自动计算
-		 	salaryInfo.gradeReward = 1
-		 	//应付工资自动计算
-		 	salaryInfo.shouldSalary = 1
-		 	//实发工资自动计算
-		 	salaryInfo.realitySalary = 1
+	        salaryInfoSvc.dataHandler(salaryInfo)
     	})
-  	}
+  	},
+  	beforeUpdate: {
+	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
+	        salaryInfoSvc.dataHandler(salaryInfo)
+    	})
+  	}  
 }
 
 exports.exporting = {

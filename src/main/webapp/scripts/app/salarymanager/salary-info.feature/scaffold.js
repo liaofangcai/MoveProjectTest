@@ -7,8 +7,7 @@ define([
          //dialogType:add/edit/show, view:the current view, data:this dialog's data
 
         afterShowDialog: function(dialogType, view, data){
-            var me, currentEmployeeInfo,
-            me = this
+            var me = this;
 
             $('input[name = "salaryTotal"]', view.$el).attr('disabled',true)
             $('input[name = "attendeSalary"]', view.$el).attr('disabled',true)
@@ -16,11 +15,14 @@ define([
             $('input[name = "gradeSalary"]', view.$el).attr('disabled',true)
             $('input[name = "shouldSalary"]', view.$el).attr('disabled',true)
             $('input[name = "realitySalary"]', view.$el).attr('disabled',true)
-            currentEmployeeInfo = me.feature.employeeInfo
-            console.log('dialogType')
-            if('add' === dialogType){//在添加页面设置当前feature中存放的部门
-                view.setFormData({employeeInfo: currentEmployeeInfo})
+
+            if('add' === dialogType){//在添加页面设置当前feature中存放的雇员信息
+                
             }
+            if('show' === dialogType){//在添加页面设置当前feature中存放的雇员姓名
+                me.feature.model.set('employeeInfo.empName', data.employeeInfo.empName);
+            }
+            me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
         },
         handlers:{
             exportExcel: function(){

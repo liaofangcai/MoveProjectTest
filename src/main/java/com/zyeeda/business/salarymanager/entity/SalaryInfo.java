@@ -89,6 +89,10 @@ public class SalaryInfo extends RevisionDomainEntity{
 	 */
 	private Double gradeLevel ; 
 	/*
+	 *绩效工资额度
+	 */
+	private Double gradeLines ;
+	/*
 	 * 绩效奖
 	 */
 	private Double gradeReward ;
@@ -248,6 +252,15 @@ public class SalaryInfo extends RevisionDomainEntity{
 		this.gradeLevel = gradeLevel;
 	}
 
+	@Column(name = "f_gradelines")
+	@NotNull
+	public Double getGradeLines() {
+		return gradeLines ;
+	}
+	public void setGradeLines(Double gradeLines) {
+		this.gradeLines = gradeLines ; 
+	}
+
 	@Column(name = "f_gradereward")
 	public Double getGradeReward() {
 		return gradeReward;
@@ -300,7 +313,6 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_tax")
-	@NotNull
 	public Double getTax() {
 		return tax;
 	}
