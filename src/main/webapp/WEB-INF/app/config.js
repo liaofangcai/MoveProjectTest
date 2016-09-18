@@ -98,7 +98,9 @@ exports.cdeio = {
 
   haveSystemMenuRoles: [
     '系统管理员'
-  ]
+  ],
+  //include 代表含税级距（默认）
+  taxTag: 'include'
 };
 
 FrontendSettingsCollector.add('collector', 'registered in collector');

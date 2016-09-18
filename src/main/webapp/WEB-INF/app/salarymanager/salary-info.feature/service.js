@@ -35,7 +35,7 @@ exports.createService = function() {
                 return {failRowIdxes: result.failRowIdxes, repeatRowIdxes: result.repeatRowIdxes};
         }),
         //用来处理添加和更新数据的方法
-        dataHandler: function(salaryInfo) {
+        dataHandler: function(salaryInfo, taxTag) {
             //工资总额自动计算
             salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
             //考勤工资自动计算
@@ -47,32 +47,59 @@ exports.createService = function() {
             //应付工资自动计算
             salaryInfo.shouldSalary = salaryInfo.gradeSalary + salaryInfo.other + salaryInfo.allowance
             //个人所得税计算
-            salaryInfo.tax = (taxHandler(salaryInfo.shouldSalary)).toFixed(2)
+            salaryInfo.tax = (taxHandler((salaryInfo.shouldSalary - salaryInfo.accumulationFundEmp - salaryInfo.insuranceEmp), taxTag)).toFixed(2)
             //实发工资自动计算
             salaryInfo.realitySalary = (salaryInfo.shouldSalary - salaryInfo.insuranceEmp - salaryInfo.accumulationFundEmp - salaryInfo.tax).toFixed(2)
 
-            function taxHandler(salary) {
+            function taxHandler(salary, taxTag) {
                 var taxSalary = salary - 3500
-                if(taxSalary <= 1455) {
+                //不含税级距的计算方式
+                if (taxTag == 'uninclude') {
+                     if(taxSalary <= 1455) {
                     return taxSalary * 0.03 
+                    }
+                    if(taxSalary>1455 && taxSalary<=4155) {
+                        return taxSalary * 0.1 - 105
+                    }
+                    if(taxSalary>4155 && taxSalary<=7755) {
+                        return taxSalary * 0.2 - 555
+                    }
+                    if(taxSalary>7755 && taxSalary<=27255) {
+                        return taxSalary * 0.25 - 1005
+                    }
+                    if(taxSalary>27255 && taxSalary<=41255) {
+                        return taxSalary * 0.30 - 2755
+                    }
+                    if(taxSalary>41255 && taxSalary<=57505) {
+                        return taxSalary * 0.35 - 5505
+                    }
+                    if(taxSalary>57505) {
+                        return taxSalary * 0.45 - 13505
+                    }
                 }
-                if(taxSalary>1455 && taxSalary<=4155) {
-                    return taxSalary * 0.1 - 105
-                }
-                if(taxSalary>4155 && taxSalary<=7755) {
-                    return taxSalary * 0.2 - 555
-                }
-                if(taxSalary>7755 && taxSalary<=27255) {
-                    return taxSalary * 0.25 - 1005
-                }
-                if(taxSalary>27255 && taxSalary<=41255) {
-                    return taxSalary * 0.30 - 2755
-                }
-                if(taxSalary>41255 && taxSalary<=57505) {
-                    return taxSalary * 0.35 - 5505
-                }
-                if(taxSalary>57505) {
-                    return taxSalary * 0.4 - 13505
+                //含税级距的计算方式
+                if (taxTag == 'include') {
+                     if(taxSalary <= 1500) {
+                    return taxSalary * 0.03 
+                    }
+                    if(taxSalary>1500 && taxSalary<=4500) {
+                        return taxSalary * 0.1 - 105
+                    }
+                    if(taxSalary>4500 && taxSalary<=9000) {
+                        return taxSalary * 0.2 - 555
+                    }
+                    if(taxSalary>9000 && taxSalary<=35000) {
+                        return taxSalary * 0.25 - 1005
+                    }
+                    if(taxSalary>35000 && taxSalary<=55000) {
+                        return taxSalary * 0.30 - 2755
+                    }
+                    if(taxSalary>55000 && taxSalary<=80000) {
+                        return taxSalary * 0.35 - 5505
+                    }
+                    if(taxSalary>80000) {
+                        return taxSalary * 0.45 - 13505
+                    }
                 }
             }
         },

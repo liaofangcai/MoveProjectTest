@@ -7,6 +7,7 @@ var response                    = require('ringo/jsgi/response');
 var {getOptionInProperties}     = require('cdeio/config');
 var {join}                      = require('cdeio/util/paths');
 var {createService}             = require('salarymanager/salary-info.feature/service');
+var cdeio                       = require('cdeio/config').cdeio;
 
 var {SalaryInfo}                = com.zyeeda.business.salarymanager.entity;
 var {SecurityUtils}             = org.apache.shiro;
@@ -182,12 +183,12 @@ exports.operators = {
 exports.hooks = {
   	beforeCreate: {
 	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
-	        salaryInfoSvc.dataHandler(salaryInfo)
+	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
     	})
   	},
   	beforeUpdate: {
 	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
-	        salaryInfoSvc.dataHandler(salaryInfo)
+	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
     	})
   	}  
 }
@@ -211,22 +212,23 @@ exports.importing = {
         {name: 'postSalary', column: 5, tileName: '岗位工资', type: 'double', isNull: false},
         {name: 'managerSalary', column: 6, tileName: '管理工资', type: 'double', isNull: false},
         {name: 'salaryTotal', column: 7, tileName: '工资总额', type: 'double', isNull: false},
-        {name: 'shouldWorks', column: 8, tileName: '应出勤天数', type: 'double', isNull: false},
-        {name: 'realityWorks', column: 9, tileName: '实际出勤天数', type: 'double', isNull: false},
-        {name: 'attendeSalary', column: 10, tileName: '考勤工资', type: 'double', isNull: true},
-        {name: 'gradeLevel', column: 11, tileName: '绩效系数', type: 'double', isNull: false},
-        {name: 'gradeReward', column: 12, tileName: '绩效奖', type: 'double', isNull: true},
-        {name: 'gradeSalary', column: 13, tileName: '绩效工资', type: 'double', isNull: true},
-        {name: 'allowance', column: 14, tileName: '补助', type: 'double', isNull: false},
-        {name: 'other', column: 15, tileName: '其他', type: 'double', isNull: true},
-        {name: 'shouldSalary', column: 16, tileName: '应付工资', type: 'double', isNull: true},
-        {name: 'insuranceCom', column: 17, tileName: '社保（公司）', type: 'double', isNull: false},
-        {name: 'insuranceEmp', column: 18, tileName: '社保（个人）', type: 'double', isNull: false},
-        {name: 'accumulationFundCom', column: 19, tileName: '公积金（公司）', type: 'double', isNull: false},
-        {name: 'accumulationFundEmp', column: 20, tileName: '公积金（个人）', type: 'double', isNull: false},
-        {name: 'tax', column: 21, tileName: '个人所得税', type: 'double', isNull: false},
-        {name: 'realitySalary', column: 22, tileName: '实发工资', type: 'double', isNull: true},
-        {name: 'remark', column: 23, tileName: '备注', type: 'string', isNull: true},
+        {name: 'gradeLines', column: 8, tileName: '绩效工资额度', type: 'double', isNull: true},
+        {name: 'shouldWorks', column: 9, tileName: '应出勤天数', type: 'double', isNull: false},
+        {name: 'realityWorks', column: 10, tileName: '实际出勤天数', type: 'double', isNull: false},
+        {name: 'attendeSalary', column: 11, tileName: '考勤工资', type: 'double', isNull: true},
+        {name: 'gradeLevel', column: 12, tileName: '绩效系数', type: 'double', isNull: false},
+        {name: 'gradeReward', column: 13, tileName: '绩效奖', type: 'double', isNull: true},
+        {name: 'gradeSalary', column: 14, tileName: '绩效工资', type: 'double', isNull: true},
+        {name: 'allowance', column: 15, tileName: '补助', type: 'double', isNull: false},
+        {name: 'other', column: 16, tileName: '其他', type: 'double', isNull: true},
+        {name: 'shouldSalary', column: 17, tileName: '应付工资', type: 'double', isNull: true},
+        {name: 'insuranceCom', column: 18, tileName: '社保（公司）', type: 'double', isNull: false},
+        {name: 'insuranceEmp', column: 19, tileName: '社保（个人）', type: 'double', isNull: false},
+        {name: 'accumulationFundCom', column: 20, tileName: '公积金（公司）', type: 'double', isNull: false},
+        {name: 'accumulationFundEmp', column: 21, tileName: '公积金（个人）', type: 'double', isNull: false},
+        {name: 'tax', column: 22, tileName: '个人所得税', type: 'double', isNull: false},
+        {name: 'realitySalary', column: 23, tileName: '实发工资', type: 'double', isNull: true},
+        {name: 'remark', column: 24, tileName: '备注', type: 'string', isNull: true},
     ]
 }
 
