@@ -17,18 +17,12 @@ exports.createService = function() {
 	return {
         //在导入信息是用来存储实体的方法
         saveEntities: mark('managers', SalaryInfo, EmployeeInfo).mark('tx').on(function (salaryInfoMgr, employeeInfoMgr, params, entityArray, result) {
-                // var entity,
-                //     subject = SecurityUtils.getSubject(),
-                //     user = subject.getPrincipal(), i;
+                var i, entity, empName, employeeList 
 
                 for (i = 0; i < entityArray.length; i++) {
-                    // entity = entityArray[i];
-                    // entity.creator = user.accountName;
-                    // entity.creatorName = user.realName;
-                    // entity.createdTime = new Date();
-                    // entity.lastModifiedTime = new Date();
+                    entity = entityArray[i];
 
-                    empName = result.pickerFields[i].colName.empName;//这句拿到的是Employee对象还是empName   ***在这里先当做name处理***
+                    empName = result.pickerFields[i].colName;
                     employeeList = salaryInfoMgr.getEmployeeByName({name: empName});
                     if(employeeList != null && employeeList.size() > 0){
                         entity.employeeInfo = employeeList.get(0);
@@ -48,9 +42,7 @@ exports.createService = function() {
                 entity, entities,
                 meta = resolver.resolveEntity(SalaryInfo),
                 dateTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                //dateSdf = new SimpleDateFormat("yyyy-MM-dd")
-          
-            entities = commExpService.createService().listEntities(options, meta);
+                entities = commExpService.createService().listEntities(options, meta);
 
             // 按照自己的要求处理数据
             for (i = 0; i < entities.size(); i++) {
