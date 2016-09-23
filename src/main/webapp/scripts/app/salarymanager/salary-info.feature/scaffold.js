@@ -8,23 +8,46 @@ define([
 
         afterShowDialog: function(dialogType, view, data){
             var me = this;
-
-            $('input[name = "salaryTotal"]', view.$el).attr('disabled',true)
-            $('input[name = "attendeSalary"]', view.$el).attr('disabled',true)
-            $('input[name = "gradeReward"]', view.$el).attr('disabled',true)
-            $('input[name = "gradeSalary"]', view.$el).attr('disabled',true)
-            $('input[name = "shouldSalary"]', view.$el).attr('disabled',true)
-            $('input[name = "realitySalary"]', view.$el).attr('disabled',true)
+            function saveFixedEvent(name){
+                var inputName = 'input[name = ' + '"' + name + '"' +']'
+                $(inputName, view.$el).change(function(){
+                    $(inputName, view.$el).val(
+                    Number($(inputName, view.$el).val()).toFixed(2));
+                 })
+            }
 
             if('add' === dialogType){//在添加页面设置当前feature中存放的雇员信息
-                
+                saveFixedEvent("basicSalary")
+                saveFixedEvent("levelSalary")
+                saveFixedEvent("postSalary")
+                saveFixedEvent("managerSalary")
+                saveFixedEvent("gradeLines")
+                saveFixedEvent("gradeLevel")
+                saveFixedEvent("allowance")
+                saveFixedEvent("other")
+                saveFixedEvent("insuranceCom")
+                saveFixedEvent("insuranceEmp")
+                saveFixedEvent("accumulationFundCom")
+                saveFixedEvent("accumulationFundEmp")
+                saveFixedEvent("tax")
             }
             if('show' === dialogType){//在添加页面设置当前feature中存放的雇员姓名
                 me.feature.model.set('employeeInfo.empName', data.employeeInfo.empName);
             }
             if('edit' === dialogType){
-                $('input[name = "employeeInfo"]', view.$el).attr('disabled',true)
-                $('input[name = "mounth"]', view.$el).attr('disabled',true)
+                saveFixedEvent("basicSalary")
+                saveFixedEvent("levelSalary")
+                saveFixedEvent("postSalary")
+                saveFixedEvent("managerSalary")
+                saveFixedEvent("gradeLines")
+                saveFixedEvent("gradeLevel")
+                saveFixedEvent("allowance")
+                saveFixedEvent("other")
+                saveFixedEvent("insuranceCom")
+                saveFixedEvent("insuranceEmp")
+                saveFixedEvent("accumulationFundCom")
+                saveFixedEvent("accumulationFundEmp")
+                saveFixedEvent("tax")
             }
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
         },

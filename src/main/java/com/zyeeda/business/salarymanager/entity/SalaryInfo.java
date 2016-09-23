@@ -6,6 +6,7 @@ import java.util.Date;
 import com.zyeeda.business.employee.entity.EmployeeInfo;
 
 import javax.persistence.Column;
+import javax.validation.constraints.Min;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -27,7 +28,7 @@ import com.zyeeda.cdeio.commons.resource.entity.Attachment;
 @Entity
 @Table(name = "bz_salary_info")
 @Scaffold("/salarymanager/salary-info")
-public class SalaryInfo extends RevisionDomainEntity{
+public class SalaryInfo extends RevisionDomainEntity {
 	/**
    * 序列化
    */
@@ -144,6 +145,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_salary_total")
+	@Min(value = 0)
 	public Double getSalaryTotal() {
 		return salaryTotal;
 	}
@@ -152,7 +154,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_shouldworks")
-	@NotNull
+	@NullableSize(min = 0, max = 31)
 	public Double getShouldWorks() {
 		return shouldWorks;
 	}
@@ -161,7 +163,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_realityworks")
-	@NotNull
+	@NullableSize(min = 0, max = 31)
 	public Double getRealityWorks() {
 		return realityWorks;
 	}
@@ -170,6 +172,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_shouldsalary")
+	@Min(value = 0)
 	public Double getShouldSalary() {
 		return shouldSalary;
 	}
@@ -178,7 +181,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_emp_insurance")
-	@NotNull
+	@Min(value = 0)
 	public Double getInsuranceEmp() {
 		return insuranceEmp;
 	}
@@ -187,7 +190,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_emp_fund")
-	@NotNull
+	@Min(value = 0)
 	public Double getAccumulationFundEmp() {
 		return accumulationFundEmp;
 	}
@@ -196,6 +199,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_realitysalary")
+	@Min(value = 0)
 	public Double getRealitySalary() {
 		return realitySalary;
 	}
@@ -205,6 +209,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 
 	@Column(name = "f_basicsalary")
 	@NotNull
+	@Min(value = 0)
 	public Double getBasicSalary() {
 		return basicSalary;
 	}
@@ -213,6 +218,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_levelsalary")
+	@Min(value = 0)
 	@NotNull
 	public Double getLevelSalary() {
 		return levelSalary;
@@ -222,6 +228,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_postsalary")
+	@Min(value = 0)
 	@NotNull
 	public Double getPostSalary() {
 		return postSalary;
@@ -231,6 +238,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_managersalary")
+	@Min(value = 0)
 	@NotNull
 	public Double getManagerSalary() {
 		return managerSalary;
@@ -240,6 +248,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_attendesalary")
+	@Min(value = 0)
 	public Double getAttendeSalary() {
 		return attendeSalary;
 	}
@@ -248,7 +257,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_gradelevel")
-	@NotNull
+	@Min(value = 1)
 	public Double getGradeLevel() {
 		return gradeLevel;
 	}
@@ -257,7 +266,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_gradelines")
-	@NotNull
+	@Min(value = 0)
 	public Double getGradeLines() {
 		return gradeLines ;
 	}
@@ -266,6 +275,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_gradereward")
+	@Min(value = 0)
 	public Double getGradeReward() {
 		return gradeReward;
 	}
@@ -274,6 +284,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_gradesalary")
+	@Min(value = 0)
 	public Double getGradeSalary() {
 		return gradeSalary;
 	}
@@ -282,7 +293,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_allowance")
-	@NotNull
+	@Min(value = 0)
 	public Double getAllowance() {
 		return allowance;
 	}
@@ -291,6 +302,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_other")
+	@Min(value = 0)
 	public Double getOther() {
 		return other;
 	}
@@ -299,7 +311,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_com_insurance")
-	@NotNull
+	@Min(value = 0)
 	public Double getInsuranceCom() {
 		return insuranceCom;
 	}
@@ -308,7 +320,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_com_fund")
-	@NotNull
+	@Min(value = 0)
 	public Double getAccumulationFundCom() {
 		return accumulationFundCom;
 	}
@@ -317,6 +329,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_tax")
+	@Min(value = 0)
 	public Double getTax() {
 		return tax;
 	}
@@ -325,6 +338,7 @@ public class SalaryInfo extends RevisionDomainEntity{
 	}
 
 	@Column(name = "f_remark")
+	
 	public String getRemark() {
 		return remark;
 	}

@@ -75,16 +75,35 @@ exports.fieldGroups = {
 		'levelSalary',
 		'postSalary',
 		'managerSalary',
-		'gradeLines',
-		'gradeLevel',
-		'allowance',
-		'other',
-		{name: 'shouldWorks', type: 'number', default: 0},
-		{name: 'realityWorks', type: 'number', default: 0},
-		'insuranceCom',
-		'insuranceEmp',
-		'accumulationFundCom',
-		'accumulationFundEmp',
+		{name: 'gradeLines', type: 'number', defaultValue: 1},
+		{name: 'gradeLevel', type: 'number', defaultValue: 1},
+		{name: 'shouldWorks', type: 'number', defaultValue: 1},
+		{name: 'realityWorks', type: 'number', defaultValue: 1},
+		{name: 'insuranceCom', type: 'number', defaultValue: 1},
+		{name: 'insuranceEmp', type: 'number', defaultValue: 1},
+		{name: 'accumulationFundCom', type: 'number', defaultValue: 1},
+		{name: 'accumulationFundEmp', type: 'number', defaultValue: 1},
+		{name: 'allowance', type: 'number', defaultValue: 1},
+		{name: 'other', type: 'number', defaultValue: 1},
+		{name: 'remark', type: 'textarea', colspan: 2}
+	 ],
+	 edit: [
+	 	{name: 'employeeInfo', displayString: '{{empName}}'},
+		'mounth',
+		'basicSalary',
+		'levelSalary',
+		'postSalary',
+		'managerSalary',
+		{name: 'gradeLines', type: 'number', defaultValue: 1},
+		{name: 'gradeLevel', type: 'number', defaultValue: 1},
+		{name: 'shouldWorks', type: 'number', defaultValue: 1},
+		{name: 'realityWorks', type: 'number', defaultValue: 1},
+		{name: 'insuranceCom', type: 'number', defaultValue: 1},
+		{name: 'insuranceEmp', type: 'number', defaultValue: 1},
+		{name: 'accumulationFundCom', type: 'number', defaultValue: 1},
+		{name: 'accumulationFundEmp', type: 'number', defaultValue: 1},
+		{name: 'allowance', type: 'number', defaultValue: 1},
+		{name: 'other', type: 'number', defaultValue: 1},
 		{name: 'remark', type: 'textarea', colspan: 2}
 	 ],
 	 disabledGroup: [ //不可编辑的控件
@@ -132,7 +151,7 @@ exports.forms = {
 	},
 	edit: {
 		groups: [
-			{name: 'defaults', columns: 2}
+			{name: 'edit', columns: 2}
 		],
 		 size: 'large'
 	},
@@ -174,6 +193,7 @@ exports.grid = {
     defaultOrder: 'createdTime-desc'
 }
 
+
 exports.operators = {
     downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
     importXls: {label: '导入', icon: 'icon-download-alt', group: '30-refresh', style: 'btn-warning', show: 'unselected', order: 200},
@@ -196,9 +216,9 @@ exports.hooks = {
   	},
   	afterUpdate: {
   		defaults: mark('services', 'salarymanager/department-count').on(function (departmentCountSvc, salaryInfo) {
-	      var beforeSalaryInfo
-	      beforeSalaryInfo = departmentCountSvc.updateBeforeInfo()
-	      departmentCountSvc.updateBySalaryInfo(salaryInfo, upadateTag)
+	      // var beforeSalaryInfo
+	      // beforeSalaryInfo = departmentCountSvc.updateBeforeInfo()
+	      // departmentCountSvc.updateBySalaryInfo(salaryInfo)
     	})
   	}
 

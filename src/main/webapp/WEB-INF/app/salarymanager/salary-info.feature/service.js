@@ -87,7 +87,19 @@ exports.createService = function() {
             salaryInfo.mounth = date
             console.log('修改的日期********************：', salaryInfo.mounth)
             
-            
+            //默认值设定
+            // salaryInfo.gradeLines = salaryInfo.gradeLines || 0
+            // salaryInfo.shouldWorks = salaryInfo.shouldWorks || 0
+            // salaryInfo.realityWorks = salaryInfo.realityWorks || 0
+            // salaryInfo.attendeSalary = salaryInfo.attendeSalary || 0
+            // salaryInfo.gradeLevel = salaryInfo.gradeLevel || 1
+            // salaryInfo.other = salaryInfo.other || 0
+            // salaryInfo.allowance = salaryInfo.allowance || 0
+            // salaryInfo.insuranceCom = salaryInfo.insuranceCom || 0
+            // salaryInfo.insuranceEmp = salaryInfo.insuranceEmp || 0
+            // salaryInfo.accumulationFundCom = salaryInfo.accumulationFundCom || 0
+            // salaryInfo.accumulationFundEmp = salaryInfo.accumulationFundEmp || 0
+
             //工资总额自动计算
             salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
             //考勤工资自动计算
@@ -108,7 +120,7 @@ exports.createService = function() {
             function taxHandler(salary, taxTag) {
                 var taxSalary = salary - 3500
                 if(taxSalary <= 0){
-                    return 0
+                    return 0.00
                 }
                 //不含税级距的计算方式（计算个人所得税）
                 if (taxTag == 'uninclude') {
