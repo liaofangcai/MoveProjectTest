@@ -9,7 +9,7 @@ var {join}                      = require('cdeio/util/paths');
 var {createService}             = require('salarymanager/salary-info.feature/service');
 var cdeio                       = require('cdeio/config').cdeio;
 
-var {SalaryInfo}                = com.zyeeda.business.salarymanager.entity;
+var {SalaryInfo, DepartmentCount}                = com.zyeeda.business.salarymanager.entity;
 var {SecurityUtils}             = org.apache.shiro;
 
 var {SimpleDateFormat}          = java.text;
@@ -182,15 +182,26 @@ exports.operators = {
 
 exports.hooks = {
   	beforeCreate: {
-	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
+	    defaults: mark('services', 'salarymanager/salary-info', 'salarymanager/department-count').on(function (salaryInfoSvc, departmentCountSvc, salaryInfo) {
+	       var addSalaryInfo = [salaryInfo]
 	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
+			departmentCountSvc.saveDepCountEntities(addSalaryInfo)	        
     	})
   	},
   	beforeUpdate: {
-	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
+	    defaults: mark('services', 'salarymanager/salary-info', 'salarymanager/department-count').on(function (salaryInfoSvc, departmentCountSvc, salaryInfo) {
 	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
+	        
     	})
-  	}  
+  	},
+  	afterUpdate: {
+  		defaults: mark('services', 'salarymanager/department-count').on(function (departmentCountSvc, salaryInfo) {
+	      var beforeSalaryInfo
+	      beforeSalaryInfo = departmentCountSvc.updateBeforeInfo()
+	      departmentCountSvc.updateBySalaryInfo(salaryInfo, upadateTag)
+    	})
+  	}
+
 }
 
 exports.exporting = {

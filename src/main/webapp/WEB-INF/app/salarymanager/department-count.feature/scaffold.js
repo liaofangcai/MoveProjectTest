@@ -1,16 +1,16 @@
-
-
+var _                = require('underscore');
+var {createService}  = require('salarymanager/department-count.feature/service');
 
 exports.filters = {
 	defaults: {
 		'!departmentCountFilter': [''],
-		'!departmentFilter': ['parent(1)']
+		'!departmentFilter': ['parent(1)', 'children', 'accounts']
 	}
 }
 
-// exports.service = function(service){
-//     return _.extend(service, createService());
-// }
+exports.service = function(service){
+    return _.extend(service, createService());
+}
 
 exports.haveFilter = true
 
@@ -87,17 +87,3 @@ exports.grid = {
     multiple: true,
     defaultOrder: 'createdTime-desc'
 }
-
-
-// exports.hooks = {
-//   	beforeCreate: {
-// 	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
-// 	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
-//     	})
-//   	},
-//   	beforeUpdate: {
-// 	    defaults: mark('services', 'salarymanager/salary-info').on(function (salaryInfoSvc,salaryInfo) {
-// 	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
-//     	})
-//   	}  
-// }

@@ -128,6 +128,10 @@ public class SalaryInfo extends RevisionDomainEntity{
 	 *员工信息
 	 */
 	private EmployeeInfo employeeInfo ;
+	/*
+	 *员工部门Path
+	 */
+	private String departmentPath; 
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "f_mounth")
@@ -337,4 +341,13 @@ public class SalaryInfo extends RevisionDomainEntity{
 	public void setEmployeeInfo(EmployeeInfo employeeInfo) {
 		this.employeeInfo = employeeInfo;
 	} 
+
+	@Column(name = "f_dep_path")
+	public String getDepartmentPath() {
+		return departmentPath;
+	}
+	public void setDepartmentPath(String departmentPath) {
+		this.departmentPath = departmentPath;
+	}
+
 }

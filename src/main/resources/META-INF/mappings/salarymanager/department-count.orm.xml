@@ -7,15 +7,9 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/orm_2_0.xsd"
     version="2.0">
 
-    <named-query name="getEmployeeByName">
+    <named-query name="getSumSalaryByPathAndMounth">
         <query>
-            select ei from EmployeeInfo ei where ei.empName = :name
-        </query>
-    </named-query>
-
-    <named-query name="getSalaryInfoByNAM">
-        <query>
-            select si from SalaryInfo si where si.employeeInfo.empName = :name and si.mounth = :mounth
+            select dc from DepartmentCount dc where dc.departmentPath = :depPath and dc.mounth = :mounth
         </query>
     </named-query>
 </entity-mappings>

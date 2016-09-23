@@ -33,6 +33,10 @@ public class DepartmentCount extends RevisionDomainEntity{
 	 */
 	private Department depName ; 
 	/*
+	 *员工部门Path
+	 */
+	private String departmentPath;
+	/*
 	 * 年月
 	 */
 	private Date mounth ;
@@ -153,4 +157,11 @@ public class DepartmentCount extends RevisionDomainEntity{
 		this.realitySalary = realitySalary;
 	}
 	
+	@Column(name = "f_dep_path")
+	public String getDepartmentPath() {
+		return departmentPath;
+	}
+	public void setDepartmentPath(String departmentPath) {
+		this.departmentPath = departmentPath;
+	}
 }

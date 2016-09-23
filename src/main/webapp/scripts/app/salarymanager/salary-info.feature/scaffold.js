@@ -22,6 +22,10 @@ define([
             if('show' === dialogType){//在添加页面设置当前feature中存放的雇员姓名
                 me.feature.model.set('employeeInfo.empName', data.employeeInfo.empName);
             }
+            if('edit' === dialogType){
+                $('input[name = "employeeInfo"]', view.$el).attr('disabled',true)
+                $('input[name = "mounth"]', view.$el).attr('disabled',true)
+            }
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
         },
         handlers:{
