@@ -224,7 +224,7 @@ exports.hooks = {
     },
 
     beforeUpdate: {
-        changePassword: mark('services', 'system/accounts').on(function (accountSvc, account, request) {
+        changePassword: mark('services', 'system/accounts').on(function (accountSvc, account) {
             accountSvc.hashPassword(account);
         }),
 
