@@ -42,6 +42,7 @@ exports.labels = {
 	'employeeInfo.empName': '员工姓名',
 	'employeeInfo.department': '部门',
 	'employeeInfo.department.name': '部门',
+	year: '年份',
 	mounth: '月份',
 	basicSalary: '基本工资',
 	levelSalary: '级别工资',
@@ -69,54 +70,46 @@ exports.labels = {
 
 exports.fieldGroups = {
 	 defaults: [
-	 	{name: 'employeeInfo', displayString: '{{empName}}'},
-		'mounth',
-		'basicSalary',
-		'levelSalary',
-		'postSalary',
-		'managerSalary',
-		{name: 'gradeLines', type: 'number', defaultValue: 1},
+		{name: 'basicSalary', type: 'number', defaultValue: 0},
+		{name: 'levelSalary', type: 'number', defaultValue: 0},
+		{name: 'postSalary', type: 'number', defaultValue: 0.},
+		{name: 'managerSalary', type: 'number', defaultValue: 0},
+		{name: 'salaryTotal', colspan: 2},
+		{name: 'gradeLines', type: 'number', defaultValue: 0},
 		{name: 'gradeLevel', type: 'number', defaultValue: 1},
+		'gradeReward',
+		'gradeSalary',
 		{name: 'shouldWorks', type: 'number', defaultValue: 1},
-		{name: 'realityWorks', type: 'number', defaultValue: 1},
-		{name: 'insuranceCom', type: 'number', defaultValue: 1},
-		{name: 'insuranceEmp', type: 'number', defaultValue: 1},
-		{name: 'accumulationFundCom', type: 'number', defaultValue: 1},
-		{name: 'accumulationFundEmp', type: 'number', defaultValue: 1},
-		{name: 'allowance', type: 'number', defaultValue: 1},
-		{name: 'other', type: 'number', defaultValue: 1},
-		{name: 'remark', type: 'textarea', colspan: 2}
-	 ],
-	 edit: [
-	 	{name: 'employeeInfo', displayString: '{{empName}}'},
-		'mounth',
-		'basicSalary',
-		'levelSalary',
-		'postSalary',
-		'managerSalary',
-		{name: 'gradeLines', type: 'number', defaultValue: 1},
-		{name: 'gradeLevel', type: 'number', defaultValue: 1},
-		{name: 'shouldWorks', type: 'number', defaultValue: 1},
-		{name: 'realityWorks', type: 'number', defaultValue: 1},
-		{name: 'insuranceCom', type: 'number', defaultValue: 1},
-		{name: 'insuranceEmp', type: 'number', defaultValue: 1},
-		{name: 'accumulationFundCom', type: 'number', defaultValue: 1},
-		{name: 'accumulationFundEmp', type: 'number', defaultValue: 1},
-		{name: 'allowance', type: 'number', defaultValue: 1},
-		{name: 'other', type: 'number', defaultValue: 1},
+		{name: 'realityWorks', type: 'number', defaultValue: 0},
+		{name: 'attendeSalary', colspan: 2},
+		{name: 'insuranceCom', type: 'number', defaultValue: 0},
+		{name: 'insuranceEmp', type: 'number', defaultValue: 0},
+		{name: 'accumulationFundCom', type: 'number', defaultValue: 0},
+		{name: 'accumulationFundEmp', type: 'number', defaultValue: 0},
+		{name: 'allowance', type: 'number', defaultValue: 0},
+		{name: 'other', type: 'number', defaultValue: 0},
+		'shouldSalary',
+		'tax',
+		{name: 'realitySalary', colspan: 2},
 		{name: 'remark', type: 'textarea', colspan: 2}
 	 ],
 	 disabledGroup: [ //不可编辑的控件
-	 	'tax',
 	 	'salaryTotal',
-	 	'attendeSalary',
 	 	'gradeReward',
 		'gradeSalary',
-		'shouldSalary',
-		'realitySalary'
+	 	'attendeSalary',
+	 	'shouldSalary',
+		'tax',
+		'realitySalary',
+	 ],
+	 format: [
+	 	{name: 'employeeInfo', displayString: '{{empName}}'},
+		{name: 'year', type: 'number' }, 
+		{name: 'mounth',type: 'number',defaultValue: 1}
 	 ],
 	  show: [
-	 	'employeeInfo.empName',
+	 	{name: 'employeeInfo.empName', colspan: 2},
+	 	'year',
 		'mounth',
 		'basicSalary',
 		'levelSalary',
@@ -132,18 +125,20 @@ exports.fieldGroups = {
 		'insuranceEmp',
 		'accumulationFundCom',
 		'accumulationFundEmp',
-		{name: 'remark', type: 'textarea', colspan: 2}
+		{name: 'remark', type: 'textarea', }
 	 ],
 	 filter: [
 	 	'employeeInfo.empName',
 	 	'employeeInfo.department.name',
-	 	'mounth'
+	 	{name: 'year', type: 'number'}, 
+		{name: 'mounth',type: 'number'}
 	 ]
 }
 
 exports.forms = {
 	defaults: {
 		groups: [
+			{name: 'format', columns: 3},
 			{name: 'defaults', columns: 2}
 			
 		],
@@ -151,12 +146,14 @@ exports.forms = {
 	},
 	edit: {
 		groups: [
-			{name: 'edit', columns: 2}
+			{name: 'format', columns: 3},
+			{name: 'defaults', columns: 2}
 		],
 		 size: 'large'
 	},
 	add: {
 		groups: [
+			{name: 'format', columns: 3},
 			{name: 'defaults', columns: 2}
 		],
 		size: 'large'
@@ -179,10 +176,12 @@ exports.forms = {
 exports.grid = {
 	columns: [
 		{name: 'employeeInfo.empName', header: '员工姓名'},
-		'shouldWorks', 
-		'realityWorks',
-		'salaryTotal', 
-		'realitySalary', 
+		{name: 'year', renderer: 'yearValue'},
+		{name: 'mounth', renderer: 'mounthValue'},
+		{name: 'shouldWorks', renderer: 'shouldWorksValue'},
+		{name: 'realityWorks', renderer: 'realityWorksValue'},
+		{name: 'salaryTotal', renderer: 'salaryTotalValue'},
+		{name: 'realitySalary', renderer: 'realitySalaryValue'},
 		'remark'
 	],
 	
@@ -192,7 +191,60 @@ exports.grid = {
     multiple: true,
     defaultOrder: 'createdTime-desc'
 }
+exports.validators = {
+    create: {
+        defaults: function(context, entity, request){
+        	var time,
+            date,
+            timeArr = [],
+            sdf = new SimpleDateFormat("yyyy-MM-dd")
 
+            time = sdf.format(new Date())
+            timeArr = time.split('-')
+        	if(entity.year < parseInt(timeArr[0]) - 20) {
+                context.addViolation({ message: '年份不能小于当前年份20年'})
+            }
+            if(entity.year > parseInt(timeArr[0])) {
+                context.addViolation({ message: '年份不能大于当前年份'})
+            }
+            if(entity.mounth < 1) {
+                context.addViolation({ message: '月份不能小于0'})
+            }
+            if(entity.mounth > 12) {
+                context.addViolation({ message: '月份不能大于12'})
+            }
+        }
+    },
+    update: {
+        defaults: function(context, entity, request){
+        	var time,
+            date,
+            timeArr = [],
+            sdf = new SimpleDateFormat("yyyy-MM-dd")
+            
+            time = sdf.format(new Date())
+            timeArr = time.split('-')
+            //console.log('***********************', entity.year)
+        	if(entity.getYear() < parseInt(timeArr[1]) - 20) {
+                context.addViolation({ message: '年份不能小于' + timeArr[1] + '前20年'})
+            }
+            if(entity.getYear() > parseInt(timeArr[1])) {
+                context.addViolation({ message: '年份不能大于' + timeArr[1] + '年'})
+            }
+            if(entity.getMounth() < 1) {
+                context.addViolation({ message: '月份不能小于0'})
+            }
+            if(entity.getMounth() > parseInt(timeArr[2])) {
+                context.addViolation({ message: '月份不能大于当前月份' + timeArr[2]})
+            }
+        }
+    },
+    remove: {
+        defaults: function(context, entity, request){
+            
+        }
+    }
+}
 
 exports.operators = {
     downloadImportTemplate: {label: '下载导入模板', icon: 'icon-cloud-download', group: '30-refresh', style: 'btn-info', show: 'unselected', order: 100},
@@ -205,20 +257,22 @@ exports.hooks = {
 	    defaults: mark('services', 'salarymanager/salary-info', 'salarymanager/department-count').on(function (salaryInfoSvc, departmentCountSvc, salaryInfo) {
 	       var addSalaryInfo = [salaryInfo]
 	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
-			departmentCountSvc.saveDepCountEntities(addSalaryInfo)	        
+			//departmentCountSvc.saveDepCountEntities(addSalaryInfo)	        
     	})
   	},
   	beforeUpdate: {
 	    defaults: mark('services', 'salarymanager/salary-info', 'salarymanager/department-count').on(function (salaryInfoSvc, departmentCountSvc, salaryInfo) {
+	        var tag
+	        tag = 'before'
 	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
-	        
+	        //departmentCountSvc.updateBySalaryInfo(salaryInfo, tag)
     	})
   	},
   	afterUpdate: {
   		defaults: mark('services', 'salarymanager/department-count').on(function (departmentCountSvc, salaryInfo) {
-	      // var beforeSalaryInfo
-	      // beforeSalaryInfo = departmentCountSvc.updateBeforeInfo()
-	      // departmentCountSvc.updateBySalaryInfo(salaryInfo)
+	      var tag
+	      tag = 'after'
+	      //departmentCountSvc.updateBySalaryInfo(salaryInfo, tag)
     	})
   	}
 
@@ -237,29 +291,30 @@ exports.importing = {
     startRow: 2,
     mapping: [
         {name: 'employeeInfo', column: 1, tileName: '员工姓名', type: 'picker', isNull: false},
-        {name: 'mounth', column: 2, tileName: '月份', type: 'date', isNull: true},
-        {name: 'basicSalary', column: 3, tileName: '基本工资', type: 'double', isNull: false},
-        {name: 'levelSalary', column: 4, tileName: '级别工资', type: 'double', isNull: false},
-        {name: 'postSalary', column: 5, tileName: '岗位工资', type: 'double', isNull: false},
-        {name: 'managerSalary', column: 6, tileName: '管理工资', type: 'double', isNull: false},
-        {name: 'salaryTotal', column: 7, tileName: '工资总额', type: 'double', isNull: false},
-        {name: 'gradeLines', column: 8, tileName: '绩效工资额度', type: 'double', isNull: true},
-        {name: 'shouldWorks', column: 9, tileName: '应出勤天数', type: 'double', isNull: false},
-        {name: 'realityWorks', column: 10, tileName: '实际出勤天数', type: 'double', isNull: false},
-        {name: 'attendeSalary', column: 11, tileName: '考勤工资', type: 'double', isNull: true},
-        {name: 'gradeLevel', column: 12, tileName: '绩效系数', type: 'double', isNull: false},
-        {name: 'gradeReward', column: 13, tileName: '绩效奖', type: 'double', isNull: true},
-        {name: 'gradeSalary', column: 14, tileName: '绩效工资', type: 'double', isNull: true},
-        {name: 'allowance', column: 15, tileName: '补助', type: 'double', isNull: false},
-        {name: 'other', column: 16, tileName: '其他', type: 'double', isNull: true},
-        {name: 'shouldSalary', column: 17, tileName: '应付工资', type: 'double', isNull: true},
-        {name: 'insuranceCom', column: 18, tileName: '社保（公司）', type: 'double', isNull: false},
-        {name: 'insuranceEmp', column: 19, tileName: '社保（个人）', type: 'double', isNull: false},
-        {name: 'accumulationFundCom', column: 20, tileName: '公积金（公司）', type: 'double', isNull: false},
-        {name: 'accumulationFundEmp', column: 21, tileName: '公积金（个人）', type: 'double', isNull: false},
-        {name: 'tax', column: 22, tileName: '个人所得税', type: 'double', isNull: false},
-        {name: 'realitySalary', column: 23, tileName: '实发工资', type: 'double', isNull: true},
-        {name: 'remark', column: 24, tileName: '备注', type: 'string', isNull: true},
+        {name: 'year', column: 2, tileName: '月份', type: 'int', isNull: false},
+        {name: 'mounth', column: 3, tileName: '月份', type: 'int', isNull: false},
+        {name: 'basicSalary', column: 4, tileName: '基本工资', type: 'double', isNull: false},
+        {name: 'levelSalary', column: 5, tileName: '级别工资', type: 'double', isNull: false},
+        {name: 'postSalary', column: 6, tileName: '岗位工资', type: 'double', isNull: false},
+        {name: 'managerSalary', column: 7, tileName: '管理工资', type: 'double', isNull: false},
+        {name: 'salaryTotal', column: 8, tileName: '工资总额', type: 'double', isNull: false},
+        {name: 'gradeLines', column: 9, tileName: '绩效工资额度', type: 'double', isNull: true},
+        {name: 'shouldWorks', column: 10, tileName: '应出勤天数', type: 'double', isNull: false},
+        {name: 'realityWorks', column: 11, tileName: '实际出勤天数', type: 'double', isNull: false},
+        {name: 'attendeSalary', column: 12, tileName: '考勤工资', type: 'double', isNull: true},
+        {name: 'gradeLevel', column: 13, tileName: '绩效系数', type: 'double', isNull: false},
+        {name: 'gradeReward', column: 14, tileName: '绩效奖', type: 'double', isNull: true},
+        {name: 'gradeSalary', column: 15, tileName: '绩效工资', type: 'double', isNull: true},
+        {name: 'allowance', column: 16, tileName: '补助', type: 'double', isNull: false},
+        {name: 'other', column: 17, tileName: '其他', type: 'double', isNull: true},
+        {name: 'shouldSalary', column: 18, tileName: '应付工资', type: 'double', isNull: true},
+        {name: 'insuranceCom', column: 19, tileName: '社保（公司）', type: 'double', isNull: false},
+        {name: 'insuranceEmp', column: 20, tileName: '社保（个人）', type: 'double', isNull: false},
+        {name: 'accumulationFundCom', column: 21, tileName: '公积金（公司）', type: 'double', isNull: false},
+        {name: 'accumulationFundEmp', column: 22, tileName: '公积金（个人）', type: 'double', isNull: false},
+        {name: 'tax', column: 23, tileName: '个人所得税', type: 'double', isNull: false},
+        {name: 'realitySalary', column: 24, tileName: '实发工资', type: 'double', isNull: true},
+        {name: 'remark', column: 25, tileName: '备注', type: 'string', isNull: true},
     ]
 }
 

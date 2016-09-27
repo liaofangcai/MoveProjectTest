@@ -34,9 +34,13 @@ public class SalaryInfo extends RevisionDomainEntity {
    */
   	private static final long serialVersionUID = 3790277543938624745L;
 	/*
+	 * 年份
+	 */
+	private Integer year ;
+	/*
 	 * 月份
 	 */
-	private Date mounth ;
+	private Integer mounth ;
 	/*
 	 * 工资总额
 	 */
@@ -134,13 +138,23 @@ public class SalaryInfo extends RevisionDomainEntity {
 	 */
 	private String departmentPath; 
 
-	@Temporal(TemporalType.DATE)
+	@Column(name = "f_year")
+	@NotNull
+	@Min(value = 1900)
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 	@Column(name = "f_mounth")
 	@NotNull
-	public Date getMounth() {
+	@NullableSize(min = 1, max = 12)
+	public Integer getMounth() {
 		return mounth;
 	}
-	public void setMounth(Date mounth) {
+	public void setMounth(Integer mounth) {
 		this.mounth = mounth;
 	}
 

@@ -15,7 +15,7 @@
 
     <named-query name="getSalaryInfoByNAM">
         <query>
-            select si from SalaryInfo si where si.employeeInfo.empName = :name and si.mounth = :mounth
+            select si from SalaryInfo si where si.id = :id
         </query>
     </named-query>
 </entity-mappings>

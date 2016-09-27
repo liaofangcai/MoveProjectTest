@@ -15,6 +15,7 @@ var {SimpleDateFormat}      = java.text;
 
 
 exports.createService = function() {
+    var beforeSalaryInfo
 	return {
         list: mark('beans', EntityMetaResolver).mark('tx').on(function (resolver, entity, options) {
             var meta = resolver.resolveEntity(DepartmentCount),
@@ -54,7 +55,7 @@ exports.createService = function() {
         //在导入信息是用来存储实体的方法
         saveDepCountEntities: mark('managers', DepartmentCount).mark('tx').on(function (departmentCountMgr, salaryInfoArr) {
                 var i, salaryInfo, result, departmentCountItems,departmentCountArray = []
-                var sdf, timeArr, date ,time, mounth
+                var sdf, timeArr, date ,time, mounth, departmentPath
                 for (i = 0; i < salaryInfoArr.length; i++) {
                     salaryInfo = salaryInfoArr[i];
                     //处理时间，存入薪资管理>部门统计中的工资汇总信息的日期的day统一为1号
@@ -82,6 +83,10 @@ exports.createService = function() {
                         
                     }else {//部门统计表中没有存在该部门该月份的工资汇总信息的时候，此时只需要做添加操作
                         var departmentCount = new DepartmentCount()
+                        salaryInfo.insuranceEmp = salaryInfo.insuranceEmp || 0
+                        salaryInfo.insuranceCom = salaryInfo.insuranceCom || 0
+                        salaryInfo.accumulationFundEmp = salaryInfo.accumulationFundEmp || 0
+                        salaryInfo.accumulationFundCom = salaryInfo.accumulationFundCom || 0
                         departmentCount.depName = salaryInfo.employeeInfo.department                       
                         departmentCount.departmentPath = salaryInfo.departmentPath
                         departmentCount.mounth = mounth
@@ -105,8 +110,14 @@ exports.createService = function() {
         }),
 
         //修改工资信息时修改薪资信息>部门统计中的数据，根据id判断是修改那个一的信息
-        updateBySalaryInfo: mark('managers', SalaryInfo, DepartmentCount).mark('tx').on(function (salaryInfoMgr, departmentCountMgr, beforeSalaryInfo, salaryInfo) {
-            var beforeSalaryInfo, afterSalaryInfo, updateDepartmentCount
+        updateBySalaryInfo: mark('managers', SalaryInfo, DepartmentCount).mark('tx').on(function (salaryInfoMgr, departmentCountMgr, salaryInfo) {
+
+            // var sqlSalaryInfo = salaryInfoMgr.getSalaryInfoByNAM({id: salaryInfo.id}).get(0)
+
+            // var localRemark = salaryInfo.remark
+            // var sqlRemark = sqlSalaryInfo.remark
+
+            var afterSalaryInfo, updateDepartmentCount
             // beforeSalaryInfo = new SalaryInfo()
             // afterSalaryInfo = new SalaryInfo()
             if (tag == 'before') {//如果是修改以前，拿到修改之前的数据

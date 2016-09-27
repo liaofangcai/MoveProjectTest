@@ -24,15 +24,21 @@ exports.createService = function() {
                 k,
                 index,
                 results;
-            //如果是有日期查询条件的话，截取日期格式为年月的形式
+
             queryParams = options.filters
             if (queryParams) {
+                if (queryParams.toString().indexOf('year') != -1) {
+                    for(k =0; k<queryParams.length; k++){
+                        if (queryParams[k].toString().indexOf('year') != -1) {
+                            queryParams[k][0] = 'eq'                   
+                        }
+                    }
+                }
+
                 if (queryParams.toString().indexOf('mounth') != -1) {
                     for(k =0; k<queryParams.length; k++){
                         if (queryParams[k].toString().indexOf('mounth') != -1) {
-                            //2016-12-7
-                            index = queryParams[k][2].lastIndexOf('-')//7
-                            queryParams[k][2] = queryParams[k][2].substr(0,index) + '-01'                         
+                            queryParams[k][0] = 'eq'                       
                         }
                     }
                 }
@@ -61,7 +67,6 @@ exports.createService = function() {
                     if(employeeList != null && employeeList.size() > 0){
                         //设置导入实体的的员工信息
                         entity.employeeInfo = employeeList.get(0);
-                        //console.log('导入时从数据库中查出来的数据的格式测试（输出性别）:', employeeList.get(0).gender)
                         //设置导入实体的员工对应的departmentPath
                         entity.departmentPath = entity.employeeInfo.department.path
                     }
@@ -74,34 +79,35 @@ exports.createService = function() {
         }),
         //用来处理添加和更新数据的方法
         dataHandler: function(salaryInfo, taxTag) {
-            var time,
-            date,
-            timeArr = [],
-            sdf = new SimpleDateFormat("yyyy-MM-dd")
-            //处理时间，统一变为一号
-            console.log('没有修改的日期****************：', salaryInfo.mounth)
-            time = sdf.format(salaryInfo.mounth)
-            timeArr = time.split('-')
-            timeArr[2] = 1
-            date = new Date(timeArr[0]-1900, timeArr[1]-1, timeArr[2])
-            salaryInfo.mounth = date
-            console.log('修改的日期********************：', salaryInfo.mounth)
+            console.log('comeing in dataHandler...............')
+            // var time,
+            // date,
+            // timeArr = [],
+            // sdf = new SimpleDateFormat("yyyy-MM-dd")
+            // //处理时间，统一变为一号
+            // console.log('没有修改的日期****************：', salaryInfo.mounth)
+            // time = sdf.format(salaryInfo.mounth)
+            // timeArr = time.split('-')
+            // timeArr[2] = 1
+            // date = new Date(timeArr[0]-1900, timeArr[1]-1, timeArr[2])
+            // salaryInfo.mounth = date
+            // console.log('修改的日期********************：', salaryInfo.mounth)
             
             //默认值设定
-            // salaryInfo.gradeLines = salaryInfo.gradeLines || 0
-            // salaryInfo.shouldWorks = salaryInfo.shouldWorks || 0
-            // salaryInfo.realityWorks = salaryInfo.realityWorks || 0
-            // salaryInfo.attendeSalary = salaryInfo.attendeSalary || 0
-            // salaryInfo.gradeLevel = salaryInfo.gradeLevel || 1
-            // salaryInfo.other = salaryInfo.other || 0
-            // salaryInfo.allowance = salaryInfo.allowance || 0
-            // salaryInfo.insuranceCom = salaryInfo.insuranceCom || 0
-            // salaryInfo.insuranceEmp = salaryInfo.insuranceEmp || 0
-            // salaryInfo.accumulationFundCom = salaryInfo.accumulationFundCom || 0
-            // salaryInfo.accumulationFundEmp = salaryInfo.accumulationFundEmp || 0
+            salaryInfo.gradeLines = salaryInfo.gradeLines || 0
+            salaryInfo.shouldWorks = salaryInfo.shouldWorks || 1
+            salaryInfo.realityWorks = salaryInfo.realityWorks || 0
+            salaryInfo.gradeLevel = salaryInfo.gradeLevel || 1
+            salaryInfo.other = salaryInfo.other || 0
+            salaryInfo.allowance = salaryInfo.allowance || 0
+            salaryInfo.insuranceCom = salaryInfo.insuranceCom || 0
+            salaryInfo.insuranceEmp = salaryInfo.insuranceEmp || 0
+            salaryInfo.accumulationFundCom = salaryInfo.accumulationFundCom || 0
+            salaryInfo.accumulationFundEmp = salaryInfo.accumulationFundEmp || 0
 
             //工资总额自动计算
             salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
+            console.log('999999999999', salaryInfo.salaryTotal)
             //考勤工资自动计算
             salaryInfo.attendeSalary = (salaryInfo.salaryTotal/salaryInfo.shouldWorks*salaryInfo.realityWorks).toFixed(2)
             //绩效奖自动计算
@@ -111,6 +117,7 @@ exports.createService = function() {
             //应付工资自动计算
             salaryInfo.shouldSalary = salaryInfo.gradeSalary + salaryInfo.other + salaryInfo.allowance
             //个人所得税计算
+            console.log(salaryInfo.shouldSalary + "**" + salaryInfo.accumulationFundEmp + "**" + salaryInfo.insuranceEmp + "**")
             salaryInfo.tax = (taxHandler((salaryInfo.shouldSalary - salaryInfo.accumulationFundEmp - salaryInfo.insuranceEmp), taxTag)).toFixed(2)
             //实发工资自动计算
             salaryInfo.realitySalary = (salaryInfo.shouldSalary - salaryInfo.insuranceEmp - salaryInfo.accumulationFundEmp - salaryInfo.tax).toFixed(2)
@@ -118,6 +125,7 @@ exports.createService = function() {
             salaryInfo.departmentPath = salaryInfo.employeeInfo.department.path
 
             function taxHandler(salary, taxTag) {
+                console.log('comeing in taxHandler...............', salary)
                 var taxSalary = salary - 3500
                 if(taxSalary <= 0){
                     return 0.00
