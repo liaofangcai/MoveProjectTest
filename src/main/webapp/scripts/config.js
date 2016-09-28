@@ -12,7 +12,8 @@ define({
         'profile/viewport',
         'profile/account-menu'
     ],
-
+    //用来标识个人所得税的算法
+    taxTag: 'include',
     urlPrefix: function(app, path) {
         if ('/about' === path || '/common-routers' === path || '/system/upload' === path) {
             return 'invoke' + path;

@@ -1,9 +1,9 @@
 define([
         'jquery',
         'app/commons/export-excel.feature/export-excel-function',
-        'app/commons/import-excel.feature/import-excel-function'
-        //'cdeio/config'
-], function($, exportUtil, importUtil){
+        'app/commons/import-excel.feature/import-excel-function',
+        'config'
+], function($, exportUtil, importUtil, config){
   	return {
          //dialogType:add/edit/show, view:the current view, data:this dialog's data
 
@@ -15,12 +15,12 @@ define([
                 var inputName = 'input[name = ' + '"' + name + '"' +']'
                 return inputName
             }
-
+          
             //$(getName('attendeSalary'), view.$el).attr('disabled', true)
 
             //处理动态保留两位小数
             function saveFixedEvent(name){
-                var inputName = 'input[name = ' + '"' + name + '"' +']'
+                var inputName = getName(name)
                 $(inputName, view.$el).change(function(){
                     $(inputName, view.$el).val(
                     Number($(inputName, view.$el).val()).toFixed(2));
@@ -30,13 +30,6 @@ define([
             function hideMenu(){
                 var hideMenus = 'inpunt[name = "salaryTotal"],[name = "salaryTotal"],[name = "attendeSalary"],[name = "gradeReward"],[name = "gradeSalary"],[name = "shouldSalary"],[name = "tax"],[name = "realitySalary"]'
                 $(hideMenus, view.$el).attr('disabled', true)
-                // $(getName('salaryTotal'), view.$el).attr('disabled', true)
-                // $(getName('attendeSalary'), view.$el).attr('disabled', true)
-                // $(getName('gradeReward'), view.$el).attr('disabled', true)
-                // $(getName('gradeSalary'), view.$el).attr('disabled', true)
-                // $(getName('shouldSalary'), view.$el).attr('disabled', true)
-                // $(getName('tax'), view.$el).attr('disabled', true)
-                // $(getName('realitySalary'), view.$el).attr('disabled', true)
             }
 
             //要保留两位小数的控件
@@ -115,118 +108,78 @@ define([
             //获取控件动态改变的值
             function getValueByInputName(name) {
                 var inputName = getName(name)
-                //$(inputName, view.$el).change(function(){
                    return $(inputName, view.$el).val()
-                // })
             }
 
             //要自动计算的控件
             function autoCountMenu() {
-                 //工资总额自动计算
-                 $(getName('basicSalary'), view.$el).change(function(){
-                     $(getName('salaryTotal'), view.$el).val(
-                        Number(getValueByInputName('basicSalary')) + 
-                        Number(getValueByInputName('levelSalary')) + 
-                        Number(getValueByInputName('postSalary')) + 
-                        Number(getValueByInputName('managerSalary')))
+                //相关空间选择器的名字,使用的方案是监听所有与其计算结果相关的控件的值得变化
+                var salaryTotalRelMenu  = 'input[name="basicSalary"],' + 
+                                        '[name="levelSalary"],' + 
+                                        '[name="postSalary"],' + 
+                                        '[name="managerSalary"],' + 
+                                        '[name="shouldWorks"],' + 
+                                        '[name="realityWorks"],' +
+                                        '[name="shouldWorks"],' + 
+                                        '[name="realityWorks"],' +
+                                        '[name="other"],' + 
+                                        '[name="allowance"],' +
+                                        '[name="gradeLevel"],' + 
+                                        '[name="gradeLines"],' +
+                                        '[name="accumulationFundEmp"],' + 
+                                        '[name="insuranceEmp"]'
 
-                 })
-                 $(getName('levelSalary'), view.$el).change(function(){
-                     $(getName('salaryTotal'), view.$el).val(
-                        Number(getValueByInputName('basicSalary')) + 
+                $(salaryTotalRelMenu, view.$el).change(function() {
+                    //工资总额计算 
+                    $(getName('salaryTotal'), view.$el).val(
+                        (Number(getValueByInputName('basicSalary')) + 
                         Number(getValueByInputName('levelSalary')) + 
                         Number(getValueByInputName('postSalary')) + 
-                        Number(getValueByInputName('managerSalary')))
-                 })
-                 $(getName('postSalary'), view.$el).change(function(){
-                     $(getName('salaryTotal'), view.$el).val(
-                        Number(getValueByInputName('basicSalary')) + 
-                        Number(getValueByInputName('levelSalary')) + 
-                        Number(getValueByInputName('postSalary')) + 
-                        Number(getValueByInputName('managerSalary')))
-
-                 })
-                 $(getName('managerSalary'), view.$el).change(function(){
-                     $(getName('salaryTotal'), view.$el).val(
-                        Number(getValueByInputName('basicSalary')) + 
-                        Number(getValueByInputName('levelSalary')) + 
-                        Number(getValueByInputName('postSalary')) + 
-                        Number(getValueByInputName('managerSalary')))
-                 })
-                
-                // //考勤工资自动计算
-                $(getName('shouldWorks'), view.$el).change(function(){
-                     $(getName('attendeSalary'), view.$el).val(
-                        Number(getValueByInputName('salaryTotal')) / 
+                        Number(getValueByInputName('managerSalary'))).toFixed(2)
+                    )
+                    //考勤工资自动计算相关控件
+                    $(getName('attendeSalary'), view.$el).val(
+                        (Number(getValueByInputName('salaryTotal'))/
                         Number(getValueByInputName('shouldWorks')) * 
-                        Number(getValueByInputName('realityWorks')))
-                })
-                $(getName('realityWorks'), view.$el).change(function(){
-                     $(getName('attendeSalary'), view.$el).val(
-                        Number(getValueByInputName('salaryTotal')) / 
-                        Number(getValueByInputName('shouldWorks')) * 
-                        Number(getValueByInputName('realityWorks')))
-                })
-
-                // //绩效奖自动计算 
-                $(getName('gradeLevel'), view.$el).change(function(){
-                     $(getName('gradeReward'), view.$el).val(
-                        Number(getValueByInputName('gradeLevel') - 1) * 
-                        Number(getValueByInputName('gradeLines')))
-                })
-                $(getName('gradeLines'), view.$el).change(function(){
-                     $(getName('gradeReward'), view.$el).val(
-                        Number(getValueByInputName('gradeLevel') - 1) * 
-                        Number(getValueByInputName('gradeLines')))
-                })
-                // //绩效工资计算
-                $(getName('attendeSalary'), view.$el).change(function(){
-                     $(getName('gradeSalary'), view.$el).val(
-                        Number(getValueByInputName('attendeSalary')) + 
-                        Number(getValueByInputName('gradeReward')))
-                })
-                $(getName('gradeReward'), view.$el).change(function(){
-                     $(getName('gradeSalary'), view.$el).val(
-                        Number(getValueByInputName('attendeSalary')) + 
-                        Number(getValueByInputName('gradeReward')))
-                })
-                // //应付工资自动计算
-                $(getName('gradeSalary'), view.$el).change(function(){
-                     $(getName('shouldSalary'), view.$el).val(
-                        Number(getValueByInputName('gradeSalary')) + 
+                        Number(getValueByInputName('realityWorks'))).toFixed(2)
+                    )
+                    //绩效奖自动计算
+                    $(getName('gradeReward'), view.$el).val(
+                        (Number(getValueByInputName('gradeLevel') - 1) * 
+                        Number(getValueByInputName('gradeLines'))).toFixed(2)
+                    )
+                    //绩效工资自动计算
+                    $(getName('gradeSalary'), view.$el).val(
+                        (Number(getValueByInputName('attendeSalary')) + 
+                        Number(getValueByInputName('gradeReward'))).toFixed(2)
+                    )
+                    //应付工资相关
+                    $(getName('shouldSalary'), view.$el).val(
+                        (Number(getValueByInputName('gradeSalary')) + 
                         Number(getValueByInputName('other')) +
-                        Number(getValueByInputName('allowance')))
+                        Number(getValueByInputName('allowance'))).toFixed(2)
+                    )
+                    //个人所得税计算
+                    $(getName('tax'), view.$el).val(
+                        (taxHandler(
+                            (Number(getValueByInputName('shouldSalary')) - 
+                            Number(getValueByInputName('accumulationFundEmp')) -
+                            Number(getValueByInputName('insuranceEmp'))),
+                            config.taxTag
+                        )).toFixed(2)
+                    )
+                    //实发工资自动计算
+                    $(getName('realitySalary'), view.$el).val(
+                        (Number(getValueByInputName('shouldSalary')) - 
+                        Number(getValueByInputName('tax')) -
+                        Number(getValueByInputName('accumulationFundEmp')) -
+                        Number(getValueByInputName('insuranceEmp'))).toFixed(2)
+                    )
                 })
-                $(getName('other'), view.$el).change(function(){
-                     $(getName('shouldSalary'), view.$el).val(
-                        Number(getValueByInputName('gradeSalary')) + 
-                        Number(getValueByInputName('other')) +
-                        Number(getValueByInputName('allowance')))
-                })
-                $(getName('allowance'), view.$el).change(function(){
-                     $(getName('shouldSalary'), view.$el).val(
-                        Number(getValueByInputName('gradeSalary')) + 
-                        Number(getValueByInputName('other')) +
-                        Number(getValueByInputName('allowance')))
-                })
-                
-                // //个人所得税计算
-                // $(getName('allowance'), view.$el).change(function(){
-                //      $(getName('tax'), view.$el).val(
-                //         Number(getValueByInputName('gradeSalary')) + 
-                //         Number(getValueByInputName('other')) +
-                //         Number(getValueByInputName('allowance')))
-                // })
-                // // $(getName('tax'), view.$el).change(function(){
-                // //     $(getName('tax'), view.$el).val(taxHandler(getValueByInputName('shouldSalary') - getValueByInputName('accumulationFundEmp') - getValueByInputName('insuranceEmp'), cdeioConfig.cdeio.taxTag))
-                // // })
-                // //实发工资自动计算
-                // $(getName('realitySalary'), view.$el).change(function(){
-                //     $(getName('realitySalary'), view.$el).val(getValueByInputName('shouldSalary') - getValueByInputName('insuranceEmp') - getValueByInputName('accumulationFundEmp') - getValueByInputName('tax'))
-                // })
             }
 
             if('add' === dialogType){//在添加页面设置当前feature中存放的雇员信息
+
                 //保留两位有效数值
                 saveFixedByMenu()
                 //隐藏控件
@@ -238,42 +191,17 @@ define([
             if('show' === dialogType){//在添加页面设置当前feature中存放的雇员姓名
                 me.feature.model.set('employeeInfo.empName', data.employeeInfo.empName);
             }
-            // if('edit' === dialogType){
-            //     //保留两位有效数值
-            //     saveFixedByMenu()
-            //     //隐藏控件
-            //     hideMenu()
-            //     //自动计算
-            //     autoCountMenu()
-            // }
+            if('edit' === dialogType){
+                //保留两位有效数值
+                saveFixedByMenu()
+                //隐藏控件
+                hideMenu()
+                //自动计算
+                autoCountMenu()
+            }
             me.feature.views['form:' + dialogType].setFormData(me.feature.model.toJSON());
         },
-        renderers: {
-            shouldWorksValue: function(data, param, gridData){
-                var html = '<div style = "text-align: right;">' + data + '</div>' ;
-                return html;
-            },
-            realityWorksValue: function(data, param, gridData){
-                var html = '<div style = "text-align: right;">' + data + '</div>' ;
-                return html;
-            },
-            salaryTotalValue: function(data, param, gridData){
-                var html = '<div style = "text-align: right;">' + data + '</div>' ;
-                return html;
-            },
-            realitySalaryValue: function(data, param, gridData){
-                var html = '<div style = "text-align: right;">' + data + '</div>' ;
-                return html;
-            },
-            yearValue: function(data, param, gridData){
-                var html = '<div style = "text-align: right;">' + data + '</div>' ;
-                return html;
-            },
-            mounthValue: function(data, param, gridData){
-                var html = '<div style = "text-align: right;">' + data + '</div>' ;
-                return html;
-            }
-        },
+
         handlers:{
             exportExcel: function(){
                 var me = this;

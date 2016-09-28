@@ -68,7 +68,8 @@ exports.cdeio = {
     'src/main/resources/META-INF/mappings/attendance/signin-explain.orm.xml',
 
     //薪资管理
-    'src/main/resources/META-INF/mappings/salarymanager/salary-info.orm.xml'
+    'src/main/resources/META-INF/mappings/salarymanager/salary-info.orm.xml',
+    'src/main/resources/META-INF/mappings/salarymanager/department-count.orm.xml'
 
   ],
 

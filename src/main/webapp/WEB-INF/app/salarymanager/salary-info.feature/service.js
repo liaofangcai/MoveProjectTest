@@ -69,6 +69,8 @@ exports.createService = function() {
                         entity.employeeInfo = employeeList.get(0);
                         //设置导入实体的员工对应的departmentPath
                         entity.departmentPath = entity.employeeInfo.department.path
+                        //设置部门统计时使用的tag
+                        entity.tag = entity.departmentPath + '-' + entity.year + '-' + entity.mounth
                     }
                 }
 
@@ -79,108 +81,11 @@ exports.createService = function() {
         }),
         //用来处理添加和更新数据的方法
         dataHandler: function(salaryInfo, taxTag) {
-            console.log('comeing in dataHandler...............')
-            // var time,
-            // date,
-            // timeArr = [],
-            // sdf = new SimpleDateFormat("yyyy-MM-dd")
-            // //处理时间，统一变为一号
-            // console.log('没有修改的日期****************：', salaryInfo.mounth)
-            // time = sdf.format(salaryInfo.mounth)
-            // timeArr = time.split('-')
-            // timeArr[2] = 1
-            // date = new Date(timeArr[0]-1900, timeArr[1]-1, timeArr[2])
-            // salaryInfo.mounth = date
-            // console.log('修改的日期********************：', salaryInfo.mounth)
-            
-            //默认值设定
-            salaryInfo.gradeLines = salaryInfo.gradeLines || 0
-            salaryInfo.shouldWorks = salaryInfo.shouldWorks || 1
-            salaryInfo.realityWorks = salaryInfo.realityWorks || 0
-            salaryInfo.gradeLevel = salaryInfo.gradeLevel || 1
-            salaryInfo.other = salaryInfo.other || 0
-            salaryInfo.allowance = salaryInfo.allowance || 0
-            salaryInfo.insuranceCom = salaryInfo.insuranceCom || 0
-            salaryInfo.insuranceEmp = salaryInfo.insuranceEmp || 0
-            salaryInfo.accumulationFundCom = salaryInfo.accumulationFundCom || 0
-            salaryInfo.accumulationFundEmp = salaryInfo.accumulationFundEmp || 0
-
-            //工资总额自动计算
-            salaryInfo.salaryTotal = salaryInfo.basicSalary + salaryInfo.levelSalary + salaryInfo.postSalary + salaryInfo.managerSalary 
-            console.log('999999999999', salaryInfo.salaryTotal)
-            //考勤工资自动计算
-            salaryInfo.attendeSalary = (salaryInfo.salaryTotal/salaryInfo.shouldWorks*salaryInfo.realityWorks).toFixed(2)
-            //绩效奖自动计算
-            salaryInfo.gradeReward = ((salaryInfo.gradeLevel - 1) * salaryInfo.gradeLines).toFixed(2)
-            //绩效工资计算
-            salaryInfo.gradeSalary = (salaryInfo.attendeSalary + salaryInfo.gradeReward).toFixed(2)
-            //应付工资自动计算
-            salaryInfo.shouldSalary = salaryInfo.gradeSalary + salaryInfo.other + salaryInfo.allowance
-            //个人所得税计算
-            console.log(salaryInfo.shouldSalary + "**" + salaryInfo.accumulationFundEmp + "**" + salaryInfo.insuranceEmp + "**")
-            salaryInfo.tax = (taxHandler((salaryInfo.shouldSalary - salaryInfo.accumulationFundEmp - salaryInfo.insuranceEmp), taxTag)).toFixed(2)
-            //实发工资自动计算
-            salaryInfo.realitySalary = (salaryInfo.shouldSalary - salaryInfo.insuranceEmp - salaryInfo.accumulationFundEmp - salaryInfo.tax).toFixed(2)
             //存储员工部门path
             salaryInfo.departmentPath = salaryInfo.employeeInfo.department.path
-
-            function taxHandler(salary, taxTag) {
-                console.log('comeing in taxHandler...............', salary)
-                var taxSalary = salary - 3500
-                if(taxSalary <= 0){
-                    return 0.00
-                }
-                //不含税级距的计算方式（计算个人所得税）
-                if (taxTag == 'uninclude') {
-                     if(taxSalary <= 1455) {
-                    return taxSalary * 0.03 
-                    }
-                    if(taxSalary>1455 && taxSalary<=4155) {
-                        return taxSalary * 0.1 - 105
-                    }
-                    if(taxSalary>4155 && taxSalary<=7755) {
-                        return taxSalary * 0.2 - 555
-                    }
-                    if(taxSalary>7755 && taxSalary<=27255) {
-                        return taxSalary * 0.25 - 1005
-                    }
-                    if(taxSalary>27255 && taxSalary<=41255) {
-                        return taxSalary * 0.30 - 2755
-                    }
-                    if(taxSalary>41255 && taxSalary<=57505) {
-                        return taxSalary * 0.35 - 5505
-                    }
-                    if(taxSalary>57505) {
-                        return taxSalary * 0.45 - 13505
-                    }
-                }
-                //含税级距的计算方式（计算个人所得税）
-                if (taxTag == 'include') {
-                     if(taxSalary <= 1500) {
-                    return taxSalary * 0.03 
-                    }
-                    if(taxSalary>1500 && taxSalary<=4500) {
-                        return taxSalary * 0.1 - 105
-                    }
-                    if(taxSalary>4500 && taxSalary<=9000) {
-                        return taxSalary * 0.2 - 555
-                    }
-                    if(taxSalary>9000 && taxSalary<=35000) {
-                        return taxSalary * 0.25 - 1005
-                    }
-                    if(taxSalary>35000 && taxSalary<=55000) {
-                        return taxSalary * 0.30 - 2755
-                    }
-                    if(taxSalary>55000 && taxSalary<=80000) {
-                        return taxSalary * 0.35 - 5505
-                    }
-                    if(taxSalary>80000) {
-                        return taxSalary * 0.45 - 13505
-                    }
-                }
-            }
+            //设置部门统计时使用的tag
+            salaryInfo.tag = salaryInfo.departmentPath + '-' + salaryInfo.year + '-' + salaryInfo.mounth
         },
-
 
 		//导出工资信息
 		exportExcel: mark('beans', EntityMetaResolver).on(function (resolver, options, exportModule, exportFileName) {

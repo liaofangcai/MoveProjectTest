@@ -137,7 +137,10 @@ public class SalaryInfo extends RevisionDomainEntity {
 	 *员工部门Path
 	 */
 	private String departmentPath; 
-
+	/*
+	*部门统计tag
+	*/
+	private String tag;
 	@Column(name = "f_year")
 	@NotNull
 	@Min(value = 1900)
@@ -376,6 +379,14 @@ public class SalaryInfo extends RevisionDomainEntity {
 	}
 	public void setDepartmentPath(String departmentPath) {
 		this.departmentPath = departmentPath;
+	}
+
+	@Column(name = "f_tag")
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 }

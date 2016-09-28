@@ -1,4 +1,6 @@
 var _                = require('underscore');
+var {mark}           = require('cdeio/mark');
+var {json}           = require('cdeio/response');
 var {createService}  = require('salarymanager/department-count.feature/service');
 
 exports.filters = {
@@ -21,7 +23,8 @@ exports.entityLabel = "工资信息"
 exports.labels = {
 	depName: '部门名称',
 	'depName.name': '部门名称',
-	mounth: '年月',
+	year: '年份',
+	mounth: '月份',
 	memberCount: '部门成员',
 	shouldSalary: '应付工资',
 	insuranceEmp: '社保（个人）',
@@ -35,7 +38,8 @@ exports.labels = {
 
 exports.fieldGroups = {
 	 defaults: [
-	 	'depName.name',
+	 	'depName',
+	 	'year',
 	 	'mounth',
 	 	'memberCount',
 	 	'shouldSalary',
@@ -47,8 +51,9 @@ exports.fieldGroups = {
 	 	'realitySalary'
 	 ],
 	 filter: [
-	 	'depName.name',
-	 	'mounth'
+	 	'depName',
+	 	{name: 'year', type: 'number'},
+	 	{name: 'mounth', type: 'number'}
 	 ]
 }
 
@@ -69,16 +74,17 @@ exports.forms = {
 
 exports.grid = {
 	columns: [
-		{name: 'depName.name', header: '部门名称'},
-		'shouldWorks', 
-		'memberCount',
-	 	'shouldSalary',
-	 	'insuranceEmp',
-	 	'insuranceCom',
-	 	'accumulationFundEmp',
-	 	'accumulationFundCom',
-	 	'tax',
-	 	'realitySalary'
+		{name: 'depName', header: '部门名称'},
+		{name: 'year', align: 'right'},
+		{name: 'mounth', align: 'right'},
+		{name: 'memberCount', align: 'right'},
+		{name: 'shouldSalary', align: 'right'},
+		{name: 'insuranceEmp', align: 'right'},
+		{name: 'insuranceCom', align: 'right'},
+		{name: 'accumulationFundEmp', align: 'right'},
+		{name: 'accumulationFundCom', align: 'right'},
+		{name: 'tax', align: 'right'},
+		{name: 'realitySalary', align: 'right'}
 	],
 	
 	filterToolbar: true,
@@ -86,4 +92,19 @@ exports.grid = {
     numberColumn: true,
     multiple: true,
     defaultOrder: 'createdTime-desc'
+}
+
+exports.operators = {
+    updateInfo: { label: '更新', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
+}
+
+exports.doWithRouter = function(router) {
+	router.post('/updateDepartmentCountInfo', mark('services','salarymanager/department-count').on(function (departmentCountSvc, request){
+        var result;
+        //先删除数据库中的数据
+        departmentCountSvc.cleanDate()
+        //插入数据后返回信息
+		result = departmentCountSvc.updateInfo()
+        return json({result: result});
+    }))
 }

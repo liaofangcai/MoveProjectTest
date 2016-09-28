@@ -1,23 +1,23 @@
-var {mark}                      = require('cdeio/mark');
-var {json}                      = require('cdeio/response');
-var _                           = require('underscore');
-var fs                          = require('fs');
-var objects                     = require('cdeio/util/objects');
-var response                    = require('ringo/jsgi/response');
-var {getOptionInProperties}     = require('cdeio/config');
-var {join}                      = require('cdeio/util/paths');
-var {createService}             = require('salarymanager/salary-info.feature/service');
-var cdeio                       = require('cdeio/config').cdeio;
+var {mark}                        = require('cdeio/mark');
+var {json}                        = require('cdeio/response');
+var _                             = require('underscore');
+var fs                            = require('fs');
+var objects                       = require('cdeio/util/objects');
+var response                      = require('ringo/jsgi/response');
+var {getOptionInProperties}       = require('cdeio/config');
+var {join}                        = require('cdeio/util/paths');
+var {createService}               = require('salarymanager/salary-info.feature/service');
+var cdeio                         = require('cdeio/config').cdeio;
 
-var {SalaryInfo, DepartmentCount}                = com.zyeeda.business.salarymanager.entity;
-var {SecurityUtils}             = org.apache.shiro;
+var {SalaryInfo, DepartmentCount} = com.zyeeda.business.salarymanager.entity;
+var {SecurityUtils}               = org.apache.shiro;
 
-var {SimpleDateFormat}          = java.text;
-var {Date}                      = java.util;
-var {ArrayList}                 = java.util;
-var URLDecoder                  = java.net.URLDecoder;
+var {SimpleDateFormat}            = java.text;
+var {Date}                        = java.util;
+var {ArrayList}                   = java.util;
+var URLDecoder                    = java.net.URLDecoder;
 
-var {Boolean}                   = java.lang;
+var {Boolean}                     = java.lang;
 
 exports.filters = {
 	defaults: {
@@ -77,11 +77,11 @@ exports.fieldGroups = {
 		{name: 'salaryTotal', colspan: 2},
 		{name: 'gradeLines', type: 'number', defaultValue: 0},
 		{name: 'gradeLevel', type: 'number', defaultValue: 1},
-		'gradeReward',
-		'gradeSalary',
 		{name: 'shouldWorks', type: 'number', defaultValue: 1},
 		{name: 'realityWorks', type: 'number', defaultValue: 0},
-		{name: 'attendeSalary', colspan: 2},
+        'gradeReward',
+        'attendeSalary',
+		{name: 'gradeSalary', colspan: 2},
 		{name: 'insuranceCom', type: 'number', defaultValue: 0},
 		{name: 'insuranceEmp', type: 'number', defaultValue: 0},
 		{name: 'accumulationFundCom', type: 'number', defaultValue: 0},
@@ -104,8 +104,8 @@ exports.fieldGroups = {
 	 ],
 	 format: [
 	 	{name: 'employeeInfo', displayString: '{{empName}}'},
-		{name: 'year', type: 'number' }, 
-		{name: 'mounth',type: 'number',defaultValue: 1}
+		{name: 'year', type: 'int' }, 
+		{name: 'mounth',type: 'int',defaultValue: 1}
 	 ],
 	  show: [
 	 	{name: 'employeeInfo.empName', colspan: 2},
@@ -119,8 +119,8 @@ exports.fieldGroups = {
 		'gradeLevel',
 		'allowance',
 		'other',
-		{name: 'shouldWorks', type: 'number', default: 0},
-		{name: 'realityWorks', type: 'number', default: 0},
+		{name: 'shouldWorks', type: 'int', default: 0},
+		{name: 'realityWorks', type: 'int', default: 0},
 		'insuranceCom',
 		'insuranceEmp',
 		'accumulationFundCom',
@@ -176,15 +176,14 @@ exports.forms = {
 exports.grid = {
 	columns: [
 		{name: 'employeeInfo.empName', header: '员工姓名'},
-		{name: 'year', renderer: 'yearValue'},
-		{name: 'mounth', renderer: 'mounthValue'},
-		{name: 'shouldWorks', renderer: 'shouldWorksValue'},
-		{name: 'realityWorks', renderer: 'realityWorksValue'},
-		{name: 'salaryTotal', renderer: 'salaryTotalValue'},
-		{name: 'realitySalary', renderer: 'realitySalaryValue'},
+		{name: 'year', align: 'right'},
+		{name: 'mounth', align: 'right'},
+		{name: 'shouldWorks', align: 'right'},
+		{name: 'realityWorks', align: 'right'},
+		{name: 'salaryTotal', align: 'right'},
+		{name: 'realitySalary', align: 'right'},
 		'remark'
 	],
-	
 	filterToolbar: true,
     fixedHeader: true,
     numberColumn: true,
@@ -238,11 +237,6 @@ exports.validators = {
                 context.addViolation({ message: '月份不能大于当前月份' + timeArr[2]})
             }
         }
-    },
-    remove: {
-        defaults: function(context, entity, request){
-            
-        }
     }
 }
 
@@ -255,24 +249,16 @@ exports.operators = {
 exports.hooks = {
   	beforeCreate: {
 	    defaults: mark('services', 'salarymanager/salary-info', 'salarymanager/department-count').on(function (salaryInfoSvc, departmentCountSvc, salaryInfo) {
-	       var addSalaryInfo = [salaryInfo]
-	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
-			//departmentCountSvc.saveDepCountEntities(addSalaryInfo)	        
+	        salaryInfoSvc.dataHandler(salaryInfo) 
     	})
   	},
   	beforeUpdate: {
 	    defaults: mark('services', 'salarymanager/salary-info', 'salarymanager/department-count').on(function (salaryInfoSvc, departmentCountSvc, salaryInfo) {
-	        var tag
-	        tag = 'before'
-	        salaryInfoSvc.dataHandler(salaryInfo, cdeio.taxTag)
-	        //departmentCountSvc.updateBySalaryInfo(salaryInfo, tag)
+            salaryInfoSvc.dataHandler(salaryInfo)
     	})
   	},
   	afterUpdate: {
   		defaults: mark('services', 'salarymanager/department-count').on(function (departmentCountSvc, salaryInfo) {
-	      var tag
-	      tag = 'after'
-	      //departmentCountSvc.updateBySalaryInfo(salaryInfo, tag)
     	})
   	}
 

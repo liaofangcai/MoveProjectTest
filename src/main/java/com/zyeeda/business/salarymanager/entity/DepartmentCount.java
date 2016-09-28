@@ -6,6 +6,7 @@ import java.util.Date;
 import com.zyeeda.business.employee.entity.EmployeeInfo;
 
 import javax.persistence.Column;
+import javax.validation.constraints.Min;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -31,15 +32,19 @@ public class DepartmentCount extends RevisionDomainEntity{
 	/*
 	 * 部门名称
 	 */
-	private Department depName ; 
+	private String depName ; 
 	/*
 	 *员工部门Path
 	 */
 	private String departmentPath;
 	/*
-	 * 年月
+	 * 年份
 	 */
-	private Date mounth ;
+	private Integer year ;
+	/*
+	 * 月份
+	 */
+	private Integer mounth ;
 	/*
 	 * 人数
 	 */
@@ -73,23 +78,31 @@ public class DepartmentCount extends RevisionDomainEntity{
 	 */
 	private double realitySalary ;
 	
-	@JoinColumn(name = "f_dep_name")
+	@Column(name = "f_dep_name")
 	@NotNull
-	@ManyToOne
-	public Department getDepName() {
+	public String getDepName() {
 		return depName;
 	}
-	public void setDepName(Department depName) {
+	public void setDepName(String depName) {
 		this.depName = depName;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Column(name = "f_year")
+	@NotNull
+	@Min(value = 1900)
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 	@Column(name = "f_mounth")
 	@NotNull
-	public Date getMounth() {
+	public Integer getMounth() {
 		return mounth;
 	}
-	public void setMounth(Date mounth) {
+	public void setMounth(Integer mounth) {
 		this.mounth = mounth;
 	}
 

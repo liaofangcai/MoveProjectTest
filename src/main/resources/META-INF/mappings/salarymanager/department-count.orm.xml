@@ -7,9 +7,33 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/orm_2_0.xsd"
     version="2.0">
 
-    <named-query name="getSumSalaryByPathAndMounth">
+    <named-query name="cleanDepartmentCountDate">
         <query>
-            select dc from DepartmentCount dc where dc.departmentPath = :depPath and dc.mounth = :mounth
+            delete d from DepartmentCount d
         </query>
     </named-query>
+
+    <named-query name="getDepartmentNameByPath">
+        <query>
+            select d.name from Department d where d.path = :path
+        </query>
+    </named-query>
+
+    <named-query name="getDepartmentCountDate">
+        <query>
+            select si.tag,
+            	count(si.id),
+            	sum(si.shouldSalary), 
+            	sum(si.insuranceEmp),
+            	sum(si.insuranceCom),
+            	sum(si.accumulationFundEmp),
+            	sum(si.accumulationFundCom),
+            	sum(si.tax), 
+            	sum(si.realitySalary)
+            from SalaryInfo si, Department d
+            where si.departmentPath = d.path 
+            group by si.tag
+        </query>
+    </named-query>
+
 </entity-mappings>
