@@ -102,7 +102,7 @@ exports.doWithRouter = function(router) {
 	router.post('/updateDepartmentCountInfo', mark('services','salarymanager/department-count').on(function (departmentCountSvc, request){
         var result;
         //先删除数据库中的数据
-        departmentCountSvc.cleanDate()
+        //departmentCountSvc.cleanDate()
         //插入数据后返回信息
 		result = departmentCountSvc.updateInfo()
         return json({result: result});

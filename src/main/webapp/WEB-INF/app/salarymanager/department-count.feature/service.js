@@ -56,15 +56,18 @@ exports.createService = function() {
 
             return results;
         }),
-        //清空数据
-        cleanDate: mark('managers', Department, SalaryInfo, DepartmentCount).mark('tx').on(function(departmentMgr, salaryInfoMgr, departmentCountMrg) {
-            departmentCountMrg.cleanDepartmentCountDate()
-        }),
-        //更新汇总后的数据
         updateInfo: mark('managers', Department, SalaryInfo, DepartmentCount).mark('tx').on(function(departmentMgr, salaryInfoMgr, departmentCountMrg) {
-            var departmentName, i, departmentCountDateList, k,
+            var cleanDate, cleanDateArr = [], departmentName, i, departmentCountDateList, k,
                 departmentCountArr = [], departmentCount;
-            departmentCountDateList = departmentCountMrg.getDepartmentCountDate()
+            cleanDate = departmentCountMrg.getAllDepartmentCountInfo()
+
+            if (cleanDate) {//清空departmentCount中的数据
+                for (i = 0; i < cleanDate.size(); i++) {
+                    cleanDateArr[i] = cleanDate.get(i)
+                }
+                departmentCountMrg.remove.apply(departmentCountMrg.remove, cleanDateArr)
+            }
+            departmentCountDateList = departmentCountMrg.getDepartmentCountSumDate()
             for(k = 0; k < departmentCountDateList.size(); k++){
                 var tag,
                 departmentCount = new DepartmentCount();

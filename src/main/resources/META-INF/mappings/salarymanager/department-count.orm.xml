@@ -7,9 +7,9 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/orm_2_0.xsd"
     version="2.0">
 
-    <named-query name="cleanDepartmentCountDate">
+    <named-query name="getAllDepartmentCountInfo">
         <query>
-            delete d from DepartmentCount d
+            select dc from DepartmentCount dc
         </query>
     </named-query>
 
@@ -19,7 +19,7 @@
         </query>
     </named-query>
 
-    <named-query name="getDepartmentCountDate">
+    <named-query name="getDepartmentCountSumDate">
         <query>
             select si.tag,
             	count(si.id),
