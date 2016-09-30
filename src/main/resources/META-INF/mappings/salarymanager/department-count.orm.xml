@@ -36,4 +36,22 @@
         </query>
     </named-query>
 
+    <named-query name="getAllDepartmentName">
+        <query>
+            select d.name from Department d
+        </query>
+    </named-query>
+
+    <named-query name="getSSCountByDepName">
+        <query>
+            select dc.depName, sum(dc.shouldSalary) from DepartmentCount dc where dc.year = :currentYear group by dc.depName
+        </query>
+    </named-query>
+
+    <named-query name="getSSCountByNameAndYear">
+        <query>
+            select dc.mounth, dc.shouldSalary from DepartmentCount dc where dc.depName = :name and dc.year = :currentYear
+        </query>
+    </named-query>
+
 </entity-mappings>

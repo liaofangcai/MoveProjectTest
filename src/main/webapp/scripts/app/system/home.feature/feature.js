@@ -1,4 +1,4 @@
-define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/jquery.flot.pie.min', 'cdeio/vendors/jquery/flot/jquery.flot.axislabels'], function (flot, pie, axisLabel){
+define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/jquery.flot.pie.min', 'cdeio/vendors/jquery/flot/jquery.flot.axislabels', 'vendors/jquery/echarts/echarts.min'], function (flot, pie, axisLabel, echarts){
     return {
         layout: {
             components: [{
@@ -21,254 +21,127 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
             avoidLoadingHandlers: true,
             extend: {
                 afterRender: function(su){
-                    var me = this, choiceContainer = this.$('choices'),
-                        company = {} , meterData, voltageTransformerData, currentTransformerData, defectData, companyDefectData, defectStatusData, shallExecInfoData, alreadyExecInfoData;
+                    var me = this, byYearDataArr = [], depNameDate = [], countByYearDate = [],countByMounthDate = [], countByMounthArr = [];
 
+                    //获取首页需要的数据
                     $.ajax({
                         url: 'invoke/common-routers/get-system-home-data',
                         type: 'get',
-                        async: false,
+                        async: false
                     }).done(function (results){
-                        meterData = results.meterData;
-                        voltageTransformerData = results.voltageTransformerData;
-                        currentTransformerData = results.currentTransformerData;
-                        defectData = results.defectData;
-                        companyDefectData = results.companyDefectData;
-                        defectStatusData = results.defectStatusData;
-                        shallExecInfoData = results.shallExecInfoData;
-                        alreadyExecInfoData = results.alreadyExecInfoData;
+                        // 按照Echarts的数据格式拼成名字和数量的数组
+                        var index
+                        for(var i = 0 ; i < results.countByYear.length; i++){
+                            depNameDate.push(results.countByYear[i].name)
+                            countByYearDate.push(results.countByYear[i].value)
+                        }
+                        console.log('条形统计图的长度: ' ,results.countByMounth.length)
+                        for(var i = 0 ; i < results.countByMounth.length; i++){
+                            var group = 3
+                            countByMounthDate.push(results.countByMounth[i].value)
+                            // console.log(results.countByMounth[i].name)
+                            // console.log(results.countByMounth[i].value)
+                            if (i%group == 0) {
+                                index = i
+                                countByMounthArr.push({
+                                    name: results.countByMounth[i].name,
+                                    type: 'bar',
+                                    data: results.countByMounth[i].value
+                                })
+                            }else {
+                                countByMounthArr.push({
+                                    name: results.countByMounth[i].name,
+                                    type: 'bar',
+                                    stack: results.countByMounth[index].name,
+                                    data: results.countByMounth[i].value
+                                })
+                            }
+                            
+                        }          
+                        byYearDataArr = results.countByYear
+                        //countByMounthArr= results.countByMounth
                     });
 
-                    //图标数据
-                    meterData = [{ label: "电能表", data: meterData, color: "#a3d368" }];
-                    var transformerData = [
-                        { label: "电流互感器", data: currentTransformerData, color: "#5f9cf0", bars: {
-                            align: "center",
-                            barWidth: 0.375
-                        }},
-                        { label: "电压互感器", data: voltageTransformerData, color: "#85e3c5",bars: {
-                            align: "left",
-                            barWidth: 0.375
-                        }}
-                    ];
-                    var verificationData = [
-                        { label: "待检定", data: shallExecInfoData, color: '#fe815a'},
-                        { label: "已检定", data: alreadyExecInfoData, color: '#5f9cf0'}
-                    ];
-
-                    var ticks = [[0, "公司外委"], [1, "广州局"], [2, "贵阳局"], [3, "南宁局"], [4, "柳州局"], [5, "梧州局"], [6, "百色局"], [7, "天生桥局"], [8, "曲靖局"], [9, "昆明局"], [10, "大理局"]];
-                    var monthTicks = [[0, "一月"], [1, "二月"], [2, "三月"], [3, "四月"], [4, "五月"], [5, "六月"], [6, "七月"], [7, "八月"], [8, "九月"], [9, "十月"], [10, "十一月"], [11, "十二月"]];
-                    //报表属性配置
-                    var meterOptions = {
-                        series: {
-                            bars: {
-                                show: true,
-                                fillColor: { colors: [{ opacity: 1 }, { opacity: 1}] }
-                            }
-                        },
-                        bars: {
-                            align: 'center',
-                            barWidth: 0.5,
-                            lineWidth: 2
-                        },
-                        xaxis: {
-                            axisLabelUseCanvas: true,
-                            axisLabelFontSizePixels: 12,
-                            axisLabelFontFamily: 'Verdana, Arial',
-                            axisLabelPadding: 3,
-                            ticks: ticks
-                        },
-                        yaxis: {
-                            axisLabel: "单位(台)",
-                            axisLabelUseCanvas: true,
-                            axisLabelFontSizePixels: 12,
-                            axisLabelFontFamily: 'Verdana, Arial',
-                            axisLabelPadding: 3
+                    //按年份饼状统计图
+                    var countByYearChart = echarts.init(me.$('count-by-year-statistics').get(0));
+                    // 指定饼状图的配置项和数据
+                    var countByYearOption = {
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
                         },
                         legend: {
-                            noColumns: 0,
-                            labelBoxBorderColor: "#000000",
-                            position: "ne"
+                            orient: 'vertical',
+                            left: 'left',
+                            data: depNameDate
                         },
-                        grid: {
-                            hoverable: true,
-                            borderWidth: 2,
-                            backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
-                        }
+                        series : [
+                            {
+                                name: '应发工资年份统计',
+                                type: 'pie',
+                                radius : '55%',
+                                center: ['50%', '60%'],
+                                data: byYearDataArr,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        ]
                     };
-                    var defectOptions = {
-                        series: {
-                            pie: {
-                                show: true,
+
+                    // 判断数据是否都为0
+                    // 使用刚指定的配置项和数据显示图表。
+                    if (countByYearDate.filter(function(item) {return item > 0;}).length === 0){
+                        me.$('count-by-year-statistics').html('<p>没有相关数据</p>');
+                    }else {
+                        countByYearChart.setOption(countByYearOption);
+                    }
+                    
+
+                    //按月份条形统计图
+                    var countByMounthChart = echarts.init(me.$('count-by-mounth-statistics').get(0));
+                    // 指定饼状图的配置项和数据
+                    var countByMounthOption = {
+                        tooltip : {
+                            trigger: 'axis',
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
                             }
                         },
                         legend: {
-                            show: true,
-                            noColumns: 3,
-                            margin: 2,
-                            backgroundColor: "#f5f5f5"
+                            data: depNameDate
                         },
                         grid: {
-                            hoverable: true
-                        }
-                    };
-                    var verificationOptions = {
-                        series: {
-                            lines: {
-                                show: true
-                            },
-                            points: {
-                                radius: 3,
-                                fill: true,
-                                show: true
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis : [
+                            {
+                                type : 'category',
+                                data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
                             }
-                        },
-                        xaxis: {
-                            axisLabelUseCanvas: true,
-                            axisLabelFontSizePixels: 12,
-                            axisLabelFontFamily: 'Verdana, Arial',
-                            axisLabelPadding: 3,
-                            ticks: monthTicks
-                        },
-                        yaxis: {
-                            axisLabel: "单位(台)",
-                            axisLabelUseCanvas: true,
-                            axisLabelFontSizePixels: 12,
-                            axisLabelFontFamily: 'Verdana, Arial',
-                            axisLabelPadding: 3,
-                            min: 0
-                        },
-                        legend: {
-                            noColumns: 0,
-                            labelBoxBorderColor: "#000000",
-                            position: "nw"
-                        },
-                        grid: {
-                            hoverable: true,
-                            borderWidth: 2,
-                            backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
-                        },
-                        colors: ["#FF0000", "#0022FF"]
-                    };
-                    //提示
-                    var previousPoint = null, previousLabel = null;
-
-                    $.fn.UseTooltip = function () {
-                        $(this).bind("plothover", function (event, pos, item) {
-                            if (item) {
-                                if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
-                                    previousPoint = item.dataIndex;
-                                    previousLabel = item.series.label;
-                                    $("#tooltip").remove();
-                                    var x = item.datapoint[0];
-                                    var y = item.datapoint[1];
-
-                                    var color = item.series.color;
-                                    showTooltip(item.pageX,
-                                    item.pageY,
-                                    color,
-                                    "<strong>" + item.series.label + "</strong><br>" + item.series.xaxis.ticks[x].label + " : <strong>" + y + "</strong> 台");
-                                }
-                            } else {
-                                $("#tooltip").remove();
-                                previousPoint = null;
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value'
                             }
-                        });
+                        ],
+                        series : countByMounthArr
                     };
 
-                    function showTooltip(x, y, color, contents) {
-                        $('<div id="tooltip">' + contents + '</div>').css({
-                            position: 'absolute',
-                            display: 'none',
-                            top: y - 40,
-                            left: x - 120,
-                            border: '2px solid ' + color,
-                            padding: '3px',
-                            'font-size': '9px',
-                            'border-radius': '5px',
-                            'background-color': '#fff',
-                            'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-                            opacity: 0.9
-                        }).appendTo("body").fadeIn(200);
+                    // 判断数据是否都为0
+                    // 使用刚指定的配置项和数据显示图表。
+                    if (countByMounthDate.filter(function(item) {return item.length > 0;}).length === 0){
+                        me.$('count-by-mounth-statistics').html('<p>没有相关数据</p>');
+                    }else {
+                        countByMounthChart.setOption(countByMounthOption);
                     }
-
-                    $.fn.showDefectData = function () {
-                        $(this).bind("plothover", function (event, pos, item) {
-                            if (!item) { return; }
-                            var html = [];
-                            var percent = parseFloat(item.series.percent).toFixed(2);
-
-                            html.push("<div style=\"border:1px solid grey;background-color:",
-                                 item.series.color,
-                                 "\">",
-                                 "<span style=\"color:white\">",
-                                 item.series.label,
-                                 " : ",
-                                 item.series.data[0][1] + '台',
-                                 " (", percent, "%)",
-                                 "</span>",
-                                 "</div>");
-                            $(".flot-memo").html(html.join(''));
-                        });
-                    };
-
-                    if (meterData.length === 0) {
-                        this.$('meter').text('没有相关数据');
-                    } else {
-                        $.plot(this.$('meter'), meterData, meterOptions);
-                        $(this.$('meter')).UseTooltip();
-                    }
-                    if (voltageTransformerData.length === 0 && currentTransformerData.length === 0) {
-                        this.$('transformer').text('没有相关数据');
-                    } else {
-                        $.plot(this.$('transformer'), transformerData, meterOptions);
-                        $(this.$('transformer')).UseTooltip();
-                    }
-                    if (defectData.length === 0) {
-                        this.$('defect').text('没有相关数据');
-                    } else {
-                        $.plot(this.$('defect'), defectData, defectOptions);
-                        $(this.$('defect')).showDefectData();
-                    }
-
-                    if (shallExecInfoData.length === 0 && alreadyExecInfoData.length === 0) {
-                        this.$('verification').text('没有相关数据');
-                    } else {
-                        $.plot(this.$('verification'), verificationData, verificationOptions);
-                        $(this.$('verification')).UseTooltip();
-                    }
-                    //缺陷饼图维度
-                    choiceContainer.find("input").click(plotAccordingToChoices);
-
-                    function plotAccordingToChoices() {
-                        choiceContainer.find("input:checked").each(function () {
-                            var key = $(this).attr("value");
-
-                            if ('1' === key) {
-                                if (companyDefectData.length === 0) {
-                                    me.$('defect').text('没有相关数据');
-                                } else {
-                                    $.plot(me.$('defect'), companyDefectData, defectOptions);
-                                    $(me.$('defect')).showDefectData();
-                                }
-                            } else if ('2' === key) {
-                                if (defectData.length === 0) {
-                                    me.$('defect').text('没有相关数据');
-                                } else {
-                                    $.plot(me.$('defect'), defectData, defectOptions);
-                                    $(me.$('defect')).showDefectData();
-                                }
-                            } else if ('3' === key) {
-                                if (defectStatusData.length === 0) {
-                                    me.$('defect').text('没有相关数据');
-                                } else {
-                                    $.plot(me.$('defect'), defectStatusData, defectOptions);
-                                    $(me.$('defect')).showDefectData();
-                                }
-                            }
-                        });
-                    }
-
                     return su.apply(this);
                 }
             }

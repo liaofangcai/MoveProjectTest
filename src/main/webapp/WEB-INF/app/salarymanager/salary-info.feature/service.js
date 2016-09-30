@@ -85,6 +85,8 @@ exports.createService = function() {
             salaryInfo.departmentPath = salaryInfo.employeeInfo.department.path
             //设置部门统计时使用的tag
             salaryInfo.tag = salaryInfo.departmentPath + '-' + salaryInfo.year + '-' + salaryInfo.mounth
+
+            
         },
 
 		//导出工资信息

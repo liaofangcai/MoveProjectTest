@@ -11,6 +11,8 @@ var {join}          = require('cdeio/util/paths');
 var {JSONArray}     = org.json;
 var {JSONObject}    = org.json;
 
+var {SimpleDateFormat}  = java.text;
+var {Date}              = java.util;
 var {BufferedReader}    = java.io;
 var {InputStream}       = java.io;
 var {InputStreamReader} = java.io;
@@ -105,4 +107,38 @@ router.get('/get-entry-approval-history', mark('services', 'common-routers').on(
     return json({results: results});
 }));
 
+//系统首页数据
+router.get('/get-system-home-data', mark('services', 'common-routers').on(function (commSvc, request) {
+    var countByYear, countByYearDate = [], depNames, sdf, date, currentYear,
+    countByMounth, countByMounthDate = [];
 
+    //获取当前年
+    sdf = new SimpleDateFormat("yyyy-MM-dd")
+    date = new Date()
+    currentYear = parseInt((sdf.format(date)).split('-')[0])
+    //获取部门名称
+    depNames = commSvc.getAllDepartmentName()
+    //根据当前年获取应付工资统计信息
+    countByYear = commSvc.getSSCountByDepName(currentYear)
+    for(var i = 0; i < depNames.size(); i++){
+        var name = depNames.get(i), count = 0;
+        for (var j = 0; j < countByYear.size(); j++) {
+            if (name === countByYear.get(j)[0]){
+                count = countByYear.get(j)[1];
+                break;
+            }
+        }
+        countByYearDate.push({value: count, name: name});
+    }
+    for(var k = 0; k < depNames.size(); k++ ){
+        var name = depNames.get(k), count = [0,0,0,0,0,0,0,0,0,0,0,0];
+        //返回 月份 应发薪资
+        countByMounth = commSvc.getSSCountByNameAndYear(name, currentYear)
+        for(var j = 0; j < countByMounth.size(); j++){
+            count[countByMounth.get(j)[0] - 1] = countByMounth.get(j)[1]
+        }
+        countByMounthDate.push({value: count, name: name});
+    }
+
+    return json({countByYear: countByYearDate, countByMounth: countByMounthDate});
+}));
