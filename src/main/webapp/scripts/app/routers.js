@@ -49,8 +49,8 @@ define([
                 if (location.hash) {
                     return;
                 }
-                // 进入系统主页
-                Backbone.history.navigate('feature/system/home', { trigger: true });
+                // 进入系统主页, 默认进入我的代办事项
+                Backbone.history.navigate('feature/process/process-taskinfo', { trigger: true });
             });
         },
 

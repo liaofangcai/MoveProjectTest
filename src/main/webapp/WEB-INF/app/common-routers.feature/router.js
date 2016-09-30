@@ -107,8 +107,8 @@ router.get('/get-entry-approval-history', mark('services', 'common-routers').on(
     return json({results: results});
 }));
 
-//系统首页数据
-router.get('/get-system-home-data', mark('services', 'common-routers').on(function (commSvc, request) {
+//获取薪资管理>部门统计的图标数据
+router.get('/get-shouldsalary-data', mark('services', 'common-routers').on(function (commSvc, request) {
     var countByYear, countByYearDate = [], depNames, sdf, date, currentYear,
     countByMounth, countByMounthDate = [];
 

@@ -25,7 +25,7 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
 
                     //获取首页需要的数据
                     $.ajax({
-                        url: 'invoke/common-routers/get-system-home-data',
+                        url: 'invoke/common-routers/get-shouldsalary-data',
                         type: 'get',
                         async: false
                     }).done(function (results){
