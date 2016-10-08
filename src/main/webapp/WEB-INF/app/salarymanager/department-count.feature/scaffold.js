@@ -18,7 +18,7 @@ exports.haveFilter = true
 
 exports.enableFrontendExtension = true
 
-exports.entityLabel = "工资信息"
+exports.entityLabel = "部门统计信息"
 
 exports.labels = {
 	depName: '部门名称',
