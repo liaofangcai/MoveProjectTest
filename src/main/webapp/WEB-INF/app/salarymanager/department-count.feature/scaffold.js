@@ -79,11 +79,6 @@ exports.grid = {
 		{name: 'mounth', align: 'right'},
 		{name: 'memberCount', align: 'right'},
 		{name: 'shouldSalary', align: 'right'},
-		{name: 'insuranceEmp', align: 'right'},
-		{name: 'insuranceCom', align: 'right'},
-		{name: 'accumulationFundEmp', align: 'right'},
-		{name: 'accumulationFundCom', align: 'right'},
-		{name: 'tax', align: 'right'},
 		{name: 'realitySalary', align: 'right'}
 	],
 	
@@ -101,8 +96,6 @@ exports.operators = {
 exports.doWithRouter = function(router) {
 	router.post('/updateDepartmentCountInfo', mark('services','salarymanager/department-count').on(function (departmentCountSvc, request){
         var result;
-        //先删除数据库中的数据
-        //departmentCountSvc.cleanDate()
         //插入数据后返回信息
 		result = departmentCountSvc.updateInfo()
         return json({result: result});

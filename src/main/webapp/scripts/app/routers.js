@@ -50,7 +50,7 @@ define([
                     return;
                 }
                 // 进入系统主页, 默认进入我的代办事项
-                Backbone.history.navigate('feature/process/process-taskinfo', { trigger: true });
+                Backbone.history.navigate('process/scaffold:process-taskinfo', { trigger: true });
             });
         },
 

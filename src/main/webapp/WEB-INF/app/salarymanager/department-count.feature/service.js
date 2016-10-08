@@ -59,6 +59,7 @@ exports.createService = function() {
         updateInfo: mark('managers', Department, SalaryInfo, DepartmentCount).mark('tx').on(function(departmentMgr, salaryInfoMgr, departmentCountMrg) {
             var cleanDate, cleanDateArr = [], departmentName, i, departmentCountDateList, k,
                 departmentCountArr = [], departmentCount;
+            //获取已经存在的统计信息
             cleanDate = departmentCountMrg.getAllDepartmentCountInfo()
 
             if (cleanDate) {//清空departmentCount中的数据
@@ -67,6 +68,7 @@ exports.createService = function() {
                 }
                 departmentCountMrg.remove.apply(departmentCountMrg.remove, cleanDateArr)
             }
+            //获取各部门的统计信息
             departmentCountDateList = departmentCountMrg.getDepartmentCountSumDate()
             for(k = 0; k < departmentCountDateList.size(); k++){
                 var tag,
@@ -92,6 +94,7 @@ exports.createService = function() {
             }
 
             if(departmentCountArr.length){
+                //把统计后的信息插入工资部门统计表
                 departmentCountMrg.save.apply(departmentCountMrg.save, departmentCountArr);
                 return {result: 'successful'}
             }else {

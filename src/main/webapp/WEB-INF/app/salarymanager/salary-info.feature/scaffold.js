@@ -204,13 +204,13 @@ exports.validators = {
                 context.addViolation({ message: '年份不能小于当前年份20年'})
             }
             if(entity.year > parseInt(timeArr[0])) {
-                context.addViolation({ message: '年份不能大于当前年份'})
+                context.addViolation({ message: '年份不能大于当前年份('+ parseInt(timeArr[0]) + '年)'})
             }
             if(entity.mounth < 1) {
                 context.addViolation({ message: '月份不能小于0'})
             }
-            if(entity.mounth > 12) {
-                context.addViolation({ message: '月份不能大于12'})
+            if(entity.mounth > parseInt(timeArr[1])) {
+                context.addViolation({ message: '月份不能大于当前月份'})
             }
         }
     },
@@ -224,17 +224,17 @@ exports.validators = {
             time = sdf.format(new Date())
             timeArr = time.split('-')
             //console.log('***********************', entity.year)
-        	if(entity.getYear() < parseInt(timeArr[1]) - 20) {
-                context.addViolation({ message: '年份不能小于' + timeArr[1] + '前20年'})
+        	if(entity.getYear() < parseInt(timeArr[0]) - 20) {
+                context.addViolation({ message: '年份不能小于' + parseInt(timeArr[0]) + '前20年'})
             }
-            if(entity.getYear() > parseInt(timeArr[1])) {
-                context.addViolation({ message: '年份不能大于' + timeArr[1] + '年'})
+            if(entity.getYear() > parseInt(timeArr[0])) {
+                context.addViolation({ message: '年份不能大于' + parseInt(timeArr[0]) + '年'})
             }
             if(entity.getMounth() < 1) {
                 context.addViolation({ message: '月份不能小于0'})
             }
-            if(entity.getMounth() > parseInt(timeArr[2])) {
-                context.addViolation({ message: '月份不能大于当前月份' + timeArr[2]})
+            if(entity.getMounth() > parseInt(timeArr[1])) {
+                context.addViolation({ message: '月份不能大于当前月份' + timeArr[1]})
             }
         }
     }
