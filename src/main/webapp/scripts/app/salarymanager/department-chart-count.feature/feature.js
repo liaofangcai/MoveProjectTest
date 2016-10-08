@@ -37,7 +37,7 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                         }
                         console.log('条形统计图的长度: ' ,results.countByMounth.length)
                         for(var i = 0 ; i < results.countByMounth.length; i++){
-                            var group = 3
+                            var group = 2
                             countByMounthDate.push(results.countByMounth[i].value)
                             // console.log(results.countByMounth[i].name)
                             // console.log(results.countByMounth[i].value)
