@@ -83,13 +83,13 @@ exports.createService = function() {
                 departmentCount.year = parseInt(tag.split('-')[1])
                 departmentCount.mounth = parseInt(tag.split('-')[2])
                 departmentCount.memberCount = departmentCountDateList.get(k)[1]
-                departmentCount.shouldSalary = departmentCountDateList.get(k)[2]
-                departmentCount.insuranceEmp = departmentCountDateList.get(k)[3]
-                departmentCount.insuranceCom = departmentCountDateList.get(k)[4]
-                departmentCount.accumulationFundEmp = departmentCountDateList.get(k)[5]
-                departmentCount.accumulationFundCom = departmentCountDateList.get(k)[6]
-                departmentCount.tax = departmentCountDateList.get(k)[7]
-                departmentCount.realitySalary = departmentCountDateList.get(k)[8]
+                departmentCount.shouldSalary = departmentCountDateList.get(k)[2].toFixed(2)
+                departmentCount.insuranceEmp = departmentCountDateList.get(k)[3].toFixed(2)
+                departmentCount.insuranceCom = departmentCountDateList.get(k)[4].toFixed(2)
+                departmentCount.accumulationFundEmp = departmentCountDateList.get(k)[5].toFixed(2)
+                departmentCount.accumulationFundCom = departmentCountDateList.get(k)[6].toFixed(2)
+                departmentCount.tax = departmentCountDateList.get(k)[7].toFixed(2)
+                departmentCount.realitySalary = departmentCountDateList.get(k)[8].toFixed(2)
                 departmentCountArr.push(departmentCount)
             }
 

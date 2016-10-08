@@ -30,32 +30,32 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                         async: false
                     }).done(function (results){
                         // 按照Echarts的数据格式拼成名字和数量的数组
-                        var index
+                        //var index
                         for(var i = 0 ; i < results.countByYear.length; i++){
                             depNameDate.push(results.countByYear[i].name)
                             countByYearDate.push(results.countByYear[i].value)
                         }
                         console.log('条形统计图的长度: ' ,results.countByMounth.length)
                         for(var i = 0 ; i < results.countByMounth.length; i++){
-                            var group = 2
+                            //var group = 2
                             countByMounthDate.push(results.countByMounth[i].value)
                             // console.log(results.countByMounth[i].name)
                             // console.log(results.countByMounth[i].value)
-                            if (i%group == 0) {
-                                index = i
+                            // if (i%group == 0) {
+                            //     index = i
                                 countByMounthArr.push({
                                     name: results.countByMounth[i].name,
                                     type: 'bar',
                                     data: results.countByMounth[i].value
                                 })
-                            }else {
-                                countByMounthArr.push({
-                                    name: results.countByMounth[i].name,
-                                    type: 'bar',
-                                    stack: results.countByMounth[index].name,
-                                    data: results.countByMounth[i].value
-                                })
-                            }
+                            // }else {
+                            //     countByMounthArr.push({
+                            //         name: results.countByMounth[i].name,
+                            //         type: 'bar',
+                            //         stack: results.countByMounth[index].name,
+                            //         data: results.countByMounth[i].value
+                            //     })
+                            // }
                             
                         }          
                         byYearDataArr = results.countByYear

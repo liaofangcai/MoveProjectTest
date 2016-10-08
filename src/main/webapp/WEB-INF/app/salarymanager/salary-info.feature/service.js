@@ -85,8 +85,14 @@ exports.createService = function() {
             salaryInfo.departmentPath = '/' + (salaryInfo.employeeInfo.department.path).split('/')[1] + '/'
             //设置部门统计时使用的tag
             salaryInfo.tag = salaryInfo.departmentPath + '-' + salaryInfo.year + '-' + salaryInfo.mounth
-
-            
+            //设置默认值
+            salaryInfo.allowance = salaryInfo.allowance || 0.00
+            salaryInfo.other = salaryInfo.other || 0.00
+            salaryInfo.insuranceCom = salaryInfo.insuranceCom || 0.00
+            salaryInfo.insuranceEmp = salaryInfo.insuranceEmp || 0.00
+            salaryInfo.accumulationFundCom = salaryInfo.accumulationFundCom || 0.00
+            salaryInfo.accumulationFundEmp = salaryInfo.accumulationFundEmp || 0.00
+            salaryInfo.gradeLines = salaryInfo.gradeLines || 0.00
         },
 
 		//导出工资信息

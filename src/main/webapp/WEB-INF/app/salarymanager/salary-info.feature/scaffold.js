@@ -39,6 +39,7 @@ exports.entityLabel = "工资信息"
 
 exports.labels = {
 	employeeInfo: '员工姓名',
+    'employeeInfo.id': '员工编号',
 	'employeeInfo.empName': '员工姓名',
 	'employeeInfo.department': '部门',
 	'employeeInfo.department.name': '部门',
@@ -49,7 +50,7 @@ exports.labels = {
 	postSalary: '岗位工资',
 	managerSalary: '管理工资',
 	salaryTotal: '工资总额',
-	gradeLines: '绩效工资额度',
+	gradeLines: '绩效工资标准',
 	shouldWorks: '应出勤天数',
 	realityWorks: '实际出勤天数',
 	attendeSalary: '考勤工资',
@@ -70,6 +71,9 @@ exports.labels = {
 
 exports.fieldGroups = {
 	 defaults: [
+        {name: 'employeeInfo', displayString: '{{empName}}', colspan: 2},
+        {name: 'year', type: 'int' }, 
+        {name: 'mounth',type: 'int',defaultValue: 1},
 		{name: 'basicSalary', type: 'number', defaultValue: 0},
 		{name: 'levelSalary', type: 'number', defaultValue: 0},
 		{name: 'postSalary', type: 'number', defaultValue: 0.},
@@ -77,17 +81,17 @@ exports.fieldGroups = {
 		{name: 'salaryTotal', colspan: 2},
 		{name: 'gradeLines', type: 'number', defaultValue: 0},
 		{name: 'gradeLevel', type: 'number', defaultValue: 1},
-		{name: 'shouldWorks', type: 'number', defaultValue: 1},
-		{name: 'realityWorks', type: 'number', defaultValue: 1},
+		{name: 'shouldWorks', type: 'number', defaultValue: 0},
+		{name: 'realityWorks', type: 'number', defaultValue: 0},
         'gradeReward',
         'attendeSalary',
 		{name: 'gradeSalary', colspan: 2},
-		{name: 'insuranceCom', type: 'number', defaultValue: 1},
-		{name: 'insuranceEmp', type: 'number', defaultValue: 1},
-		{name: 'accumulationFundCom', type: 'number', defaultValue: 1},
-		{name: 'accumulationFundEmp', type: 'number', defaultValue: 1},
-		{name: 'allowance', type: 'number', defaultValue: 1},
-		{name: 'other', type: 'number', defaultValue: 1},
+		{name: 'insuranceCom', type: 'number', defaultValue: 0},
+		{name: 'insuranceEmp', type: 'number', defaultValue: 0},
+		{name: 'accumulationFundCom', type: 'number', defaultValue: 0},
+		{name: 'accumulationFundEmp', type: 'number', defaultValue: 0},
+		{name: 'allowance', type: 'number', defaultValue: 0},
+		{name: 'other', type: 'number', defaultValue: 0},
 		'shouldSalary',
 		'tax',
 		{name: 'realitySalary', colspan: 2},
@@ -101,11 +105,6 @@ exports.fieldGroups = {
 	 	'shouldSalary',
 		'tax',
 		'realitySalary',
-	 ],
-	 format: [
-	 	{name: 'employeeInfo', displayString: '{{empName}}'},
-		{name: 'year', type: 'int' }, 
-		{name: 'mounth',type: 'int',defaultValue: 1}
 	 ],
 	  show: [
 	 	{name: 'employeeInfo.empName', colspan: 2},
@@ -138,7 +137,6 @@ exports.fieldGroups = {
 exports.forms = {
 	defaults: {
 		groups: [
-			{name: 'format', columns: 3},
 			{name: 'defaults', columns: 2}
 			
 		],
@@ -146,14 +144,12 @@ exports.forms = {
 	},
 	edit: {
 		groups: [
-			{name: 'format', columns: 3},
 			{name: 'defaults', columns: 2}
 		],
 		 size: 'large'
 	},
 	add: {
 		groups: [
-			{name: 'format', columns: 3},
 			{name: 'defaults', columns: 2}
 		],
 		size: 'large'
@@ -175,14 +171,17 @@ exports.forms = {
 
 exports.grid = {
 	columns: [
+        {name: 'employeeInfo.id', header: '员工编号'},
 		{name: 'employeeInfo.empName', header: '员工姓名'},
 		{name: 'year', align: 'right'},
 		{name: 'mounth', align: 'right'},
-		{name: 'shouldWorks', align: 'right'},
-		{name: 'realityWorks', align: 'right'},
 		{name: 'salaryTotal', align: 'right'},
-		{name: 'realitySalary', align: 'right'},
-		'remark'
+        {name: 'shouldWorks', align: 'right'},
+		{name: 'realityWorks', align: 'right'},
+		{name: 'shouldSalary', align: 'right'},
+		{name: 'insuranceEmp', align: 'right'},
+		{name: 'accumulationFundEmp', align: 'right'},
+        {name: 'realitySalary', align: 'right'}
 	],
 	filterToolbar: true,
     fixedHeader: true,
