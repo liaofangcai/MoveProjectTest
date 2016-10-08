@@ -29,8 +29,8 @@ exports.createService = function () {
         getAccountsByDepartmentIdAndRoleId: mark('managers', Account).mark('tx').on(function (accMgr, departmentId, roleId) {
             return accMgr.getAccountsByDepartmentIdAndRoleId({departmentId: departmentId, roleId: roleId});
         }),
-        getAllDepartmentName: mark('managers', DepartmentCount).mark('tx').on(function(departmentCountMgr) {
-            return departmentCountMgr.getAllDepartmentName()
+        getAllDepartmentParentName: mark('managers', DepartmentCount).mark('tx').on(function(departmentCountMgr) {
+            return departmentCountMgr.getAllDepartmentParentName()
         }),
         getSSCountByDepName: mark('managers', DepartmentCount).mark('tx').on(function(departmentCountMgr, year) {
             var wrapYear = new Integer(year)

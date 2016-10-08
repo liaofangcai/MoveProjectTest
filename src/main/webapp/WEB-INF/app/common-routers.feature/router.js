@@ -117,7 +117,7 @@ router.get('/get-shouldsalary-data', mark('services', 'common-routers').on(funct
     date = new Date()
     currentYear = parseInt((sdf.format(date)).split('-')[0])
     //获取部门名称
-    depNames = commSvc.getAllDepartmentName()
+    depNames = commSvc.getAllDepartmentParentName()
     //根据当前年获取应付工资统计信息
     countByYear = commSvc.getSSCountByDepName(currentYear)
     for(var i = 0; i < depNames.size(); i++){

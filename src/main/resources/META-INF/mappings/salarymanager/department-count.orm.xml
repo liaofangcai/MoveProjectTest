@@ -36,9 +36,9 @@
         </query>
     </named-query>
 
-    <named-query name="getAllDepartmentName">
+    <named-query name="getAllDepartmentParentName">
         <query>
-            select d.name from Department d
+            select d.name from Department d where d.parent = null
         </query>
     </named-query>
 

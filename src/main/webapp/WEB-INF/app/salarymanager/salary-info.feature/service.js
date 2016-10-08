@@ -67,8 +67,8 @@ exports.createService = function() {
                     if(employeeList != null && employeeList.size() > 0){
                         //设置导入实体的的员工信息
                         entity.employeeInfo = employeeList.get(0);
-                        //设置导入实体的员工对应的departmentPath
-                        entity.departmentPath = entity.employeeInfo.department.path
+                        //设置导入实体的员工对应的departmentPath,只拿取主部门的path
+                        entity.departmentPath = '/' + (entity.employeeInfo.department.path).split('/')[1] + '/'
                         //设置部门统计时使用的tag
                         entity.tag = entity.departmentPath + '-' + entity.year + '-' + entity.mounth
                     }
@@ -81,8 +81,8 @@ exports.createService = function() {
         }),
         //用来处理添加和更新数据的方法
         dataHandler: function(salaryInfo, taxTag) {
-            //存储员工部门path
-            salaryInfo.departmentPath = salaryInfo.employeeInfo.department.path
+            //存储员工部门path,只拿取主部门的path
+            salaryInfo.departmentPath = '/' + (salaryInfo.employeeInfo.department.path).split('/')[1] + '/'
             //设置部门统计时使用的tag
             salaryInfo.tag = salaryInfo.departmentPath + '-' + salaryInfo.year + '-' + salaryInfo.mounth
 
