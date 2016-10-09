@@ -45,7 +45,6 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                                 countByMounthArr.push({
                                     name: results.countByMounth[i].name,
                                     type: 'line',
-                                    stack: '总量',
                                     data: results.countByMounth[i].value
                                 })  
                         }
@@ -69,7 +68,7 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                     // 指定饼状图的配置项和数据
                     var option = {
                        timeline : {
-                            type: 'time',
+                            type: 'number',
                             autoPlay: true,
                             data : [currentYear-2,currentYear-1,currentYear],
                             lineStyle: {
