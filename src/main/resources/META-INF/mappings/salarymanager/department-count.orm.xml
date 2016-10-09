@@ -13,9 +13,9 @@
         </query>
     </named-query>
 
-    <named-query name="getDepartmentNameByPath">
+    <named-query name="getDepNameAndCodeByPath">
         <query>
-            select d.name from Department d where d.path = :path
+            select d.name, d.code from Department d where d.path = :path
         </query>
     </named-query>
 

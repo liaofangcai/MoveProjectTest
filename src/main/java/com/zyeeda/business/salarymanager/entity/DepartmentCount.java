@@ -34,6 +34,10 @@ public class DepartmentCount extends RevisionDomainEntity{
 	 */
 	private String depName ; 
 	/*
+	 * 部门编号
+	 */
+	private String depCode ; 
+	/*
 	 *员工部门Path
 	 */
 	private String departmentPath;
@@ -85,6 +89,15 @@ public class DepartmentCount extends RevisionDomainEntity{
 	}
 	public void setDepName(String depName) {
 		this.depName = depName;
+	}
+
+	@Column(name = "f_dep_code")
+	@NotNull
+	public String getDepCode() {
+		return depCode;
+	}
+	public void setDepCode(String depCode) {
+		this.depCode = depCode;
 	}
 
 	@Column(name = "f_year")

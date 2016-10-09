@@ -21,7 +21,10 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
             avoidLoadingHandlers: true,
             extend: {
                 afterRender: function(su){
-                    var me = this, byYearDataArr = [], depNameDate = [], countByYearDate = [],countByMounthDate = [], countByMounthArr = [];
+                    var me = this, depNameDate = [], countByMounthDate = [], countByMounthArr = [],
+                    countByYearDate = [],countByYesteryearDate = [],countByBeforeyearDate = [],
+                    byYearDataArr = [], byYesteryearDataArr = [], byBeforeyearDataArr = [],
+                    currentYear;
 
                     //获取首页需要的数据
                     $.ajax({
@@ -29,88 +32,152 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                         type: 'get',
                         async: false
                     }).done(function (results){
+                        
                         // 按照Echarts的数据格式拼成名字和数量的数组
-                        //var index
                         for(var i = 0 ; i < results.countByYear.length; i++){
                             depNameDate.push(results.countByYear[i].name)
                             countByYearDate.push(results.countByYear[i].value)
+                            countByYesteryearDate.push(results.countByYesteryear[i].value)
+                            countByBeforeyearDate.push(results.countByBeforeyear[i].value)
                         }
-                        console.log('条形统计图的长度: ' ,results.countByMounth.length)
                         for(var i = 0 ; i < results.countByMounth.length; i++){
-                            //var group = 2
                             countByMounthDate.push(results.countByMounth[i].value)
-                            // console.log(results.countByMounth[i].name)
-                            // console.log(results.countByMounth[i].value)
-                            // if (i%group == 0) {
-                            //     index = i
                                 countByMounthArr.push({
                                     name: results.countByMounth[i].name,
-                                    type: 'bar',
+                                    type: 'line',
+                                    stack: '总量',
                                     data: results.countByMounth[i].value
-                                })
-                            // }else {
-                            //     countByMounthArr.push({
-                            //         name: results.countByMounth[i].name,
-                            //         type: 'bar',
-                            //         stack: results.countByMounth[index].name,
-                            //         data: results.countByMounth[i].value
-                            //     })
-                            // }
-                            
-                        }          
+                                })  
+                        }
+                        //拿到当前年份
+                        currentYear = results.currentYear
+                        console.log(currentYear)
+                        console.log(depNameDate)
+                        //拿到饼状图分别要显示的各年的数据          
                         byYearDataArr = results.countByYear
-                        //countByMounthArr= results.countByMounth
+                        console.log(JSON.stringify(byYearDataArr))
+                        byYesteryearDataArr = results.countByYesteryear
+                          console.log(currentYear-1)
+                         console.log(JSON.stringify(byYesteryearDataArr))
+                        byBeforeyearDataArr = results.countByBeforeyear
+                          console.log(currentYear)
+                        console.log(JSON.stringify(byBeforeyearDataArr))
                     });
 
                     //按年份饼状统计图
                     var countByYearChart = echarts.init(me.$('count-by-year-statistics').get(0));
                     // 指定饼状图的配置项和数据
-                    var countByYearOption = {
-                        tooltip : {
-                            trigger: 'item',
-                            formatter: "{a} <br/>{b} : {c} ({d}%)"
-                        },
-                        legend: {
-                            orient: 'vertical',
-                            left: 'left',
-                            data: depNameDate
-                        },
-                        series : [
-                            {
-                                name: '应发工资年份统计',
-                                type: 'pie',
-                                radius : '55%',
-                                center: ['50%', '60%'],
-                                data: byYearDataArr,
-                                itemStyle: {
-                                    emphasis: {
-                                        shadowBlur: 10,
-                                        shadowOffsetX: 0,
-                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                    }
+                    var option = {
+                       timeline : {
+                            type: 'time',
+                            autoPlay: true,
+                            data : [currentYear-2,currentYear-1,currentYear],
+                            lineStyle: {
+                                color: '#666',
+                                width: 1,
+                                type: 'dashed'
+                            },
+                            borderWidth: 1,
+                            borderColor: '#ccc',
+                            label: {
+                                show: true,
+                                interval: 0,
+                                rotate: 0,
+                                formatter: null,
+                                textStyle: {
+                                    color: '#333'
                                 }
+                            },
+                            symbol: 'emptyDiamond' ,
+                            controlStyle: {
+                                itemSize: 15,
+                                itemGap: 5,
+                                normal : {
+                                    color : '#333'
+                                },
+                                emphasis : {
+                                    color : '#1e90ff'
+                                }
+                            },
+                            padding: 5 
+
+                        },
+                        options : [
+                            {
+                                tooltip : {
+                                    trigger: 'item',
+                                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                },
+                                legend: {
+                                    data:depNameDate
+                                },
+                                toolbox: {
+                                    show : true,
+                                    feature : {
+                                        mark : {show: true},
+                                        dataView : {show: true, readOnly: false},
+                                        magicType : {
+                                            show: true, 
+                                            type: ['pie', 'funnel'],
+                                            option: {
+                                                funnel: {
+                                                    x: '25%',
+                                                    width: '50%',
+                                                    funnelAlign: 'left',
+                                                    max: 1700
+                                                }
+                                            }
+                                        },
+                                        restore : {show: true},
+                                        saveAsImage : {show: true}
+                                    }
+                                },
+                                series : [
+                                    {
+                                        name: '部门统计',
+                                        type:'pie',
+                                        center: ['50%', '45%'],
+                                        radius: '50%',
+                                        data: byBeforeyearDataArr
+                                    }
+                                ]
+                            },
+                            {
+                                series : [
+                                    {
+                                        name: '部门统计',
+                                        type:'pie',
+                                        data:byYesteryearDataArr
+                                    }
+                                ]
+                            },
+                            {
+                                series : [
+                                    {
+                                        name: '部门统计',
+                                        type:'pie',
+                                        data: byYearDataArr
+                                    }
+                                ]
                             }
                         ]
                     };
 
                     // 判断数据是否都为0
                     // 使用刚指定的配置项和数据显示图表。
-                    if (countByYearDate.filter(function(item) {return item > 0;}).length === 0){
-                        me.$('count-by-year-statistics').html('<p>没有相关数据</p>');
-                    }else {
-                        countByYearChart.setOption(countByYearOption);
-                    }
+                    // if (countByYearDate.filter(function(item) {return item > 0;}).length === 0 || countByYesteryearDate.filter(function(item) {return item > 0;}).length === 0 || countByBeforeyearDate.filter(function(item) {return item > 0;}).length === 0){
+                    //     me.$('count-by-year-statistics').html('<p>没有相关数据</p>');
+                    // }else {
+                        countByYearChart.setOption(option);
+                    //}
                     
 
-                    //按月份条形统计图
+                    //按月份折线统计图
                     var countByMounthChart = echarts.init(me.$('count-by-mounth-statistics').get(0));
-                    // 指定饼状图的配置项和数据
+                    // 指定折线图的配置项和数据
                     var countByMounthOption = {
                         tooltip : {
-                            trigger: 'axis',
-                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                            }
+                            trigger: 'axis'
                         },
                         legend: {
                             data: depNameDate
@@ -121,17 +188,19 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                             bottom: '3%',
                             containLabel: true
                         },
-                        xAxis : [
-                            {
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        xAxis :{
                                 type : 'category',
+                                boundaryGap: false,
                                 data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                            }
-                        ],
-                        yAxis : [
-                            {
+                        },
+                        yAxis : {
                                 type : 'value'
-                            }
-                        ],
+                        },
                         series : countByMounthArr
                     };
 

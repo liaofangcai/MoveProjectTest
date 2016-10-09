@@ -109,7 +109,9 @@ router.get('/get-entry-approval-history', mark('services', 'common-routers').on(
 
 //获取薪资管理>部门统计的图标数据
 router.get('/get-shouldsalary-data', mark('services', 'common-routers').on(function (commSvc, request) {
-    var countByYear, countByYearDate = [], depNames, sdf, date, currentYear,
+    var countByYear, countByYesteryear, countByBeforeyear,
+    countByYearDate = [], countByYesteryearDate = [], countByBeforeyearDate = [], 
+    depNames, sdf, date, currentYear,
     countByMounth, countByMounthDate = [];
 
     //获取当前年
@@ -130,6 +132,30 @@ router.get('/get-shouldsalary-data', mark('services', 'common-routers').on(funct
         }
         countByYearDate.push({value: count, name: name});
     }
+    //根据当前年获取去年应付工资统计信息
+    countByYesteryear = commSvc.getSSCountByDepName(currentYear-1)
+    for(var i = 0; i < depNames.size(); i++){
+        var name = depNames.get(i), count = 0;
+        for (var j = 0; j < countByYesteryear.size(); j++) {
+            if (name === countByYesteryear.get(j)[0]){
+                count = countByYesteryear.get(j)[1];
+                break;
+            }
+        }
+        countByYesteryearDate.push({value: count, name: name});
+    }
+    //根据当前年获取前年应付工资统计信息
+    countByBeforeyear = commSvc.getSSCountByDepName(currentYear-2)
+    for(var i = 0; i < depNames.size(); i++){
+        var name = depNames.get(i), count = 0;
+        for (var j = 0; j < countByBeforeyear.size(); j++) {
+            if (name === countByBeforeyear.get(j)[0]){
+                count = countByBeforeyear.get(j)[1];
+                break;
+            }
+        }
+        countByBeforeyearDate.push({value: count, name: name});
+    }
     for(var k = 0; k < depNames.size(); k++ ){
         var name = depNames.get(k), count = [0,0,0,0,0,0,0,0,0,0,0,0];
         //返回 月份 应发薪资
@@ -140,5 +166,5 @@ router.get('/get-shouldsalary-data', mark('services', 'common-routers').on(funct
         countByMounthDate.push({value: count, name: name});
     }
 
-    return json({countByYear: countByYearDate, countByMounth: countByMounthDate});
+    return json({countByYear: countByYearDate, countByYesteryear: countByYesteryearDate,countByBeforeyear: countByBeforeyearDate, countByMounth: countByMounthDate, currentYear: currentYear});
 }));

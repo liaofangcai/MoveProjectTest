@@ -65,6 +65,8 @@ exports.createService = function() {
                     empName = result.pickerFields[i].colName;
                     employeeList = salaryInfoMgr.getEmployeeByName({name: empName});
                     if(employeeList != null && employeeList.size() > 0){
+                        //设置创建时间
+                        entity.createdTime = new Date()
                         //设置导入实体的的员工信息
                         entity.employeeInfo = employeeList.get(0);
                         //设置导入实体的员工对应的departmentPath,只拿取主部门的path
@@ -81,6 +83,9 @@ exports.createService = function() {
         }),
         //用来处理添加和更新数据的方法
         dataHandler: function(salaryInfo, taxTag) {
+
+            //设置创建时间
+            salaryInfo.createdTime = new Date()
             //存储员工部门path,只拿取主部门的path
             salaryInfo.departmentPath = '/' + (salaryInfo.employeeInfo.department.path).split('/')[1] + '/'
             //设置部门统计时使用的tag

@@ -22,8 +22,7 @@ exports.entityLabel = "部门统计信息"
 
 exports.labels = {
 	depName: '部门名称',
-	//'depName.id': '部门编号',
-	'depName.name': '部门名称',
+	depCode: '部门编号',
 	year: '年份',
 	mounth: '月份',
 	memberCount: '部门成员',
@@ -75,7 +74,7 @@ exports.forms = {
 
 exports.grid = {
 	columns: [
-		//{name: 'depName.id', header: '部门编号'},
+		{name: 'depCode', header: '部门编号'},
 		{name: 'depName', header: '部门名称'},
 		{name: 'year', align: 'right'},
 		{name: 'mounth', align: 'right'},

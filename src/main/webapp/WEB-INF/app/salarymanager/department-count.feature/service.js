@@ -57,7 +57,7 @@ exports.createService = function() {
             return results;
         }),
         updateInfo: mark('managers', Department, SalaryInfo, DepartmentCount).mark('tx').on(function(departmentMgr, salaryInfoMgr, departmentCountMrg) {
-            var cleanDate, cleanDateArr = [], departmentName, i, departmentCountDateList, k,
+            var cleanDate, cleanDateArr = [], departmentNameAndCode, i, departmentCountDateList, k,
                 departmentCountArr = [], departmentCount;
             //获取已经存在的统计信息
             cleanDate = departmentCountMrg.getAllDepartmentCountInfo()
@@ -78,8 +78,9 @@ exports.createService = function() {
 
                 //给实体赋值
                 departmentCount.departmentPath = tag.split('-')[0]
-                departmentName = departmentCountMrg.getDepartmentNameByPath({path: tag.split('-')[0]})
-                departmentCount.depName = departmentName.get(0)
+                departmentNameAndCode = departmentCountMrg.getDepNameAndCodeByPath({path: tag.split('-')[0]})
+                departmentCount.depName = departmentNameAndCode.get(0)[0]
+                departmentCount.depCode = departmentNameAndCode.get(0)[1]
                 departmentCount.year = parseInt(tag.split('-')[1])
                 departmentCount.mounth = parseInt(tag.split('-')[2])
                 departmentCount.memberCount = departmentCountDateList.get(k)[1]

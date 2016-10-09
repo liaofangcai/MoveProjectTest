@@ -171,7 +171,6 @@ exports.forms = {
 
 exports.grid = {
 	columns: [
-        {name: 'employeeInfo.id', header: '员工编号'},
 		{name: 'employeeInfo.empName', header: '员工姓名'},
 		{name: 'year', align: 'right'},
 		{name: 'mounth', align: 'right'},
@@ -208,7 +207,7 @@ exports.validators = {
             if(entity.mounth < 1) {
                 context.addViolation({ message: '月份不能小于0'})
             }
-            if(entity.mounth > parseInt(timeArr[1])) {
+            if(entity.year == parseInt(timeArr[0]) && entity.mounth > parseInt(timeArr[1])) {
                 context.addViolation({ message: '月份不能大于当前月份'})
             }
         }
@@ -232,7 +231,7 @@ exports.validators = {
             if(entity.getMounth() < 1) {
                 context.addViolation({ message: '月份不能小于0'})
             }
-            if(entity.getMounth() > parseInt(timeArr[1])) {
+            if(entity.year == parseInt(timeArr[0]) && entity.mounth > parseInt(timeArr[1])) {
                 context.addViolation({ message: '月份不能大于当前月份' + timeArr[1]})
             }
         }
