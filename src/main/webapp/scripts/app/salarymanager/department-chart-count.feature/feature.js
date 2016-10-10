@@ -66,6 +66,7 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                     //按年份饼状统计图
                     var countByYearChart = echarts.init(me.$('count-by-year-statistics').get(0));
                     // 指定饼状图的配置项和数据
+                    var i ;
                     var option = {
                        timeline : {
                             type: 'number',
@@ -79,13 +80,22 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                             borderWidth: 1,
                             borderColor: '#ccc',
                             label: {
-                                show: true,
-                                interval: 0,
-                                rotate: 0,
-                                formatter: null,
-                                textStyle: {
-                                    color: '#333'
-                                }
+                                    show: true,
+                                    interval: 'auto',
+                                    formatter: function (s) {
+                                        if (i === 0) {
+                                            i=i+1;
+                                            return currentYear - 1;
+                                            
+                                        }else if(i === 1) {
+                                            i=i+1;
+                                            return currentYear;
+                                            
+                                        }else{
+                                            i = 0;
+                                            return currentYear - 2;
+                                        }
+                                    }           
                             },
                             symbol: 'emptyDiamond' ,
                             controlStyle: {
@@ -107,6 +117,7 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                                     trigger: 'item',
                                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                                 },
+
                                 legend: {
                                     data:depNameDate
                                 },
@@ -114,7 +125,7 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                                     show : true,
                                     feature : {
                                         mark : {show: true},
-                                        dataView : {show: true, readOnly: false},
+                                        dataView : {show: false, readOnly: false},
                                         magicType : {
                                             show: true, 
                                             type: ['pie', 'funnel'],
@@ -127,8 +138,8 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                                                 }
                                             }
                                         },
-                                        restore : {show: true},
-                                        saveAsImage : {show: true}
+                                        restore : {show: false},
+                                        saveAsImage : {show: false}
                                     }
                                 },
                                 series : [
@@ -189,7 +200,7 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                         },
                         toolbox: {
                             feature: {
-                                saveAsImage: {}
+                                saveAsImage: {show: false}
                             }
                         },
                         xAxis :{
