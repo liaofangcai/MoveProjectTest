@@ -95,7 +95,7 @@ exports.grid = {
 }
 
 exports.operators = {
-    updateInfo: { label: '更新', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-pink' }
+    updateInfo: { label: '更新', icon: 'zicon-outexcel', group: '30-refresh', order: 10, show: 'unselected', style: 'btn-info' }
 }
 
 exports.doWithRouter = function(router) {

@@ -114,8 +114,8 @@ define(['cdeio/vendors/jquery/flot/jquery.flot.min', 'cdeio/vendors/jquery/flot/
                         options : [
                             {
                                 tooltip : {
-                                    trigger: 'item',
-                                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                    showContent: false,
+                                    trigger: 'item'
                                 },
 
                                 legend: {
